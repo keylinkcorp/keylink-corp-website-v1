@@ -17,11 +17,11 @@ const Index = () => {
       <Hero />
       <CompanyFormationProcess />
       <TrustBar />
-      <Services />
       <ProcessSteps />
       <WhyChooseUs />
       <IndustryServices />
       <CostCalculatorPreview />
+      <Services />
       <Testimonials />
       <FAQ />
       <CTABanner />
