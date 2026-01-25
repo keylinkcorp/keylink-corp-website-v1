@@ -36,52 +36,48 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section className="py-20 bg-secondary">
+    <section className="section-spacing bg-secondary">
       <div className="container">
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-16">
           {/* Content */}
           <div>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-medium mb-4">
-              FAQs
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <span className="section-badge">FAQs</span>
+            <h2 className="mb-6">Got Questions? We've Got Answers.</h2>
+            <p className="lead mb-10 max-w-xl">
               Get answers to common questions about starting and running a business in Bahrain. 
               Can't find what you're looking for? Our team is here to help.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/free-consultation"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold hover:bg-gold-dark text-primary font-semibold rounded-md transition-colors"
-              >
+              <Link to="/free-consultation" className="btn-gold">
                 Ask Our Experts
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-5 w-5" />
               </Link>
-              <Link
-                to="/faqs"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary font-semibold rounded-md hover:bg-primary hover:text-primary-foreground transition-colors"
-              >
+              <Link to="/faqs" className="btn-outline-primary">
                 View All FAQs
               </Link>
             </div>
           </div>
 
-          {/* Accordion */}
+          {/* Accordion with numbers - Bizee style */}
           <div>
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
                 <AccordionItem 
                   key={index} 
                   value={`item-${index}`}
-                  className="bg-background rounded-lg border border-border px-6 data-[state=open]:border-gold/50"
+                  className="card-elevated px-6 data-[state=open]:border-gold/50 data-[state=open]:shadow-lg"
                 >
-                  <AccordionTrigger className="text-left font-medium text-primary hover:text-gold hover:no-underline py-4">
-                    {faq.question}
+                  <AccordionTrigger className="text-left font-semibold text-primary hover:text-gold hover:no-underline py-5 gap-4">
+                    <div className="flex items-start gap-4">
+                      {/* Number indicator - Bizee style */}
+                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gold/10 text-gold font-bold text-sm flex items-center justify-center">
+                        {index + 1}
+                      </span>
+                      <span className="text-left">{faq.question}</span>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-4">
+                  <AccordionContent className="text-muted-foreground pb-5 pl-12 leading-relaxed">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

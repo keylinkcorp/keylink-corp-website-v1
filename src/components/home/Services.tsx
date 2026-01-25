@@ -2,128 +2,122 @@ import { Link } from "react-router-dom";
 import { 
   Building2, 
   FileText, 
-  Users, 
+  UserCheck, 
   Plane, 
   Briefcase, 
-  Building,
-  ArrowRight
+  MapPin,
+  ArrowRight 
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 
 const services = [
   {
     icon: Building2,
     title: "Company Formation",
-    description: "Start your business in Bahrain with expert guidance. We handle everything from registration to licensing.",
+    description: "Establish your business presence in Bahrain with full legal compliance and 100% ownership options.",
     href: "/services/company-formation",
-    features: ["SPC & WLL Setup", "Branch Office", "Business Licensing"],
+    features: ["SPC & WLL Setup", "Branch Offices", "Free Zone Companies"],
   },
   {
     icon: FileText,
     title: "Commercial Registration",
-    description: "Complete CR registration, amendments, and renewals with fast turnaround times.",
+    description: "Obtain and manage your Commercial Registration (CR) with expert guidance through every step.",
     href: "/services/commercial-registration",
-    features: ["New CR Registration", "CR Amendments", "Lease Registration"],
+    features: ["New CR Registration", "CR Amendments", "License Renewal"],
   },
   {
-    icon: Users,
+    icon: UserCheck,
     title: "PRO Services",
-    description: "Professional government liaison services for all your document processing needs.",
+    description: "Leave government paperwork to our expert team. We handle all ministries and departments for you.",
     href: "/services/pro-services",
-    features: ["Document Clearance", "Attestation", "Local Sponsorship"],
+    features: ["Document Clearance", "Attestation", "Sponsorship"],
   },
   {
     icon: Plane,
     title: "Visa Services",
-    description: "Complete visa solutions for your employees and their families.",
+    description: "Comprehensive visa solutions for your workforce, from work permits to the Golden Visa program.",
     href: "/services/visa-services",
     features: ["Work Visas", "Golden Visa", "Family Visas"],
   },
   {
     icon: Briefcase,
     title: "Business Support",
-    description: "Comprehensive business services from consulting to accounting and legal support.",
+    description: "Expert consulting, accounting, and compliance services to keep your business running smoothly.",
     href: "/services/business-consulting",
     features: ["Consulting", "Accounting", "Tax Services"],
   },
   {
-    icon: Building,
+    icon: MapPin,
     title: "Workspace Solutions",
-    description: "Flexible office solutions from virtual offices to co-working spaces.",
+    description: "Professional business addresses and flexible workspace options to suit your needs.",
     href: "/services/virtual-office",
-    features: ["Virtual Office", "Co-working", "Business Address"],
+    features: ["Virtual Office", "Co-working", "Incubators"],
   },
 ];
 
 export function Services() {
   return (
-    <section className="py-20 bg-background">
+    <section className="section-spacing bg-background">
       <div className="container">
-        {/* Section Header */}
+        {/* Header - Bizee style centered */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-medium mb-4">
-            Our Services
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            Complete Business Solutions for Bahrain
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            From company formation to ongoing business support, we provide end-to-end services 
-            to help your business thrive in the Kingdom of Bahrain.
+          <span className="section-badge">Our Services</span>
+          <h2 className="mb-6">Everything You Need to Start and Grow Your Business</h2>
+          <p className="lead">
+            From company formation to ongoing business support, we provide comprehensive 
+            solutions for entrepreneurs and businesses in Bahrain.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <Link key={service.title} to={service.href} className="group">
-              <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-gold/50 group-hover:-translate-y-1">
-                <CardContent className="p-6">
-                  {/* Icon */}
-                  <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center mb-5 group-hover:bg-gold transition-colors">
-                    <service.icon className="h-7 w-7 text-primary-foreground" />
-                  </div>
+        {/* Services Grid - 2x3 layout like Bizee */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <Link 
+              key={index} 
+              to={service.href}
+              className="group card-elevated-hover p-8"
+            >
+              {/* Icon */}
+              <div className="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold/20 transition-colors">
+                <service.icon className="h-8 w-8 text-gold" />
+              </div>
 
-                  {/* Content */}
-                  <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-gold transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    {service.description}
-                  </p>
+              {/* Title */}
+              <h3 className="text-xl font-bold text-primary mb-3 group-hover:text-gold transition-colors">
+                {service.title}
+              </h3>
 
-                  {/* Features */}
-                  <ul className="space-y-2 mb-4">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-gold" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+              {/* Description */}
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                {service.description}
+              </p>
 
-                  {/* Link */}
-                  <div className="flex items-center gap-2 text-primary font-medium group-hover:text-gold transition-colors">
-                    Learn More
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Features */}
+              <ul className="space-y-2 mb-6">
+                {service.features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="w-1.5 h-1.5 rounded-full bg-gold" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Learn More Link */}
+              <div className="link-arrow text-gold">
+                Learn More
+                <ArrowRight className="h-4 w-4" />
+              </div>
             </Link>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">
-            Not sure which service you need?
+        <div className="text-center mt-16">
+          <p className="text-lg text-muted-foreground mb-6">
+            Not sure which service you need? Let our experts guide you.
           </p>
-          <Link
-            to="/free-consultation"
-            className="inline-flex items-center gap-2 text-gold font-semibold hover:underline"
-          >
-            Get a Free Consultation
-            <ArrowRight className="h-4 w-4" />
+          <Link to="/free-consultation" className="btn-gold">
+            Get Free Consultation
+            <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
       </div>
