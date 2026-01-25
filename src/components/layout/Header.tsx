@@ -147,14 +147,13 @@ const aboutDropdown = {
     { title: "Why Choose Us", href: "/about/why-us", description: "What sets us apart" },
     { title: "Testimonials", href: "/about/testimonials", description: "Client success stories" },
     { title: "Careers", href: "/careers", description: "Join our growing team" },
+    { title: "Resources", href: "/resources", description: "Helpful guides & tools" },
     { title: "Contact Us", href: "/contact", description: "Get in touch with us" },
   ],
 };
 
 // Simple nav items (no dropdown)
-const simpleNavItems = [
-  { title: "Resources", href: "/resources" },
-];
+const simpleNavItems: { title: string; href: string }[] = [];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -305,11 +304,6 @@ export function Header() {
 
         {/* CTA Buttons */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link to="/contact">
-            <Button variant="ghost" className="text-gray-700 hover:text-navy hover:bg-gray-50 font-medium">
-              Contact Us
-            </Button>
-          </Link>
           <Link to="/free-consultation">
             <Button className="bg-gold hover:bg-gold-dark text-navy font-semibold px-6 shadow-md hover:shadow-lg transition-all">
               Free Consultation
