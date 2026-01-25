@@ -228,7 +228,8 @@ export function Header() {
                     <div className="grid grid-cols-4 gap-0 p-0">
                       {/* Menu Columns */}
                       <div className={cn(
-                        "col-span-3 grid gap-6 p-8",
+                        "grid gap-6 p-8",
+                        item.columns.length === 1 ? "col-span-1" : "col-span-3",
                         item.columns.length === 1 ? "grid-cols-1" : 
                         item.columns.length === 2 ? "grid-cols-2" : "grid-cols-3"
                       )}>
@@ -260,6 +261,17 @@ export function Header() {
                           </div>
                         ))}
                       </div>
+                      
+                      {/* Workspace Image - Only for single column menus */}
+                      {item.columns.length === 1 && (
+                        <div className="col-span-2 p-6 flex items-center justify-center bg-gray-50/50">
+                          <img 
+                            src="/images/workspace-office.jpg" 
+                            alt="Modern coworking workspace" 
+                            className="rounded-xl object-cover h-full w-full max-h-48 shadow-sm"
+                          />
+                        </div>
+                      )}
                       
                       {/* CTA Panel */}
                       <div className="col-span-1 relative overflow-hidden bg-navy p-8 flex flex-col justify-between rounded-r-2xl">
