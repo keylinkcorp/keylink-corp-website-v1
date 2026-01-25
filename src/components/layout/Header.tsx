@@ -52,43 +52,6 @@ const megaMenuItems = [
     },
   },
   {
-    title: "Government Services",
-    icon: FileText,
-    columns: [
-      {
-        heading: "PRO Services",
-        links: [
-          { title: "PRO Services", href: "/services/pro-services", description: "Government liaison services" },
-          { title: "Document Clearance", href: "/services/document-clearance", description: "Fast document processing" },
-          { title: "Chamber of Commerce", href: "/services/chamber-of-commerce", description: "Chamber registration" },
-          { title: "Compliance & Regulatory", href: "/services/compliance", description: "Stay compliant" },
-        ],
-      },
-      {
-        heading: "Visa Services",
-        links: [
-          { title: "Work Visa", href: "/services/work-visa", description: "Employee work permits" },
-          { title: "Golden Visa", href: "/services/golden-visa", description: "Long-term residency" },
-          { title: "Family Visa", href: "/services/family-visa", description: "Dependent visas" },
-          { title: "Visa Consultation", href: "/services/visa-consultation", description: "Expert visa advice" },
-        ],
-      },
-      {
-        heading: "Document Services",
-        links: [
-          { title: "Certificate Attestation", href: "/services/certificate-attestation", description: "Document legalization" },
-          { title: "Local Sponsorship", href: "/services/local-sponsorship", description: "Bahraini sponsor services" },
-        ],
-      },
-    ],
-    cta: {
-      title: "Need help navigating?",
-      description: "Our PRO experts handle all government procedures so you can focus on your business.",
-      buttonText: "Get PRO Support",
-      href: "/services/pro-services",
-    },
-  },
-  {
     title: "Grow Your Business",
     icon: Briefcase,
     columns: [
@@ -134,6 +97,43 @@ const megaMenuItems = [
       description: "From virtual addresses to fully-equipped offices. Flexible options for every business.",
       buttonText: "View Options",
       href: "/services/virtual-office",
+    },
+  },
+  {
+    title: "Government Services",
+    icon: FileText,
+    columns: [
+      {
+        heading: "PRO Services",
+        links: [
+          { title: "PRO Services", href: "/services/pro-services", description: "Government liaison services" },
+          { title: "Document Clearance", href: "/services/document-clearance", description: "Fast document processing" },
+          { title: "Chamber of Commerce", href: "/services/chamber-of-commerce", description: "Chamber registration" },
+          { title: "Compliance & Regulatory", href: "/services/compliance", description: "Stay compliant" },
+        ],
+      },
+      {
+        heading: "Visa Services",
+        links: [
+          { title: "Work Visa", href: "/services/work-visa", description: "Employee work permits" },
+          { title: "Golden Visa", href: "/services/golden-visa", description: "Long-term residency" },
+          { title: "Family Visa", href: "/services/family-visa", description: "Dependent visas" },
+          { title: "Visa Consultation", href: "/services/visa-consultation", description: "Expert visa advice" },
+        ],
+      },
+      {
+        heading: "Document Services",
+        links: [
+          { title: "Certificate Attestation", href: "/services/certificate-attestation", description: "Document legalization" },
+          { title: "Local Sponsorship", href: "/services/local-sponsorship", description: "Bahraini sponsor services" },
+        ],
+      },
+    ],
+    cta: {
+      title: "Need help navigating?",
+      description: "Our PRO experts handle all government procedures so you can focus on your business.",
+      buttonText: "Get PRO Support",
+      href: "/services/pro-services",
     },
   },
 ];
