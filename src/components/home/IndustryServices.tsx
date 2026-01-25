@@ -17,7 +17,7 @@ import {
   Banknote,
   ArrowRight
 } from "lucide-react";
-import industryImage from "@/assets/industry-professional.jpg";
+import industryImage from "@/assets/industry-consultant.webp";
 
 const stages = [
   {
