@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== Glassmorphism & Modern Navigation Utilities ===== */
+/* ===== Simple Navigation Utilities ===== */
 @layer utilities {
   .glass {
     @apply bg-white/95 backdrop-blur-xl border border-white/20;
@@ -10,58 +10,6 @@
   
   .glass-dark {
     @apply bg-navy/95 backdrop-blur-xl border border-white/10;
-  }
-  
-  .nav-trigger-underline {
-    @apply relative;
-  }
-  
-  .nav-trigger-underline::after {
-    content: '';
-    @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 ease-out;
-  }
-  
-  .nav-trigger-underline:hover::after,
-  .nav-trigger-underline[data-state="open"]::after {
-    @apply w-full;
-  }
-  
-  .nav-link-accent {
-    @apply relative pl-0 transition-all duration-200;
-  }
-  
-  .nav-link-accent::before {
-    content: '';
-    @apply absolute left-0 top-1/2 -translate-y-1/2 w-0 h-8 bg-gold rounded-r transition-all duration-200;
-  }
-  
-  .nav-link-accent:hover::before {
-    @apply w-[3px];
-  }
-  
-  .nav-link-accent:hover {
-    @apply pl-3;
-  }
-  
-  .shine-effect {
-    @apply relative overflow-hidden;
-  }
-  
-  .shine-effect::before {
-    content: '';
-    @apply absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700;
-  }
-  
-  .shine-effect:hover::before {
-    @apply translate-x-full;
-  }
-  
-  .shadow-elegant {
-    box-shadow: 0 25px 50px -12px rgba(0, 44, 77, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.02);
-  }
-  
-  .shadow-elegant-sm {
-    box-shadow: 0 10px 25px -8px rgba(0, 44, 77, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.02);
   }
 }
 
