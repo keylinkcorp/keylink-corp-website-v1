@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-bahrain-skyline.jpg";
+import heroImage from "@/assets/hero-entrepreneur.jpg";
 import { 
   heroHeadlineContainer, 
   heroHeadlineLine, 
@@ -165,7 +165,7 @@ export function Hero() {
               <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 relative">
                 <img 
                   src={heroImage} 
-                  alt="Bahrain Business District" 
+                  alt="Entrepreneur working in modern office" 
                   className="w-full h-[580px] object-cover"
                 />
                 
