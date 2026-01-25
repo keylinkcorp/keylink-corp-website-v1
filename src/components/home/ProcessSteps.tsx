@@ -1,132 +1,113 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, FileSearch, Upload, Rocket } from "lucide-react";
+import processStep1 from "@/assets/process-step-1.jpg";
+import processStep2 from "@/assets/process-step-2.jpg";
+import processStep3 from "@/assets/process-step-3.jpg";
 
 const steps = [
   {
-    number: "1",
+    number: "01",
     icon: FileSearch,
     title: "Choose Your Service",
-    description: "Select from company formation, visa processing, or business support. Not sure what you need? Our experts will guide you through the options.",
+    description: "Select from company formation, visa processing, or business support. Our experts will guide you through the options.",
+    image: processStep1,
   },
   {
-    number: "2",
+    number: "02",
     icon: Upload,
-    title: "Submit Your Documents",
-    description: "Provide the essentials—passport copies, business plan, and required forms. We handle all the paperwork and government coordination.",
+    title: "Submit Documents",
+    description: "Provide the essentials—passport copies, business plan, and required forms. We handle all the paperwork.",
+    image: processStep2,
   },
   {
-    number: "3",
+    number: "03",
     icon: Rocket,
     title: "Launch Your Business",
-    description: "Receive your licenses, registrations, and permits. You're now ready to operate and grow your business in Bahrain.",
+    description: "Receive your licenses, registrations, and permits. You're ready to operate in Bahrain.",
+    image: processStep3,
   },
 ];
 
 export function ProcessSteps() {
   return (
-    <section className="section-spacing bg-secondary relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-gold/5 to-transparent" />
+    <section className="py-24 lg:py-32 bg-secondary/50 relative overflow-hidden">
+      {/* Pattern background */}
+      <div 
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+            linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
+          `,
+          backgroundSize: "40px 40px",
+          maskImage: "radial-gradient(ellipse 80% 50% at 50% 0%, #000 60%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 50% at 50% 0%, #000 60%, transparent 100%)",
+        }}
+      />
       
       <div className="container relative">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left - Steps */}
-          <div>
-            <span className="section-badge">How It Works</span>
-            <h2 className="mb-6">From Concept to Company in 3 Simple Steps</h2>
-            <p className="lead mb-12 max-w-xl">
-              We've streamlined the business setup process so you can focus on what matters—building your business.
-            </p>
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-semibold mb-6">
+            How It Works
+          </span>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-6 tracking-tight">
+            From Concept to Company in 3 Simple Steps
+          </h2>
+          <p className="text-xl text-muted-foreground leading-relaxed">
+            We've streamlined the business setup process so you can focus on what matters—building your business.
+          </p>
+        </div>
 
-            <div className="space-y-10">
-              {steps.map((step, index) => (
-                <div key={index} className="flex gap-6 group">
-                  {/* Step Number */}
-                  <div className="flex-shrink-0">
-                    <div className="step-number-filled group-hover:scale-110 transition-transform">
-                      {step.number}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="pt-2">
-                    <div className="flex items-center gap-3 mb-2">
-                      <step.icon className="h-5 w-5 text-gold" />
-                      <h3 className="text-xl font-bold text-primary">{step.title}</h3>
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {step.description}
-                    </p>
+        {/* Steps Grid */}
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-16">
+          {steps.map((step, index) => (
+            <div key={index} className="relative group">
+              {/* Connecting line */}
+              {index < steps.length - 1 && (
+                <div className="hidden md:block absolute top-32 left-1/2 w-full h-0.5 bg-gradient-to-r from-gold/30 to-gold/10 z-0" />
+              )}
+              
+              <div className="relative z-10 bg-white rounded-2xl overflow-hidden shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={step.image} 
+                    alt={step.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
+                  
+                  {/* Step number badge */}
+                  <div className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-gold flex items-center justify-center">
+                    <span className="text-lg font-extrabold text-primary">{step.number}</span>
                   </div>
                 </div>
-              ))}
-            </div>
 
-            <div className="mt-12">
-              <Link to="/free-consultation" className="btn-gold">
-                Start Your Journey
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Right - Visual */}
-          <div className="hidden lg:block">
-            <div className="relative">
-              {/* Main card */}
-              <div className="card-elevated p-8 bg-primary text-primary-foreground">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-primary-foreground mb-2">
-                    Ready to Get Started?
-                  </h3>
-                  <p className="text-primary-foreground/70">
-                    Join 1,000+ successful businesses in Bahrain
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <step.icon className="h-5 w-5 text-gold" />
+                    <h3 className="text-xl font-bold text-primary">{step.title}</h3>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.description}
                   </p>
                 </div>
-
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center gap-4 p-4 bg-navy-light rounded-xl">
-                    <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                      <span className="text-gold font-bold">✓</span>
-                    </div>
-                    <div>
-                      <div className="font-medium text-primary-foreground">Free Initial Consultation</div>
-                      <div className="text-sm text-primary-foreground/60">No obligations, just expert advice</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 p-4 bg-navy-light rounded-xl">
-                    <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                      <span className="text-gold font-bold">✓</span>
-                    </div>
-                    <div>
-                      <div className="font-medium text-primary-foreground">Transparent Pricing</div>
-                      <div className="text-sm text-primary-foreground/60">Know your costs upfront</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 p-4 bg-navy-light rounded-xl">
-                    <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                      <span className="text-gold font-bold">✓</span>
-                    </div>
-                    <div>
-                      <div className="font-medium text-primary-foreground">Fast Turnaround</div>
-                      <div className="text-sm text-primary-foreground/60">Company setup in 3-7 days</div>
-                    </div>
-                  </div>
-                </div>
-
-                <Link 
-                  to="/cost-calculator" 
-                  className="block w-full text-center py-4 bg-gold hover:bg-gold-dark text-primary font-semibold rounded-xl transition-colors"
-                >
-                  Calculate Your Setup Costs
-                </Link>
               </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-32 h-32 bg-gold/10 rounded-2xl -z-10" />
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary/30 rounded-2xl -z-10" />
             </div>
-          </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center">
+          <Link 
+            to="/free-consultation" 
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-all duration-200 shadow-lg shadow-primary/20"
+          >
+            Start Your Journey Today
+            <ArrowRight className="h-5 w-5" />
+          </Link>
         </div>
       </div>
     </section>
