@@ -119,12 +119,12 @@ export function IndustryServices() {
                 Industry Expertise
               </p>
               <h2 className="text-[40px] md:text-[48px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
-                Plan, Start & Launch Your Business With{" "}
-                <span className="text-gold">Keylink Corp</span>
+                We Serve Every Industry,{" "}
+                <span className="text-gold">Your Success Is Our Focus</span>
               </h2>
               <p className="text-lg text-muted-foreground leading-[1.8]">
-                We specialize in company formation across all major industries in Bahrain, 
-                with tailored solutions for your specific sector.
+                From tech startups to manufacturing, we provide tailored company formation 
+                solutions across all major sectors in Bahrain.
               </p>
             </div>
 
