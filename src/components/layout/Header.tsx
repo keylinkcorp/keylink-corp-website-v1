@@ -265,7 +265,7 @@ export function Header() {
           <NavigationMenuList className="gap-0.5">
             {megaMenuItems.map((item) => (
               <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger className="nav-trigger-underline bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-4 py-2.5 h-auto transition-colors duration-200 tracking-wide">
+                <NavigationMenuTrigger className="nav-trigger-underline !bg-transparent hover:!bg-transparent data-[state=open]:!bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-4 py-2.5 h-auto transition-colors duration-200 tracking-wide">
                   {item.title}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -352,7 +352,7 @@ export function Header() {
             
             {/* About Dropdown - Enhanced */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="nav-trigger-underline bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-4 py-2.5 h-auto transition-colors duration-200 tracking-wide">
+              <NavigationMenuTrigger className="nav-trigger-underline !bg-transparent hover:!bg-transparent data-[state=open]:!bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-4 py-2.5 h-auto transition-colors duration-200 tracking-wide">
                 {aboutDropdown.title}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
