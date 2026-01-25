@@ -312,7 +312,7 @@ export function Header() {
               <NavigationMenuTrigger className="!bg-transparent hover:!bg-transparent data-[state=open]:!bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-5 py-3 h-auto transition-colors duration-200 tracking-wide">
                 {aboutDropdown.title}
               </NavigationMenuTrigger>
-              <NavigationMenuContent className="!left-auto !right-0">
+              <NavigationMenuContent>
                 <div className="w-80 p-2">
                   {aboutDropdown.sections.map((section, sectionIndex) => (
                     <div key={sectionIndex}>
