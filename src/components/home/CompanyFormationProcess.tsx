@@ -17,7 +17,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import formationImage from "@/assets/formation-process-professional.jpg";
+import formationImage from "@/assets/formation-consultant.webp";
 import { fadeInUp, staggerItem } from "@/lib/animations";
 
 const stageOneSteps = [
