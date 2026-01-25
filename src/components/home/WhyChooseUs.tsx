@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Clock, ShieldCheck, Users, HeadphonesIcon, Award, Zap } from "lucide-react";
 import teamImage from "@/assets/team-office.jpg";
 
@@ -35,11 +37,19 @@ const benefits = [
 ];
 
 export function WhyChooseUs() {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section className="py-28 lg:py-36 bg-white relative overflow-hidden">
+    <section ref={ref} className="py-28 lg:py-36 bg-white relative overflow-hidden">
       <div className="container relative">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-20"
+        >
           <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">
             Why Keylink Corp
           </p>
@@ -49,38 +59,62 @@ export function WhyChooseUs() {
           <p className="text-lg text-muted-foreground leading-[1.8]">
             We combine local expertise with international standards to deliver exceptional service and results.
           </p>
-        </div>
+        </motion.div>
 
         {/* Main content grid */}
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-          {/* Left - Image - clean presentation */}
-          <div className="order-2 lg:order-1">
-            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
-              <img 
-                src={teamImage} 
-                alt="Keylink Corp Team" 
-                className="w-full h-[480px] object-cover"
-              />
+          {/* Left - Image */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="order-2 lg:order-1"
+          >
+            <div className="relative">
+              <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+                <img 
+                  src={teamImage} 
+                  alt="Keylink Corp Team" 
+                  className="w-full h-[480px] object-cover"
+                />
+              </div>
+              {/* Floating stat */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-5 border border-border"
+              >
+                <p className="text-3xl font-bold text-gold">10+</p>
+                <p className="text-sm text-muted-foreground">Years Experience</p>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right - Benefits grid */}
           <div className="order-1 lg:order-2 grid sm:grid-cols-2 gap-8">
             {benefits.map((benefit, index) => (
-              <div 
+              <motion.div 
                 key={index} 
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
                 className="group"
               >
-                <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
+                <motion.div 
+                  className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
                   <benefit.icon className="h-6 w-6 text-gold" />
-                </div>
+                </motion.div>
                 <h3 className="text-lg font-semibold text-primary mb-2">
                   {benefit.title}
                 </h3>
                 <p className="text-muted-foreground leading-[1.7]">
                   {benefit.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

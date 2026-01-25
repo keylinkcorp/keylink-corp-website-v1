@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { 
@@ -101,9 +102,11 @@ const stages = [
 
 export function IndustryServices() {
   const [activeTab, setActiveTab] = useState("startup");
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-28 lg:py-36 bg-white relative overflow-hidden">
+    <section ref={ref} className="py-28 lg:py-36 bg-white relative overflow-hidden">
       {/* Subtle background pattern */}
       <div 
         className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] opacity-50"
@@ -112,7 +115,11 @@ export function IndustryServices() {
       <div className="container relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Content */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.7 }}
+          >
             {/* Header */}
             <div className="mb-10">
               <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">
@@ -142,54 +149,91 @@ export function IndustryServices() {
                 ))}
               </TabsList>
 
-              {stages.map((stage) => (
-                <TabsContent 
-                  key={stage.id} 
-                  value={stage.id}
-                  className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-                >
-                  <div className="space-y-3">
-                    {stage.industries.map((industry, index) => (
-                      <div
-                        key={index}
-                        className="group flex items-start gap-4 p-5 rounded-xl bg-card border border-border hover:border-gold/50 hover:shadow-lg hover:shadow-gold/5 transition-all duration-300 cursor-pointer"
-                      >
-                        <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-colors">
-                          <industry.icon className="h-6 w-6 text-gold" />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-primary mb-1 group-hover:text-gold transition-colors">
-                            {industry.title}
-                          </h3>
-                          <p className="text-muted-foreground text-[15px] leading-[1.7]">
-                            {industry.description}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-              ))}
+              <AnimatePresence mode="wait">
+                {stages.map((stage) => (
+                  <TabsContent 
+                    key={stage.id} 
+                    value={stage.id}
+                    className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+                  >
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-3"
+                    >
+                      {stage.industries.map((industry, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 }}
+                          className="group flex items-start gap-4 p-5 rounded-xl bg-card border border-border hover:border-gold/50 hover:shadow-lg hover:shadow-gold/5 transition-all duration-300 cursor-pointer"
+                        >
+                          <motion.div 
+                            className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-colors"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            transition={{ type: "spring", stiffness: 400 }}
+                          >
+                            <industry.icon className="h-6 w-6 text-gold" />
+                          </motion.div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-primary mb-1 group-hover:text-gold transition-colors">
+                              {industry.title}
+                            </h3>
+                            <p className="text-muted-foreground text-[15px] leading-[1.7]">
+                              {industry.description}
+                            </p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  </TabsContent>
+                ))}
+              </AnimatePresence>
             </Tabs>
 
             {/* CTA */}
-            <div className="mt-8">
-              <Button 
-                size="lg" 
-                className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8"
-              >
-                View All Industries
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
-          </div>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-8"
+            >
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button 
+                  size="lg" 
+                  className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+                >
+                  View All Industries
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Image */}
-          <div className="order-first lg:order-last">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="order-first lg:order-last"
+          >
             <div className="relative">
               {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-full h-full bg-gold/10 rounded-2xl -z-10" />
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/5 rounded-2xl -z-10" />
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="absolute -top-6 -right-6 w-full h-full bg-gold/10 rounded-2xl -z-10" 
+              />
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/5 rounded-2xl -z-10" 
+              />
               
               <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
                 <img 
@@ -200,7 +244,12 @@ export function IndustryServices() {
               </div>
 
               {/* Floating stats card */}
-              <div className="absolute -bottom-8 -left-8 bg-white rounded-xl shadow-xl p-6 border border-border">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="absolute -bottom-8 -left-8 bg-white rounded-xl shadow-xl p-6 border border-border"
+              >
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center">
                     <Building2 className="h-7 w-7 text-gold" />
@@ -210,9 +259,9 @@ export function IndustryServices() {
                     <p className="text-sm text-muted-foreground">Industry Sectors</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
