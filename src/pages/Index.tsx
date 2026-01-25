@@ -4,6 +4,7 @@ import { CompanyFormationProcess } from "@/components/home/CompanyFormationProce
 import { TrustBar } from "@/components/home/TrustBar";
 import { Services } from "@/components/home/Services";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
+import { MissionVision } from "@/components/home/MissionVision";
 import { IndustryServices } from "@/components/home/IndustryServices";
 import { CostCalculatorPreview } from "@/components/home/CostCalculatorPreview";
 import { Testimonials } from "@/components/home/Testimonials";
@@ -19,6 +20,7 @@ const Index = () => {
       <TrustBar />
       <CompanyFormationProcess />
       <WhyChooseUs />
+      <MissionVision />
       <IndustryServices />
       <CostCalculatorPreview />
       <Services />
