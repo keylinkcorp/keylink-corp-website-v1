@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { Hero } from "@/components/home/Hero";
+import { CompanyFormationProcess } from "@/components/home/CompanyFormationProcess";
 import { TrustBar } from "@/components/home/TrustBar";
 import { Services } from "@/components/home/Services";
 import { ProcessSteps } from "@/components/home/ProcessSteps";
@@ -14,6 +15,7 @@ const Index = () => {
   return (
     <Layout>
       <Hero />
+      <CompanyFormationProcess />
       <TrustBar />
       <Services />
       <ProcessSteps />
