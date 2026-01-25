@@ -1,37 +1,31 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, FileSearch, Upload, Rocket } from "lucide-react";
-import processStep1 from "@/assets/process-step-1.jpg";
-import processStep2 from "@/assets/process-step-2.jpg";
-import processStep3 from "@/assets/process-step-3.jpg";
 
 const steps = [
   {
     number: "01",
     icon: FileSearch,
     title: "Choose Your Service",
-    description: "Select from company formation, visa processing, or business support. Our experts will guide you through the options.",
-    image: processStep1,
+    description: "Select from company formation, visa processing, or business support. Our experts guide you.",
   },
   {
     number: "02",
     icon: Upload,
     title: "Submit Documents",
-    description: "Provide the essentials—passport copies, business plan, and required forms. We handle all the paperwork.",
-    image: processStep2,
+    description: "Provide the essentials—passport copies, business plan, and required forms. We handle the rest.",
   },
   {
     number: "03",
     icon: Rocket,
     title: "Launch Your Business",
     description: "Receive your licenses, registrations, and permits. You're ready to operate in Bahrain.",
-    image: processStep3,
   },
 ];
 
 export function ProcessSteps() {
   return (
-    <section className="py-24 lg:py-32 bg-secondary/50 relative overflow-hidden">
-      {/* Pattern background */}
+    <section className="py-28 lg:py-36 bg-secondary/30 relative overflow-hidden">
+      {/* Pattern - subtle grid */}
       <div 
         className="absolute inset-0 -z-10"
         style={{
@@ -39,61 +33,51 @@ export function ProcessSteps() {
             linear-gradient(to right, #e7e5e4 1px, transparent 1px),
             linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
-          maskImage: "radial-gradient(ellipse 80% 50% at 50% 0%, #000 60%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 80% 50% at 50% 0%, #000 60%, transparent 100%)",
+          backgroundSize: "48px 48px",
+          maskImage: "linear-gradient(to bottom, #000 0%, transparent 80%)",
+          WebkitMaskImage: "linear-gradient(to bottom, #000 0%, transparent 80%)",
         }}
       />
       
       <div className="container relative">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-semibold mb-6">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">
             How It Works
-          </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-6 tracking-tight">
-            From Concept to Company in 3 Simple Steps
+          </p>
+          <h2 className="text-[44px] md:text-[52px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
+            From Concept to Company in 3 Steps
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-[1.8]">
             We've streamlined the business setup process so you can focus on what matters—building your business.
           </p>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-16">
+        {/* Steps - horizontal timeline with icons */}
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-16 mb-16">
           {steps.map((step, index) => (
-            <div key={index} className="relative group">
+            <div key={index} className="relative text-center">
               {/* Connecting line */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-32 left-1/2 w-full h-0.5 bg-gradient-to-r from-gold/30 to-gold/10 z-0" />
+                <div className="hidden md:block absolute top-16 left-1/2 w-full h-px bg-gradient-to-r from-gold/40 via-gold/20 to-transparent" />
               )}
               
-              <div className="relative z-10 bg-white rounded-2xl overflow-hidden shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={step.image} 
-                    alt={step.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
-                  
-                  {/* Step number badge */}
-                  <div className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-gold flex items-center justify-center">
-                    <span className="text-lg font-extrabold text-primary">{step.number}</span>
-                  </div>
+              {/* Step number - large */}
+              <div className="relative inline-flex flex-col items-center">
+                <div className="w-20 h-20 rounded-full bg-gold flex items-center justify-center mb-8 shadow-lg shadow-gold/20">
+                  <span className="text-2xl font-bold text-primary">{step.number}</span>
+                </div>
+                
+                {/* Icon */}
+                <div className="w-12 h-12 rounded-xl bg-white border border-border flex items-center justify-center mb-6 shadow-sm">
+                  <step.icon className="h-6 w-6 text-gold" />
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <step.icon className="h-5 w-5 text-gold" />
-                    <h3 className="text-xl font-bold text-primary">{step.title}</h3>
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
+                <h3 className="text-xl font-semibold text-primary mb-3">{step.title}</h3>
+                <p className="text-muted-foreground leading-[1.8] max-w-xs mx-auto">
+                  {step.description}
+                </p>
               </div>
             </div>
           ))}
@@ -103,7 +87,7 @@ export function ProcessSteps() {
         <div className="text-center">
           <Link 
             to="/free-consultation" 
-            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-all duration-200 shadow-lg shadow-primary/20"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-all duration-200"
           >
             Start Your Journey Today
             <ArrowRight className="h-5 w-5" />
