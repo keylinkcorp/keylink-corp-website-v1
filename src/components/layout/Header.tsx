@@ -147,13 +147,13 @@ const aboutDropdown = {
     { title: "Why Choose Us", href: "/about/why-us", description: "What sets us apart" },
     { title: "Testimonials", href: "/about/testimonials", description: "Client success stories" },
     { title: "Careers", href: "/careers", description: "Join our growing team" },
+    { title: "Contact Us", href: "/contact", description: "Get in touch with us" },
   ],
 };
 
 // Simple nav items (no dropdown)
 const simpleNavItems = [
   { title: "Resources", href: "/resources" },
-  { title: "Contact Us", href: "/contact" },
 ];
 
 export function Header() {
