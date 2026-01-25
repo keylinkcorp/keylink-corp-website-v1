@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { 
-  Menu, X, ChevronDown, Phone, Mail, ArrowRight, 
-  Building2, FileText, Users, Briefcase, Rocket, 
-  Shield, Landmark, CreditCard, MapPin, Headphones,
-  Globe, Star, Award, MessageCircle, BookOpen, UserPlus, Contact
-} from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Mail, ArrowRight, Building2, FileText, Users, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -17,98 +12,78 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
-// Mega menu structure - 4 main pillars with expanded services
+// Mega menu structure - 4 main pillars
 const megaMenuItems = [
   {
     title: "Launch Your Business",
-    icon: Rocket,
+    icon: Building2,
     columns: [
       {
-        heading: "Business Types",
-        icon: Building2,
+        heading: "Company Types",
         links: [
-          { title: "LLC Formation", href: "/services/llc-formation", description: "Limited liability company" },
+          { title: "Company Formation", href: "/services/company-formation", description: "Full business setup in Bahrain" },
           { title: "Single Person Company", href: "/services/single-person-company", description: "SPC for solo entrepreneurs" },
-          { title: "WLL Company", href: "/services/wll-company", description: "With limited liability" },
-          { title: "Branch Office", href: "/services/branch-office", description: "Foreign company branch" },
-          { title: "Free Zone Company", href: "/services/free-zone-company", description: "Tax-advantaged setup" },
-          { title: "Holding Company", href: "/services/holding-company", description: "Investment structure" },
+          { title: "Branch Office", href: "/services/branch-office", description: "Foreign company branch setup" },
+          { title: "WLL Company", href: "/services/wll-company", description: "Limited liability company" },
         ],
       },
       {
         heading: "Registration",
-        icon: FileText,
         links: [
-          { title: "Commercial Registration", href: "/services/commercial-registration", description: "New CR registration", badge: "Popular" },
-          { title: "CR Renewal", href: "/services/cr-renewal", description: "Renew your registration" },
-          { title: "CR Amendment", href: "/services/cr-amendment", description: "Modify existing CR" },
-          { title: "Trade Name Registration", href: "/services/trade-name", description: "Register business name" },
-          { title: "Lease Contract Registration", href: "/services/lease-contract-registration", description: "Business lease filing" },
+          { title: "Commercial Registration", href: "/services/commercial-registration", description: "New CR registration" },
+          { title: "CR Amendment", href: "/services/cr-amendment", description: "Modify existing registration" },
+          { title: "Lease Contract", href: "/services/lease-contract-registration", description: "Business lease registration" },
         ],
       },
       {
-        heading: "Licensing & Legal",
-        icon: Shield,
+        heading: "Licensing",
         links: [
-          { title: "Business License", href: "/services/business-license", description: "Commercial license" },
-          { title: "Trade License", href: "/services/trade-license", description: "Trade permit acquisition" },
-          { title: "Memorandum of Association", href: "/services/moa", description: "Legal formation docs" },
-          { title: "Articles of Association", href: "/services/articles-of-association", description: "Company bylaws" },
+          { title: "Business License", href: "/services/business-license", description: "Commercial license acquisition" },
+          { title: "Memorandum of Association", href: "/services/moa", description: "Company legal documents" },
           { title: "Company Liquidation", href: "/services/company-liquidation", description: "Proper business closure" },
         ],
       },
     ],
     cta: {
-      title: "Start Your Business",
-      description: "Ready to launch? Get your business registered in as little as 48 hours.",
+      title: "Ready to start?",
+      description: "Get your business registered in as little as 48 hours with our expert guidance.",
       buttonText: "Start Now",
       href: "/free-consultation",
     },
   },
   {
     title: "Government Services",
-    icon: Landmark,
+    icon: FileText,
     columns: [
       {
         heading: "PRO Services",
-        icon: Briefcase,
         links: [
-          { title: "Complete PRO Services", href: "/services/pro-services", description: "Full government liaison", badge: "Popular" },
+          { title: "PRO Services", href: "/services/pro-services", description: "Government liaison services" },
           { title: "Document Clearance", href: "/services/document-clearance", description: "Fast document processing" },
-          { title: "Ministry Approvals", href: "/services/ministry-approvals", description: "Government approvals" },
           { title: "Chamber of Commerce", href: "/services/chamber-of-commerce", description: "Chamber registration" },
-          { title: "Labor Office Services", href: "/services/labor-office", description: "LMRA procedures" },
-          { title: "Municipality Services", href: "/services/municipality", description: "Local authority filings" },
+          { title: "Compliance & Regulatory", href: "/services/compliance", description: "Stay compliant" },
         ],
       },
       {
         heading: "Visa Services",
-        icon: Globe,
         links: [
           { title: "Work Visa", href: "/services/work-visa", description: "Employee work permits" },
-          { title: "Golden Visa (Investor)", href: "/services/golden-visa", description: "Long-term residency", badge: "New" },
-          { title: "Family/Dependent Visa", href: "/services/family-visa", description: "Dependent visas" },
-          { title: "Visit Visa", href: "/services/visit-visa", description: "Business & tourist visas" },
-          { title: "Visa Renewal & Cancellation", href: "/services/visa-renewal", description: "Manage existing visas" },
-          { title: "Residency Permits", href: "/services/residency-permits", description: "Long-term stay permits" },
+          { title: "Golden Visa", href: "/services/golden-visa", description: "Long-term residency" },
+          { title: "Family Visa", href: "/services/family-visa", description: "Dependent visas" },
+          { title: "Visa Consultation", href: "/services/visa-consultation", description: "Expert visa advice" },
         ],
       },
       {
         heading: "Document Services",
-        icon: FileText,
         links: [
           { title: "Certificate Attestation", href: "/services/certificate-attestation", description: "Document legalization" },
-          { title: "Document Legalization", href: "/services/document-legalization", description: "Official authentication" },
-          { title: "Translation Services", href: "/services/translation", description: "Certified translations" },
-          { title: "Notarization", href: "/services/notarization", description: "Notary public services" },
-          { title: "Embassy Attestation", href: "/services/embassy-attestation", description: "Embassy verification" },
-          { title: "Local Sponsorship", href: "/services/local-sponsorship", description: "Bahraini sponsor" },
+          { title: "Local Sponsorship", href: "/services/local-sponsorship", description: "Bahraini sponsor services" },
         ],
       },
     ],
     cta: {
-      title: "Need Help?",
-      description: "Our PRO experts handle all government procedures so you can focus on business.",
+      title: "Need help navigating?",
+      description: "Our PRO experts handle all government procedures so you can focus on your business.",
       buttonText: "Get PRO Support",
       href: "/services/pro-services",
     },
@@ -119,43 +94,23 @@ const megaMenuItems = [
     columns: [
       {
         heading: "Consulting",
-        icon: Users,
         links: [
           { title: "Business Consulting", href: "/services/business-consulting", description: "Strategic business advice" },
           { title: "Management Consulting", href: "/services/management-consulting", description: "Operational excellence" },
           { title: "Legal Consulting", href: "/services/legal-consulting", description: "Business legal support" },
-          { title: "HR Consulting", href: "/services/hr-consulting", description: "Human resources strategy" },
-          { title: "Feasibility Studies", href: "/services/feasibility-studies", description: "Market viability analysis" },
-          { title: "Market Research", href: "/services/market-research", description: "Industry insights" },
         ],
       },
       {
         heading: "Financial Services",
-        icon: CreditCard,
         links: [
-          { title: "Accounting & Bookkeeping", href: "/services/accounting-services", description: "Financial management", badge: "Popular" },
-          { title: "Tax Planning & Filing", href: "/services/tax-services", description: "Tax compliance" },
-          { title: "VAT Registration", href: "/services/vat-registration", description: "VAT setup & filing" },
-          { title: "Audit Services", href: "/services/audit-services", description: "Financial audits" },
-          { title: "Corporate Banking Setup", href: "/services/bank-account", description: "Business banking" },
-          { title: "Payroll Services", href: "/services/payroll", description: "Employee payroll" },
-        ],
-      },
-      {
-        heading: "Marketing & Support",
-        icon: Star,
-        links: [
-          { title: "Digital Marketing", href: "/services/digital-marketing", description: "Online presence growth" },
-          { title: "Brand Strategy", href: "/services/brand-strategy", description: "Brand development" },
-          { title: "Web Development", href: "/services/web-development", description: "Website & apps" },
-          { title: "SEO Services", href: "/services/seo-services", description: "Search optimization" },
-          { title: "Social Media", href: "/services/social-media", description: "Social management" },
-          { title: "Content Creation", href: "/services/content-creation", description: "Marketing content" },
+          { title: "Accounting Services", href: "/services/accounting-services", description: "Financial management" },
+          { title: "Tax Services", href: "/services/tax-services", description: "Tax compliance & planning" },
+          { title: "Bank Account Services", href: "/services/bank-account", description: "Corporate banking" },
         ],
       },
     ],
     cta: {
-      title: "Scale Confidently",
+      title: "Scale with confidence",
       description: "Expert guidance to help your business thrive in Bahrain's competitive market.",
       buttonText: "Explore Services",
       href: "/services/business-consulting",
@@ -163,53 +118,43 @@ const megaMenuItems = [
   },
   {
     title: "Workspace",
-    icon: MapPin,
+    icon: Users,
     columns: [
       {
-        heading: "Virtual Solutions",
-        icon: Globe,
+        heading: "Office Solutions",
         links: [
-          { title: "Virtual Office", href: "/services/virtual-office", description: "Professional business address", badge: "Popular" },
-          { title: "Business Address", href: "/services/business-address", description: "Prestigious location" },
-          { title: "Mail Handling", href: "/services/mail-handling", description: "Mail & package services" },
-          { title: "Call Answering", href: "/services/call-answering", description: "Professional reception" },
-          { title: "Virtual Receptionist", href: "/services/virtual-receptionist", description: "Remote admin support" },
-        ],
-      },
-      {
-        heading: "Physical Spaces",
-        icon: Building2,
-        links: [
-          { title: "Co-working Spaces", href: "/services/coworking-space", description: "Flexible work environment" },
-          { title: "Private Offices", href: "/services/private-offices", description: "Dedicated workspace" },
-          { title: "Meeting Rooms", href: "/services/meeting-rooms", description: "Professional meetings" },
-          { title: "Business Incubators", href: "/services/business-incubators", description: "Startup programs" },
-          { title: "Executive Suites", href: "/services/executive-suites", description: "Premium office space" },
+          { title: "Virtual Office", href: "/services/virtual-office", description: "Professional business address" },
+          { title: "Co-working Space", href: "/services/coworking-space", description: "Flexible work environment" },
+          { title: "Business Incubators", href: "/services/business-incubators", description: "Startup support programs" },
         ],
       },
     ],
     cta: {
-      title: "Find Your Space",
-      description: "Flexible solutions from virtual addresses to fully-equipped offices.",
+      title: "Find your space",
+      description: "From virtual addresses to fully-equipped offices. Flexible options for every business.",
       buttonText: "View Options",
       href: "/services/virtual-office",
     },
   },
 ];
 
-// About dropdown with icons
+// About dropdown
 const aboutDropdown = {
   title: "About",
   links: [
-    { title: "About Keylink", href: "/about", description: "Our story, mission & vision", icon: Building2 },
-    { title: "Our Team", href: "/about/team", description: "Meet the experts behind Keylink", icon: Users },
-    { title: "Why Choose Us", href: "/about/why-us", description: "What sets us apart", icon: Award },
-    { title: "Client Success Stories", href: "/about/testimonials", description: "Testimonials & case studies", icon: MessageCircle },
-    { title: "Blog & Resources", href: "/resources", description: "Insights, guides & news", icon: BookOpen },
-    { title: "Careers", href: "/careers", description: "Join our growing team", icon: UserPlus },
-    { title: "Contact Us", href: "/contact", description: "Get in touch with us", icon: Headphones },
+    { title: "About Us", href: "/about", description: "Our story & mission" },
+    { title: "Our Team", href: "/about/team", description: "Meet the experts behind Keylink" },
+    { title: "Why Choose Us", href: "/about/why-us", description: "What sets us apart" },
+    { title: "Testimonials", href: "/about/testimonials", description: "Client success stories" },
+    { title: "Careers", href: "/careers", description: "Join our growing team" },
+    { title: "Contact Us", href: "/contact", description: "Get in touch with us" },
   ],
 };
+
+// Simple nav items (no dropdown)
+const simpleNavItems = [
+  { title: "Resources", href: "/resources" },
+];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -265,34 +210,21 @@ export function Header() {
                       )}>
                         {item.columns.map((column) => (
                           <div key={column.heading}>
-                            <div className="flex items-center gap-2 mb-4 pb-2 border-b border-gold/20">
-                              <column.icon className="h-4 w-4 text-gold" />
-                              <h3 className="text-xs font-semibold uppercase tracking-wider text-navy">
-                                {column.heading}
-                              </h3>
-                            </div>
-                            <ul className="space-y-0.5">
+                            <h3 className="text-xs font-semibold uppercase tracking-wider text-gold mb-4 pb-2 border-b border-gold/20">
+                              {column.heading}
+                            </h3>
+                            <ul className="space-y-1">
                               {column.links.map((link) => (
                                 <li key={link.title}>
                                   <NavigationMenuLink asChild>
                                     <Link
                                       to={link.href}
-                                      className="group block rounded-lg p-2.5 hover:bg-gray-50 transition-colors border-l-2 border-transparent hover:border-gold"
+                                      className="group block rounded-lg p-3 hover:bg-gray-50 transition-colors"
                                     >
-                                      <div className="flex items-center gap-2">
-                                        <span className="text-sm font-medium text-gray-900 group-hover:text-navy">
-                                          {link.title}
-                                        </span>
-                                        {link.badge && (
-                                          <span className={cn(
-                                            "text-[10px] font-semibold px-1.5 py-0.5 rounded-full",
-                                            link.badge === "Popular" ? "bg-gold/10 text-gold" : "bg-green-100 text-green-700"
-                                          )}>
-                                            {link.badge}
-                                          </span>
-                                        )}
+                                      <div className="text-sm font-medium text-gray-900 group-hover:text-navy">
+                                        {link.title}
                                       </div>
-                                      <p className="text-xs text-gray-500 mt-0.5">
+                                      <p className="text-sm text-gray-500 mt-0.5">
                                         {link.description}
                                       </p>
                                     </Link>
@@ -333,27 +265,21 @@ export function Header() {
                 {aboutDropdown.title}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="w-80 p-4 bg-white">
-                  <ul className="space-y-0.5">
-                    {aboutDropdown.links.map((link, index) => (
+                <div className="w-72 p-4 bg-white">
+                  <ul className="space-y-1">
+                    {aboutDropdown.links.map((link) => (
                       <li key={link.title}>
-                        {index === aboutDropdown.links.length - 1 && (
-                          <div className="border-t border-gray-100 my-2" />
-                        )}
                         <NavigationMenuLink asChild>
                           <Link
                             to={link.href}
-                            className="group flex items-start gap-3 rounded-lg px-3 py-2.5 hover:bg-gray-50 transition-colors"
+                            className="group block rounded-lg px-4 py-3 hover:bg-gray-50 transition-colors"
                           >
-                            <link.icon className="h-4 w-4 text-gold mt-0.5 shrink-0" />
-                            <div>
-                              <div className="text-sm font-medium text-gray-900 group-hover:text-navy">
-                                {link.title}
-                              </div>
-                              <p className="text-xs text-gray-500 mt-0.5">
-                                {link.description}
-                              </p>
+                            <div className="text-sm font-medium text-gray-900 group-hover:text-navy">
+                              {link.title}
                             </div>
+                            <p className="text-xs text-gray-500 mt-0.5">
+                              {link.description}
+                            </p>
                           </Link>
                         </NavigationMenuLink>
                       </li>
@@ -362,11 +288,28 @@ export function Header() {
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
+            
+            {/* Simple nav items */}
+            {simpleNavItems.map((item) => (
+              <NavigationMenuItem key={item.title}>
+                <Link 
+                  to={item.href}
+                  className="inline-flex items-center justify-center px-4 py-2 text-[15px] font-medium text-gray-700 hover:text-navy hover:bg-gray-50 rounded-md transition-colors"
+                >
+                  {item.title}
+                </Link>
+              </NavigationMenuItem>
+            ))}
           </NavigationMenuList>
         </NavigationMenu>
 
-        {/* CTA Button - Single primary action */}
-        <div className="hidden lg:flex items-center">
+        {/* CTA Buttons */}
+        <div className="hidden lg:flex items-center gap-3">
+          <Link to="/contact">
+            <Button variant="ghost" className="text-gray-700 hover:text-navy hover:bg-gray-50 font-medium">
+              Contact Us
+            </Button>
+          </Link>
           <Link to="/free-consultation">
             <Button className="bg-gold hover:bg-gold-dark text-navy font-semibold px-6 shadow-md hover:shadow-lg transition-all">
               Free Consultation
@@ -409,28 +352,17 @@ export function Header() {
                   <div className="pb-4 space-y-4">
                     {item.columns.map((column) => (
                       <div key={column.heading} className="pl-8">
-                        <div className="flex items-center gap-2 mb-2">
-                          <column.icon className="h-3.5 w-3.5 text-gold" />
-                          <h4 className="text-xs font-semibold uppercase tracking-wider text-navy">
-                            {column.heading}
-                          </h4>
-                        </div>
+                        <h4 className="text-xs font-semibold uppercase tracking-wider text-gold mb-2">
+                          {column.heading}
+                        </h4>
                         {column.links.map((link) => (
                           <Link
                             key={link.title}
                             to={link.href}
-                            className="flex items-center gap-2 py-2 text-sm text-gray-600 hover:text-navy"
+                            className="block py-2 text-sm text-gray-600 hover:text-navy"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             {link.title}
-                            {link.badge && (
-                              <span className={cn(
-                                "text-[10px] font-semibold px-1.5 py-0.5 rounded-full",
-                                link.badge === "Popular" ? "bg-gold/10 text-gold" : "bg-green-100 text-green-700"
-                              )}>
-                                {link.badge}
-                              </span>
-                            )}
                           </Link>
                         ))}
                       </div>
@@ -446,10 +378,7 @@ export function Header() {
                 className="flex w-full items-center justify-between py-4 text-left font-medium text-gray-900"
                 onClick={() => setOpenSubmenu(openSubmenu === "about" ? null : "about")}
               >
-                <span className="flex items-center gap-3">
-                  <Building2 className="h-5 w-5 text-gold" />
-                  {aboutDropdown.title}
-                </span>
+                <span>{aboutDropdown.title}</span>
                 <ChevronDown
                   className={cn(
                     "h-4 w-4 text-gray-400 transition-transform duration-200",
@@ -463,10 +392,9 @@ export function Header() {
                     <Link
                       key={link.title}
                       to={link.href}
-                      className="flex items-center gap-3 py-2 text-sm text-gray-600 hover:text-navy"
+                      className="block py-2 text-sm text-gray-600 hover:text-navy"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      <link.icon className="h-4 w-4 text-gold/70" />
                       {link.title}
                     </Link>
                   ))}
@@ -474,8 +402,24 @@ export function Header() {
               )}
             </div>
             
-            {/* Mobile CTA */}
-            <div className="pt-4 space-y-3">
+            {/* Simple nav items in mobile */}
+            {simpleNavItems.map((item) => (
+              <Link
+                key={item.title}
+                to={item.href}
+                className="flex items-center py-4 font-medium text-gray-900 border-b border-gray-100"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.title}
+              </Link>
+            ))}
+            
+            <div className="mt-6 flex flex-col gap-3">
+              <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+                <Button variant="outline" className="w-full border-gray-200 text-gray-700">
+                  Contact Us
+                </Button>
+              </Link>
               <Link to="/free-consultation" onClick={() => setMobileMenuOpen(false)}>
                 <Button className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold">
                   Free Consultation
