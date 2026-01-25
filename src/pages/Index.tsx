@@ -15,8 +15,8 @@ const Index = () => {
   return (
     <Layout>
       <Hero />
-      <CompanyFormationProcess />
       <TrustBar />
+      <CompanyFormationProcess />
       <ProcessSteps />
       <WhyChooseUs />
       <IndustryServices />
