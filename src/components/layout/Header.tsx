@@ -224,8 +224,8 @@ export function Header() {
                   {item.title}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="w-screen max-w-5xl">
-                    <div className="grid grid-cols-4 gap-0 p-0">
+                  <div className="w-screen max-w-5xl overflow-hidden rounded-2xl bg-white shadow-xl border border-gray-100">
+                    <div className="grid grid-cols-4 gap-0">
                       {/* Menu Columns */}
                       <div className={cn(
                         "grid gap-6 p-8",
@@ -264,17 +264,17 @@ export function Header() {
                       
                       {/* Workspace Image - Only for single column menus */}
                       {item.columns.length === 1 && (
-                        <div className="col-span-2 p-6 flex items-center justify-center bg-gray-50/50">
+                        <div className="col-span-2 p-6 flex items-center justify-center bg-gray-50/50 overflow-hidden">
                           <img 
                             src="/images/workspace-office.jpg" 
                             alt="Modern coworking workspace" 
-                            className="rounded-xl object-cover h-full w-full max-h-48 shadow-sm"
+                            className="rounded-xl object-cover w-full h-48 shadow-sm"
                           />
                         </div>
                       )}
                       
                       {/* CTA Panel */}
-                      <div className="col-span-1 relative overflow-hidden bg-navy p-8 flex flex-col justify-between rounded-r-2xl">
+                      <div className="col-span-1 relative overflow-hidden bg-navy p-8 flex flex-col justify-between">
                         {/* Pattern overlay */}
                         <div className="absolute inset-0 opacity-5">
                           <div className="absolute inset-0" style={{
