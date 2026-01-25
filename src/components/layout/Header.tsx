@@ -138,10 +138,22 @@ const megaMenuItems = [
   },
 ];
 
+// About dropdown
+const aboutDropdown = {
+  title: "About",
+  links: [
+    { title: "About Us", href: "/about", description: "Our story & mission" },
+    { title: "Our Team", href: "/about/team", description: "Meet the experts behind Keylink" },
+    { title: "Why Choose Us", href: "/about/why-us", description: "What sets us apart" },
+    { title: "Testimonials", href: "/about/testimonials", description: "Client success stories" },
+    { title: "Careers", href: "/careers", description: "Join our growing team" },
+  ],
+};
+
 // Simple nav items (no dropdown)
 const simpleNavItems = [
-  { title: "About", href: "/about" },
   { title: "Resources", href: "/resources" },
+  { title: "Contact Us", href: "/contact" },
 ];
 
 export function Header() {
@@ -247,6 +259,36 @@ export function Header() {
               </NavigationMenuItem>
             ))}
             
+            {/* About Dropdown */}
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent text-gray-700 hover:text-navy hover:bg-gray-50 font-medium text-[15px] px-4 py-2 h-auto">
+                {aboutDropdown.title}
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <div className="w-72 p-4 bg-white">
+                  <ul className="space-y-1">
+                    {aboutDropdown.links.map((link) => (
+                      <li key={link.title}>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to={link.href}
+                            className="group block rounded-lg px-4 py-3 hover:bg-gray-50 transition-colors"
+                          >
+                            <div className="text-sm font-medium text-gray-900 group-hover:text-navy">
+                              {link.title}
+                            </div>
+                            <p className="text-xs text-gray-500 mt-0.5">
+                              {link.description}
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            
             {/* Simple nav items */}
             {simpleNavItems.map((item) => (
               <NavigationMenuItem key={item.title}>
@@ -329,6 +371,36 @@ export function Header() {
                 )}
               </div>
             ))}
+            
+            {/* About Dropdown in mobile */}
+            <div className="border-b border-gray-100">
+              <button
+                className="flex w-full items-center justify-between py-4 text-left font-medium text-gray-900"
+                onClick={() => setOpenSubmenu(openSubmenu === "about" ? null : "about")}
+              >
+                <span>{aboutDropdown.title}</span>
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 text-gray-400 transition-transform duration-200",
+                    openSubmenu === "about" && "rotate-180"
+                  )}
+                />
+              </button>
+              {openSubmenu === "about" && (
+                <div className="pb-4 pl-4">
+                  {aboutDropdown.links.map((link) => (
+                    <Link
+                      key={link.title}
+                      to={link.href}
+                      className="block py-2 text-sm text-gray-600 hover:text-navy"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.title}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             
             {/* Simple nav items in mobile */}
             {simpleNavItems.map((item) => (
