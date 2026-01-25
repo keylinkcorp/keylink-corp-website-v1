@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-bahrain-skyline.jpg";
+import { 
+  heroHeadlineContainer, 
+  heroHeadlineLine, 
+  fadeInUp, 
+  imageReveal 
+} from "@/lib/animations";
 
 const heroFeatures = [
   "100% Foreign Ownership",
@@ -11,7 +18,7 @@ const heroFeatures = [
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center bg-white">
+    <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
       {/* Subtle dot pattern - top only */}
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,#000_0%,transparent_60%)]" />
 
@@ -20,76 +27,161 @@ export function Hero() {
           {/* Content */}
           <div className="max-w-xl">
             {/* Trust badge - minimal */}
-            <p className="text-sm font-medium text-muted-foreground mb-8 tracking-wide">
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-sm font-medium text-muted-foreground mb-8 tracking-wide"
+            >
               Trusted by 1,000+ businesses worldwide
-            </p>
+            </motion.p>
 
-            {/* Main headline - large, clean */}
-            <h1 className="text-[56px] md:text-[68px] lg:text-[80px] font-bold tracking-tight leading-[1.05] mb-8">
-              <span className="block text-primary">Plan.</span>
-              <span className="block text-primary">Register.</span>
-              <span className="block text-primary relative inline-block">
+            {/* Main headline - large, clean with staggered animation */}
+            <motion.h1 
+              variants={heroHeadlineContainer}
+              initial="hidden"
+              animate="visible"
+              className="text-[56px] md:text-[68px] lg:text-[80px] font-bold tracking-tight leading-[1.05] mb-8"
+            >
+              <motion.span variants={heroHeadlineLine} className="block text-primary">
+                Plan.
+              </motion.span>
+              <motion.span variants={heroHeadlineLine} className="block text-primary">
+                Register.
+              </motion.span>
+              <motion.span variants={heroHeadlineLine} className="block text-primary relative inline-block">
                 Grow.
-                <span className="absolute -bottom-1 left-0 w-full h-2 bg-gold/20 rounded-full" />
-              </span>
-            </h1>
+                <motion.span 
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute -bottom-1 left-0 w-full h-2 bg-gold/20 rounded-full origin-left" 
+                />
+              </motion.span>
+            </motion.h1>
 
-            <p className="text-xl md:text-[22px] text-muted-foreground mb-10 leading-[1.7] max-w-md">
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="text-xl md:text-[22px] text-muted-foreground mb-10 leading-[1.7] max-w-md"
+            >
               Start your business in Bahrain with confidence. We handle the paperwork so you can focus on growth.
-            </p>
+            </motion.p>
 
             {/* Feature list - simplified to 3 */}
-            <ul className="flex flex-wrap gap-x-6 gap-y-3 mb-12">
+            <motion.ul 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex flex-wrap gap-x-6 gap-y-3 mb-12"
+            >
               {heroFeatures.map((feature, index) => (
-                <li key={index} className="flex items-center gap-2">
+                <motion.li 
+                  key={index} 
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                  className="flex items-center gap-2"
+                >
                   <CheckCircle2 className="h-5 w-5 text-gold flex-shrink-0" />
                   <span className="text-primary font-medium">{feature}</span>
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
 
             {/* CTAs - clean, spacious */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <Link to="/free-consultation">
-                <Button 
-                  size="lg" 
-                  className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground text-[17px] h-14 px-8 rounded-xl font-semibold"
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  Start Your Business
-                  <ArrowRight className="h-5 w-5 ml-2" />
-                </Button>
+                  <Button 
+                    size="lg" 
+                    className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground text-[17px] h-14 px-8 rounded-xl font-semibold shadow-lg shadow-primary/20"
+                  >
+                    Start Your Business
+                    <ArrowRight className="h-5 w-5 ml-2" />
+                  </Button>
+                </motion.div>
               </Link>
               <Link to="/cost-calculator">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="w-full sm:w-auto border-2 border-primary text-primary h-14 px-8 text-[17px] rounded-xl hover:bg-primary hover:text-primary-foreground font-semibold"
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  Calculate Costs
-                </Button>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="w-full sm:w-auto border-2 border-primary text-primary h-14 px-8 text-[17px] rounded-xl hover:bg-primary hover:text-primary-foreground font-semibold"
+                  >
+                    Calculate Costs
+                  </Button>
+                </motion.div>
               </Link>
-            </div>
+            </motion.div>
 
             {/* Trust line - minimal */}
-            <div className="mt-12 pt-8 border-t border-border">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1 }}
+              className="mt-12 pt-8 border-t border-border"
+            >
               <p className="text-sm text-muted-foreground">
                 Registered with <span className="font-medium text-primary">MOIC</span> • <span className="font-medium text-primary">LMRA</span> • <span className="font-medium text-primary">Bahrain Chamber</span>
               </p>
-            </div>
+            </motion.div>
           </div>
 
           {/* Hero Image - clean, minimal frame */}
-          <div className="hidden lg:block">
+          <motion.div 
+            variants={imageReveal}
+            initial="hidden"
+            animate="visible"
+            className="hidden lg:block"
+          >
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+              {/* Decorative elements */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="absolute -top-6 -right-6 w-24 h-24 bg-gold/10 rounded-full blur-2xl"
+              />
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="absolute -bottom-8 -left-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl"
+              />
+              
+              <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 relative">
                 <img 
                   src={heroImage} 
                   alt="Bahrain Business District" 
                   className="w-full h-[580px] object-cover"
                 />
+                
+                {/* Floating stat badge */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 1.1 }}
+                  className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-lg"
+                >
+                  <p className="text-2xl font-bold text-primary">98%</p>
+                  <p className="text-xs text-muted-foreground">Client Satisfaction</p>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

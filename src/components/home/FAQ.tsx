@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -5,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
@@ -35,15 +37,51 @@ const faqs = [
 ];
 
 export function FAQ() {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section className="py-28 lg:py-36 bg-white relative overflow-hidden">
+    <section ref={ref} className="py-28 lg:py-36 bg-white relative overflow-hidden">
+      {/* Dashed pattern - top fade */}
+      <div 
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+            linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
+          `,
+          backgroundSize: "20px 20px",
+          maskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
+          `,
+          WebkitMaskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
+          `,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in",
+        }}
+      />
+
       <div className="container relative">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-20">
           {/* Content */}
-          <div>
-            <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">
-              FAQs
-            </p>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center">
+                <HelpCircle className="h-5 w-5 text-gold" />
+              </div>
+              <p className="text-sm font-medium text-gold tracking-wide uppercase">
+                FAQs
+              </p>
+            </div>
             <h2 className="text-[44px] md:text-[52px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
               Got Questions?
             </h2>
@@ -52,41 +90,55 @@ export function FAQ() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link 
-                to="/free-consultation" 
-                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-all duration-200"
-              >
-                Ask Our Experts
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link 
-                to="/faqs" 
-                className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-primary hover:text-primary-foreground transition-all duration-200"
-              >
-                View All FAQs
-              </Link>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Link 
+                  to="/free-consultation" 
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-all duration-200"
+                >
+                  Ask Our Experts
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Link 
+                  to="/faqs" 
+                  className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-primary hover:text-primary-foreground transition-all duration-200"
+                >
+                  View All FAQs
+                </Link>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Accordion */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
-                <AccordionItem 
-                  key={index} 
-                  value={`item-${index}`}
-                  className="bg-white rounded-xl border border-border px-6 data-[state=open]:border-gold/40 data-[state=open]:shadow-md transition-all duration-200"
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.4, delay: 0.2 + index * 0.08 }}
                 >
-                  <AccordionTrigger className="text-left font-semibold text-primary hover:text-gold hover:no-underline py-6 gap-4">
-                    <span className="text-left">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-6 leading-[1.8]">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
+                  <AccordionItem 
+                    value={`item-${index}`}
+                    className="bg-white rounded-xl border border-border px-6 data-[state=open]:border-gold/40 data-[state=open]:shadow-md data-[state=open]:border-l-4 data-[state=open]:border-l-gold transition-all duration-300"
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-primary hover:text-gold hover:no-underline py-6 gap-4">
+                      <span className="text-left">{faq.question}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-6 leading-[1.8]">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                </motion.div>
               ))}
             </Accordion>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
