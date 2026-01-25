@@ -217,10 +217,10 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <NavigationMenu className="hidden lg:flex">
-          <NavigationMenuList className="gap-0.5">
+          <NavigationMenuList className="gap-2">
             {megaMenuItems.map((item) => (
               <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger className="!bg-transparent hover:!bg-transparent data-[state=open]:!bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-4 py-2.5 h-auto transition-colors duration-200 tracking-wide">
+                <NavigationMenuTrigger className="!bg-transparent hover:!bg-transparent data-[state=open]:!bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-5 py-3 h-auto transition-colors duration-200 tracking-wide">
                   {item.title}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -309,7 +309,7 @@ export function Header() {
             
             {/* About Dropdown */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="!bg-transparent hover:!bg-transparent data-[state=open]:!bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-4 py-2.5 h-auto transition-colors duration-200 tracking-wide">
+              <NavigationMenuTrigger className="!bg-transparent hover:!bg-transparent data-[state=open]:!bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-5 py-3 h-auto transition-colors duration-200 tracking-wide">
                 {aboutDropdown.title}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
