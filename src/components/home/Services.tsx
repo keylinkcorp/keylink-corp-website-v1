@@ -56,29 +56,38 @@ const services = [
 
 export function Services() {
   return (
-    <section className="section-spacing bg-background">
+    <section className="py-24 lg:py-32 bg-white relative overflow-hidden">
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white">
+        <div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+      </div>
+
       <div className="container">
-        {/* Header - Bizee style centered */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="section-badge">Our Services</span>
-          <h2 className="mb-6">Everything You Need to Start and Grow Your Business</h2>
-          <p className="lead">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-semibold mb-6">
+            Our Services
+          </span>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-6 tracking-tight">
+            Everything You Need to Start and Grow
+          </h2>
+          <p className="text-xl text-muted-foreground leading-relaxed">
             From company formation to ongoing business support, we provide comprehensive 
             solutions for entrepreneurs and businesses in Bahrain.
           </p>
         </div>
 
-        {/* Services Grid - 2x3 layout like Bizee */}
+        {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <Link 
               key={index} 
               to={service.href}
-              className="group card-elevated-hover p-8"
+              className="group bg-white rounded-2xl p-8 border border-border hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1"
             >
               {/* Icon */}
-              <div className="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold/20 transition-colors">
-                <service.icon className="h-8 w-8 text-gold" />
+              <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors duration-300">
+                <service.icon className="h-7 w-7 text-gold" />
               </div>
 
               {/* Title */}
@@ -102,7 +111,7 @@ export function Services() {
               </ul>
 
               {/* Learn More Link */}
-              <div className="link-arrow text-gold">
+              <div className="flex items-center gap-2 text-gold font-semibold group-hover:gap-3 transition-all">
                 Learn More
                 <ArrowRight className="h-4 w-4" />
               </div>
@@ -111,11 +120,14 @@ export function Services() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
+        <div className="text-center mt-20">
           <p className="text-lg text-muted-foreground mb-6">
             Not sure which service you need? Let our experts guide you.
           </p>
-          <Link to="/free-consultation" className="btn-gold">
+          <Link 
+            to="/free-consultation" 
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl hover:bg-primary/90 transition-all duration-200 shadow-lg shadow-primary/20"
+          >
             Get Free Consultation
             <ArrowRight className="h-5 w-5" />
           </Link>
