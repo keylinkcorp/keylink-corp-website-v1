@@ -59,6 +59,39 @@ const faqs = [
     question: "What is the step-by-step company formation process?",
     answer: "The process has three phases: (1) Initial Registration - security approval, name registration, capital deposit, and partner setup; (2) Location & Approvals - business address, sector approvals, notarization, and bank account; (3) Compliance - LMRA registration, visas, and ID cards.",
   },
+  // New SEO-optimized FAQs
+  {
+    question: "What is the difference between SPC and WLL in Bahrain?",
+    answer: "An SPC (Single Person Company) requires only one shareholder with a minimum capital of BHD 50, ideal for solo entrepreneurs. A WLL (Limited Liability Company) requires 2-50 shareholders with BHD 20,000 minimum capital, better suited for partnerships and larger operations. Both allow 100% foreign ownership. WLLs offer more flexibility for adding investors later.",
+  },
+  {
+    question: "Which government ministries are involved in company formation?",
+    answer: "The main authorities are: MOIC (Ministry of Industry and Commerce) for commercial registration and trade licenses, LMRA (Labour Market Regulatory Authority) for work permits and visas, and the SIJILAT system for electronic CR processing. For certain activities, sector-specific approvals from ministries like Health or Finance may be required.",
+  },
+  {
+    question: "Can I convert my company type after registration?",
+    answer: "Yes, company conversion is possible in Bahrain. For example, you can convert an SPC to a WLL when adding partners, or upgrade to a Holding Company. The process involves MOIC approval, amended memorandum of association, and updated capital requirements. We handle the full conversion process, typically completed in 2-3 weeks.",
+  },
+  {
+    question: "What business activities are restricted for foreign ownership?",
+    answer: "Most commercial activities allow 100% foreign ownership. Restricted activities include: real estate brokerage (requires Bahraini partner), certain media activities, and specific professional services like legal practice. We review your intended activities during consultation and advise on the optimal ownership structure.",
+  },
+  {
+    question: "How long is the Commercial Registration (CR) valid?",
+    answer: "The Commercial Registration (CR) is valid for one year from the date of issue. Annual renewal is required before expiry to maintain legal operating status. We offer CR renewal packages starting from BHD 350 and send reminders 60 days before expiry to ensure uninterrupted business operations.",
+  },
+  {
+    question: "What is the Bahrain Golden Visa and how do I qualify?",
+    answer: "The Bahrain Golden Visa is a 10-year residency program for investors and skilled professionals. Qualification criteria include: real estate investment of BHD 200,000+, business investment creating jobs, or exceptional talent in specific fields. As a company owner with qualifying investment, you may be eligible. We assist with Golden Visa applications as an add-on service.",
+  },
+  {
+    question: "Can I operate my Bahrain company remotely from abroad?",
+    answer: "Yes, many of our clients operate their Bahrain companies remotely. You'll need: a registered business address (we offer virtual office solutions), a local corporate bank account, and optionally a PRO service for ongoing government liaison. Remote operation works well for consulting, trading, and digital service companies.",
+  },
+  {
+    question: "What happens if my company formation application is rejected?",
+    answer: "Rejections are rare when working with experienced consultants. Common rejection reasons include: restricted business activities, incomplete documentation, or name conflicts. If rejection occurs, we identify the issue, prepare corrections, and resubmit at no additional charge. Our 100% success rate means we've never had a final rejection.",
+  },
 ];
 
 export function FormationFAQ() {
