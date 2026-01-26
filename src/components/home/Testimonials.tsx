@@ -80,48 +80,59 @@ export function Testimonials() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: 0.1 + index * 0.15 }}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group bg-white rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-xl hover:border-gold/30 transition-all duration-300 relative"
+              className="group relative"
             >
-              {/* Quote icon */}
-              <div className="absolute -top-3 -left-3 w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center">
-                <Quote className="h-4 w-4 text-gold" />
-              </div>
+              {/* Card with gradient background */}
+              <div className="bg-gradient-to-br from-white via-white to-gold/5 rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-xl hover:border-gold/30 transition-all duration-300 relative overflow-hidden h-full">
+                {/* Gold left border accent */}
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gold/30 group-hover:bg-gold transition-colors duration-300" />
 
-              {/* Rating */}
-              <div className="flex items-center gap-1 mb-6">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 + index * 0.1 + i * 0.05 }}
-                  >
-                    <Star className="h-4 w-4 fill-gold text-gold" />
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Quote */}
-              <p className="text-primary leading-[1.8] mb-8">
-                "{testimonial.content}"
-              </p>
-
-              {/* Author */}
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name}
-                    className="w-14 h-14 rounded-full object-cover border-2 border-gold/20"
-                  />
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gold rounded-full flex items-center justify-center">
-                    <BadgeCheck className="h-3 w-3 text-primary" />
-                  </div>
+                {/* Oversized decorative quote */}
+                <div className="absolute -top-4 -left-2 text-[120px] font-serif text-gold/10 leading-none pointer-events-none select-none">
+                  "
                 </div>
-                <div>
-                  <div className="font-semibold text-primary">{testimonial.name}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                  <div className="text-xs text-gold font-medium">{testimonial.company}</div>
+
+                {/* Small quote icon */}
+                <div className="relative z-10 w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-gold/20 transition-colors">
+                  <Quote className="h-4 w-4 text-gold" />
+                </div>
+
+                {/* Rating */}
+                <div className="flex items-center gap-1 mb-6 relative z-10">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                      transition={{ duration: 0.3, delay: 0.3 + index * 0.1 + i * 0.05 }}
+                    >
+                      <Star className="h-4 w-4 fill-gold text-gold" />
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Quote */}
+                <p className="text-primary leading-[1.8] mb-8 relative z-10">
+                  "{testimonial.content}"
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-4 relative z-10">
+                  <div className="relative">
+                    <img 
+                      src={testimonial.image} 
+                      alt={testimonial.name}
+                      className="w-14 h-14 rounded-full object-cover border-2 border-gold/20 group-hover:border-gold/40 transition-colors"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gold rounded-full flex items-center justify-center">
+                      <BadgeCheck className="h-3 w-3 text-primary" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-primary">{testimonial.name}</div>
+                    <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                    <div className="text-xs text-gold font-medium">{testimonial.company}</div>
+                  </div>
                 </div>
               </div>
             </motion.div>
