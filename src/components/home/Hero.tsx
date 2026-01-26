@@ -19,11 +19,11 @@ const heroFeatures = [
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
-      {/* Radial Gradient Blur - Gold tint from top (more visible) */}
-      <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(199,167,99,0.15)_0,rgba(199,167,99,0)_50%,rgba(199,167,99,0)_100%)]" />
+      {/* Radial Gradient Blur - Gold tint from top (bottom layer) */}
+      <div className="absolute inset-0 -z-20 h-full w-full bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(199,167,99,0.15)_0,rgba(199,167,99,0)_50%,rgba(199,167,99,0)_100%)]" />
       
-      {/* Dot Grid Pattern - Bold 2px dots, darker gray */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#9ca3af_2px,transparent_2px)] [background-size:16px_16px] [mask-image:linear-gradient(to_bottom,#000_0%,#000_70%,transparent_95%)]" />
+      {/* Dot Grid Pattern - Bold 2px dots, darker gray (above gradient) */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#9ca3af_2px,transparent_2px)] [background-size:16px_16px] [mask-image:linear-gradient(to_bottom,#000_0%,#000_70%,transparent_95%)]" />
 
       <div className="container py-32 lg:py-40">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
