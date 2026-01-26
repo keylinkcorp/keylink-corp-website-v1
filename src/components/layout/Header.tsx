@@ -385,106 +385,143 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Backdrop Overlay */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-gray-100 bg-white overflow-hidden">
-          <nav className="container py-4 max-h-[75vh] overflow-y-auto">
-            {megaMenuItems.map((item) => (
-              <div key={item.title} className="border-b border-gray-100 last:border-0">
-                <button
-                  className="flex w-full items-center justify-between py-4 text-left font-medium text-gray-900 hover:text-navy transition-colors"
-                  onClick={() => setOpenSubmenu(openSubmenu === item.title ? null : item.title)}
-                >
-                  <span className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-gold/10 flex items-center justify-center">
-                      <item.icon className="h-5 w-5 text-gold" />
-                    </div>
-                    <span className="tracking-wide">{item.title}</span>
-                  </span>
-                  <ChevronDown className={cn(
-                    "h-4 w-4 text-gray-400 transition-transform duration-200",
-                    openSubmenu === item.title && "rotate-180"
-                  )} />
-                </button>
-                {openSubmenu === item.title && (
-                  <div className="pb-4 space-y-4">
-                    {item.columns.map((column) => (
-                      <div key={column.heading} className="pl-12">
-                        <h4 className="text-xs font-semibold uppercase tracking-widest text-gold mb-2 flex items-center gap-2">
-                          <span className="w-1 h-1 rounded-full bg-gold"></span>
-                          {column.heading}
-                        </h4>
-                        {column.links.map((link) => (
-                          <Link
-                            key={link.title}
-                            to={link.href}
-                            className="block py-2.5 text-sm text-gray-600 hover:text-navy transition-colors"
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            {link.title}
-                          </Link>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            
-            {/* About Dropdown in mobile */}
-            <div className="border-b border-gray-100">
+        <div 
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden transition-opacity duration-300"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Navigation */}
+      <div className={cn(
+        "lg:hidden border-t border-gray-100 bg-white overflow-hidden relative z-50 flex flex-col transition-all duration-300 ease-out",
+        mobileMenuOpen ? "max-h-[85vh] opacity-100" : "max-h-0 opacity-0"
+      )}>
+        {/* Scrollable content area */}
+        <nav className="container py-4 overflow-y-auto flex-1">
+          {megaMenuItems.map((item, index) => (
+            <div 
+              key={item.title} 
+              className={cn(
+                "border-b border-gray-100 last:border-0 transition-all duration-200",
+                openSubmenu === item.title && "border-l-2 border-l-gold bg-gray-50/50 pl-2"
+              )}
+              style={{
+                animation: mobileMenuOpen ? `fadeSlideIn 0.3s ease-out ${index * 0.05}s both` : 'none'
+              }}
+            >
               <button
-                className="flex w-full items-center justify-between py-4 text-left font-medium text-gray-900 hover:text-navy transition-colors"
-                onClick={() => setOpenSubmenu(openSubmenu === "about" ? null : "about")}
+                className="flex w-full items-center justify-between py-5 text-left font-medium text-gray-900 hover:text-navy transition-colors"
+                onClick={() => setOpenSubmenu(openSubmenu === item.title ? null : item.title)}
               >
-                <span className="tracking-wide">{aboutDropdown.title}</span>
+                <span className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-gold/10 flex items-center justify-center">
+                    <item.icon className="h-5 w-5 text-gold" />
+                  </div>
+                  <span className="tracking-wide">{item.title}</span>
+                </span>
                 <ChevronDown className={cn(
                   "h-4 w-4 text-gray-400 transition-transform duration-200",
-                  openSubmenu === "about" && "rotate-180"
+                  openSubmenu === item.title && "rotate-180 text-gold"
                 )} />
               </button>
-              {openSubmenu === "about" && (
-                <div className="pb-4 pl-4">
-                  {aboutDropdown.sections.map((section, sIndex) => (
-                    <div key={sIndex} className={sIndex > 0 ? "mt-3 pt-3 border-t border-gray-100" : ""}>
-                      {section.links.map((link) => (
+              <div className={cn(
+                "overflow-hidden transition-all duration-300 ease-out",
+                openSubmenu === item.title ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+              )}>
+                <div className="pb-4 space-y-4">
+                  {item.columns.map((column) => (
+                    <div key={column.heading} className="pl-12">
+                      <h4 className="text-xs font-semibold uppercase tracking-widest text-gold mb-2 flex items-center gap-2">
+                        <span className="w-1 h-1 rounded-full bg-gold"></span>
+                        {column.heading}
+                      </h4>
+                      {column.links.map((link) => (
                         <Link
                           key={link.title}
                           to={link.href}
-                          className="flex items-center gap-3 py-2.5 text-sm text-gray-600 hover:text-navy transition-colors"
+                          className="block py-3 text-sm text-gray-600 hover:text-navy transition-colors"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          <span className="text-base">{link.icon}</span>
                           {link.title}
                         </Link>
                       ))}
                     </div>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
-            
-            {/* Mobile CTA */}
-            <div className="pt-6 pb-2">
-              <Link to="/free-consultation" onClick={() => setMobileMenuOpen(false)}>
-                <Button className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold py-6 rounded-xl shadow-md">
-                  Free Consultation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              
-              {/* Quick contact */}
-              <a 
-                href="tel:+97317000000" 
-                className="flex items-center justify-center gap-2 mt-4 py-3 text-navy font-medium"
-              >
-                <Phone className="h-4 w-4" />
-                <span>+973 1700 0000</span>
-              </a>
+          ))}
+          
+          {/* About Dropdown in mobile */}
+          <div 
+            className={cn(
+              "border-b border-gray-100 transition-all duration-200",
+              openSubmenu === "about" && "border-l-2 border-l-gold bg-gray-50/50 pl-2"
+            )}
+            style={{
+              animation: mobileMenuOpen ? `fadeSlideIn 0.3s ease-out ${megaMenuItems.length * 0.05}s both` : 'none'
+            }}
+          >
+            <button
+              className="flex w-full items-center justify-between py-5 text-left font-medium text-gray-900 hover:text-navy transition-colors"
+              onClick={() => setOpenSubmenu(openSubmenu === "about" ? null : "about")}
+            >
+              <span className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gold/10 flex items-center justify-center">
+                  <Users className="h-5 w-5 text-gold" />
+                </div>
+                <span className="tracking-wide">{aboutDropdown.title}</span>
+              </span>
+              <ChevronDown className={cn(
+                "h-4 w-4 text-gray-400 transition-transform duration-200",
+                openSubmenu === "about" && "rotate-180 text-gold"
+              )} />
+            </button>
+            <div className={cn(
+              "overflow-hidden transition-all duration-300 ease-out",
+              openSubmenu === "about" ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
+            )}>
+              <div className="pb-4 pl-12">
+                {aboutDropdown.sections.map((section, sIndex) => (
+                  <div key={sIndex} className={sIndex > 0 ? "mt-3 pt-3 border-t border-gray-100" : ""}>
+                    {section.links.map((link) => (
+                      <Link
+                        key={link.title}
+                        to={link.href}
+                        className="flex items-center gap-3 py-3 text-sm text-gray-600 hover:text-navy transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <span className="text-base">{link.icon}</span>
+                        {link.title}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          </nav>
+          </div>
+        </nav>
+        
+        {/* Sticky CTA at bottom */}
+        <div className="container py-4 border-t border-gray-100 bg-white">
+          <Link to="/free-consultation" onClick={() => setMobileMenuOpen(false)}>
+            <Button className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold py-6 rounded-xl shadow-md">
+              Free Consultation
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+          
+          <a 
+            href="tel:+97317000000" 
+            className="flex items-center justify-center gap-2 mt-3 py-2 text-navy font-medium"
+          >
+            <Phone className="h-4 w-4" />
+            <span>+973 1700 0000</span>
+          </a>
         </div>
-      )}
+      </div>
     </header>
   );
 }

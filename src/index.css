@@ -236,6 +236,18 @@
     }
   }
 
+  /* Mobile menu staggered animation */
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
   .stagger-1 { animation-delay: 100ms; }
   .stagger-2 { animation-delay: 200ms; }
   .stagger-3 { animation-delay: 300ms; }
