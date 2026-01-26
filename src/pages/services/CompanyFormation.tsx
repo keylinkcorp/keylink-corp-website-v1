@@ -108,9 +108,9 @@ export default function CompanyFormation() {
         <FormationProcessDetailed />
         <PricingPackages />
         <FormationCostCalculator />
-        <BankAccountOpening />
         <RequirementsChecklist />
         <WhyChooseKeylink />
+        <BankAccountOpening />
         <FormationTestimonials />
         <RelatedServices />
         <FormationFAQ />
