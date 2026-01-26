@@ -101,17 +101,25 @@ const StepCard = ({ icon: Icon, title, description, index }: StepCardProps) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay: index * 0.1 }}
-    className="group flex items-start gap-4 p-4 rounded-xl bg-white border border-border/50 hover:border-accent/30 hover:shadow-md transition-all duration-300"
+    className="group flex items-start gap-4 p-5 rounded-xl bg-white border border-border/50 hover:border-accent/30 hover:shadow-lg transition-all duration-300 relative overflow-hidden"
   >
+    {/* Step number badge */}
+    <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center">
+      <span className="text-xs font-bold text-primary">{index + 1}</span>
+    </div>
+
+    {/* Connecting line indicator */}
+    <div className="absolute left-[38px] top-[68px] bottom-0 w-0.5 bg-gradient-to-b from-accent/30 to-transparent group-last:hidden" />
+
     <motion.div 
-      className="flex-shrink-0 w-12 h-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-accent/10 transition-colors"
+      className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center group-hover:from-accent/30 group-hover:to-accent/10 transition-colors ring-2 ring-accent/10 group-hover:ring-accent/30"
       whileHover={{ scale: 1.1, rotate: 5 }}
       transition={{ type: "spring", stiffness: 400 }}
     >
-      <Icon className="w-6 h-6 text-primary" />
+      <Icon className="w-6 h-6 text-accent" />
     </motion.div>
-    <div className="flex-1 min-w-0">
-      <h4 className="font-semibold text-foreground text-base mb-1">{title}</h4>
+    <div className="flex-1 min-w-0 pt-1">
+      <h4 className="font-semibold text-foreground text-base mb-1 group-hover:text-accent transition-colors">{title}</h4>
       <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
     </div>
   </motion.div>
