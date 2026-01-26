@@ -12,8 +12,8 @@ import { staggerContainer, staggerItem } from "@/lib/animations";
 
 const faqs = [
   {
-    question: "What exactly is company formation and do I need it?",
-    answer: "Company formation is the legal process of registering a business entity with Bahrain's Ministry of Industry and Commerce (MOIC). It's required for any business operating in Bahrain, providing you with a Commercial Registration (CR), trade license, and the legal ability to open bank accounts, hire employees, and sign contracts. Even online businesses serving Bahraini customers may require formal registration.",
+    question: "What is company formation in Bahrain and why do I need it?",
+    answer: "Company formation is the legal process of registering a business entity with Bahrain's Ministry of Industry and Commerce (MOIC). It includes obtaining a Commercial Registration (CR) certificate, trade license, and establishing your company's legal identity under Bahrain's Commercial Companies Law (2001, amended 2017). Key benefits of forming in Bahrain include: 0% corporate tax on most business activities, 100% foreign ownership permitted in most sectors since 2017, access to 22+ international trade agreements, no currency restrictions with free capital movement, and a strategic GCC gateway location. Registration is required for any business operating in Bahrain to legally hire employees, open bank accounts, sign contracts, and access the GCC market.",
   },
   {
     question: "How long does it take to form a company in Bahrain?",
