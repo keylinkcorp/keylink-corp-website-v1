@@ -18,7 +18,7 @@ const heroFeatures = [
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Radial Gradient Blur - Gold tint from top (bottom layer) */}
       <div className="absolute inset-0 -z-20 h-full w-full bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(199,167,99,0.15)_0,rgba(199,167,99,0)_50%,rgba(199,167,99,0)_100%)]" />
       
