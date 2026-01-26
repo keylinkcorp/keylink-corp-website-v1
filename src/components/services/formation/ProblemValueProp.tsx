@@ -6,28 +6,28 @@ import { staggerContainer, staggerItem } from "@/lib/animations";
 const benefits = [
   {
     icon: ShieldCheck,
-    title: "Simplified Process",
-    description: "We handle all paperwork, government submissions, and follow-ups. No bureaucratic headaches.",
+    title: "100% Foreign Ownership",
+    description: "Register your WLL, SPC, or branch office with complete foreign ownership. No local sponsor required for most business activities.",
   },
   {
     icon: Zap,
-    title: "3-7 Day Processing",
-    description: "Fastest company formation in Bahrain. Most competitors take 2-6 weeks.",
+    title: "3-7 Day Company Registration",
+    description: "Fastest company formation in Bahrain. From MOIC approval to commercial license in days, not weeks.",
   },
   {
     icon: Scale,
-    title: "Full Compliance",
-    description: "100% compliant documentation and legal structuring. No rejected applications.",
+    title: "Full MOIC & LMRA Compliance",
+    description: "100% compliant documentation and legal structuring. All government registrations handled seamlessly.",
   },
   {
     icon: Wallet,
-    title: "Transparent Pricing",
-    description: "No hidden fees. Know your exact costs upfront. Starting from BHD 750.",
+    title: "Transparent Pricing from BHD 750",
+    description: "No hidden fees. Complete business setup costs upfront including CR, trade license, and bank account support.",
   },
   {
     icon: HeadphonesIcon,
-    title: "Dedicated Support",
-    description: "Personal account manager from initial consultation to first employee hire.",
+    title: "Dedicated Formation Support",
+    description: "Personal account manager from initial consultation through visa processing and first employee hire.",
   },
 ];
 
@@ -52,10 +52,10 @@ export function ProblemValueProp() {
             Why Choose Us
           </p>
           <h2 className="text-[44px] md:text-[52px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
-            We Handle Everything — You Focus on Business
+            Bahrain Business Setup Made Simple
           </h2>
           <p className="text-lg text-muted-foreground leading-[1.8]">
-            Starting a business should be exciting, not exhausting. Our expert team manages every step of your company formation journey.
+            Starting a business in Bahrain should be exciting, not exhausting. Our expert team handles all MOIC paperwork, commercial registration, and LMRA compliance—so you can focus on growing your business.
           </p>
         </motion.div>
 

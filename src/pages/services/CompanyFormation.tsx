@@ -18,14 +18,62 @@ import { companyFormationSchema } from "@/lib/schema/companyFormationSchema";
 
 export default function CompanyFormation() {
   useEffect(() => {
-    // Set page title and meta
-    document.title = "Company Formation in Bahrain - Start in 3-7 Days | From BHD 750";
+    // Set page title - Primary keyword at start
+    document.title = "Company Formation in Bahrain - Register Business in 3-7 Days | From BHD 750 | Keylink Corp";
     
-    // Set meta description
+    // Set meta description with CTA and secondary keywords
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute("content", "Register your company in Bahrain in 3-7 days. 100% foreign ownership, from BHD 750. Expert support for SPC, WLL & Branch formation. Free consultation.");
+      metaDescription.setAttribute("content", "Start your business in Bahrain with 100% foreign ownership. Register WLL, SPC, or branch office in 3-7 days from BHD 750. Expert MOIC registration, commercial licensing & LMRA support. Free consultation.");
     }
+
+    // Set canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", "https://keylinkcorp.com/services/company-formation");
+
+    // Set Open Graph tags
+    const ogTags = [
+      { property: "og:title", content: "Company Formation in Bahrain - 100% Foreign Ownership | Keylink Corp" },
+      { property: "og:description", content: "Register your company in Bahrain in 3-7 days. WLL, SPC & branch office formation from BHD 750. Expert business setup services with full MOIC and LMRA compliance." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://keylinkcorp.com/services/company-formation" },
+      { property: "og:image", content: "https://keylinkcorp.com/og-company-formation.jpg" },
+      { property: "og:site_name", content: "Keylink Corp" },
+      { property: "og:locale", content: "en_US" },
+    ];
+
+    ogTags.forEach(({ property, content }) => {
+      let meta = document.querySelector(`meta[property="${property}"]`);
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute("property", property);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute("content", content);
+    });
+
+    // Set Twitter Card tags
+    const twitterTags = [
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Company Formation in Bahrain - Start in 3-7 Days" },
+      { name: "twitter:description", content: "Register WLL, SPC, or branch office with 100% foreign ownership from BHD 750. Expert Bahrain business setup services." },
+      { name: "twitter:image", content: "https://keylinkcorp.com/og-company-formation.jpg" },
+    ];
+
+    twitterTags.forEach(({ name, content }) => {
+      let meta = document.querySelector(`meta[name="${name}"]`);
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute("name", name);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute("content", content);
+    });
 
     // Add JSON-LD schema
     const existingSchema = document.querySelector('script[data-schema="company-formation"]');
