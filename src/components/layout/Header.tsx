@@ -273,33 +273,37 @@ export function Header() {
                         </div>
                       )}
                       
-                      {/* CTA Panel */}
-                      <div className="col-span-1 relative overflow-hidden bg-navy p-8 flex flex-col justify-between">
-                        {/* Pattern overlay */}
-                        <div className="absolute inset-0 opacity-5">
-                          <div className="absolute inset-0" style={{
-                            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-                            backgroundSize: '24px 24px'
-                          }}></div>
+                      {/* CTA Panel with Image */}
+                      <div className="col-span-1 relative overflow-hidden bg-navy rounded-xl flex flex-col">
+                        {/* Image at top of panel */}
+                        <div className="relative h-28 overflow-hidden flex-shrink-0">
+                          <img 
+                            src="/images/workspace-office.jpg" 
+                            alt="Business consultation" 
+                            className="w-full h-full object-cover opacity-70"
+                          />
+                          {/* Gradient overlay for smooth transition to navy */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent" />
                         </div>
                         
-                        <div className="relative z-10">
+                        {/* Content below image */}
+                        <div className="p-6 flex flex-col flex-1 relative z-10">
                           <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center mb-4">
                             <ArrowRight className="h-5 w-5 text-gold" />
                           </div>
                           <h4 className="text-lg font-semibold text-white mb-2">
                             {item.cta.title}
                           </h4>
-                          <p className="text-sm text-white/70 leading-relaxed">
+                          <p className="text-sm text-white/70 leading-relaxed flex-1">
                             {item.cta.description}
                           </p>
+                          <Link to={item.cta.href} className="mt-4">
+                            <Button className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold">
+                              {item.cta.buttonText}
+                              <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                          </Link>
                         </div>
-                        <Link to={item.cta.href} className="relative z-10">
-                          <Button className="w-full mt-6 bg-gold hover:bg-gold-dark text-navy font-semibold">
-                            {item.cta.buttonText}
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Button>
-                        </Link>
                       </div>
                     </div>
                   </div>
