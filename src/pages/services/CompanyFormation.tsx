@@ -110,8 +110,8 @@ export default function CompanyFormation() {
         <RequirementsChecklist />
         <WhyChooseKeylink />
         <FormationTestimonials />
-        <FormationFAQ />
         <RelatedServices />
+        <FormationFAQ />
         <FormationCTA />
       </Layout>
       
