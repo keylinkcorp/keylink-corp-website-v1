@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { FormationHero } from "@/components/services/formation/FormationHero";
 import { FormationTrustBar } from "@/components/services/formation/FormationTrustBar";
@@ -13,25 +14,40 @@ import { RelatedServices } from "@/components/services/formation/RelatedServices
 import { FormationCTA } from "@/components/services/formation/FormationCTA";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { BackToTop } from "@/components/BackToTop";
-import { Helmet } from "react-helmet-async";
 import { companyFormationSchema } from "@/lib/schema/companyFormationSchema";
 
 export default function CompanyFormation() {
+  useEffect(() => {
+    // Set page title and meta
+    document.title = "Company Formation in Bahrain - Start in 3-7 Days | From BHD 750";
+    
+    // Set meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Register your company in Bahrain in 3-7 days. 100% foreign ownership, from BHD 750. Expert support for SPC, WLL & Branch formation. Free consultation.");
+    }
+
+    // Add JSON-LD schema
+    const existingSchema = document.querySelector('script[data-schema="company-formation"]');
+    if (!existingSchema) {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-schema", "company-formation");
+      script.textContent = JSON.stringify(companyFormationSchema);
+      document.head.appendChild(script);
+    }
+
+    // Cleanup
+    return () => {
+      const schemaScript = document.querySelector('script[data-schema="company-formation"]');
+      if (schemaScript) {
+        schemaScript.remove();
+      }
+    };
+  }, []);
+
   return (
     <>
-      <Helmet>
-        <title>Company Formation in Bahrain - Start in 3-7 Days | From BHD 750</title>
-        <meta 
-          name="description" 
-          content="Register your company in Bahrain in 3-7 days. 100% foreign ownership, from BHD 750. Expert support for SPC, WLL & Branch formation. Free consultation." 
-        />
-        <meta name="keywords" content="company formation bahrain, bahrain company registration, start business bahrain, wll formation bahrain, spc registration bahrain" />
-        <link rel="canonical" href="https://keylinkcorp.com/services/company-formation" />
-        <script type="application/ld+json">
-          {JSON.stringify(companyFormationSchema)}
-        </script>
-      </Helmet>
-      
       <Layout>
         <FormationHero />
         <FormationTrustBar />
