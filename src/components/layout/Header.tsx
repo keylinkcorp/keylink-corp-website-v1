@@ -226,11 +226,12 @@ export function Header() {
                 <NavigationMenuContent>
                   <div className="w-screen max-w-5xl overflow-hidden rounded-2xl bg-white shadow-xl border border-gray-100">
                     <div className="grid grid-cols-4 gap-0">
-                      {/* Menu Columns */}
-                      {/* Navigation Columns - Always 2 columns in grid */}
+                      {/* Navigation Columns */}
                       <div className={cn(
-                        "grid gap-6 p-8 col-span-2",
-                        item.columns.length === 1 ? "grid-cols-1" : "grid-cols-2"
+                        "grid gap-6 p-8",
+                        item.columns.length === 1 ? "col-span-2 grid-cols-1" : "col-span-3",
+                        item.columns.length === 2 && "grid-cols-2",
+                        item.columns.length >= 3 && "grid-cols-3"
                       )}>
                         {item.columns.map((column) => (
                           <div key={column.heading}>
@@ -261,8 +262,11 @@ export function Header() {
                         ))}
                       </div>
                       
-                      {/* CTA Panel - Expanded to 2 columns */}
-                      <div className="col-span-2 relative overflow-hidden bg-navy rounded-xl">
+                      {/* CTA Panel - 2 cols for single-column menus, 1 col for others */}
+                      <div className={cn(
+                        "relative overflow-hidden bg-navy rounded-xl",
+                        item.columns.length === 1 ? "col-span-2" : "col-span-1"
+                      )}>
                         {/* Subtle pattern overlay */}
                         <div className="absolute inset-0 opacity-5">
                           <div className="absolute inset-0" style={{
@@ -272,12 +276,21 @@ export function Header() {
                         </div>
                         
                         {/* Content */}
-                        <div className="p-8 flex flex-col justify-between h-full relative z-10">
+                        <div className={cn(
+                          "flex flex-col justify-between h-full relative z-10",
+                          item.columns.length === 1 ? "p-8" : "p-6"
+                        )}>
                           <div>
-                            <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center mb-5">
-                              <ArrowRight className="h-6 w-6 text-gold" />
+                            <div className={cn(
+                              "rounded-xl bg-gold/20 flex items-center justify-center",
+                              item.columns.length === 1 ? "w-12 h-12 mb-5" : "w-10 h-10 mb-4"
+                            )}>
+                              <ArrowRight className={cn("text-gold", item.columns.length === 1 ? "h-6 w-6" : "h-5 w-5")} />
                             </div>
-                            <h4 className="text-xl font-semibold text-white mb-3">
+                            <h4 className={cn(
+                              "font-semibold text-white",
+                              item.columns.length === 1 ? "text-xl mb-3" : "text-lg mb-2"
+                            )}>
                               {item.cta.title}
                             </h4>
                             <p className="text-sm text-white/70 leading-relaxed max-w-sm">
@@ -285,7 +298,10 @@ export function Header() {
                             </p>
                           </div>
                           <Link to={item.cta.href} className="mt-6">
-                            <Button className="bg-gold hover:bg-gold-dark text-navy font-semibold px-8">
+                            <Button className={cn(
+                              "bg-gold hover:bg-gold-dark text-navy font-semibold",
+                              item.columns.length === 1 ? "px-8" : "w-full"
+                            )}>
                               {item.cta.buttonText}
                               <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
