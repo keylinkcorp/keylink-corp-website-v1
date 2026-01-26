@@ -2,11 +2,17 @@ import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { FormationHero } from "@/components/services/formation/FormationHero";
 import { FormationTrustBar } from "@/components/services/formation/FormationTrustBar";
+import { WhatIsCompanyFormation } from "@/components/services/formation/WhatIsCompanyFormation";
 import { ProblemValueProp } from "@/components/services/formation/ProblemValueProp";
 import { CompanyTypesComparison } from "@/components/services/formation/CompanyTypesComparison";
+import { GovernmentFeesBreakdown } from "@/components/services/formation/GovernmentFeesBreakdown";
 import { FormationProcessDetailed } from "@/components/services/formation/FormationProcessDetailed";
+import { MinistryAuthorityDetails } from "@/components/services/formation/MinistryAuthorityDetails";
 import { PricingPackages } from "@/components/services/formation/PricingPackages";
+import { BankAccountOpening } from "@/components/services/formation/BankAccountOpening";
+import { FormationCostCalculator } from "@/components/services/formation/FormationCostCalculator";
 import { RequirementsChecklist } from "@/components/services/formation/RequirementsChecklist";
+import { CaseStudySuccess } from "@/components/services/formation/CaseStudySuccess";
 import { WhyChooseKeylink } from "@/components/services/formation/WhyChooseKeylink";
 import { FormationTestimonials } from "@/components/services/formation/FormationTestimonials";
 import { FormationFAQ } from "@/components/services/formation/FormationFAQ";
@@ -97,17 +103,41 @@ export default function CompanyFormation() {
   return (
     <>
       <Layout>
+        {/* 1. Hero */}
         <FormationHero />
+        {/* 2. Trust Bar */}
         <FormationTrustBar />
+        {/* 3. What Is Company Formation (NEW) */}
+        <WhatIsCompanyFormation />
+        {/* 4. Problem/Value Prop */}
         <ProblemValueProp />
+        {/* 5. Company Types Comparison */}
         <CompanyTypesComparison />
+        {/* 6. Government Fees Breakdown (NEW) */}
+        <GovernmentFeesBreakdown />
+        {/* 7. Formation Process Detailed */}
         <FormationProcessDetailed />
+        {/* 8. Ministry Authority Details (NEW) */}
+        <MinistryAuthorityDetails />
+        {/* 9. Pricing Packages */}
         <PricingPackages />
+        {/* 10. Bank Account Opening (NEW) */}
+        <BankAccountOpening />
+        {/* 11. Cost Calculator (NEW) */}
+        <FormationCostCalculator />
+        {/* 12. Requirements Checklist */}
         <RequirementsChecklist />
+        {/* 13. Case Study Success (NEW) */}
+        <CaseStudySuccess />
+        {/* 14. Why Choose Keylink */}
         <WhyChooseKeylink />
+        {/* 15. Testimonials */}
         <FormationTestimonials />
+        {/* 16. FAQ (Updated with 8 new questions) */}
         <FormationFAQ />
+        {/* 17. Related Services */}
         <RelatedServices />
+        {/* 18. CTA */}
         <FormationCTA />
       </Layout>
       
