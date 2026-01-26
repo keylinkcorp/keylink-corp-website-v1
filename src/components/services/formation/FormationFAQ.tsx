@@ -12,6 +12,10 @@ import { staggerContainer, staggerItem } from "@/lib/animations";
 
 const faqs = [
   {
+    question: "What exactly is company formation and do I need it?",
+    answer: "Company formation is the legal process of registering a business entity with Bahrain's Ministry of Industry and Commerce (MOIC). It's required for any business operating in Bahrain, providing you with a Commercial Registration (CR), trade license, and the legal ability to open bank accounts, hire employees, and sign contracts. Even online businesses serving Bahraini customers may require formal registration.",
+  },
+  {
     question: "How long does it take to form a company in Bahrain?",
     answer: "With Keylink Corp, company formation takes 3-7 business days. This is significantly faster than the industry average of 2-6 weeks. Our streamlined process and established relationships with government authorities enable rapid processing.",
   },
