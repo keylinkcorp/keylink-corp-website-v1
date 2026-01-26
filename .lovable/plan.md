@@ -1,108 +1,110 @@
 
 
-# Section Restructure: Company Formation Page
+# Remove WhatIsCompanyFormation Section & Add as FAQ
 
 ## Overview
 
-Reorganizing the Company Formation page sections to follow a new conversion-optimized flow that leads with the cost calculator and social proof.
+Removing the standalone "What Is Company Formation in Bahrain?" section and consolidating its key content as an enhanced FAQ entry in the Frequently Asked Questions section.
 
 ---
 
-## Current vs. New Section Order
+## Changes Summary
 
-| # | Current Order | New Order (Requested) |
-|---|---------------|----------------------|
-| 1 | FormationHero | FormationHero |
-| 2 | FormationTrustBar | FormationTrustBar (kept after hero) |
-| 3 | WhatIsCompanyFormation | **FormationCostCalculator** |
-| 4 | ProblemValueProp | **WhyChooseKeylink** |
-| 5 | CompanyTypesComparison | **FormationProcessDetailed** |
-| 6 | FormationProcessDetailed | **RequirementsChecklist** |
-| 7 | PricingPackages | **PricingPackages** |
-| 8 | FormationCostCalculator | **BankAccountOpening** |
-| 9 | RequirementsChecklist | **WhatIsCompanyFormation** |
-| 10 | WhyChooseKeylink | **FormationTestimonials** |
-| 11 | BankAccountOpening | **RelatedServices** |
-| 12 | FormationTestimonials | **FormationFAQ** |
-| 13 | RelatedServices | FormationCTA (kept at end) |
-| 14 | FormationFAQ | — |
-| 15 | FormationCTA | — |
+| Action | File | Description |
+|--------|------|-------------|
+| Remove import & JSX | `CompanyFormation.tsx` | Remove WhatIsCompanyFormation component |
+| Enhance FAQ | `FormationFAQ.tsx` | Add comprehensive "What is company formation" entry as first FAQ |
+| Delete file | `WhatIsCompanyFormation.tsx` | Remove unused component file |
 
 ---
 
-## Sections Not Mentioned
+## New FAQ Entry
 
-The following sections were not included in your requested order. They will be **removed** from the page:
-
-- **ProblemValueProp** - "The Problem with DIY Formation" section
-- **CompanyTypesComparison** - Company types comparison table (WLL, SPC, Branch, Holding)
-
-If you want to keep these sections, let me know where to place them.
-
----
-
-## New Page Flow
+The first FAQ will be updated to include richer content from the removed section:
 
 ```text
-1.  FormationHero              — Hero with headline and CTA
-2.  FormationTrustBar          — Trust badges (500+ companies, etc.)
-3.  FormationCostCalculator    — Interactive cost calculator (lead capture)
-4.  WhyChooseKeylink           — Why 500+ Businesses Choose Keylink
-5.  FormationProcessDetailed   — Your Complete Formation Journey (12 steps)
-6.  RequirementsChecklist      — What You'll Need
-7.  PricingPackages            — Transparent Pricing — No Hidden Fees
-8.  BankAccountOpening         — Open Your Corporate Bank Account
-9.  WhatIsCompanyFormation     — What Is Company Formation in Bahrain?
-10. FormationTestimonials      — What Our Clients Say
-11. RelatedServices            — Related Services
-12. FormationFAQ               — Frequently Asked Questions
-13. FormationCTA               — Final call-to-action
+Q: What is company formation in Bahrain and why do I need it?
+
+A: Company formation is the legal process of registering a business entity 
+with Bahrain's Ministry of Industry and Commerce (MOIC). It includes 
+obtaining a Commercial Registration (CR) certificate, trade license, and 
+establishing your company's legal identity under Bahrain's Commercial 
+Companies Law (2001, amended 2017). 
+
+Key benefits include: 0% corporate tax on most activities, 100% foreign 
+ownership permitted since 2017, access to 22+ free trade agreements, 
+and no currency restrictions. Formation is required for any business 
+operating in Bahrain to legally hire employees, open bank accounts, 
+and sign contracts.
 ```
 
 ---
 
-## Technical Changes
+## Technical Implementation
 
-### File to Modify
-**`src/pages/services/CompanyFormation.tsx`**
+### Step 1: Update FormationFAQ.tsx
 
-### Changes
-1. Reorder component imports (for clarity)
-2. Remove `ProblemValueProp` and `CompanyTypesComparison` components
-3. Reorder JSX components to match new flow
-
----
-
-## New Component Order in Code
+Replace the existing first FAQ entry with an enhanced version that captures the essence of the removed section:
 
 ```tsx
-<Layout>
-  <FormationHero />
-  <FormationTrustBar />
-  <FormationCostCalculator />
-  <WhyChooseKeylink />
-  <FormationProcessDetailed />
-  <RequirementsChecklist />
-  <PricingPackages />
-  <BankAccountOpening />
-  <WhatIsCompanyFormation />
-  <FormationTestimonials />
-  <RelatedServices />
-  <FormationFAQ />
-  <FormationCTA />
-</Layout>
+{
+  question: "What is company formation in Bahrain and why do I need it?",
+  answer: "Company formation is the legal process of registering a business entity with Bahrain's Ministry of Industry and Commerce (MOIC). It includes obtaining a Commercial Registration (CR) certificate, trade license, and establishing your company's legal identity under Bahrain's Commercial Companies Law (2001, amended 2017). Key benefits of forming in Bahrain include: 0% corporate tax on most business activities, 100% foreign ownership permitted in most sectors since 2017, access to 22+ international trade agreements, no currency restrictions with free capital movement, and a strategic GCC gateway location. Registration is required for any business operating in Bahrain to legally hire employees, open bank accounts, sign contracts, and access the GCC market.",
+}
+```
+
+### Step 2: Update CompanyFormation.tsx
+
+Remove the WhatIsCompanyFormation import and component:
+
+**Before:**
+```tsx
+import { WhatIsCompanyFormation } from "@/components/services/formation/WhatIsCompanyFormation";
+...
+<BankAccountOpening />
+<WhatIsCompanyFormation />  // Remove this
+<FormationTestimonials />
+```
+
+**After:**
+```tsx
+// Remove import line
+...
+<BankAccountOpening />
+<FormationTestimonials />
+```
+
+### Step 3: Delete Component File
+
+Remove `src/components/services/formation/WhatIsCompanyFormation.tsx` (no longer needed).
+
+---
+
+## Updated Page Flow
+
+```text
+1.  FormationHero
+2.  FormationTrustBar
+3.  FormationCostCalculator
+4.  WhyChooseKeylink
+5.  FormationProcessDetailed
+6.  RequirementsChecklist
+7.  PricingPackages
+8.  BankAccountOpening
+9.  FormationTestimonials      (moved up)
+10. RelatedServices
+11. FormationFAQ               (now contains "What is..." as first entry)
+12. FormationCTA
 ```
 
 ---
 
-## Rationale for New Flow
+## Benefits
 
-| Position | Section | Purpose |
-|----------|---------|---------|
-| Early | Cost Calculator | Engage visitors immediately with interactive tool |
-| Early | Why Choose Us | Build trust with social proof |
-| Middle | Process + Requirements | Educate on what's involved |
-| Middle | Pricing + Banking | Handle objections, show transparency |
-| Late | What Is Formation | SEO content for informational queries |
-| Late | Testimonials + FAQ | Final trust-building before CTA |
+| Aspect | Impact |
+|--------|--------|
+| Page length | Reduced by ~200 lines, faster load |
+| SEO | FAQ entry with enhanced answer still targets "what is company formation" query |
+| User experience | Less scrolling, key info in scannable FAQ format |
+| Maintenance | One less component to maintain |
 
