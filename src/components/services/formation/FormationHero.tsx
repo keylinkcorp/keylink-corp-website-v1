@@ -64,7 +64,7 @@ export function FormationHero() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="text-xl md:text-[22px] text-muted-foreground mb-10 leading-[1.7] max-w-md"
             >
-              100% Foreign Ownership. From BHD 750. Complete formation support with no hidden fees.
+              Register your company in Bahrain with 100% foreign ownership. Start your business setup from BHD 750 with complete MOIC registration, commercial license, and LMRA support. No hidden fees.
             </motion.p>
 
             {/* Feature list */}
@@ -202,7 +202,7 @@ export function FormationHero() {
               <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 relative">
                 <img 
                   src={heroImage} 
-                  alt="Business formation consultant" 
+                  alt="Company formation consultant helping register business in Bahrain" 
                   className="w-full h-[580px] object-cover"
                 />
                 
