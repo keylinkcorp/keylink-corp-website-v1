@@ -206,18 +206,18 @@ export function Header() {
 
       {/* Main navigation */}
       <div className={cn(
-        "container flex items-center justify-between transition-all duration-200",
+        "container flex items-center justify-between transition-all duration-200 gap-4",
         scrolled ? "h-16" : "h-16 lg:h-20"
       )}>
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2 flex-shrink-0">
           <span className="text-2xl lg:text-3xl font-bold text-navy tracking-tight">Keylink</span>
           <span className="text-2xl lg:text-3xl font-bold text-gold tracking-tight">Corp</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <NavigationMenu className="hidden lg:flex">
-          <NavigationMenuList className="gap-2">
+        <NavigationMenu className="hidden lg:flex flex-1 justify-center">
+          <NavigationMenuList className="gap-1">
             {megaMenuItems.map((item) => (
               <NavigationMenuItem key={item.title}>
                 <NavigationMenuTrigger className="!bg-transparent hover:!bg-transparent data-[state=open]:!bg-transparent text-gray-600 hover:text-navy data-[state=open]:text-navy font-medium text-[15px] px-5 py-3 h-auto transition-colors duration-200 tracking-wide">
@@ -366,11 +366,11 @@ export function Header() {
         </NavigationMenu>
 
         {/* CTA Button */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center flex-shrink-0">
           <Link to="/free-consultation">
-            <Button className="bg-gold hover:bg-gold-dark text-navy font-semibold px-6 rounded-full shadow-md">
+            <Button className="bg-gold hover:bg-gold-dark text-navy font-semibold px-5 py-2.5 h-auto rounded-full shadow-md whitespace-nowrap text-sm">
               Free Consultation
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-1.5 h-4 w-4" />
             </Button>
           </Link>
         </div>
