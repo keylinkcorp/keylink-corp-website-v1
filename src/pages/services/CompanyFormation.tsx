@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { FormationHero } from "@/components/services/formation/FormationHero";
 import { FormationTrustBar } from "@/components/services/formation/FormationTrustBar";
+import { WhatIsCompanyFormation } from "@/components/services/formation/WhatIsCompanyFormation";
 import { ProblemValueProp } from "@/components/services/formation/ProblemValueProp";
 import { CompanyTypesComparison } from "@/components/services/formation/CompanyTypesComparison";
 import { FormationProcessDetailed } from "@/components/services/formation/FormationProcessDetailed";
@@ -101,6 +102,7 @@ export default function CompanyFormation() {
       <Layout>
         <FormationHero />
         <FormationTrustBar />
+        <WhatIsCompanyFormation />
         <ProblemValueProp />
         <CompanyTypesComparison />
         <FormationProcessDetailed />
