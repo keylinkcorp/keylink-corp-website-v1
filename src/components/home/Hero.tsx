@@ -24,7 +24,7 @@ export function Hero() {
       
       {/* Dot Grid Pattern - Full dots with bottom fade only */}
       <div className="absolute inset-0 -z-10 h-full w-full">
-        <div className="absolute inset-0 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:linear-gradient(to_bottom,#000_0%,#000_85%,transparent_100%)]" />
+        <div className="absolute inset-0 h-full w-full bg-[radial-gradient(#9ca3af_2px,transparent_2px)] [background-size:16px_16px] [mask-image:linear-gradient(to_bottom,#000_0%,#000_85%,transparent_100%)]" />
       </div>
 
       <div className="container py-32 lg:py-40">
