@@ -2,18 +2,16 @@ import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { FormationHero } from "@/components/services/formation/FormationHero";
 import { FormationTrustBar } from "@/components/services/formation/FormationTrustBar";
-import { WhatIsCompanyFormation } from "@/components/services/formation/WhatIsCompanyFormation";
-import { ProblemValueProp } from "@/components/services/formation/ProblemValueProp";
-import { CompanyTypesComparison } from "@/components/services/formation/CompanyTypesComparison";
-import { FormationProcessDetailed } from "@/components/services/formation/FormationProcessDetailed";
-import { PricingPackages } from "@/components/services/formation/PricingPackages";
 import { FormationCostCalculator } from "@/components/services/formation/FormationCostCalculator";
-import { BankAccountOpening } from "@/components/services/formation/BankAccountOpening";
-import { RequirementsChecklist } from "@/components/services/formation/RequirementsChecklist";
 import { WhyChooseKeylink } from "@/components/services/formation/WhyChooseKeylink";
+import { FormationProcessDetailed } from "@/components/services/formation/FormationProcessDetailed";
+import { RequirementsChecklist } from "@/components/services/formation/RequirementsChecklist";
+import { PricingPackages } from "@/components/services/formation/PricingPackages";
+import { BankAccountOpening } from "@/components/services/formation/BankAccountOpening";
+import { WhatIsCompanyFormation } from "@/components/services/formation/WhatIsCompanyFormation";
 import { FormationTestimonials } from "@/components/services/formation/FormationTestimonials";
-import { FormationFAQ } from "@/components/services/formation/FormationFAQ";
 import { RelatedServices } from "@/components/services/formation/RelatedServices";
+import { FormationFAQ } from "@/components/services/formation/FormationFAQ";
 import { FormationCTA } from "@/components/services/formation/FormationCTA";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { BackToTop } from "@/components/BackToTop";
@@ -102,15 +100,13 @@ export default function CompanyFormation() {
       <Layout>
         <FormationHero />
         <FormationTrustBar />
-        <WhatIsCompanyFormation />
-        <ProblemValueProp />
-        <CompanyTypesComparison />
-        <FormationProcessDetailed />
-        <PricingPackages />
         <FormationCostCalculator />
-        <RequirementsChecklist />
         <WhyChooseKeylink />
+        <FormationProcessDetailed />
+        <RequirementsChecklist />
+        <PricingPackages />
         <BankAccountOpening />
+        <WhatIsCompanyFormation />
         <FormationTestimonials />
         <RelatedServices />
         <FormationFAQ />
