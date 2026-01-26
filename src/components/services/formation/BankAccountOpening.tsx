@@ -60,44 +60,48 @@ export function BankAccountOpening() {
           </p>
         </motion.div>
 
-        {/* Bank Comparison Table */}
-        <motion.article
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-16"
-        >
-          <h3 className="text-xl font-semibold text-primary mb-6 flex items-center gap-3">
+        {/* Bank Cards Grid */}
+        <div className="mb-16">
+          <motion.h3 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-xl font-semibold text-primary mb-8 flex items-center gap-3"
+          >
             <Landmark className="h-5 w-5 text-gold" />
             Top Banks for Business Accounts
-          </h3>
+          </motion.h3>
           
-          <div className="overflow-x-auto rounded-xl border border-border bg-white">
-            <table className="w-full text-left min-w-[600px]">
-              <thead>
-                <tr className="border-b border-border bg-muted/30">
-                  <th className="py-4 px-6 text-sm font-semibold text-muted-foreground">Bank</th>
-                  <th className="py-4 px-6 text-sm font-semibold text-muted-foreground">Timeline</th>
-                  <th className="py-4 px-6 text-sm font-semibold text-muted-foreground">Min Deposit</th>
-                  <th className="py-4 px-6 text-sm font-semibold text-muted-foreground">Best For</th>
-                </tr>
-              </thead>
-              <tbody>
-                {banks.map((bank, index) => (
-                  <tr 
-                    key={bank.name}
-                    className="border-b border-border/50 last:border-b-0 hover:bg-muted/20 transition-colors"
-                  >
-                    <td className="py-5 px-6 font-medium text-primary">{bank.name}</td>
-                    <td className="py-5 px-6 text-muted-foreground">{bank.timeline}</td>
-                    <td className="py-5 px-6 text-muted-foreground">{bank.deposit}</td>
-                    <td className="py-5 px-6 text-gold font-medium">{bank.bestFor}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {banks.map((bank, index) => (
+              <motion.div
+                key={bank.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.15 + index * 0.1 }}
+                className="p-6 rounded-xl border border-border bg-white hover:shadow-md hover:border-gold/40 transition-all duration-300 border-l-4 border-l-gold"
+              >
+                <h4 className="font-semibold text-primary text-lg mb-4">
+                  {bank.name}
+                </h4>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Timeline</span>
+                    <span className="font-medium text-primary">{bank.timeline}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Min Deposit</span>
+                    <span className="font-medium text-primary">{bank.deposit}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Best For</span>
+                    <span className="font-medium text-gold">{bank.bestFor}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </motion.article>
+        </div>
 
         {/* Documents & CTA Grid */}
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
