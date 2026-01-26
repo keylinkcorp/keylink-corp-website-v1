@@ -82,34 +82,24 @@ export function CostCalculatorPreview() {
           >
             <motion.div 
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="bg-white rounded-2xl p-10 border border-border shadow-xl shadow-primary/5 relative overflow-hidden"
+              className="bg-white rounded-2xl p-10 border border-border shadow-xl shadow-primary/5"
             >
-              {/* Shine animation overlay */}
-              <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
-
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-4">
-                  <motion.div 
-                    className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    <Calculator className="h-7 w-7 text-gold" />
-                  </motion.div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-primary">Quick Estimate</h3>
-                    <p className="text-muted-foreground">Based on your selections</p>
-                  </div>
-                </div>
-                {/* LIVE Indicator */}
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 rounded-full border border-green-200">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-xs font-medium text-green-700">LIVE</span>
+              <div className="flex items-center gap-4 mb-8">
+                <motion.div 
+                  className="w-14 h-14 rounded-xl bg-gold/10 flex items-center justify-center"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <Calculator className="h-7 w-7 text-gold" />
+                </motion.div>
+                <div>
+                  <h3 className="text-xl font-semibold text-primary">Quick Estimate</h3>
+                  <p className="text-muted-foreground">Based on your selections</p>
                 </div>
               </div>
 
               {/* Sample calculator preview */}
-              <div className="space-y-4 mb-8 relative">
+              <div className="space-y-4 mb-8">
                 <div className="p-5 bg-secondary/50 rounded-xl">
                   <div className="flex justify-between items-center mb-3">
                     <span className="text-muted-foreground">Company Type</span>
@@ -129,17 +119,15 @@ export function CostCalculatorPreview() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.5, delay: 0.5 }}
-                  className="p-5 bg-gradient-to-r from-gold/10 to-gold/5 rounded-xl border border-gold/30 relative overflow-hidden"
+                  className="p-5 bg-gold/5 rounded-xl border border-gold/20"
                 >
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 bg-gold/5 animate-pulse" />
-                  <div className="flex justify-between items-center relative">
+                  <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold text-primary">Estimated Total</span>
                     <span className="text-3xl font-bold text-gold">
                       BHD <AnimatedCounter value={2450} duration={1.5} />
                     </span>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2 relative">
+                  <p className="text-sm text-muted-foreground mt-2">
                     *Includes formation, CR, and visa processing
                   </p>
                 </motion.div>

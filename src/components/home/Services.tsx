@@ -91,46 +91,31 @@ export function Services() {
             >
               <Link 
                 to={service.href}
-                className="group block bg-white rounded-2xl p-10 border border-border/50 hover:border-gold/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/5 h-full relative overflow-hidden"
+                className="group block bg-white rounded-2xl p-10 border border-border/50 hover:border-gold/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/5 h-full"
               >
-                {/* Number Badge */}
-                <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center">
-                  <span className="text-sm font-bold text-muted-foreground group-hover:text-gold transition-colors">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                </div>
+                {/* Icon */}
+                <motion.div 
+                  className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center mb-8"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <service.icon className="h-7 w-7 text-gold" />
+                </motion.div>
 
-                {/* Hover gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gold/0 to-gold/0 group-hover:from-gold/5 group-hover:to-transparent transition-all duration-500" />
+                {/* Title */}
+                <h3 className="text-[22px] font-semibold text-primary mb-4 group-hover:text-gold transition-colors">
+                  {service.title}
+                </h3>
 
-                {/* Top accent border on hover */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                {/* Description */}
+                <p className="text-muted-foreground leading-[1.8] mb-6">
+                  {service.description}
+                </p>
 
-                <div className="relative">
-                  {/* Icon */}
-                  <motion.div 
-                    className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center mb-8 group-hover:bg-gold/20 transition-colors"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    <service.icon className="h-7 w-7 text-gold" />
-                  </motion.div>
-
-                  {/* Title */}
-                  <h3 className="text-[22px] font-semibold text-primary mb-4 group-hover:text-gold transition-colors">
-                    {service.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-muted-foreground leading-[1.8] mb-6">
-                    {service.description}
-                  </p>
-
-                  {/* Learn More Link */}
-                  <div className="flex items-center gap-2 text-gold font-medium group-hover:gap-3 transition-all">
-                    Learn More
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
+                {/* Learn More Link */}
+                <div className="flex items-center gap-2 text-gold font-medium group-hover:gap-3 transition-all">
+                  Learn More
+                  <ArrowRight className="h-4 w-4" />
                 </div>
               </Link>
             </motion.div>
