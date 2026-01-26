@@ -23,7 +23,7 @@ export function Hero() {
       <div className="absolute inset-0 -z-20 h-full w-full bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(199,167,99,0.15)_0,rgba(199,167,99,0)_50%,rgba(199,167,99,0)_100%)]" />
       
       {/* Dot Grid Pattern - Standard 1px dots with bottom fade */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:linear-gradient(to_bottom,#000_0%,#000_85%,transparent_100%)]" />
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,#000_0%,#000_85%,transparent_100%)]" />
 
       <div className="container py-32 lg:py-40">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
