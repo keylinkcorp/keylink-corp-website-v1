@@ -6,6 +6,8 @@ import { ProblemValueProp } from "@/components/services/formation/ProblemValuePr
 import { CompanyTypesComparison } from "@/components/services/formation/CompanyTypesComparison";
 import { FormationProcessDetailed } from "@/components/services/formation/FormationProcessDetailed";
 import { PricingPackages } from "@/components/services/formation/PricingPackages";
+import { FormationCostCalculator } from "@/components/services/formation/FormationCostCalculator";
+import { BankAccountOpening } from "@/components/services/formation/BankAccountOpening";
 import { RequirementsChecklist } from "@/components/services/formation/RequirementsChecklist";
 import { WhyChooseKeylink } from "@/components/services/formation/WhyChooseKeylink";
 import { FormationTestimonials } from "@/components/services/formation/FormationTestimonials";
@@ -103,6 +105,8 @@ export default function CompanyFormation() {
         <CompanyTypesComparison />
         <FormationProcessDetailed />
         <PricingPackages />
+        <FormationCostCalculator />
+        <BankAccountOpening />
         <RequirementsChecklist />
         <WhyChooseKeylink />
         <FormationTestimonials />
