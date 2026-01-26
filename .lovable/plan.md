@@ -1,145 +1,108 @@
 
-# Redesign: Bank Account Opening Section - Card-Based Layout
+
+# Section Restructure: Company Formation Page
 
 ## Overview
 
-Replacing the current table format with a clean, card-based layout that displays each bank's information in individual cards. This approach is more mobile-friendly, visually engaging, and maintains the minimalist aesthetic.
+Reorganizing the Company Formation page sections to follow a new conversion-optimized flow that leads with the cost calculator and social proof.
 
 ---
 
-## Current vs Proposed Design
+## Current vs. New Section Order
 
-| Aspect | Current (Table) | Proposed (Cards) |
-|--------|-----------------|------------------|
-| Layout | Single table with 4 rows | 4 individual bank cards in a 2x2 grid |
-| Mobile | Horizontal scroll required | Stacked cards, no scroll |
-| Visual hierarchy | Flat, uniform rows | Each bank highlighted separately |
-| Scanability | Good for comparison | Better for individual bank details |
-| White space | Dense rows | More breathing room |
+| # | Current Order | New Order (Requested) |
+|---|---------------|----------------------|
+| 1 | FormationHero | FormationHero |
+| 2 | FormationTrustBar | FormationTrustBar (kept after hero) |
+| 3 | WhatIsCompanyFormation | **FormationCostCalculator** |
+| 4 | ProblemValueProp | **WhyChooseKeylink** |
+| 5 | CompanyTypesComparison | **FormationProcessDetailed** |
+| 6 | FormationProcessDetailed | **RequirementsChecklist** |
+| 7 | PricingPackages | **PricingPackages** |
+| 8 | FormationCostCalculator | **BankAccountOpening** |
+| 9 | RequirementsChecklist | **WhatIsCompanyFormation** |
+| 10 | WhyChooseKeylink | **FormationTestimonials** |
+| 11 | BankAccountOpening | **RelatedServices** |
+| 12 | FormationTestimonials | **FormationFAQ** |
+| 13 | RelatedServices | FormationCTA (kept at end) |
+| 14 | FormationFAQ | — |
+| 15 | FormationCTA | — |
 
 ---
 
-## New Card Layout Structure
+## Sections Not Mentioned
+
+The following sections were not included in your requested order. They will be **removed** from the page:
+
+- **ProblemValueProp** - "The Problem with DIY Formation" section
+- **CompanyTypesComparison** - Company types comparison table (WLL, SPC, Branch, Holding)
+
+If you want to keep these sections, let me know where to place them.
+
+---
+
+## New Page Flow
 
 ```text
-+------------------------------------------------------------------+
-|  [Label] POST-FORMATION BANKING                                   |
-|                                                                   |
-|  H2: Open Your Corporate Bank Account                             |
-|  Subtitle: One paragraph about banking importance                 |
-|                                                                   |
-|  H3: Top Banks for Business Accounts                              |
-|                                                                   |
-|  +---------------------------+  +---------------------------+     |
-|  | National Bank of Bahrain  |  | Bank of Bahrain & Kuwait  |     |
-|  | Timeline: 2-3 weeks       |  | Timeline: 2-3 weeks       |     |
-|  | Min Deposit: BHD 500      |  | Min Deposit: BHD 1,000    |     |
-|  | Best For: Local SMEs      |  | Best For: Trading Comp.   |     |
-|  +---------------------------+  +---------------------------+     |
-|                                                                   |
-|  +---------------------------+  +---------------------------+     |
-|  | Ahli United Bank          |  | Standard Chartered        |     |
-|  | Timeline: 2-4 weeks       |  | Timeline: 3-4 weeks       |     |
-|  | Min Deposit: BHD 2,000    |  | Min Deposit: USD 10,000   |     |
-|  | Best For: Regional Ops    |  | Best For: International   |     |
-|  +---------------------------+  +---------------------------+     |
-|                                                                   |
-|  [Required Documents]           [CTA Box]                         |
-+------------------------------------------------------------------+
+1.  FormationHero              — Hero with headline and CTA
+2.  FormationTrustBar          — Trust badges (500+ companies, etc.)
+3.  FormationCostCalculator    — Interactive cost calculator (lead capture)
+4.  WhyChooseKeylink           — Why 500+ Businesses Choose Keylink
+5.  FormationProcessDetailed   — Your Complete Formation Journey (12 steps)
+6.  RequirementsChecklist      — What You'll Need
+7.  PricingPackages            — Transparent Pricing — No Hidden Fees
+8.  BankAccountOpening         — Open Your Corporate Bank Account
+9.  WhatIsCompanyFormation     — What Is Company Formation in Bahrain?
+10. FormationTestimonials      — What Our Clients Say
+11. RelatedServices            — Related Services
+12. FormationFAQ               — Frequently Asked Questions
+13. FormationCTA               — Final call-to-action
 ```
 
 ---
 
-## Card Design Specification
-
-Each bank card will feature:
-- **Bank name** as card header (bold, primary color)
-- **Three info rows** with label + value format:
-  - Timeline: 2-3 weeks
-  - Min Deposit: BHD 500
-  - Best For: Local SMEs (gold accent)
-- **Subtle styling**: White background, light border, hover elevation
-- **Gold left accent border** to match brand
-
-```tsx
-// Single bank card structure
-<div className="p-6 rounded-xl border border-border bg-white hover:shadow-md 
-                hover:border-gold/40 transition-all duration-300 
-                border-l-4 border-l-gold">
-  <h4 className="font-semibold text-primary text-lg mb-4">
-    {bank.name}
-  </h4>
-  <div className="space-y-3 text-sm">
-    <div className="flex justify-between">
-      <span className="text-muted-foreground">Timeline</span>
-      <span className="font-medium text-primary">{bank.timeline}</span>
-    </div>
-    <div className="flex justify-between">
-      <span className="text-muted-foreground">Min Deposit</span>
-      <span className="font-medium text-primary">{bank.deposit}</span>
-    </div>
-    <div className="flex justify-between">
-      <span className="text-muted-foreground">Best For</span>
-      <span className="font-medium text-gold">{bank.bestFor}</span>
-    </div>
-  </div>
-</div>
-```
-
----
-
-## Responsive Grid Behavior
-
-| Breakpoint | Bank Cards Layout | Documents + CTA |
-|------------|-------------------|-----------------|
-| Desktop (lg+) | 2x2 grid | Side-by-side |
-| Tablet (md) | 2x2 grid | Stacked |
-| Mobile (sm) | Single column (4 stacked) | Stacked |
-
----
-
-## Technical Implementation
+## Technical Changes
 
 ### File to Modify
-**`src/components/services/formation/BankAccountOpening.tsx`**
+**`src/pages/services/CompanyFormation.tsx`**
 
-### Key Changes
-1. **Remove table element** entirely (lines 75-99)
-2. **Add 4-column responsive grid** for bank cards
-3. **Create individual bank card components** with:
-   - Gold left border accent
-   - Label/value rows for timeline, deposit, best for
-   - Hover state with subtle shadow
-4. **Keep existing header and documents/CTA sections** unchanged
-5. **Add stagger animation** for cards appearing sequentially
+### Changes
+1. Reorder component imports (for clarity)
+2. Remove `ProblemValueProp` and `CompanyTypesComparison` components
+3. Reorder JSX components to match new flow
 
 ---
 
-## Animation Enhancement
+## New Component Order in Code
 
-Cards will animate in with a stagger effect:
 ```tsx
-{banks.map((bank, index) => (
-  <motion.div
-    key={bank.name}
-    initial={{ opacity: 0, y: 20 }}
-    animate={isInView ? { opacity: 1, y: 0 } : {}}
-    transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-    className="..." // card styles
-  >
-    ...
-  </motion.div>
-))}
+<Layout>
+  <FormationHero />
+  <FormationTrustBar />
+  <FormationCostCalculator />
+  <WhyChooseKeylink />
+  <FormationProcessDetailed />
+  <RequirementsChecklist />
+  <PricingPackages />
+  <BankAccountOpening />
+  <WhatIsCompanyFormation />
+  <FormationTestimonials />
+  <RelatedServices />
+  <FormationFAQ />
+  <FormationCTA />
+</Layout>
 ```
 
 ---
 
-## Expected Outcomes
+## Rationale for New Flow
 
-| Metric | Before (Table) | After (Cards) |
-|--------|----------------|---------------|
-| Mobile UX | Scroll required | No scroll, stacked |
-| Visual appeal | Flat, utilitarian | Modern, engaging |
-| Scanability | Row-by-row | Card-by-card (easier) |
-| Hover feedback | Row highlight | Card elevation |
-| Brand alignment | Partial | Full (gold accents) |
+| Position | Section | Purpose |
+|----------|---------|---------|
+| Early | Cost Calculator | Engage visitors immediately with interactive tool |
+| Early | Why Choose Us | Build trust with social proof |
+| Middle | Process + Requirements | Educate on what's involved |
+| Middle | Pricing + Banking | Handle objections, show transparency |
+| Late | What Is Formation | SEO content for informational queries |
+| Late | Testimonials + FAQ | Final trust-building before CTA |
+
