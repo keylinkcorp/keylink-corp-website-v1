@@ -8,7 +8,6 @@ import { FormationProcessDetailed } from "@/components/services/formation/Format
 import { RequirementsChecklist } from "@/components/services/formation/RequirementsChecklist";
 import { PricingPackages } from "@/components/services/formation/PricingPackages";
 import { BankAccountOpening } from "@/components/services/formation/BankAccountOpening";
-import { WhatIsCompanyFormation } from "@/components/services/formation/WhatIsCompanyFormation";
 import { FormationTestimonials } from "@/components/services/formation/FormationTestimonials";
 import { RelatedServices } from "@/components/services/formation/RelatedServices";
 import { FormationFAQ } from "@/components/services/formation/FormationFAQ";
@@ -106,7 +105,6 @@ export default function CompanyFormation() {
         <RequirementsChecklist />
         <PricingPackages />
         <BankAccountOpening />
-        <WhatIsCompanyFormation />
         <FormationTestimonials />
         <RelatedServices />
         <FormationFAQ />
