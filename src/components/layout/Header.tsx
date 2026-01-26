@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 // Mega menu structure - 4 main pillars
 const megaMenuItems = [
   {
-    title: "Launch Your Business",
+    title: "Launch Business",
     icon: Building2,
     columns: [
       {
@@ -52,7 +52,7 @@ const megaMenuItems = [
     },
   },
   {
-    title: "Grow Your Business",
+    title: "Grow Business",
     icon: Briefcase,
     columns: [
       {
