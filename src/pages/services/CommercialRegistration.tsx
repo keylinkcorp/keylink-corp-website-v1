@@ -15,6 +15,7 @@ import { CRGovernmentFees } from "@/components/services/cr/CRGovernmentFees";
 import { CRAmendmentsSection } from "@/components/services/cr/CRAmendmentsSection";
 import { CRTestimonials } from "@/components/services/cr/CRTestimonials";
 import { CRSuccessStory } from "@/components/services/cr/CRSuccessStory";
+import { CRCostCalculator } from "@/components/services/cr/CRCostCalculator";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { BackToTop } from "@/components/BackToTop";
 import { commercialRegistrationSchema } from "@/lib/schema/commercialRegistrationSchema";
@@ -211,6 +212,9 @@ export default function CommercialRegistration() {
         
         {/* 2. Trust Bar */}
         <ServiceTrustBar stats={trustBarStats} />
+        
+        {/* 2.5 CR Cost Calculator */}
+        <CRCostCalculator />
         
         {/* 3. Problem/Value Proposition */}
         <CRProblemValue />
