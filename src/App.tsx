@@ -10,6 +10,7 @@ import CRRenewal from "./pages/services/CRRenewal";
 import VisaImmigration from "./pages/services/VisaImmigration";
 import PROServices from "./pages/services/PROServices";
 import Accounting from "./pages/services/Accounting";
+import BusinessLicense from "./pages/services/BusinessLicense";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/services/visa-immigration" element={<VisaImmigration />} />
           <Route path="/services/pro-services" element={<PROServices />} />
           <Route path="/services/accounting" element={<Accounting />} />
+          <Route path="/services/business-license" element={<BusinessLicense />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
