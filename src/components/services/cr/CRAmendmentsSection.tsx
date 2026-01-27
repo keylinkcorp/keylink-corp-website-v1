@@ -119,7 +119,7 @@ export function CRAmendmentsSection() {
             <motion.a
               variants={staggerItem}
               href="/contact"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-primary rounded-xl font-bold hover:bg-accent/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 group"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-primary rounded-xl font-bold hover:bg-accent/90 transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group"
             >
               Request CR Amendment
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -138,7 +138,7 @@ export function CRAmendmentsSection() {
                 key={index}
                 variants={staggerItem}
                 whileHover={{ y: -4, scale: 1.02 }}
-                className="bg-white rounded-2xl p-6 border-2 border-border hover:border-accent shadow-lg hover:shadow-xl transition-all group"
+                className="bg-white rounded-2xl p-6 border-2 border-border hover:border-accent shadow-md hover:shadow-lg transition-all group"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-gradient-to-br group-hover:from-accent/20 group-hover:to-accent/10 flex items-center justify-center flex-shrink-0 transition-all">

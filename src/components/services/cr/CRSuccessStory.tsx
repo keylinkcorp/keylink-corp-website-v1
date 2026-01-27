@@ -56,13 +56,13 @@ export function CRSuccessStory() {
               variants={staggerItem}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/15 transition-all group"
+              className="bg-white/15 backdrop-blur-md rounded-3xl p-8 border border-white/25 hover:bg-white/20 transition-all group"
             >
               <div className="w-14 h-14 rounded-2xl bg-red-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Target className="w-7 h-7 text-red-300" />
               </div>
               <h3 className="text-2xl font-bold mb-4">The Challenge</h3>
-              <p className="text-white/70 text-lg leading-relaxed">
+              <p className="text-white/85 text-lg leading-relaxed">
                 FinFlow, a UK-based fintech startup, wanted to establish a Bahrain presence 
                 to access GCC markets. They faced regulatory complexity with CBB requirements 
                 and had no local knowledge of the formation process.
@@ -74,13 +74,13 @@ export function CRSuccessStory() {
               variants={staggerItem}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/15 transition-all group"
+              className="bg-white/15 backdrop-blur-md rounded-3xl p-8 border border-white/25 hover:bg-white/20 transition-all group"
             >
               <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Lightbulb className="w-7 h-7 text-accent" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Our Solution</h3>
-              <p className="text-white/70 text-lg leading-relaxed">
+              <p className="text-white/85 text-lg leading-relaxed">
                 Keylink provided end-to-end support: entity type consultation, MOIC registration, 
                 CBB regulatory guidance, bank account setup, and work visa processing for their 
                 founding team—all managed remotely.
@@ -92,13 +92,13 @@ export function CRSuccessStory() {
               variants={staggerItem}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/15 transition-all group"
+              className="bg-white/15 backdrop-blur-md rounded-3xl p-8 border border-white/25 hover:bg-white/20 transition-all group"
             >
               <div className="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <TrendingUp className="w-7 h-7 text-green-300" />
               </div>
               <h3 className="text-2xl font-bold mb-4">The Result</h3>
-              <p className="text-white/70 text-lg leading-relaxed">
+              <p className="text-white/85 text-lg leading-relaxed">
                 FinFlow became fully operational in Bahrain within 14 days. They now employ 
                 12 local staff, have processed over BHD 5 million in transactions, and use 
                 Bahrain as their GCC regional hub.
@@ -113,33 +113,33 @@ export function CRSuccessStory() {
             animate={isInView ? "visible" : "hidden"}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12"
           >
-            <div className="text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/15 transition-all">
+            <div className="text-center p-6 bg-white/15 backdrop-blur-md rounded-2xl border border-white/30 hover:bg-white/20 transition-all">
               <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mx-auto mb-3">
                 <Clock className="w-6 h-6 text-accent" />
               </div>
               <div className="text-4xl font-bold mb-1">14</div>
-              <div className="text-sm text-white/60">Days to Operational</div>
+              <div className="text-sm text-white/70">Days to Operational</div>
             </div>
-            <div className="text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/15 transition-all">
+            <div className="text-center p-6 bg-white/15 backdrop-blur-md rounded-2xl border border-white/30 hover:bg-white/20 transition-all">
               <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mx-auto mb-3">
                 <Building2 className="w-6 h-6 text-accent" />
               </div>
               <div className="text-4xl font-bold mb-1">WLL</div>
-              <div className="text-sm text-white/60">Entity Formed</div>
+              <div className="text-sm text-white/70">Entity Formed</div>
             </div>
-            <div className="text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/15 transition-all">
+            <div className="text-center p-6 bg-white/15 backdrop-blur-md rounded-2xl border border-white/30 hover:bg-white/20 transition-all">
               <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mx-auto mb-3">
                 <Users className="w-6 h-6 text-accent" />
               </div>
               <div className="text-4xl font-bold mb-1">12</div>
-              <div className="text-sm text-white/60">Employees Hired</div>
+              <div className="text-sm text-white/70">Employees Hired</div>
             </div>
-            <div className="text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/15 transition-all">
+            <div className="text-center p-6 bg-white/15 backdrop-blur-md rounded-2xl border border-white/30 hover:bg-white/20 transition-all">
               <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mx-auto mb-3">
                 <CheckCircle2 className="w-6 h-6 text-accent" />
               </div>
               <div className="text-4xl font-bold mb-1">100%</div>
-              <div className="text-sm text-white/60">Remote Setup</div>
+              <div className="text-sm text-white/70">Remote Setup</div>
             </div>
           </motion.div>
 
@@ -148,7 +148,7 @@ export function CRSuccessStory() {
             variants={staggerItem}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="mt-12 bg-white/10 backdrop-blur-md rounded-3xl p-10 border border-white/20"
+            className="mt-12 bg-white/20 backdrop-blur-md rounded-3xl p-10 border border-white/30"
           >
             <div className="flex flex-col md:flex-row gap-10 items-center">
               {/* Portrait - Enhanced */}
@@ -159,7 +159,7 @@ export function CRSuccessStory() {
                 className="flex-shrink-0"
               >
                 <div className="relative">
-                  <div className="w-28 h-28 md:w-36 md:h-36 rounded-3xl overflow-hidden border-4 border-accent/40 shadow-2xl">
+                  <div className="w-28 h-28 md:w-36 md:h-36 rounded-3xl overflow-hidden border-4 border-accent/50 shadow-lg">
                     <img
                       src={crSuccessImage}
                       alt="David Kumar, CEO of FinFlow"
@@ -184,7 +184,7 @@ export function CRSuccessStory() {
                 <div className="flex items-center justify-center md:justify-start gap-4">
                   <div>
                     <div className="font-bold text-xl">David Kumar</div>
-                    <div className="text-white/60">Co-Founder & CEO, FinFlow</div>
+                    <div className="text-white/70">Co-Founder & CEO, FinFlow</div>
                   </div>
                 </div>
               </div>

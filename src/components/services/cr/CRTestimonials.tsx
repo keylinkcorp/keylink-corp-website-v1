@@ -84,7 +84,7 @@ export function CRTestimonials() {
               key={index}
               variants={staggerItem}
               whileHover={{ y: -8 }}
-              className="relative bg-white rounded-3xl p-8 border-2 border-border shadow-xl hover:shadow-2xl hover:border-t-4 hover:border-t-accent transition-all"
+              className="relative bg-white rounded-3xl p-8 border-2 border-border shadow-md hover:shadow-lg hover:border-t-4 hover:border-t-accent transition-all"
             >
               {/* Large decorative quote */}
               <Quote className="absolute top-6 right-6 w-16 h-16 text-accent/10" />
@@ -106,7 +106,7 @@ export function CRTestimonials() {
                 <img
                   src={testimonial.image}
                   alt={testimonial.author}
-                  className="w-16 h-16 rounded-2xl object-cover shadow-lg border-2 border-border"
+                  className="w-16 h-16 rounded-2xl object-cover shadow-md border-2 border-border"
                 />
                 <div className="flex-1">
                   <h4 className="font-bold text-lg">{testimonial.author}</h4>

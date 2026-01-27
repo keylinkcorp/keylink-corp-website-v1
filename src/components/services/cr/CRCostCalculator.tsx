@@ -208,7 +208,7 @@ export function CRCostCalculator() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-white rounded-3xl border-2 border-border shadow-2xl p-8 md:p-12 hover:border-accent/30 transition-colors">
+          <div className="bg-white rounded-3xl border-2 border-border shadow-lg p-8 md:p-12 hover:border-accent/30 transition-colors">
             {/* Progress Bar - Enhanced with gold gradient */}
             {!showResult && (
               <div className="mb-10">
@@ -267,8 +267,8 @@ export function CRCostCalculator() {
                             className={cn(
                               "p-7 rounded-2xl border-2 cursor-pointer transition-all text-center",
                               entityType === type.id
-                                ? "border-accent bg-accent/5 shadow-xl shadow-accent/20"
-                                : "border-border hover:border-accent/50 hover:shadow-lg"
+                                ? "border-accent bg-accent/5 shadow-md shadow-accent/10"
+                                : "border-border hover:border-accent/50 hover:shadow-md"
                             )}
                           >
                             <div className={cn(
@@ -311,8 +311,8 @@ export function CRCostCalculator() {
                             className={cn(
                               "p-7 rounded-2xl border-2 cursor-pointer transition-all text-center",
                               activityCount === option.id
-                                ? "border-accent bg-accent/5 shadow-xl shadow-accent/20"
-                                : "border-border hover:border-accent/50 hover:shadow-lg"
+                                ? "border-accent bg-accent/5 shadow-md shadow-accent/10"
+                                : "border-border hover:border-accent/50 hover:shadow-md"
                             )}
                           >
                             <div className={cn(
@@ -356,8 +356,8 @@ export function CRCostCalculator() {
                             className={cn(
                               "p-8 rounded-2xl border-2 cursor-pointer transition-all text-center",
                               registrationType === type.id
-                                ? "border-accent bg-accent/5 shadow-xl shadow-accent/20"
-                                : "border-border hover:border-accent/50 hover:shadow-lg"
+                                ? "border-accent bg-accent/5 shadow-md shadow-accent/10"
+                                : "border-border hover:border-accent/50 hover:shadow-md"
                             )}
                           >
                             <div className={cn(
@@ -407,7 +407,7 @@ export function CRCostCalculator() {
                             className={cn(
                               "p-6 rounded-2xl border-2 cursor-pointer transition-all flex items-center gap-5",
                               selectedServices.includes(service.id)
-                                ? "border-accent bg-accent/5 shadow-lg"
+                                ? "border-accent bg-accent/5 shadow-md"
                                 : "border-border hover:border-accent/50 hover:shadow-md"
                             )}
                           >
