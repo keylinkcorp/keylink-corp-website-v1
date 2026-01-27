@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { ServiceTrustBar } from "@/components/services/shared/ServiceTrustBar";
 import { ServiceWhyChoose } from "@/components/services/shared/ServiceWhyChoose";
+import crTeamImage from "@/assets/cr-team-collaboration.jpg";
 import { ServiceFAQ } from "@/components/services/shared/ServiceFAQ";
 import { ServiceCTA } from "@/components/services/shared/ServiceCTA";
 import { RelatedServicesGrid } from "@/components/services/shared/RelatedServicesGrid";
@@ -245,6 +246,8 @@ export default function CommercialRegistration() {
           differentiators={whyChooseDifferentiators}
           floatingStatValue="5,000+"
           floatingStatLabel="CRs Processed"
+          imageSrc={crTeamImage}
+          imageAlt="Team collaborating on commercial registration"
         />
         
         {/* 11. Testimonials */}

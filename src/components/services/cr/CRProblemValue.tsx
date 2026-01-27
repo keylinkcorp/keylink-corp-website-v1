@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { 
   AlertTriangle, 
@@ -9,8 +9,10 @@ import {
   CheckCircle2,
   Zap,
   Users,
-  Shield
+  Shield,
+  ArrowDown
 } from "lucide-react";
+import crDocumentsImage from "@/assets/cr-documents-stack.jpg";
 
 const painPoints = [
   {
@@ -58,12 +60,20 @@ const solutions = [
   }
 ];
 
+const imageReveal: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 } }
+};
+
 export function CRProblemValue() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28 bg-secondary/30">
+    <section ref={ref} className="py-20 md:py-28 bg-secondary/30 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]" />
+      
       <div className="container mx-auto px-4">
         <motion.div
           variants={staggerContainer}
@@ -88,13 +98,14 @@ export function CRProblemValue() {
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
         >
           {painPoints.map((point, index) => (
             <motion.div
               key={index}
               variants={staggerItem}
-              className="bg-white rounded-xl p-6 border border-red-100 shadow-sm"
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="bg-white rounded-2xl p-6 border border-red-100 shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center mb-4">
                 <point.icon className="w-6 h-6 text-red-500" />
@@ -103,6 +114,38 @@ export function CRProblemValue() {
               <p className="text-sm text-muted-foreground">{point.description}</p>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Visual Divider with Image */}
+        <motion.div
+          variants={imageReveal}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="flex flex-col items-center gap-6 mb-16"
+        >
+          {/* Arrow Indicator */}
+          <div className="flex flex-col items-center gap-2">
+            <ArrowDown className="w-8 h-8 text-accent animate-bounce" />
+            <span className="text-sm font-medium text-muted-foreground">There's a better way</span>
+          </div>
+          
+          {/* Documents Image */}
+          <div className="relative max-w-md mx-auto hidden md:block">
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src={crDocumentsImage}
+                alt="Professional business documents and certificates"
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            {/* Floating Badge */}
+            <div className="absolute -bottom-4 -right-4 bg-white rounded-xl p-3 shadow-lg border border-border">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-accent" />
+                <span className="text-sm font-medium">We handle it all</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Solutions Section */}
@@ -133,7 +176,8 @@ export function CRProblemValue() {
             <motion.div
               key={index}
               variants={staggerItem}
-              className="bg-white rounded-xl p-6 border border-accent/20 shadow-sm hover:border-accent hover:shadow-md transition-all"
+              whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.2 } }}
+              className="bg-white rounded-2xl p-6 border border-accent/20 shadow-sm hover:border-accent hover:shadow-lg transition-all"
             >
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
                 <solution.icon className="w-6 h-6 text-accent" />

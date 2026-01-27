@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { 
   Building2, 
@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Info
 } from "lucide-react";
+import crCertificateImage from "@/assets/cr-certificate-display.jpg";
 
 const keyFacts = [
   { icon: FileText, text: "1-year validity with annual renewal" },
@@ -28,12 +29,20 @@ const benefits = [
   { icon: Scale, text: "Participate in government tenders" }
 ];
 
+const imageReveal: Variants = {
+  hidden: { opacity: 0, scale: 1.05 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 } }
+};
+
 export function WhatIsCR() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28">
+    <section ref={ref} className="py-20 md:py-28 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+      
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Content Side */}
@@ -93,45 +102,75 @@ export function WhatIsCR() {
             </motion.div>
           </motion.div>
 
-          {/* Benefits Side */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="bg-primary rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-6">
-                What Your CR Enables
-              </h3>
-              <p className="text-white/70 mb-8">
-                A valid Commercial Registration unlocks full business capabilities in Bahrain:
-              </p>
+          {/* Image + Benefits Side */}
+          <div className="space-y-8">
+            {/* Certificate Image */}
+            <motion.div
+              variants={imageReveal}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              className="relative rounded-2xl overflow-hidden shadow-xl hidden lg:block"
+            >
+              <img
+                src={crCertificateImage}
+                alt="Official Commercial Registration certificate with gold seal"
+                className="w-full h-auto object-cover"
+              />
               
-              <div className="space-y-4">
-                {benefits.map((benefit, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                    className="flex items-center gap-4 p-4 bg-white/10 rounded-xl"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="w-5 h-5 text-accent" />
-                    </div>
-                    <span className="font-medium">{benefit.text}</span>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-white/20">
+              {/* Floating Info Card */}
+              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-lg">
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-accent" />
-                  <span className="font-semibold">Gateway to GCC markets from Bahrain</span>
+                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm">Official MOIC Document</div>
+                    <div className="text-xs text-muted-foreground">Your gateway to legal operations</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+            
+            {/* Benefits Panel */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="bg-primary rounded-2xl p-8 text-white">
+                <h3 className="text-2xl font-bold mb-6">
+                  What Your CR Enables
+                </h3>
+                <p className="text-white/70 mb-8">
+                  A valid Commercial Registration unlocks full business capabilities in Bahrain:
+                </p>
+                
+                <div className="space-y-4">
+                  {benefits.map((benefit, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                      className="flex items-center gap-4 p-4 bg-white/10 rounded-xl"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
+                        <benefit.icon className="w-5 h-5 text-accent" />
+                      </div>
+                      <span className="font-medium">{benefit.text}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-white/20">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="w-6 h-6 text-accent" />
+                    <span className="font-semibold">Gateway to GCC markets from Bahrain</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
