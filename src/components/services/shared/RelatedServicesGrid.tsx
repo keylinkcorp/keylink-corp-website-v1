@@ -67,7 +67,7 @@ export function RelatedServicesGrid({
             <motion.div key={index} variants={staggerItem}>
               <Link
                 to={service.href}
-                className="group block bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-lg transition-all h-full"
+                className="group block bg-white rounded-2xl p-6 border border-border hover:border-accent hover:shadow-md transition-all h-full"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary/5 group-hover:bg-accent/10 flex items-center justify-center mb-4 transition-colors">
                   <service.icon className="w-7 h-7 text-primary group-hover:text-accent transition-colors" />

@@ -65,7 +65,7 @@ export function CostCalculatorPreview() {
             >
               <Link 
                 to="/cost-calculator" 
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gold hover:bg-gold/90 text-primary font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-gold/20"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gold hover:bg-gold/90 text-primary font-semibold rounded-xl transition-all duration-200 shadow-sm"
               >
                 <Calculator className="h-5 w-5" />
                 Try Cost Calculator
@@ -82,7 +82,7 @@ export function CostCalculatorPreview() {
           >
             <motion.div 
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="bg-white rounded-2xl p-10 border border-border shadow-xl shadow-primary/5"
+              className="bg-white rounded-2xl p-10 border border-border shadow-sm"
             >
               <div className="flex items-center gap-4 mb-8">
                 <motion.div 

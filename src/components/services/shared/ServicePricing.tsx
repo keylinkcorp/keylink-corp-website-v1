@@ -67,9 +67,9 @@ export function ServicePricing({
             <motion.div
               key={index}
               variants={staggerItem}
-              className={`relative bg-white rounded-2xl p-8 border-2 shadow-lg ${
+              className={`relative bg-white rounded-2xl p-8 border-2 shadow-sm ${
                 tier.popular 
-                  ? "border-accent shadow-accent/20" 
+                  ? "border-accent" 
                   : "border-border"
               }`}
             >

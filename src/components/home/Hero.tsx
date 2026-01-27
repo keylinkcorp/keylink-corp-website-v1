@@ -107,7 +107,7 @@ export function Hero() {
                 >
                   <Button 
                     size="lg" 
-                    className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground text-[17px] h-14 px-8 rounded-xl font-semibold shadow-lg shadow-primary/20"
+                    className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground text-[17px] h-14 px-8 rounded-xl font-semibold shadow-sm"
                   >
                     Start Your Business
                     <ArrowRight className="h-5 w-5 ml-2" />
@@ -212,7 +212,7 @@ export function Hero() {
                 className="absolute -bottom-8 -left-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl"
               />
               
-              <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 relative">
+              <div className="rounded-2xl overflow-hidden shadow-sm relative">
                 <img 
                   src={heroImage} 
                   alt="Entrepreneur working in modern office" 
@@ -224,7 +224,7 @@ export function Hero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 1.1 }}
-                  className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-lg"
+                  className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-sm"
                 >
                   <p className="text-2xl font-bold text-primary">98%</p>
                   <p className="text-xs text-muted-foreground">Client Satisfaction</p>

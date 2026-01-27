@@ -192,7 +192,7 @@ export function FormationProcessDetailed() {
               className={cn(
                 "relative px-6 py-4 rounded-xl font-medium transition-all duration-300",
                 activePhase === phase.id
-                  ? "bg-primary text-white shadow-lg shadow-primary/20"
+                  ? "bg-primary text-white shadow-sm"
                   : "bg-white text-muted-foreground hover:bg-primary/5 border border-border"
               )}
             >

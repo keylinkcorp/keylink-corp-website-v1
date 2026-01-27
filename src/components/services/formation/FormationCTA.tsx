@@ -115,7 +115,7 @@ export function FormationCTA() {
             >
               <Link 
                 to="/free-consultation" 
-                className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-gold hover:bg-gold/90 text-primary font-semibold text-lg rounded-xl transition-all duration-200 shadow-lg shadow-gold/20"
+                className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-gold hover:bg-gold/90 text-primary font-semibold text-lg rounded-xl transition-all duration-200 shadow-sm"
               >
                 Get Free Consultation
                 <ArrowRight className="h-5 w-5" />

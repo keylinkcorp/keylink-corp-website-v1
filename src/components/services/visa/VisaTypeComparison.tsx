@@ -88,7 +88,7 @@ export function VisaTypeComparison() {
           animate={isInView ? "visible" : "hidden"}
           className="hidden lg:block overflow-x-auto"
         >
-          <table className="w-full bg-white rounded-2xl shadow-lg overflow-hidden">
+          <table className="w-full bg-white rounded-2xl shadow-sm overflow-hidden">
             <thead className="bg-primary text-white">
               <tr>
                 <th className="px-6 py-4 text-left font-semibold">Visa Type</th>

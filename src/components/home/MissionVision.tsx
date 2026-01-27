@@ -39,7 +39,7 @@ export function MissionVision() {
             <div className="absolute -bottom-6 -right-6 w-2/3 h-2/3 bg-primary/5 rounded-2xl -z-10" />
             
             {/* Main image */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+            <div className="relative rounded-2xl overflow-hidden shadow-sm">
               <img
                 src={missionVisionImage}
                 alt="Our team collaborating on business strategy"
@@ -51,7 +51,7 @@ export function MissionVision() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-4 shadow-lg border border-border/50"
+                className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-4 shadow-sm border border-border/50"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
@@ -93,7 +93,7 @@ export function MissionVision() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="group"
             >
-              <div className="bg-card rounded-xl p-6 border border-border/50 transition-all duration-300 hover:border-gold/50 hover:shadow-lg hover:shadow-gold/5">
+              <div className="bg-card rounded-xl p-6 border border-border/50 transition-all duration-300 hover:border-gold/50 hover:shadow-md">
                 <div className="flex gap-4">
                   <motion.div 
                     className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-colors"
@@ -121,7 +121,7 @@ export function MissionVision() {
               transition={{ duration: 0.5, delay: 0.45 }}
               className="group"
             >
-              <div className="bg-card rounded-xl p-6 border border-border/50 transition-all duration-300 hover:border-gold/50 hover:shadow-lg hover:shadow-gold/5">
+              <div className="bg-card rounded-xl p-6 border border-border/50 transition-all duration-300 hover:border-gold/50 hover:shadow-md">
                 <div className="flex gap-4">
                   <motion.div 
                     className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-colors"

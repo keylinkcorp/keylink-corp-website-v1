@@ -159,7 +159,7 @@ export function CRSuccessStory() {
                 className="flex-shrink-0"
               >
                 <div className="relative">
-                  <div className="w-28 h-28 md:w-36 md:h-36 rounded-3xl overflow-hidden border-4 border-accent/50 shadow-lg">
+                  <div className="w-28 h-28 md:w-36 md:h-36 rounded-3xl overflow-hidden border-4 border-accent/50 shadow-sm">
                     <img
                       src={crSuccessImage}
                       alt="David Kumar, CEO of FinFlow"
@@ -167,7 +167,7 @@ export function CRSuccessStory() {
                     />
                   </div>
                   {/* Accent Corner */}
-                  <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-accent rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-accent rounded-xl flex items-center justify-center shadow-sm">
                     <Quote className="w-6 h-6 text-primary" />
                   </div>
                 </div>

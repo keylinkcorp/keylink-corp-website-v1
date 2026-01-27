@@ -169,7 +169,7 @@ export function IndustryServices() {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.4, delay: index * 0.1 }}
-                          className="group flex items-start gap-4 p-5 rounded-xl bg-card border border-border hover:border-gold/50 hover:shadow-lg hover:shadow-gold/5 transition-all duration-300 cursor-pointer"
+                          className="group flex items-start gap-4 p-5 rounded-xl bg-card border border-border hover:border-gold/50 hover:shadow-md transition-all duration-300 cursor-pointer"
                         >
                           <motion.div 
                             className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-colors"
@@ -235,7 +235,7 @@ export function IndustryServices() {
                 className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/5 rounded-2xl -z-10" 
               />
               
-              <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+              <div className="rounded-2xl overflow-hidden shadow-sm">
                 <img 
                   src={industryImage} 
                   alt="Professional business services in Bahrain" 
@@ -248,7 +248,7 @@ export function IndustryServices() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
-                className="absolute -bottom-8 -left-8 bg-white rounded-xl shadow-xl p-6 border border-border"
+                className="absolute -bottom-8 -left-8 bg-white rounded-xl shadow-sm p-6 border border-border"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center">

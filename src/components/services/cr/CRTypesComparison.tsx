@@ -137,8 +137,8 @@ export function CRTypesComparison() {
               className={cn(
                 "relative flex items-center gap-2 px-6 py-3.5 rounded-xl border-2 transition-all font-semibold",
                 activeType === type.id
-                  ? "bg-primary text-white border-primary shadow-lg shadow-primary/20"
-                  : "bg-white text-foreground border-border hover:border-accent hover:shadow-md"
+                  ? "bg-primary text-white border-primary shadow-sm"
+                  : "bg-white text-foreground border-border hover:border-accent hover:shadow-sm"
               )}
             >
               <type.icon className="w-5 h-5" />
@@ -172,12 +172,12 @@ export function CRTypesComparison() {
           transition={{ duration: 0.4 }}
           className="max-w-5xl mx-auto"
         >
-          <div className="bg-white rounded-3xl border-2 border-border shadow-2xl overflow-hidden hover:border-accent/50 transition-colors">
+          <div className="bg-white rounded-3xl border-2 border-border shadow-sm overflow-hidden hover:border-accent/50 transition-colors">
             <div className="grid lg:grid-cols-3 gap-0">
               {/* Main Info */}
               <div className="lg:col-span-2 p-10">
                 <div className="flex items-start gap-5 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center flex-shrink-0 shadow-sm">
                     <selectedType.icon className="w-8 h-8 text-accent" />
                   </div>
                   <div>
@@ -285,7 +285,7 @@ export function CRTypesComparison() {
           animate={isInView ? "visible" : "hidden"}
           className="mt-14 overflow-x-auto"
         >
-          <div className="bg-white rounded-2xl border-2 border-border shadow-lg p-8 min-w-[768px]">
+          <div className="bg-white rounded-2xl border-2 border-border shadow-sm p-8 min-w-[768px]">
             <h4 className="font-bold text-xl mb-6">Quick Comparison</h4>
             <table className="w-full">
               <thead>

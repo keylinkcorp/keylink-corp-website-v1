@@ -142,7 +142,7 @@ export function CRProcessSteps() {
           animate={isInView ? "visible" : "hidden"}
           className="flex items-center justify-center gap-4 mb-14"
         >
-          <div className="bg-white rounded-2xl px-8 py-4 shadow-md border-2 border-accent/20">
+          <div className="bg-white rounded-2xl px-8 py-4 shadow-sm border-2 border-accent/20">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
                 <Clock className="w-6 h-6 text-accent" />
@@ -172,8 +172,8 @@ export function CRProcessSteps() {
                 key={index}
                 variants={staggerItem}
                 className={cn(
-                  "bg-white rounded-2xl border-2 overflow-hidden transition-all shadow-md hover:shadow-lg",
-                  expandedStep === index ? "border-accent shadow-lg" : "border-border"
+                  "bg-white rounded-2xl border-2 overflow-hidden transition-all shadow-sm hover:shadow-md",
+                  expandedStep === index ? "border-accent shadow-md" : "border-border"
                 )}
               >
                 {/* Step Header */}
@@ -246,7 +246,7 @@ export function CRProcessSteps() {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-primary rounded-xl font-bold hover:bg-accent/90 transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-primary rounded-xl font-bold hover:bg-accent/90 transition-all shadow-sm hover:shadow-md hover:-translate-y-1 group"
           >
             <MessageSquare className="w-5 h-5" />
             Book Free Consultation

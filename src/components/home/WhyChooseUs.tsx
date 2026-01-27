@@ -71,7 +71,7 @@ export function WhyChooseUs() {
             className="order-2 lg:order-1"
           >
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+              <div className="rounded-2xl overflow-hidden shadow-sm">
                 <img 
                   src={teamImage} 
                   alt="Keylink Corp Team" 
@@ -83,7 +83,7 @@ export function WhyChooseUs() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
-                className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-5 border border-border"
+                className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-sm p-5 border border-border"
               >
                 <p className="text-3xl font-bold text-gold">10+</p>
                 <p className="text-sm text-muted-foreground">Years Experience</p>

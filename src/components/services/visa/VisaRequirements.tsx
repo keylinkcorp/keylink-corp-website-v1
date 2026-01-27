@@ -110,7 +110,7 @@ export function VisaRequirements() {
                 onClick={() => setActiveCategory(category.id)}
                 className={`flex items-center gap-2 px-5 py-3 rounded-xl transition-all ${
                   activeCategory === category.id
-                    ? "bg-primary text-white shadow-lg"
+                    ? "bg-primary text-white shadow-sm"
                     : "bg-white border border-border hover:border-accent"
                 }`}
               >

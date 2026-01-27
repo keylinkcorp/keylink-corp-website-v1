@@ -80,7 +80,7 @@ export function FormationTestimonials() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: 0.1 + index * 0.15 }}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group bg-white rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-xl hover:border-gold/30 transition-all duration-300 relative"
+              className="group bg-white rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md hover:border-gold/30 transition-all duration-300 relative"
             >
               {/* Quote icon */}
               <div className="absolute -top-3 -left-3 w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center">

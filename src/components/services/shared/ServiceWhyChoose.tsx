@@ -96,7 +96,7 @@ export function ServiceWhyChoose({
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative rounded-2xl overflow-hidden shadow-sm">
                 <img
                   src={imageSrc}
                   alt={imageAlt}
@@ -109,7 +109,7 @@ export function ServiceWhyChoose({
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.5 }}
-                    className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-xl border border-border"
+                    className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-sm border border-border"
                   >
                     <div className="text-2xl font-bold text-primary">{floatingStatValue}</div>
                     <div className="text-sm text-muted-foreground">{floatingStatLabel}</div>

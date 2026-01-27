@@ -218,7 +218,7 @@ export const CompanyFormationProcess = () => {
             {/* Gradient Background Behind Image */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/10 to-primary/5 rounded-3xl transform rotate-3 scale-105" />
             
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-sm">
               <img
                 src={formationImage}
                 alt="Professional business consultant ready to help with company formation"
@@ -230,7 +230,7 @@ export const CompanyFormationProcess = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
-                className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg"
+                className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-sm"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">

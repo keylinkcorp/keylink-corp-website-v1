@@ -70,7 +70,7 @@ export function ProblemValueProp() {
             <motion.div 
               key={index}
               variants={staggerItem}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-lg hover:border-gold/30 transition-all duration-300 text-center"
+              className="bg-white rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md hover:border-gold/30 transition-all duration-300 text-center"
             >
               <motion.div 
                 className="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center mx-auto mb-6"
