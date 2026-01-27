@@ -13,6 +13,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import crConsultantImage from "@/assets/cr-consultant-working.jpg";
 
 const processSteps = [
   {
@@ -107,7 +108,18 @@ export function CRProcessSteps() {
   const [expandedStep, setExpandedStep] = useState<number | null>(0);
 
   return (
-    <section ref={ref} className="py-20 md:py-28 bg-secondary/30">
+    <section ref={ref} className="py-20 md:py-28 relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 -z-10">
+        <img
+          src={crConsultantImage}
+          alt="Professional consultant reviewing documents"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/98 via-secondary/95 to-secondary/90" />
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
+      </div>
+      
       <div className="container mx-auto px-4">
         <motion.div
           variants={staggerContainer}
@@ -134,10 +146,14 @@ export function CRProcessSteps() {
           animate={isInView ? "visible" : "hidden"}
           className="flex items-center justify-center gap-4 mb-12"
         >
-          <Clock className="w-5 h-5 text-accent" />
-          <span className="text-lg font-medium">
-            Total Timeline: <span className="text-accent">3-7 Business Days</span>
-          </span>
+          <div className="bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-sm border border-border">
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-accent" />
+              <span className="text-lg font-medium">
+                Total Timeline: <span className="text-accent">3-7 Business Days</span>
+              </span>
+            </div>
+          </div>
         </motion.div>
 
         {/* Process Steps Accordion */}
@@ -152,7 +168,7 @@ export function CRProcessSteps() {
               key={index}
               variants={staggerItem}
               className={cn(
-                "bg-white rounded-xl border overflow-hidden transition-all",
+                "bg-white rounded-2xl border overflow-hidden transition-all shadow-sm hover:shadow-md",
                 expandedStep === index ? "border-accent shadow-lg" : "border-border"
               )}
             >
@@ -226,7 +242,7 @@ export function CRProcessSteps() {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
           >
             <MessageSquare className="w-5 h-5" />
             Book Free Consultation
