@@ -9,10 +9,8 @@ import {
   Users, 
   FileText,
   CheckCircle2,
-  Info,
-  Sparkles
+  Info
 } from "lucide-react";
-import crCertificateImage from "@/assets/cr-certificate-display.jpg";
 
 const keyFacts = [
   { icon: FileText, text: "1-year validity with annual renewal" },
@@ -30,10 +28,6 @@ const benefits = [
   { icon: Scale, text: "Participate in government tenders" }
 ];
 
-const imageReveal: Variants = {
-  hidden: { opacity: 0, scale: 1.05 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 } }
-};
 
 export function WhatIsCR() {
   const ref = useRef<HTMLDivElement>(null);
@@ -113,36 +107,8 @@ export function WhatIsCR() {
             </motion.div>
           </motion.div>
 
-          {/* Image + Benefits Side */}
-          <div className="space-y-8">
-            {/* Certificate Image - Enhanced */}
-            <motion.div
-              variants={imageReveal}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              className="relative rounded-3xl overflow-hidden shadow-sm hidden lg:block"
-            >
-              <img
-                src={crCertificateImage}
-                alt="Official Commercial Registration certificate with gold seal"
-                className="w-full h-auto object-cover"
-              />
-              
-              {/* Floating Info Card - Enhanced with glassmorphism */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-5 shadow-sm border border-white/50">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-accent" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-base">Official MOIC Document</div>
-                    <div className="text-sm text-muted-foreground">Your gateway to legal operations</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            
-            {/* Benefits Panel - Enhanced with gradient border */}
+          {/* Benefits Side */}
+          <div>
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
