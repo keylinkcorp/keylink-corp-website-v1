@@ -11,12 +11,15 @@ import {
   Building2, 
   Briefcase, 
   Users, 
-  Plus,
   ChevronRight,
   ChevronLeft,
   Send,
   Check,
-  Sparkles
+  Globe,
+  Landmark,
+  FileText,
+  Clock,
+  AlertCircle
 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
@@ -28,81 +31,389 @@ const leadFormSchema = z.object({
   phone: z.string().optional()
 });
 
-// Pricing data
+// ===== COMPANY TYPES (Updated - SPC merged into WLL) =====
 const companyTypes = [
-  { id: "SPC", name: "SPC", description: "Single Person Company", price: 750 },
-  { id: "WLL", name: "WLL", description: "Limited Liability", price: 1200 },
-  { id: "Branch", name: "Branch", description: "Branch Office", price: 1500 },
-  { id: "Holding", name: "Holding", description: "Holding Company", price: 2500 },
+  { 
+    id: "wll", 
+    name: "WLL", 
+    description: "Limited Liability Company",
+    subtitle: "Most popular for businesses",
+    basePrice: 850,
+    govFees: 200,
+    timeline: "5-7 days",
+    icon: Building2
+  },
+  { 
+    id: "branch", 
+    name: "Branch Office", 
+    description: "Extension of foreign company",
+    subtitle: "For international expansion",
+    basePrice: 1200,
+    govFees: 250,
+    timeline: "7-10 days",
+    icon: Globe
+  },
+  { 
+    id: "holding", 
+    name: "Holding Company", 
+    description: "Asset & subsidiary management",
+    subtitle: "For corporate structures",
+    basePrice: 2000,
+    govFees: 500,
+    timeline: "10-15 days",
+    icon: Landmark
+  },
 ];
 
-const activities = [
-  { id: "consulting", name: "Consulting", icon: Briefcase },
-  { id: "trading", name: "Trading", icon: Building2 },
-  { id: "manufacturing", name: "Manufacturing", icon: Building2 },
-  { id: "tech", name: "Technology", icon: Sparkles },
+// ===== WLL-SPECIFIC OPTIONS =====
+const ownershipStructures = [
+  { id: "solo", name: "Solo Owner", description: "Single shareholder (1 person)", fee: 0 },
+  { id: "partnership", name: "Partnership", description: "2-50 shareholders", fee: 150 },
 ];
 
-const visaOptions = [
-  { id: "0", label: "0 Visas", price: 0 },
-  { id: "1-2", label: "1-2 Visas", price: 400 },
-  { id: "3-5", label: "3-5 Visas", price: 900 },
-  { id: "6+", label: "6+ Visas", price: 1500 },
+const ownerNationalities = [
+  { id: "bahraini", name: "Bahraini National", description: "Bahrain citizen", fee: 0 },
+  { id: "gcc", name: "GCC National", description: "Saudi, UAE, Qatar, Kuwait, Oman", fee: 0 },
+  { id: "foreign", name: "Foreign National", description: "Security approval required", fee: 50 },
 ];
 
-const additionalServices = [
-  { id: "bank", name: "Bank Account Support", price: 150 },
-  { id: "pro", name: "PRO Services (1 Year)", price: 600 },
-  { id: "virtual", name: "Virtual Office (1 Year)", price: 450 },
-  { id: "accounting", name: "Accounting Setup", price: 300 },
+const businessActivities = [
+  { id: "consulting", name: "Consulting & Professional", regulated: false, fee: 0, icon: Briefcase },
+  { id: "trading", name: "General Trading", regulated: false, fee: 0, icon: Building2 },
+  { id: "tech", name: "Technology & IT", regulated: false, fee: 0, icon: Globe },
+  { id: "manufacturing", name: "Manufacturing", regulated: false, fee: 0, icon: Building2 },
+  { id: "retail", name: "Retail & E-commerce", regulated: true, fee: 100, note: "May require local partner", icon: Building2 },
+  { id: "fnb", name: "Food & Beverage", regulated: true, fee: 150, note: "Municipality + health permits", icon: Building2 },
+  { id: "healthcare", name: "Healthcare & Medical", regulated: true, fee: 300, note: "NHRA approval required", icon: Building2 },
+  { id: "financial", name: "Financial Services", regulated: true, fee: 500, note: "CBB approval required", icon: Landmark },
 ];
+
+const officeTypes = [
+  { id: "virtual", name: "Virtual Office", description: "Address only, no physical space", price: 300, visaQuota: 0 },
+  { id: "serviced", name: "Serviced Office", description: "Shared workspace with desk", price: 600, visaQuota: 2 },
+  { id: "small", name: "Small Office", description: "Private office (1-3 desks)", price: 900, visaQuota: 4 },
+  { id: "standard", name: "Standard Office", description: "Private office (4-10 desks)", price: 1200, visaQuota: 10 },
+];
+
+const visaPackages = [
+  { id: "0", label: "No Visas Needed", count: 0, pricePerVisa: 0, total: 0 },
+  { id: "1", label: "1 Investor Visa", count: 1, pricePerVisa: 350, total: 350 },
+  { id: "2-3", label: "2-3 Work Visas", count: 3, pricePerVisa: 300, total: 900 },
+  { id: "4-6", label: "4-6 Work Visas", count: 6, pricePerVisa: 280, total: 1680 },
+  { id: "7-10", label: "7-10 Work Visas", count: 10, pricePerVisa: 250, total: 2500 },
+];
+
+// ===== BRANCH-SPECIFIC OPTIONS =====
+const parentLocations = [
+  { id: "gcc", name: "GCC Country", description: "Saudi, UAE, Qatar, Kuwait, Oman", processingFee: 100 },
+  { id: "arab", name: "Other Arab Country", description: "Egypt, Jordan, Lebanon, etc.", processingFee: 150 },
+  { id: "western", name: "US / EU / UK", description: "Western countries", processingFee: 200 },
+  { id: "asia", name: "Asia / Other", description: "China, India, etc.", processingFee: 250 },
+];
+
+const documentStatuses = [
+  { id: "ready", name: "Already Apostilled", description: "Documents ready for submission", fee: 0 },
+  { id: "need", name: "Need Apostille Service", description: "We'll handle document legalization", fee: 200 },
+];
+
+const branchActivities = [
+  { id: "same", name: "Same as Parent", description: "Identical activities as parent company", fee: 0 },
+  { id: "different", name: "Different Activities", description: "New activities for Bahrain branch", fee: 150 },
+];
+
+const staffOptions = [
+  { id: "manager", name: "Manager Only", description: "1 branch manager", visaCost: 350, count: 1 },
+  { id: "1-3", name: "1-3 Staff", description: "Small team", visaCost: 900, count: 3 },
+  { id: "4-10", name: "4-10 Staff", description: "Medium team", visaCost: 2400, count: 8 },
+  { id: "10+", name: "10+ Staff", description: "Large team", visaCost: 4500, count: 15 },
+];
+
+// ===== HOLDING-SPECIFIC OPTIONS =====
+const capitalRanges = [
+  { id: "min", name: "Minimum (BHD 250,000)", description: "Standard holding structure", capital: 250000, notaryFee: 300 },
+  { id: "mid", name: "Mid-Range (BHD 500,000)", description: "Multiple subsidiaries", capital: 500000, notaryFee: 500 },
+  { id: "large", name: "Large (BHD 1M+)", description: "Complex structure", capital: 1000000, notaryFee: 800 },
+];
+
+const shareholderCounts = [
+  { id: "2-5", name: "2-5 Shareholders", description: "Standard partnership", agreementFee: 200 },
+  { id: "6-10", name: "6-10 Shareholders", description: "Complex agreement", agreementFee: 350 },
+  { id: "11-50", name: "11-50 Shareholders", description: "Extensive agreement", agreementFee: 500 },
+];
+
+const subsidiaryPlans = [
+  { id: "hold-only", name: "Holding Only", description: "No immediate subsidiaries", discount: 0 },
+  { id: "1-2-subs", name: "With 1-2 Subsidiaries", description: "Formation of operating companies", discount: 10 },
+  { id: "3-plus", name: "With 3+ Subsidiaries", description: "Large corporate group", discount: 15 },
+];
+
+// ===== ADDITIONAL SERVICES BY TYPE =====
+const additionalServicesByType: Record<string, { id: string; name: string; price: number }[]> = {
+  wll: [
+    { id: "bank", name: "Bank Account Support", price: 150 },
+    { id: "pro", name: "PRO Services (1 Year)", price: 600 },
+    { id: "accounting", name: "Accounting Setup", price: 300 },
+    { id: "lmra", name: "LMRA Registration", price: 100 },
+  ],
+  branch: [
+    { id: "bank", name: "Bank Account Support", price: 150 },
+    { id: "pro", name: "PRO Services (1 Year)", price: 600 },
+    { id: "liaison", name: "Parent Company Liaison", price: 250 },
+    { id: "translation", name: "Document Translation", price: 150 },
+  ],
+  holding: [
+    { id: "structuring", name: "Corporate Structuring Advisory", price: 500 },
+    { id: "tax", name: "Tax Planning Consultation", price: 400 },
+    { id: "compliance", name: "Annual Compliance Package", price: 750 },
+    { id: "bank", name: "Bank Account Support", price: 150 },
+  ],
+};
+
+interface LineItem {
+  label: string;
+  amount: number;
+}
 
 export function FormationCostCalculator() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   
+  // Core state
   const [step, setStep] = useState(1);
   const [companyType, setCompanyType] = useState<string | null>(null);
-  const [activity, setActivity] = useState<string | null>(null);
-  const [visaCount, setVisaCount] = useState<string | null>(null);
-  const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [leadForm, setLeadForm] = useState({ name: "", email: "", phone: "" });
   const [formErrors, setFormErrors] = useState<{ name?: string; email?: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // WLL-specific state
+  const [ownershipStructure, setOwnershipStructure] = useState<string | null>(null);
+  const [ownerNationality, setOwnerNationality] = useState<string | null>(null);
+  const [businessActivity, setBusinessActivity] = useState<string | null>(null);
+  const [officeType, setOfficeType] = useState<string | null>(null);
+  const [visaPackage, setVisaPackage] = useState<string | null>(null);
+  
+  // Branch-specific state
+  const [parentLocation, setParentLocation] = useState<string | null>(null);
+  const [documentStatus, setDocumentStatus] = useState<string | null>(null);
+  const [branchActivity, setBranchActivity] = useState<string | null>(null);
+  const [staffCount, setStaffCount] = useState<string | null>(null);
+  
+  // Holding-specific state
+  const [capitalRange, setCapitalRange] = useState<string | null>(null);
+  const [shareholderCount, setShareholderCount] = useState<string | null>(null);
+  const [subsidiaryPlan, setSubsidiaryPlan] = useState<string | null>(null);
+  
+  // Common state
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
-  const totalSteps = 4;
+  // Dynamic step logic
+  const getSteps = () => {
+    switch (companyType) {
+      case "wll":
+        return [
+          "Company Type",
+          "Ownership Structure", 
+          "Owner Nationality",
+          "Business Activity",
+          "Visa Requirements",
+          "Office Type",
+          "Additional Services"
+        ];
+      case "branch":
+        return [
+          "Company Type",
+          "Parent Location",
+          "Document Status",
+          "Business Activity",
+          "Staff Requirements",
+          "Additional Services"
+        ];
+      case "holding":
+        return [
+          "Company Type",
+          "Capital Structure",
+          "Shareholders",
+          "Subsidiary Planning",
+          "Additional Services"
+        ];
+      default:
+        return ["Company Type"];
+    }
+  };
+
+  const totalSteps = getSteps().length;
   const progress = (step / totalSteps) * 100;
 
-  // Calculate costs
-  const calculateTotal = () => {
+  // Calculate costs with detailed breakdown
+  const calculateTotal = (): { total: number; breakdown: LineItem[] } => {
     let total = 0;
+    const breakdown: LineItem[] = [];
     
-    // Base price
-    const selectedType = companyTypes.find(t => t.id === companyType);
-    if (selectedType) total += selectedType.price;
+    if (companyType === "wll") {
+      // Base service fee
+      total += 850;
+      breakdown.push({ label: "WLL Formation Service", amount: 850 });
+      
+      // Government fees
+      total += 200;
+      breakdown.push({ label: "Government Fees (CR, License)", amount: 200 });
+      
+      // Partnership agreement
+      if (ownershipStructure === "partnership") {
+        total += 150;
+        breakdown.push({ label: "Partnership Agreement", amount: 150 });
+      }
+      
+      // Foreign security approval
+      if (ownerNationality === "foreign") {
+        total += 50;
+        breakdown.push({ label: "Security Approval (Foreign)", amount: 50 });
+      }
+      
+      // Regulated activity fees
+      const activity = businessActivities.find(a => a.id === businessActivity);
+      if (activity?.regulated) {
+        total += activity.fee;
+        breakdown.push({ label: `${activity.name} License`, amount: activity.fee });
+      }
+      
+      // Office
+      const office = officeTypes.find(o => o.id === officeType);
+      if (office) {
+        total += office.price;
+        breakdown.push({ label: `${office.name} (1 Year)`, amount: office.price });
+      }
+      
+      // Visas
+      const visa = visaPackages.find(v => v.id === visaPackage);
+      if (visa && visa.total > 0) {
+        total += visa.total;
+        breakdown.push({ label: visa.label, amount: visa.total });
+      }
+    }
     
-    // Visa costs
-    const selectedVisa = visaOptions.find(v => v.id === visaCount);
-    if (selectedVisa) total += selectedVisa.price;
+    else if (companyType === "branch") {
+      // Base service fee
+      total += 1200;
+      breakdown.push({ label: "Branch Office Formation", amount: 1200 });
+      
+      // Government fees
+      total += 250;
+      breakdown.push({ label: "Government Fees", amount: 250 });
+      
+      // Document processing by location
+      const location = parentLocations.find(l => l.id === parentLocation);
+      if (location) {
+        total += location.processingFee;
+        breakdown.push({ label: `Document Processing (${location.name})`, amount: location.processingFee });
+      }
+      
+      // Apostille service
+      const docStatus = documentStatuses.find(d => d.id === documentStatus);
+      if (docStatus && docStatus.fee > 0) {
+        total += docStatus.fee;
+        breakdown.push({ label: "Apostille Service", amount: docStatus.fee });
+      }
+      
+      // Different activities
+      const activityOption = branchActivities.find(a => a.id === branchActivity);
+      if (activityOption && activityOption.fee > 0) {
+        total += activityOption.fee;
+        breakdown.push({ label: "Additional Activity License", amount: activityOption.fee });
+      }
+      
+      // Staff visas
+      const staff = staffOptions.find(s => s.id === staffCount);
+      if (staff) {
+        total += staff.visaCost;
+        breakdown.push({ label: `Staff Visas (${staff.name})`, amount: staff.visaCost });
+      }
+    }
     
-    // Additional services
-    selectedServices.forEach(serviceId => {
-      const service = additionalServices.find(s => s.id === serviceId);
-      if (service) total += service.price;
-    });
+    else if (companyType === "holding") {
+      // Base service fee
+      total += 2000;
+      breakdown.push({ label: "Holding Company Formation", amount: 2000 });
+      
+      // Government fees
+      total += 500;
+      breakdown.push({ label: "Government Fees", amount: 500 });
+      
+      // Capital-based notary fees
+      const capital = capitalRanges.find(c => c.id === capitalRange);
+      if (capital) {
+        total += capital.notaryFee;
+        breakdown.push({ label: `Notarization (${capital.name})`, amount: capital.notaryFee });
+      }
+      
+      // Shareholder agreement complexity
+      const shareholders = shareholderCounts.find(s => s.id === shareholderCount);
+      if (shareholders) {
+        total += shareholders.agreementFee;
+        breakdown.push({ label: `Shareholders Agreement (${shareholders.name})`, amount: shareholders.agreementFee });
+      }
+      
+      // Subsidiary discount
+      const plan = subsidiaryPlans.find(p => p.id === subsidiaryPlan);
+      if (plan && plan.discount > 0) {
+        const discount = Math.round(total * (plan.discount / 100));
+        total -= discount;
+        breakdown.push({ label: `Package Discount (${plan.discount}%)`, amount: -discount });
+      }
+    }
     
-    return total;
+    // Add selected additional services
+    if (companyType) {
+      selectedServices.forEach(serviceId => {
+        const service = additionalServicesByType[companyType]?.find(s => s.id === serviceId);
+        if (service) {
+          total += service.price;
+          breakdown.push({ label: service.name, amount: service.price });
+        }
+      });
+    }
+    
+    return { total, breakdown };
   };
 
   const canProceed = () => {
-    switch (step) {
-      case 1: return companyType !== null;
-      case 2: return activity !== null;
-      case 3: return visaCount !== null;
-      case 4: return true;
-      default: return false;
+    if (step === 1) return companyType !== null;
+    
+    if (companyType === "wll") {
+      switch (step) {
+        case 2: return ownershipStructure !== null;
+        case 3: return ownerNationality !== null;
+        case 4: return businessActivity !== null;
+        case 5: return visaPackage !== null;
+        case 6: return officeType !== null;
+        case 7: return true; // Additional services optional
+        default: return false;
+      }
     }
+    
+    if (companyType === "branch") {
+      switch (step) {
+        case 2: return parentLocation !== null;
+        case 3: return documentStatus !== null;
+        case 4: return branchActivity !== null;
+        case 5: return staffCount !== null;
+        case 6: return true;
+        default: return false;
+      }
+    }
+    
+    if (companyType === "holding") {
+      switch (step) {
+        case 2: return capitalRange !== null;
+        case 3: return shareholderCount !== null;
+        case 4: return subsidiaryPlan !== null;
+        case 5: return true;
+        default: return false;
+      }
+    }
+    
+    return false;
   };
 
   const handleNext = () => {
@@ -117,6 +428,26 @@ export function FormationCostCalculator() {
     if (step > 1) {
       setStep(step - 1);
     }
+  };
+
+  const handleCompanyTypeSelect = (typeId: string) => {
+    if (typeId !== companyType) {
+      // Reset all type-specific states
+      setOwnershipStructure(null);
+      setOwnerNationality(null);
+      setBusinessActivity(null);
+      setOfficeType(null);
+      setVisaPackage(null);
+      setParentLocation(null);
+      setDocumentStatus(null);
+      setBranchActivity(null);
+      setStaffCount(null);
+      setCapitalRange(null);
+      setShareholderCount(null);
+      setSubsidiaryPlan(null);
+      setSelectedServices([]);
+    }
+    setCompanyType(typeId);
   };
 
   const handleServiceToggle = (serviceId: string) => {
@@ -151,8 +482,18 @@ export function FormationCostCalculator() {
   const handleReset = () => {
     setStep(1);
     setCompanyType(null);
-    setActivity(null);
-    setVisaCount(null);
+    setOwnershipStructure(null);
+    setOwnerNationality(null);
+    setBusinessActivity(null);
+    setOfficeType(null);
+    setVisaPackage(null);
+    setParentLocation(null);
+    setDocumentStatus(null);
+    setBranchActivity(null);
+    setStaffCount(null);
+    setCapitalRange(null);
+    setShareholderCount(null);
+    setSubsidiaryPlan(null);
     setSelectedServices([]);
     setShowResult(false);
     setLeadForm({ name: "", email: "", phone: "" });
@@ -164,6 +505,642 @@ export function FormationCostCalculator() {
     hidden: { opacity: 0, x: 20 },
     visible: { opacity: 1, x: 0 },
     exit: { opacity: 0, x: -20 }
+  };
+
+  // Render step content based on company type and step
+  const renderStepContent = () => {
+    // Step 1: Company Type (same for all)
+    if (step === 1) {
+      return (
+        <div>
+          <h3 className="text-2xl font-bold text-primary mb-2">
+            Choose Company Type
+          </h3>
+          <p className="text-muted-foreground mb-8">
+            Select the type of company you want to register in Bahrain
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {companyTypes.map((type) => (
+              <motion.div
+                key={type.id}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => handleCompanyTypeSelect(type.id)}
+                className={cn(
+                  "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                  companyType === type.id
+                    ? "border-gold bg-gold/5 shadow-lg"
+                    : "border-border hover:border-gold/40"
+                )}
+              >
+                <type.icon className={cn(
+                  "h-10 w-10 mb-4",
+                  companyType === type.id ? "text-gold" : "text-muted-foreground"
+                )} />
+                <h4 className="font-bold text-primary text-xl mb-1">{type.name}</h4>
+                <p className="text-sm text-muted-foreground mb-1">{type.description}</p>
+                <p className="text-xs text-muted-foreground mb-3">{type.subtitle}</p>
+                <div className="flex items-center justify-between pt-3 border-t border-border">
+                  <span className="text-gold font-bold">from BHD {type.basePrice.toLocaleString()}</span>
+                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Clock className="h-3 w-3" /> {type.timeline}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // WLL Flow
+    if (companyType === "wll") {
+      if (step === 2) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Ownership Structure
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              How many shareholders will the company have?
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {ownershipStructures.map((structure) => (
+                <motion.div
+                  key={structure.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setOwnershipStructure(structure.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    ownershipStructure === structure.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Users className={cn(
+                    "h-8 w-8 mb-3",
+                    ownershipStructure === structure.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary text-lg">{structure.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{structure.description}</p>
+                  <p className="text-gold font-semibold">
+                    {structure.fee > 0 ? `+BHD ${structure.fee}` : "Included"}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 3) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Owner Nationality
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              What is the nationality of the primary shareholder?
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {ownerNationalities.map((nationality) => (
+                <motion.div
+                  key={nationality.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setOwnerNationality(nationality.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    ownerNationality === nationality.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Globe className={cn(
+                    "h-8 w-8 mb-3",
+                    ownerNationality === nationality.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary">{nationality.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{nationality.description}</p>
+                  <p className="text-gold font-semibold">
+                    {nationality.fee > 0 ? `+BHD ${nationality.fee}` : "No extra fee"}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 4) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Business Activity
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              What will be your primary business activity?
+            </p>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {businessActivities.map((activity) => (
+                <motion.div
+                  key={activity.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setBusinessActivity(activity.id)}
+                  className={cn(
+                    "p-5 rounded-2xl border-2 cursor-pointer transition-all relative",
+                    businessActivity === activity.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  {activity.regulated && (
+                    <span className="absolute top-2 right-2 text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">
+                      Regulated
+                    </span>
+                  )}
+                  <activity.icon className={cn(
+                    "h-6 w-6 mb-2",
+                    businessActivity === activity.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-semibold text-primary text-sm">{activity.name}</h4>
+                  {activity.fee > 0 && (
+                    <p className="text-gold font-semibold text-sm mt-1">+BHD {activity.fee}</p>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+            
+            {businessActivity && businessActivities.find(a => a.id === businessActivity)?.note && (
+              <div className="mt-4 p-4 bg-amber-50 rounded-xl border border-amber-200 flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5" />
+                <p className="text-sm text-amber-800">
+                  {businessActivities.find(a => a.id === businessActivity)?.note}
+                </p>
+              </div>
+            )}
+          </div>
+        );
+      }
+      
+      if (step === 5) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Visa Requirements
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              How many work visas do you need for your team?
+            </p>
+            
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {visaPackages.map((visa) => (
+                <motion.div
+                  key={visa.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setVisaPackage(visa.id)}
+                  className={cn(
+                    "p-5 rounded-2xl border-2 cursor-pointer transition-all text-center",
+                    visaPackage === visa.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Users className={cn(
+                    "h-6 w-6 mx-auto mb-2",
+                    visaPackage === visa.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-semibold text-primary text-sm">{visa.label}</h4>
+                  <p className="text-gold font-semibold text-sm mt-1">
+                    {visa.total > 0 ? `BHD ${visa.total}` : "—"}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 6) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Office Type
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              Choose your office solution in Bahrain
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {officeTypes.map((office) => (
+                <motion.div
+                  key={office.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setOfficeType(office.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    officeType === office.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Building2 className={cn(
+                    "h-8 w-8 mb-3",
+                    officeType === office.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary text-lg">{office.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{office.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gold font-bold">BHD {office.price}/yr</span>
+                    <span className="text-xs text-muted-foreground">
+                      Visa quota: {office.visaQuota}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // Branch Office Flow
+    if (companyType === "branch") {
+      if (step === 2) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Parent Company Location
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              Where is your parent company registered?
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {parentLocations.map((location) => (
+                <motion.div
+                  key={location.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setParentLocation(location.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    parentLocation === location.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Globe className={cn(
+                    "h-8 w-8 mb-3",
+                    parentLocation === location.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary">{location.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{location.description}</p>
+                  <p className="text-gold font-semibold">+BHD {location.processingFee}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 3) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Document Status
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              Are your parent company documents apostilled?
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {documentStatuses.map((status) => (
+                <motion.div
+                  key={status.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setDocumentStatus(status.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    documentStatus === status.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <FileText className={cn(
+                    "h-8 w-8 mb-3",
+                    documentStatus === status.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary">{status.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{status.description}</p>
+                  <p className="text-gold font-semibold">
+                    {status.fee > 0 ? `+BHD ${status.fee}` : "No extra fee"}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 4) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Business Activity
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              Will the branch have the same activities as the parent company?
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {branchActivities.map((activity) => (
+                <motion.div
+                  key={activity.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setBranchActivity(activity.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    branchActivity === activity.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Briefcase className={cn(
+                    "h-8 w-8 mb-3",
+                    branchActivity === activity.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary">{activity.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{activity.description}</p>
+                  <p className="text-gold font-semibold">
+                    {activity.fee > 0 ? `+BHD ${activity.fee}` : "Included"}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 5) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Staff Requirements
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              How many staff will work at the branch?
+            </p>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {staffOptions.map((staff) => (
+                <motion.div
+                  key={staff.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setStaffCount(staff.id)}
+                  className={cn(
+                    "p-5 rounded-2xl border-2 cursor-pointer transition-all text-center",
+                    staffCount === staff.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Users className={cn(
+                    "h-6 w-6 mx-auto mb-2",
+                    staffCount === staff.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-semibold text-primary text-sm">{staff.name}</h4>
+                  <p className="text-xs text-muted-foreground mb-1">{staff.description}</p>
+                  <p className="text-gold font-semibold text-sm">BHD {staff.visaCost}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // Holding Company Flow
+    if (companyType === "holding") {
+      if (step === 2) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Capital Structure
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              What is your planned capital amount? (Minimum BHD 250,000)
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {capitalRanges.map((capital) => (
+                <motion.div
+                  key={capital.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setCapitalRange(capital.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    capitalRange === capital.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Landmark className={cn(
+                    "h-8 w-8 mb-3",
+                    capitalRange === capital.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary">{capital.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{capital.description}</p>
+                  <p className="text-gold font-semibold">Notary: BHD {capital.notaryFee}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 3) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Number of Shareholders
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              How many shareholders will the holding company have?
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {shareholderCounts.map((count) => (
+                <motion.div
+                  key={count.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setShareholderCount(count.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    shareholderCount === count.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Users className={cn(
+                    "h-8 w-8 mb-3",
+                    shareholderCount === count.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary">{count.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{count.description}</p>
+                  <p className="text-gold font-semibold">+BHD {count.agreementFee}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 4) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Subsidiary Planning
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              Will you be forming subsidiaries through this holding company?
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {subsidiaryPlans.map((plan) => (
+                <motion.div
+                  key={plan.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setSubsidiaryPlan(plan.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    subsidiaryPlan === plan.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Building2 className={cn(
+                    "h-8 w-8 mb-3",
+                    subsidiaryPlan === plan.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary">{plan.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{plan.description}</p>
+                  {plan.discount > 0 && (
+                    <p className="text-green-600 font-semibold">{plan.discount}% package discount</p>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // Additional Services (last step before results for all types)
+    const services = companyType ? additionalServicesByType[companyType] : [];
+    return (
+      <div>
+        <h3 className="text-2xl font-bold text-primary mb-2">
+          Additional Services
+        </h3>
+        <p className="text-muted-foreground mb-8">
+          Select any additional services you need (optional)
+        </p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {services.map((service) => (
+            <motion.div
+              key={service.id}
+              whileHover={{ y: -2 }}
+              onClick={() => handleServiceToggle(service.id)}
+              className={cn(
+                "p-5 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4",
+                selectedServices.includes(service.id)
+                  ? "border-gold bg-gold/5"
+                  : "border-border hover:border-gold/40"
+              )}
+            >
+              <Checkbox
+                checked={selectedServices.includes(service.id)}
+                className="h-5 w-5"
+              />
+              <div className="flex-1">
+                <h4 className="font-semibold text-primary">{service.name}</h4>
+              </div>
+              <span className="text-gold font-bold">+BHD {service.price}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Render results breakdown
+  const renderResultsBreakdown = () => {
+    const { total, breakdown } = calculateTotal();
+    const selectedTypeData = companyTypes.find(t => t.id === companyType);
+    
+    return (
+      <div>
+        <h3 className="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
+          <Calculator className="h-6 w-6 text-gold" />
+          Your Estimate
+        </h3>
+        
+        <div className="mb-4 p-4 bg-muted/30 rounded-xl">
+          <div className="flex items-center justify-between">
+            <span className="text-muted-foreground">Company Type</span>
+            <span className="font-semibold text-primary">{selectedTypeData?.name}</span>
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-muted-foreground">Estimated Timeline</span>
+            <span className="font-semibold text-primary flex items-center gap-1">
+              <Clock className="h-4 w-4" /> {selectedTypeData?.timeline}
+            </span>
+          </div>
+        </div>
+        
+        <div className="space-y-3 mb-6">
+          {breakdown.map((item, index) => (
+            <div key={index} className="flex justify-between py-3 border-b border-border">
+              <span className="text-muted-foreground">{item.label}</span>
+              <span className={cn(
+                "font-semibold",
+                item.amount < 0 ? "text-green-600" : "text-primary"
+              )}>
+                {item.amount < 0 ? "-" : ""}BHD {Math.abs(item.amount).toLocaleString()}
+              </span>
+            </div>
+          ))}
+        </div>
+        
+        <div className="bg-primary/5 rounded-2xl p-6">
+          <div className="flex justify-between items-center">
+            <span className="text-lg font-semibold text-primary">Estimated Total</span>
+            <span className="text-3xl font-bold text-gold">
+              BHD {total.toLocaleString()}
+            </span>
+          </div>
+          <p className="text-sm text-muted-foreground mt-2">
+            *Final quote may vary based on specific requirements.
+          </p>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -215,159 +1192,14 @@ export function FormationCostCalculator() {
             <AnimatePresence mode="wait">
               {!showResult ? (
                 <motion.div
-                  key={step}
+                  key={`${companyType}-${step}`}
                   variants={stepVariants}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Step 1: Company Type */}
-                  {step === 1 && (
-                    <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">
-                        Choose Company Type
-                      </h3>
-                      <p className="text-muted-foreground mb-8">
-                        Select the type of company you want to register in Bahrain
-                      </p>
-                      
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {companyTypes.map((type) => (
-                          <motion.div
-                            key={type.id}
-                            whileHover={{ y: -4 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => setCompanyType(type.id)}
-                            className={cn(
-                              "p-6 rounded-2xl border-2 cursor-pointer transition-all text-center",
-                              companyType === type.id
-                                ? "border-gold bg-gold/5 shadow-lg"
-                                : "border-border hover:border-gold/40"
-                            )}
-                          >
-                            <Building2 className={cn(
-                              "h-8 w-8 mx-auto mb-3",
-                              companyType === type.id ? "text-gold" : "text-muted-foreground"
-                            )} />
-                            <h4 className="font-bold text-primary text-lg">{type.name}</h4>
-                            <p className="text-sm text-muted-foreground mb-2">{type.description}</p>
-                            <p className="text-gold font-bold">BHD {type.price.toLocaleString()}</p>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Step 2: Business Activity */}
-                  {step === 2 && (
-                    <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">
-                        Select Business Activity
-                      </h3>
-                      <p className="text-muted-foreground mb-8">
-                        What will be your primary business activity?
-                      </p>
-                      
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {activities.map((act) => (
-                          <motion.div
-                            key={act.id}
-                            whileHover={{ y: -4 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => setActivity(act.id)}
-                            className={cn(
-                              "p-6 rounded-2xl border-2 cursor-pointer transition-all text-center",
-                              activity === act.id
-                                ? "border-gold bg-gold/5 shadow-lg"
-                                : "border-border hover:border-gold/40"
-                            )}
-                          >
-                            <act.icon className={cn(
-                              "h-8 w-8 mx-auto mb-3",
-                              activity === act.id ? "text-gold" : "text-muted-foreground"
-                            )} />
-                            <h4 className="font-bold text-primary">{act.name}</h4>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Step 3: Visa Requirements */}
-                  {step === 3 && (
-                    <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">
-                        Work Visa Requirements
-                      </h3>
-                      <p className="text-muted-foreground mb-8">
-                        How many work visas do you need for your team?
-                      </p>
-                      
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {visaOptions.map((visa) => (
-                          <motion.div
-                            key={visa.id}
-                            whileHover={{ y: -4 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => setVisaCount(visa.id)}
-                            className={cn(
-                              "p-6 rounded-2xl border-2 cursor-pointer transition-all text-center",
-                              visaCount === visa.id
-                                ? "border-gold bg-gold/5 shadow-lg"
-                                : "border-border hover:border-gold/40"
-                            )}
-                          >
-                            <Users className={cn(
-                              "h-8 w-8 mx-auto mb-3",
-                              visaCount === visa.id ? "text-gold" : "text-muted-foreground"
-                            )} />
-                            <h4 className="font-bold text-primary">{visa.label}</h4>
-                            <p className="text-gold font-bold mt-2">
-                              {visa.price > 0 ? `+BHD ${visa.price}` : "Included"}
-                            </p>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Step 4: Additional Services */}
-                  {step === 4 && (
-                    <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">
-                        Additional Services
-                      </h3>
-                      <p className="text-muted-foreground mb-8">
-                        Select any additional services you need (optional)
-                      </p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {additionalServices.map((service) => (
-                          <motion.div
-                            key={service.id}
-                            whileHover={{ y: -2 }}
-                            onClick={() => handleServiceToggle(service.id)}
-                            className={cn(
-                              "p-5 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4",
-                              selectedServices.includes(service.id)
-                                ? "border-gold bg-gold/5"
-                                : "border-border hover:border-gold/40"
-                            )}
-                          >
-                            <Checkbox
-                              checked={selectedServices.includes(service.id)}
-                              className="h-5 w-5"
-                            />
-                            <div className="flex-1">
-                              <h4 className="font-semibold text-primary">{service.name}</h4>
-                            </div>
-                            <span className="text-gold font-bold">+BHD {service.price}</span>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  {renderStepContent()}
                 </motion.div>
               ) : (
                 /* Results & Lead Capture */
@@ -380,52 +1212,7 @@ export function FormationCostCalculator() {
                   {!isSubmitted ? (
                     <div className="grid md:grid-cols-2 gap-10">
                       {/* Cost Breakdown */}
-                      <div>
-                        <h3 className="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
-                          <Calculator className="h-6 w-6 text-gold" />
-                          Your Estimate
-                        </h3>
-                        
-                        <div className="space-y-4 mb-6">
-                          <div className="flex justify-between py-3 border-b border-border">
-                            <span className="text-muted-foreground">Company Type ({companyType})</span>
-                            <span className="font-semibold text-primary">
-                              BHD {companyTypes.find(t => t.id === companyType)?.price.toLocaleString()}
-                            </span>
-                          </div>
-                          
-                          {visaCount && visaCount !== "0" && (
-                            <div className="flex justify-between py-3 border-b border-border">
-                              <span className="text-muted-foreground">Work Visas ({visaCount})</span>
-                              <span className="font-semibold text-primary">
-                                BHD {visaOptions.find(v => v.id === visaCount)?.price.toLocaleString()}
-                              </span>
-                            </div>
-                          )}
-                          
-                          {selectedServices.map(serviceId => {
-                            const service = additionalServices.find(s => s.id === serviceId);
-                            return service ? (
-                              <div key={serviceId} className="flex justify-between py-3 border-b border-border">
-                                <span className="text-muted-foreground">{service.name}</span>
-                                <span className="font-semibold text-primary">BHD {service.price}</span>
-                              </div>
-                            ) : null;
-                          })}
-                        </div>
-                        
-                        <div className="bg-primary/5 rounded-2xl p-6">
-                          <div className="flex justify-between items-center">
-                            <span className="text-lg font-semibold text-primary">Estimated Total</span>
-                            <span className="text-3xl font-bold text-gold">
-                              BHD {calculateTotal().toLocaleString()}
-                            </span>
-                          </div>
-                          <p className="text-sm text-muted-foreground mt-2">
-                            *Government fees included. Final quote may vary based on specific requirements.
-                          </p>
-                        </div>
-                      </div>
+                      {renderResultsBreakdown()}
 
                       {/* Lead Capture Form */}
                       <div>
