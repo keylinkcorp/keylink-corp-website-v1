@@ -39,8 +39,8 @@ export function CRTestimonials() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background Pattern */}
+    <section ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+      {/* Background Pattern - Enhanced */}
       <div className="absolute inset-0 -z-10 h-full w-full bg-white">
         <div 
           className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"
@@ -59,13 +59,16 @@ export function CRTestimonials() {
           className="text-center mb-16"
         >
           <motion.div variants={staggerItem}>
-            <span className="section-badge">Client Success</span>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold border border-accent/20 mb-4">
+              <Star className="w-4 h-4" />
+              Client Success
+            </span>
           </motion.div>
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2 variants={staggerItem} className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
             Trusted by Entrepreneurs{" "}
             <span className="text-accent">Worldwide</span>
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <motion.p variants={staggerItem} className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Join thousands of business owners who've successfully registered their companies in Bahrain with Keylink
           </motion.p>
         </motion.div>
@@ -80,36 +83,37 @@ export function CRTestimonials() {
             <motion.div
               key={index}
               variants={staggerItem}
-              className="bg-white rounded-2xl p-8 border border-border shadow-sm hover:shadow-lg transition-shadow"
+              whileHover={{ y: -8 }}
+              className="relative bg-white rounded-3xl p-8 border-2 border-border shadow-xl hover:shadow-2xl hover:border-t-4 hover:border-t-accent transition-all"
             >
-              {/* Quote Icon */}
-              <Quote className="w-10 h-10 text-accent/20 mb-4" />
+              {/* Large decorative quote */}
+              <Quote className="absolute top-6 right-6 w-16 h-16 text-accent/10" />
               
-              {/* Rating */}
-              <div className="flex gap-1 mb-4">
+              {/* Rating - Enhanced */}
+              <div className="flex gap-1 mb-6">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                  <Star key={i} className="w-5 h-5 fill-accent text-accent" />
                 ))}
               </div>
 
-              {/* Quote */}
-              <p className="text-foreground mb-6 leading-relaxed">
+              {/* Quote - Enhanced */}
+              <p className="text-lg text-foreground mb-8 leading-relaxed relative z-10">
                 "{testimonial.quote}"
               </p>
 
-              {/* Author */}
-              <div className="flex items-center gap-4 pt-4 border-t border-border">
+              {/* Author - Enhanced */}
+              <div className="flex items-center gap-4 pt-6 border-t-2 border-border">
                 <img
                   src={testimonial.image}
                   alt={testimonial.author}
-                  className="w-14 h-14 rounded-full object-cover"
+                  className="w-16 h-16 rounded-2xl object-cover shadow-lg border-2 border-border"
                 />
                 <div className="flex-1">
-                  <h4 className="font-semibold">{testimonial.author}</h4>
+                  <h4 className="font-bold text-lg">{testimonial.author}</h4>
                   <p className="text-sm text-muted-foreground">{testimonial.title}</p>
                 </div>
-                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                  <testimonial.icon className="w-5 h-5 text-accent" />
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                  <testimonial.icon className="w-6 h-6 text-accent" />
                 </div>
               </div>
             </motion.div>
