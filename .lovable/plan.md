@@ -1,140 +1,236 @@
 
-
-# Commercial Registration Page - Visual Refinements
+# Remove Heavy Shadows - Simplify to Subtle Shadows Across All Pages
 
 ## Overview
 
-This plan addresses three key issues:
-1. **Soften hard shadows** across all CR components - replace harsh `shadow-2xl` with softer, more subtle shadows
-2. **Improve Client Success Story contrast** - make text and cards more readable against the navy background
-3. **Remove image overlay from Process Steps** - show the background image more prominently
+This plan removes all heavy/complex shadows (`shadow-2xl`, `shadow-xl`, `shadow-lg shadow-*/*`) and replaces them with simple, minimal shadows (`shadow-sm` or `shadow-md`) throughout the entire application. This creates a cleaner, more modern aesthetic.
 
 ---
 
-## Changes Summary
+## Shadow Replacement Strategy
 
-### 1. Soften Shadows Across Components
-
-**Affected Files:**
-- `CRHero.tsx`
-- `CRProblemValue.tsx`
-- `CRProcessSteps.tsx`
-- `CRSuccessStory.tsx`
-- `CRCostCalculator.tsx`
-- `CRTestimonials.tsx`
-- Other CR components as needed
-
-**Shadow Replacements:**
-| Current | New |
-|---------|-----|
-| `shadow-2xl` | `shadow-lg` |
-| `shadow-xl` | `shadow-md` |
-| `hover:shadow-2xl` | `hover:shadow-lg` |
+| Current Shadow | New Shadow |
+|----------------|------------|
+| `shadow-2xl` | `shadow-sm` |
+| `shadow-xl` | `shadow-sm` |
+| `shadow-lg` | `shadow-sm` |
+| `shadow-lg shadow-primary/20` | `shadow-sm` |
+| `shadow-lg shadow-gold/20` | `shadow-sm` |
+| `shadow-lg shadow-accent/25` | `shadow-sm` |
+| `shadow-2xl shadow-primary/10` | `shadow-sm` |
+| `shadow-2xl shadow-primary/20` | `shadow-sm` |
+| `shadow-xl shadow-primary/5` | `shadow-sm` |
 | `hover:shadow-xl` | `hover:shadow-md` |
-| `shadow-2xl shadow-primary/15` | `shadow-lg shadow-primary/8` |
-| `shadow-2xl shadow-accent/25` | `shadow-md shadow-accent/15` |
-
----
-
-### 2. Client Success Story - Improve Contrast
-
-**File:** `src/components/services/cr/CRSuccessStory.tsx`
-
-**Current Issues:**
-- Cards use `bg-gradient-to-br from-white/10 to-white/5` - too transparent
-- Text uses `text-white/70` - not enough contrast
-- Stats cards use `bg-white/10` - barely visible
-
-**Improvements:**
-- Cards: Change to `bg-white/15` with stronger border `border-white/25`
-- Body text: Change from `text-white/70` to `text-white/80`
-- Stats cards: Change to `bg-white/15 backdrop-blur-md border-white/30`
-- Quote section: Stronger background `bg-white/20`
-- Increase quote text contrast
-- Add subtle inner glow to cards for better definition
-
----
-
-### 3. Process Steps - Remove Image Overlay
-
-**File:** `src/components/services/cr/CRProcessSteps.tsx`
-
-**Current State:**
-```tsx
-<div className="absolute inset-0 bg-gradient-to-r from-secondary/[0.97] via-secondary/95 to-secondary/[0.92]" />
-```
-This creates a 92-97% opacity overlay that almost completely hides the image.
-
-**New Approach:**
-- Remove the heavy gradient overlay entirely
-- Use a clean white/light gray background instead
-- Keep the dot pattern for visual interest
-- Maintain excellent text readability
-- The consultant image can be used elsewhere or removed since it won't be visible behind accordion cards
-
-**New Background:**
-```tsx
-<div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
-```
-
----
-
-## Detailed File Changes
-
-### CRHero.tsx
-- Line 199: `shadow-2xl shadow-primary/15` to `shadow-lg`
-- Line 214: `shadow-2xl` to `shadow-lg`
-- Line 230: `shadow-2xl` to `shadow-lg`
-- Line 214: `hover:shadow-xl` kept as is (subtle enough)
-
-### CRProblemValue.tsx
-- Line 111: `shadow-lg hover:shadow-xl` to `shadow-md hover:shadow-lg`
-- Line 139: `shadow-2xl` to `shadow-lg`
-- Line 148: `shadow-xl` to `shadow-md`
-- Line 191: `shadow-lg hover:shadow-2xl` to `shadow-md hover:shadow-lg`
-
-### CRProcessSteps.tsx
-- Remove lines 114-122 (background image and overlay)
-- Add clean background pattern instead
-- Keep accordion cards with current styling but soften shadows
-
-### CRSuccessStory.tsx
-- Line 59, 77, 95: Change card backgrounds from `from-white/10 to-white/5` to `bg-white/15`
-- Line 65, 87, 101: Change body text from `text-white/70` to `text-white/80`
-- Lines 116-143: Increase stats card opacity from `bg-white/10` to `bg-white/15`
-- Line 151: Quote container from `bg-white/10` to `bg-white/20`
-- Remove some blur effects for cleaner look
-
-### Additional Components
-Apply similar shadow softening to:
-- `CRCostCalculator.tsx`
-- `CRTestimonials.tsx`
-- `CRGovernmentFees.tsx`
-- `CRAmendmentsSection.tsx`
-
----
-
-## Visual Impact
-
-1. **Softer, more elegant shadows** - Less aggressive visual weight, more refined look
-2. **Better readability in Success Story** - Higher contrast text and card backgrounds
-3. **Clean Process section** - Focus on content rather than hidden background image
-4. **Consistent design language** - Unified shadow depth across all sections
+| `hover:shadow-lg` | `hover:shadow-md` |
+| `hover:shadow-2xl` | `hover:shadow-md` |
 
 ---
 
 ## Files to Modify
 
-| File | Changes |
-|------|---------|
-| `src/components/services/cr/CRHero.tsx` | Soften shadows |
-| `src/components/services/cr/CRProblemValue.tsx` | Soften shadows |
-| `src/components/services/cr/CRProcessSteps.tsx` | Remove image overlay, clean background |
-| `src/components/services/cr/CRSuccessStory.tsx` | Improve contrast, soften shadows |
-| `src/components/services/cr/CRCostCalculator.tsx` | Soften shadows |
-| `src/components/services/cr/CRTestimonials.tsx` | Soften shadows |
-| `src/components/services/cr/CRGovernmentFees.tsx` | Soften shadows |
-| `src/components/services/cr/CRAmendmentsSection.tsx` | Soften shadows |
+### Home Page Components (11 files)
 
-**Total: 8 files**
+| File | Shadow Changes |
+|------|----------------|
+| `src/components/home/Hero.tsx` | Button shadow, image container, floating badge |
+| `src/components/home/WhyChooseUs.tsx` | Image container, floating stat card |
+| `src/components/home/IndustryServices.tsx` | Image container, floating stats card, card hover |
+| `src/components/home/MissionVision.tsx` | Image container, floating badge |
+| `src/components/home/CompanyFormationProcess.tsx` | Image container, floating badge, step card hover |
+| `src/components/home/CostCalculatorPreview.tsx` | Calculator card container |
+| `src/components/home/Testimonials.tsx` | Card hover states |
+| `src/components/home/Services.tsx` | Card hover states |
+| `src/components/FloatingWhatsApp.tsx` | Chat popup container, button shadow |
+| `src/components/home/CTABanner.tsx` | Button shadows (if any) |
+| `src/components/home/FAQ.tsx` | Card shadows (if any) |
 
+### Formation Page Components (10 files)
+
+| File | Shadow Changes |
+|------|----------------|
+| `src/components/services/formation/FormationHero.tsx` | Image container, floating badges, button shadow |
+| `src/components/services/formation/FormationTestimonials.tsx` | Card hover states |
+| `src/components/services/formation/PricingPackages.tsx` | Popular card shadow, hover states |
+| `src/components/services/formation/FormationCTA.tsx` | Button shadows |
+| `src/components/services/formation/ProblemValueProp.tsx` | Card hover states |
+| `src/components/services/formation/FormationProcessDetailed.tsx` | Expanded accordion, phase button |
+| `src/components/services/formation/FormationCostCalculator.tsx` | Card shadows |
+| `src/components/services/formation/WhyChooseKeylink.tsx` | Card shadows |
+| `src/components/services/formation/BankAccountOpening.tsx` | Card shadows |
+| `src/components/services/formation/RequirementsChecklist.tsx` | Card shadows |
+
+### Commercial Registration Components (11 files - already partially done)
+
+| File | Shadow Changes |
+|------|----------------|
+| `src/components/services/cr/CRHero.tsx` | Remaining shadows to simplify |
+| `src/components/services/cr/CRProblemValue.tsx` | Card shadows |
+| `src/components/services/cr/WhatIsCR.tsx` | Image/card shadows |
+| `src/components/services/cr/CRTypesComparison.tsx` | Tab and card shadows |
+| `src/components/services/cr/CRProcessSteps.tsx` | Accordion shadows |
+| `src/components/services/cr/CRRequirementsChecklist.tsx` | Tab and list shadows |
+| `src/components/services/cr/CRGovernmentFees.tsx` | Table shadows |
+| `src/components/services/cr/CRAmendmentsSection.tsx` | Card shadows |
+| `src/components/services/cr/CRTestimonials.tsx` | Card shadows |
+| `src/components/services/cr/CRSuccessStory.tsx` | Card shadows |
+| `src/components/services/cr/CRCostCalculator.tsx` | Card shadows |
+
+### Shared Service Components (6 files)
+
+| File | Shadow Changes |
+|------|----------------|
+| `src/components/services/shared/ServiceHero.tsx` | Feature pills, price badge |
+| `src/components/services/shared/ServiceBenefits.tsx` | Benefit cards hover |
+| `src/components/services/shared/ServicePricing.tsx` | Pricing cards |
+| `src/components/services/shared/ServiceCTA.tsx` | Any shadows |
+| `src/components/services/shared/ServiceWhyChoose.tsx` | Card shadows |
+| `src/components/services/shared/RelatedServicesGrid.tsx` | Card shadows |
+
+### Other Service Pages (visa, pro, accounting, cr-renewal)
+
+| File | Shadow Changes |
+|------|----------------|
+| `src/components/services/visa/*.tsx` | All card shadows |
+| `src/components/services/pro/*.tsx` | All card shadows |
+
+---
+
+## Detailed Changes by Component
+
+### 1. Hero.tsx (Homepage)
+```tsx
+// Line 110: Button shadow
+shadow-lg shadow-primary/20 → shadow-sm
+
+// Line 215: Image container
+shadow-2xl shadow-primary/10 → shadow-sm
+
+// Line 227: Floating badge
+shadow-lg → shadow-sm
+```
+
+### 2. WhyChooseUs.tsx
+```tsx
+// Line 74: Image container
+shadow-2xl shadow-primary/10 → shadow-sm
+
+// Line 86: Floating stat
+shadow-xl → shadow-sm
+```
+
+### 3. IndustryServices.tsx
+```tsx
+// Line 172: Card hover
+hover:shadow-lg → hover:shadow-md
+
+// Line 238: Image container
+shadow-2xl shadow-primary/10 → shadow-sm
+
+// Line 251: Floating stats card
+shadow-xl → shadow-sm
+```
+
+### 4. MissionVision.tsx
+```tsx
+// Line 42: Image container
+shadow-2xl shadow-primary/10 → shadow-sm
+
+// Line 54: Floating badge
+shadow-lg → shadow-sm
+
+// Line 96, 124: Card hover
+hover:shadow-lg → hover:shadow-md
+```
+
+### 5. CompanyFormationProcess.tsx
+```tsx
+// Line 104: Step card hover
+hover:shadow-md → keep as is (already simple)
+
+// Line 221: Image container
+shadow-2xl → shadow-sm
+
+// Line 233: Floating badge
+shadow-lg → shadow-sm
+```
+
+### 6. CostCalculatorPreview.tsx
+```tsx
+// Line 68: CTA button
+shadow-lg shadow-gold/20 → shadow-sm
+
+// Line 85: Calculator card
+shadow-xl shadow-primary/5 → shadow-sm
+```
+
+### 7. FormationHero.tsx
+```tsx
+// Line 102: Button shadow
+shadow-lg shadow-gold/20 → shadow-sm
+
+// Line 202: Image container
+shadow-2xl shadow-primary/10 → shadow-sm
+
+// Line 214, 225: Floating badges
+shadow-lg → shadow-sm
+```
+
+### 8. PricingPackages.tsx
+```tsx
+// Line 100: Popular card
+shadow-2xl shadow-primary/20 → shadow-sm
+
+// Line 101: Hover state
+hover:shadow-xl → hover:shadow-md
+```
+
+### 9. FloatingWhatsApp.tsx
+```tsx
+// Line 24: Chat popup
+shadow-2xl → shadow-md
+
+// Line 66: Button
+shadow-lg → shadow-sm
+```
+
+### 10. Testimonials & FormationTestimonials
+```tsx
+// Card hover states
+hover:shadow-xl → hover:shadow-md
+```
+
+### 11. Services.tsx
+```tsx
+// Line 94: Card hover
+hover:shadow-xl → hover:shadow-md
+```
+
+### 12. ServiceBenefits.tsx
+```tsx
+// Line 63: Card
+shadow-sm hover:shadow-lg → shadow-sm hover:shadow-md
+```
+
+### 13. ServicePricing.tsx
+```tsx
+// Line 70: Cards
+shadow-lg → shadow-sm
+```
+
+---
+
+## Summary
+
+**Total Files to Modify:** ~35 files across home, formation, CR, shared, and other service components
+
+**Shadow Philosophy:**
+- Base state: `shadow-sm` (subtle, clean)
+- Hover state: `shadow-md` (slight elevation feedback)
+- No colored shadows (`shadow-*/10`, `shadow-gold/20`, etc.)
+- No heavy shadows (`shadow-xl`, `shadow-2xl`)
+
+**Visual Impact:**
+- Cleaner, more modern aesthetic
+- Reduced visual noise
+- Better consistency across all pages
+- Faster perceived performance (less rendering complexity)
