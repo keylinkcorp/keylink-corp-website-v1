@@ -70,8 +70,8 @@ export function CRProblemValue() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28 bg-secondary/30 relative overflow-hidden">
-      {/* Background Pattern */}
+    <section ref={ref} className="py-24 md:py-32 bg-secondary/40 relative overflow-hidden">
+      {/* Background Pattern - Enhanced */}
       <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]" />
       
       <div className="container mx-auto px-4">
@@ -82,86 +82,97 @@ export function CRProblemValue() {
           className="text-center mb-16"
         >
           <motion.div variants={staggerItem}>
-            <span className="section-badge">The Challenge</span>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 text-red-600 text-sm font-semibold border border-red-100 mb-4">
+              <AlertTriangle className="w-4 h-4" />
+              The Challenge
+            </span>
           </motion.div>
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2 variants={staggerItem} className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
             Why Businesses Struggle with{" "}
             <span className="text-accent">Commercial Registration</span>
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <motion.p variants={staggerItem} className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Navigating Bahrain's commercial registration process alone can be overwhelming
           </motion.p>
         </motion.div>
 
-        {/* Pain Points Grid */}
+        {/* Pain Points Grid - Enhanced with red accents */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
         >
           {painPoints.map((point, index) => (
             <motion.div
               key={index}
               variants={staggerItem}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="bg-white rounded-2xl p-6 border border-red-100 shadow-sm hover:shadow-md transition-shadow"
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+              className="bg-white rounded-2xl p-7 border-l-4 border-l-red-400 border-t border-r border-b border-border shadow-lg hover:shadow-xl transition-all"
             >
-              <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center mb-4">
-                <point.icon className="w-6 h-6 text-red-500" />
+              <div className="w-14 h-14 rounded-xl bg-red-50 flex items-center justify-center mb-5">
+                <point.icon className="w-7 h-7 text-red-500" />
               </div>
-              <h3 className="font-semibold mb-2">{point.title}</h3>
-              <p className="text-sm text-muted-foreground">{point.description}</p>
+              <h3 className="font-bold text-lg mb-3">{point.title}</h3>
+              <p className="text-muted-foreground leading-relaxed">{point.description}</p>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Visual Divider with Image */}
+        {/* Visual Divider with Image - Enhanced */}
         <motion.div
           variants={imageReveal}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="flex flex-col items-center gap-6 mb-16"
+          className="flex flex-col items-center gap-8 mb-20"
         >
           {/* Arrow Indicator */}
-          <div className="flex flex-col items-center gap-2">
-            <ArrowDown className="w-8 h-8 text-accent animate-bounce" />
-            <span className="text-sm font-medium text-muted-foreground">There's a better way</span>
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center">
+              <ArrowDown className="w-7 h-7 text-accent animate-bounce" />
+            </div>
+            <span className="text-base font-semibold text-muted-foreground">There's a better way</span>
           </div>
           
-          {/* Documents Image */}
-          <div className="relative max-w-md mx-auto hidden md:block">
-            <div className="rounded-2xl overflow-hidden shadow-xl">
+          {/* Documents Image - Enhanced */}
+          <div className="relative max-w-lg mx-auto hidden md:block">
+            <div className="rounded-3xl overflow-hidden shadow-2xl border-2 border-border">
               <img
                 src={crDocumentsImage}
                 alt="Professional business documents and certificates"
                 className="w-full h-auto object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
             </div>
-            {/* Floating Badge */}
-            <div className="absolute -bottom-4 -right-4 bg-white rounded-xl p-3 shadow-lg border border-border">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-accent" />
-                <span className="text-sm font-medium">We handle it all</span>
+            {/* Floating Badge - Enhanced */}
+            <div className="absolute -bottom-5 -right-5 bg-white rounded-xl p-4 shadow-xl border-2 border-accent">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-accent" />
+                </div>
+                <span className="text-base font-bold">We handle it all</span>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Solutions Section */}
+        {/* Solutions Section - Enhanced */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
           <motion.div variants={staggerItem}>
-            <span className="section-badge bg-accent/10 text-accent border-accent/20">The Solution</span>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold border border-accent/20 mb-4">
+              <CheckCircle2 className="w-4 h-4" />
+              The Solution
+            </span>
           </motion.div>
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2 variants={staggerItem} className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
             Our Full-Service Approach
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <motion.p variants={staggerItem} className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Let us handle the complexity while you focus on building your business
           </motion.p>
         </motion.div>
@@ -176,14 +187,14 @@ export function CRProblemValue() {
             <motion.div
               key={index}
               variants={staggerItem}
-              whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.2 } }}
-              className="bg-white rounded-2xl p-6 border border-accent/20 shadow-sm hover:border-accent hover:shadow-lg transition-all"
+              whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.2 } }}
+              className="bg-white rounded-2xl p-7 border-2 border-border shadow-lg hover:border-accent hover:shadow-2xl transition-all group"
             >
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
-                <solution.icon className="w-6 h-6 text-accent" />
+              <div className="w-14 h-14 rounded-xl bg-accent/10 group-hover:bg-accent/20 flex items-center justify-center mb-5 transition-colors">
+                <solution.icon className="w-7 h-7 text-accent" />
               </div>
-              <h3 className="font-semibold mb-2">{solution.title}</h3>
-              <p className="text-sm text-muted-foreground">{solution.description}</p>
+              <h3 className="font-bold text-lg mb-3 group-hover:text-accent transition-colors">{solution.title}</h3>
+              <p className="text-muted-foreground leading-relaxed">{solution.description}</p>
             </motion.div>
           ))}
         </motion.div>

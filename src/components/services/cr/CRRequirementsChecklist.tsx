@@ -7,14 +7,15 @@ import {
   FileText,
   CheckCircle2,
   Download,
-  Globe
+  Globe,
+  Circle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tabs = [
-  { id: "individual", label: "Individual Applicants", icon: User },
-  { id: "corporate", label: "Corporate Shareholders", icon: Building2 },
-  { id: "all", label: "All Applicants", icon: FileText }
+  { id: "individual", label: "Individual Applicants", icon: User, count: 6 },
+  { id: "corporate", label: "Corporate Shareholders", icon: Building2, count: 6 },
+  { id: "all", label: "All Applicants", icon: FileText, count: 5 }
 ];
 
 const requirements = {
@@ -117,51 +118,62 @@ export function CRRequirementsChecklist() {
   const [activeTab, setActiveTab] = useState("individual");
 
   return (
-    <section ref={ref} className="py-20 md:py-28">
+    <section ref={ref} className="py-24 md:py-32">
       <div className="container mx-auto px-4">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
           <motion.div variants={staggerItem}>
-            <span className="section-badge">Documentation</span>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 text-primary text-sm font-semibold border border-primary/10 mb-4">
+              <FileText className="w-4 h-4" />
+              Documentation
+            </span>
           </motion.div>
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2 variants={staggerItem} className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
             What Documents Do You Need for{" "}
             <span className="text-accent">CR Registration</span>?
           </motion.h2>
-          <motion.p variants={staggerItem} className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <motion.p variants={staggerItem} className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Required documents vary based on your applicant type and business activities
           </motion.p>
         </motion.div>
 
-        {/* Tab Selector */}
+        {/* Tab Selector - Enhanced with count badges */}
         <motion.div
           variants={staggerItem}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="flex flex-wrap justify-center gap-3 mb-10"
+          className="flex flex-wrap justify-center gap-4 mb-12"
         >
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "flex items-center gap-2 px-5 py-3 rounded-full border-2 transition-all",
+                "flex items-center gap-3 px-6 py-4 rounded-xl border-2 transition-all font-semibold",
                 activeTab === tab.id
-                  ? "bg-primary text-white border-primary"
-                  : "bg-white text-foreground border-border hover:border-accent"
+                  ? "bg-primary text-white border-primary shadow-lg shadow-primary/20"
+                  : "bg-white text-foreground border-border hover:border-accent hover:shadow-md"
               )}
             >
               <tab.icon className="w-5 h-5" />
-              <span className="font-medium">{tab.label}</span>
+              <span>{tab.label}</span>
+              <span className={cn(
+                "px-2.5 py-0.5 rounded-full text-sm font-bold",
+                activeTab === tab.id
+                  ? "bg-accent text-primary"
+                  : "bg-secondary text-muted-foreground"
+              )}>
+                {tab.count}
+              </span>
             </button>
           ))}
         </motion.div>
 
-        {/* Requirements List */}
+        {/* Requirements List - Enhanced */}
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, y: 20 }}
@@ -169,50 +181,52 @@ export function CRRequirementsChecklist() {
           transition={{ duration: 0.4 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
-            <div className="p-6 border-b border-border bg-secondary/30">
-              <h3 className="text-xl font-semibold flex items-center gap-3">
-                {tabs.find(t => t.id === activeTab)?.icon && (
-                  <span className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                    {(() => {
-                      const Icon = tabs.find(t => t.id === activeTab)!.icon;
-                      return <Icon className="w-5 h-5 text-accent" />;
-                    })()}
-                  </span>
-                )}
+          <div className="bg-white rounded-3xl border-2 border-border shadow-xl overflow-hidden">
+            <div className="p-6 border-b-2 border-border bg-secondary/40">
+              <h3 className="text-xl font-bold flex items-center gap-3">
+                <span className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                  {(() => {
+                    const Icon = tabs.find(t => t.id === activeTab)!.icon;
+                    return <Icon className="w-6 h-6 text-accent" />;
+                  })()}
+                </span>
                 {tabs.find(t => t.id === activeTab)?.label}
               </h3>
             </div>
             
-            <div className="divide-y divide-border">
+            <div className="divide-y-2 divide-border/50">
               {requirements[activeTab as keyof typeof requirements].map((req, index) => (
                 <div 
                   key={index}
-                  className="flex items-start gap-4 p-5 hover:bg-secondary/30 transition-colors"
+                  className={cn(
+                    "flex items-start gap-5 p-6 transition-all hover:-translate-y-0.5 hover:shadow-sm",
+                    req.required ? "bg-accent/5 hover:bg-accent/10" : "hover:bg-secondary/50"
+                  )}
                 >
                   <div className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
-                    req.required ? "bg-accent/10" : "bg-secondary"
+                    "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
+                    req.required ? "bg-accent/20" : "bg-secondary border-2 border-dashed border-border"
                   )}>
-                    <CheckCircle2 className={cn(
-                      "w-5 h-5",
-                      req.required ? "text-accent" : "text-muted-foreground"
-                    )} />
+                    {req.required ? (
+                      <CheckCircle2 className="w-5 h-5 text-accent" />
+                    ) : (
+                      <Circle className="w-5 h-5 text-muted-foreground" />
+                    )}
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-semibold">{req.title}</h4>
+                    <div className="flex items-center gap-3 mb-1.5">
+                      <h4 className="font-bold text-lg">{req.title}</h4>
                       {req.required ? (
-                        <span className="px-2 py-0.5 bg-accent/10 text-accent text-xs font-medium rounded">
+                        <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded-lg">
                           Required
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 bg-secondary text-muted-foreground text-xs font-medium rounded">
+                        <span className="px-3 py-1 bg-secondary text-muted-foreground text-xs font-semibold rounded-lg border border-dashed border-border">
                           If Applicable
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground">{req.description}</p>
+                    <p className="text-muted-foreground">{req.description}</p>
                   </div>
                 </div>
               ))}
@@ -220,24 +234,26 @@ export function CRRequirementsChecklist() {
           </div>
         </motion.div>
 
-        {/* Remote Registration Callout */}
+        {/* Remote Registration Callout - Enhanced */}
         <motion.div
           variants={staggerItem}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="max-w-4xl mx-auto mt-8"
+          className="max-w-4xl mx-auto mt-10"
         >
-          <div className="flex items-start gap-4 p-6 bg-accent/5 border border-accent/20 rounded-xl">
-            <Globe className="w-8 h-8 text-accent flex-shrink-0" />
+          <div className="flex items-start gap-5 p-8 bg-accent/5 border-2 border-accent/20 rounded-2xl hover:border-accent/40 transition-colors">
+            <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+              <Globe className="w-7 h-7 text-accent" />
+            </div>
             <div>
-              <h4 className="font-semibold mb-2">Remote Registration Available</h4>
-              <p className="text-muted-foreground mb-3">
+              <h4 className="font-bold text-xl mb-2">Remote Registration Available</h4>
+              <p className="text-lg text-muted-foreground mb-4">
                 Can't visit Bahrain? We can complete your entire CR registration remotely using 
                 a Power of Attorney. Simply provide your documents, and we'll handle everything else.
               </p>
               <a 
                 href="/contact"
-                className="text-accent font-medium hover:underline inline-flex items-center gap-1"
+                className="text-accent font-bold hover:underline inline-flex items-center gap-2 text-lg"
               >
                 Learn about remote registration →
               </a>
@@ -245,19 +261,19 @@ export function CRRequirementsChecklist() {
           </div>
         </motion.div>
 
-        {/* Download Checklist CTA */}
+        {/* Download Checklist CTA - Enhanced */}
         <motion.div
           variants={staggerItem}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-center mt-10"
+          className="text-center mt-12"
         >
-          <p className="text-muted-foreground mb-4">
+          <p className="text-lg text-muted-foreground mb-6">
             Need a complete document checklist for your specific case?
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
           >
             <Download className="w-5 h-5" />
             Get Personalized Checklist

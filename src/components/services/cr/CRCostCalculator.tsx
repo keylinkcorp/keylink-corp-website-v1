@@ -18,7 +18,9 @@ import {
   RefreshCw,
   Briefcase,
   GitBranch,
-  Crown
+  Crown,
+  Sparkles,
+  ArrowRight
 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
@@ -177,7 +179,7 @@ export function CRCostCalculator() {
 
   return (
     <section ref={ref} className="py-28 lg:py-36 bg-white relative overflow-hidden">
-      {/* Background Pattern */}
+      {/* Background Pattern - Enhanced */}
       <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
       
       <div className="container relative">
@@ -187,13 +189,14 @@ export function CRCostCalculator() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold border border-accent/20 mb-6">
+            <Calculator className="w-4 h-4" />
             Interactive Tool
-          </p>
-          <h2 className="text-[40px] md:text-[48px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tight leading-[1.15]">
             Calculate Your CR Registration Costs
           </h2>
-          <p className="text-lg text-muted-foreground leading-[1.8]">
+          <p className="text-xl text-muted-foreground leading-[1.8]">
             Get an instant estimate for your commercial registration. 
             Answer a few questions and receive a detailed cost breakdown.
           </p>
@@ -205,19 +208,32 @@ export function CRCostCalculator() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-white rounded-3xl border-2 border-border shadow-xl p-8 md:p-12">
-            {/* Progress Bar */}
+          <div className="bg-white rounded-3xl border-2 border-border shadow-2xl p-8 md:p-12 hover:border-accent/30 transition-colors">
+            {/* Progress Bar - Enhanced with gold gradient */}
             {!showResult && (
               <div className="mb-10">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-sm font-medium text-muted-foreground">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-sm font-bold text-muted-foreground">
                     Step {step} of {totalSteps}
                   </span>
-                  <span className="text-sm font-medium text-gold">
+                  <span className="text-sm font-bold text-accent">
                     {Math.round(progress)}% Complete
                   </span>
                 </div>
-                <Progress value={progress} className="h-2" />
+                <div className="relative h-3 bg-secondary rounded-full overflow-hidden">
+                  <motion.div 
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-accent via-accent to-accent/80 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  />
+                  {/* Animated shine effect */}
+                  <motion.div
+                    className="absolute inset-y-0 w-20 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    animate={{ x: [-80, 400] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                </div>
               </div>
             )}
 
@@ -231,73 +247,87 @@ export function CRCostCalculator() {
                   exit="exit"
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Step 1: Entity Type */}
+                  {/* Step 1: Entity Type - Enhanced */}
                   {step === 1 && (
                     <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">
+                      <h3 className="text-2xl font-bold text-primary mb-3">
                         Choose Entity Type
                       </h3>
-                      <p className="text-muted-foreground mb-8">
+                      <p className="text-lg text-muted-foreground mb-10">
                         Select the type of commercial registration you need
                       </p>
                       
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
                         {entityTypes.map((type) => (
                           <motion.div
                             key={type.id}
-                            whileHover={{ y: -4 }}
+                            whileHover={{ y: -6, scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => setEntityType(type.id)}
                             className={cn(
-                              "p-6 rounded-2xl border-2 cursor-pointer transition-all text-center",
+                              "p-7 rounded-2xl border-2 cursor-pointer transition-all text-center",
                               entityType === type.id
-                                ? "border-gold bg-gold/5 shadow-lg"
-                                : "border-border hover:border-gold/40"
+                                ? "border-accent bg-accent/5 shadow-xl shadow-accent/20"
+                                : "border-border hover:border-accent/50 hover:shadow-lg"
                             )}
                           >
-                            <type.icon className={cn(
-                              "h-8 w-8 mx-auto mb-3",
-                              entityType === type.id ? "text-gold" : "text-muted-foreground"
-                            )} />
-                            <h4 className="font-bold text-primary text-lg">{type.name}</h4>
-                            <p className="text-sm text-muted-foreground mb-2">{type.description}</p>
-                            <p className="text-gold font-bold text-sm">Gov. Fee: BHD {type.govFee}</p>
+                            <div className={cn(
+                              "w-14 h-14 rounded-xl mx-auto mb-4 flex items-center justify-center transition-all",
+                              entityType === type.id 
+                                ? "bg-gradient-to-br from-accent to-accent/80" 
+                                : "bg-secondary"
+                            )}>
+                              <type.icon className={cn(
+                                "h-7 w-7",
+                                entityType === type.id ? "text-primary" : "text-muted-foreground"
+                              )} />
+                            </div>
+                            <h4 className="font-bold text-primary text-xl mb-1">{type.name}</h4>
+                            <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
+                            <p className="text-accent font-bold">Gov. Fee: BHD {type.govFee}</p>
                           </motion.div>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {/* Step 2: Number of Activities */}
+                  {/* Step 2: Number of Activities - Enhanced */}
                   {step === 2 && (
                     <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">
+                      <h3 className="text-2xl font-bold text-primary mb-3">
                         Number of Commercial Activities
                       </h3>
-                      <p className="text-muted-foreground mb-8">
+                      <p className="text-lg text-muted-foreground mb-10">
                         How many activities will be listed on your CR?
                       </p>
                       
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
                         {activityOptions.map((option) => (
                           <motion.div
                             key={option.id}
-                            whileHover={{ y: -4 }}
+                            whileHover={{ y: -6, scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => setActivityCount(option.id)}
                             className={cn(
-                              "p-6 rounded-2xl border-2 cursor-pointer transition-all text-center",
+                              "p-7 rounded-2xl border-2 cursor-pointer transition-all text-center",
                               activityCount === option.id
-                                ? "border-gold bg-gold/5 shadow-lg"
-                                : "border-border hover:border-gold/40"
+                                ? "border-accent bg-accent/5 shadow-xl shadow-accent/20"
+                                : "border-border hover:border-accent/50 hover:shadow-lg"
                             )}
                           >
-                            <FileText className={cn(
-                              "h-8 w-8 mx-auto mb-3",
-                              activityCount === option.id ? "text-gold" : "text-muted-foreground"
-                            )} />
-                            <h4 className="font-bold text-primary">{option.label}</h4>
-                            <p className="text-gold font-bold mt-2">
+                            <div className={cn(
+                              "w-14 h-14 rounded-xl mx-auto mb-4 flex items-center justify-center transition-all",
+                              activityCount === option.id 
+                                ? "bg-gradient-to-br from-accent to-accent/80" 
+                                : "bg-secondary"
+                            )}>
+                              <FileText className={cn(
+                                "h-7 w-7",
+                                activityCount === option.id ? "text-primary" : "text-muted-foreground"
+                              )} />
+                            </div>
+                            <h4 className="font-bold text-primary text-lg">{option.label}</h4>
+                            <p className="text-accent font-bold text-xl mt-2">
                               BHD {option.price}
                             </p>
                           </motion.div>
@@ -306,82 +336,95 @@ export function CRCostCalculator() {
                     </div>
                   )}
 
-                  {/* Step 3: Registration Type */}
+                  {/* Step 3: Registration Type - Enhanced */}
                   {step === 3 && (
                     <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">
+                      <h3 className="text-2xl font-bold text-primary mb-3">
                         Registration Type
                       </h3>
-                      <p className="text-muted-foreground mb-8">
+                      <p className="text-lg text-muted-foreground mb-10">
                         What type of CR service do you need?
                       </p>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {registrationTypes.map((type) => (
                           <motion.div
                             key={type.id}
-                            whileHover={{ y: -4 }}
+                            whileHover={{ y: -6, scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => setRegistrationType(type.id)}
                             className={cn(
-                              "p-6 rounded-2xl border-2 cursor-pointer transition-all text-center",
+                              "p-8 rounded-2xl border-2 cursor-pointer transition-all text-center",
                               registrationType === type.id
-                                ? "border-gold bg-gold/5 shadow-lg"
-                                : "border-border hover:border-gold/40"
+                                ? "border-accent bg-accent/5 shadow-xl shadow-accent/20"
+                                : "border-border hover:border-accent/50 hover:shadow-lg"
                             )}
                           >
-                            {type.id === "new" && <Building2 className={cn(
-                              "h-8 w-8 mx-auto mb-3",
-                              registrationType === type.id ? "text-gold" : "text-muted-foreground"
-                            )} />}
-                            {type.id === "amendment" && <FileText className={cn(
-                              "h-8 w-8 mx-auto mb-3",
-                              registrationType === type.id ? "text-gold" : "text-muted-foreground"
-                            )} />}
-                            {type.id === "renewal" && <RefreshCw className={cn(
-                              "h-8 w-8 mx-auto mb-3",
-                              registrationType === type.id ? "text-gold" : "text-muted-foreground"
-                            )} />}
-                            <h4 className="font-bold text-primary text-lg">{type.name}</h4>
-                            <p className="text-sm text-muted-foreground mb-2">{type.description}</p>
-                            <p className="text-gold font-bold">BHD {type.price}</p>
+                            <div className={cn(
+                              "w-14 h-14 rounded-xl mx-auto mb-4 flex items-center justify-center transition-all",
+                              registrationType === type.id 
+                                ? "bg-gradient-to-br from-accent to-accent/80" 
+                                : "bg-secondary"
+                            )}>
+                              {type.id === "new" && <Building2 className={cn(
+                                "h-7 w-7",
+                                registrationType === type.id ? "text-primary" : "text-muted-foreground"
+                              )} />}
+                              {type.id === "amendment" && <FileText className={cn(
+                                "h-7 w-7",
+                                registrationType === type.id ? "text-primary" : "text-muted-foreground"
+                              )} />}
+                              {type.id === "renewal" && <RefreshCw className={cn(
+                                "h-7 w-7",
+                                registrationType === type.id ? "text-primary" : "text-muted-foreground"
+                              )} />}
+                            </div>
+                            <h4 className="font-bold text-primary text-xl mb-1">{type.name}</h4>
+                            <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
+                            <p className="text-accent font-bold text-xl">BHD {type.price}</p>
                           </motion.div>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {/* Step 4: Additional Services */}
+                  {/* Step 4: Additional Services - Enhanced */}
                   {step === 4 && (
                     <div>
-                      <h3 className="text-2xl font-bold text-primary mb-2">
+                      <h3 className="text-2xl font-bold text-primary mb-3">
                         Additional Services
                       </h3>
-                      <p className="text-muted-foreground mb-8">
+                      <p className="text-lg text-muted-foreground mb-10">
                         Select any additional services you need (optional)
                       </p>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         {additionalServices.map((service) => (
                           <motion.div
                             key={service.id}
-                            whileHover={{ y: -2 }}
+                            whileHover={{ y: -4 }}
                             onClick={() => handleServiceToggle(service.id)}
                             className={cn(
-                              "p-5 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4",
+                              "p-6 rounded-2xl border-2 cursor-pointer transition-all flex items-center gap-5",
                               selectedServices.includes(service.id)
-                                ? "border-gold bg-gold/5"
-                                : "border-border hover:border-gold/40"
+                                ? "border-accent bg-accent/5 shadow-lg"
+                                : "border-border hover:border-accent/50 hover:shadow-md"
                             )}
                           >
-                            <Checkbox
-                              checked={selectedServices.includes(service.id)}
-                              className="h-5 w-5"
-                            />
-                            <div className="flex-1">
-                              <h4 className="font-semibold text-primary">{service.name}</h4>
+                            <div className={cn(
+                              "w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all",
+                              selectedServices.includes(service.id)
+                                ? "bg-accent border-accent"
+                                : "border-border"
+                            )}>
+                              {selectedServices.includes(service.id) && (
+                                <Check className="w-4 h-4 text-primary" />
+                              )}
                             </div>
-                            <span className="text-gold font-bold">+BHD {service.price}</span>
+                            <div className="flex-1">
+                              <h4 className="font-bold text-primary text-lg">{service.name}</h4>
+                            </div>
+                            <span className="text-accent font-bold text-lg">+BHD {service.price}</span>
                           </motion.div>
                         ))}
                       </div>
@@ -389,7 +432,7 @@ export function CRCostCalculator() {
                   )}
                 </motion.div>
               ) : (
-                /* Results & Lead Capture */
+                /* Results & Lead Capture - Enhanced */
                 <motion.div
                   variants={stepVariants}
                   initial="hidden"
@@ -397,39 +440,41 @@ export function CRCostCalculator() {
                   transition={{ duration: 0.3 }}
                 >
                   {!isSubmitted ? (
-                    <div className="grid md:grid-cols-2 gap-10">
-                      {/* Cost Breakdown */}
+                    <div className="grid md:grid-cols-2 gap-12">
+                      {/* Cost Breakdown - Enhanced */}
                       <div>
-                        <h3 className="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
-                          <Calculator className="h-6 w-6 text-gold" />
+                        <h3 className="text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+                            <Sparkles className="h-5 w-5 text-accent" />
+                          </div>
                           Your Estimate
                         </h3>
                         
-                        <div className="space-y-4 mb-6">
-                          <div className="flex justify-between py-3 border-b border-border">
-                            <span className="text-muted-foreground">Entity Type ({entityType})</span>
-                            <span className="font-semibold text-primary">
+                        <div className="space-y-4 mb-8">
+                          <div className="flex justify-between py-4 border-b-2 border-border">
+                            <span className="text-muted-foreground font-medium">Entity Type ({entityType})</span>
+                            <span className="font-bold text-xl text-primary">
                               BHD {entityTypes.find(e => e.id === entityType)?.govFee}
                             </span>
                           </div>
                           
-                          <div className="flex justify-between py-3 border-b border-border">
-                            <span className="text-muted-foreground">Chamber of Commerce</span>
-                            <span className="font-semibold text-primary">BHD 50</span>
+                          <div className="flex justify-between py-4 border-b-2 border-border">
+                            <span className="text-muted-foreground font-medium">Chamber of Commerce</span>
+                            <span className="font-bold text-xl text-primary">BHD 50</span>
                           </div>
                           
-                          <div className="flex justify-between py-3 border-b border-border">
-                            <span className="text-muted-foreground">Trade License ({activityCount} activities)</span>
-                            <span className="font-semibold text-primary">
+                          <div className="flex justify-between py-4 border-b-2 border-border">
+                            <span className="text-muted-foreground font-medium">Trade License ({activityCount} activities)</span>
+                            <span className="font-bold text-xl text-primary">
                               BHD {activityOptions.find(a => a.id === activityCount)?.price}
                             </span>
                           </div>
                           
-                          <div className="flex justify-between py-3 border-b border-border">
-                            <span className="text-muted-foreground">
+                          <div className="flex justify-between py-4 border-b-2 border-border">
+                            <span className="text-muted-foreground font-medium">
                               {registrationTypes.find(r => r.id === registrationType)?.name}
                             </span>
-                            <span className="font-semibold text-primary">
+                            <span className="font-bold text-xl text-primary">
                               BHD {registrationTypes.find(r => r.id === registrationType)?.price}
                             </span>
                           </div>
@@ -437,47 +482,50 @@ export function CRCostCalculator() {
                           {selectedServices.map(serviceId => {
                             const service = additionalServices.find(s => s.id === serviceId);
                             return service ? (
-                              <div key={serviceId} className="flex justify-between py-3 border-b border-border">
-                                <span className="text-muted-foreground">{service.name}</span>
-                                <span className="font-semibold text-primary">BHD {service.price}</span>
+                              <div key={serviceId} className="flex justify-between py-4 border-b-2 border-border">
+                                <span className="text-muted-foreground font-medium">{service.name}</span>
+                                <span className="font-bold text-xl text-primary">BHD {service.price}</span>
                               </div>
                             ) : null;
                           })}
                         </div>
                         
-                        <div className="bg-primary/5 rounded-2xl p-6">
+                        <div className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl p-8 border-2 border-accent/20">
                           <div className="flex justify-between items-center">
-                            <span className="text-lg font-semibold text-primary">Estimated Total</span>
-                            <span className="text-3xl font-bold text-gold">
+                            <span className="text-xl font-bold text-primary">Estimated Total</span>
+                            <span className="text-4xl font-bold text-accent">
                               BHD {calculateTotal().toLocaleString()}
                             </span>
                           </div>
-                          <p className="text-sm text-muted-foreground mt-2">
+                          <p className="text-sm text-muted-foreground mt-3">
                             Government fees included. Final quote based on specific requirements.
                           </p>
                         </div>
                       </div>
                       
-                      {/* Lead Capture Form */}
+                      {/* Lead Capture Form - Enhanced */}
                       <div>
-                        <h3 className="text-2xl font-bold text-primary mb-6">
+                        <h3 className="text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                            <Send className="h-5 w-5 text-primary" />
+                          </div>
                           Get Your Detailed Quote
                         </h3>
-                        <p className="text-muted-foreground mb-6">
+                        <p className="text-lg text-muted-foreground mb-8">
                           Enter your details and we'll send you a comprehensive proposal.
                         </p>
                         
-                        <div className="space-y-4">
+                        <div className="space-y-5">
                           <div>
-                            <Label htmlFor="name" className="text-primary">Full Name *</Label>
+                            <Label htmlFor="name" className="text-primary font-semibold">Full Name *</Label>
                             <Input
                               id="name"
                               value={leadForm.name}
                               onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
                               placeholder="John Smith"
                               className={cn(
-                                "mt-1",
-                                formErrors.name && "border-destructive"
+                                "mt-2 h-12 text-lg border-2",
+                                formErrors.name ? "border-destructive" : "border-border focus:border-accent"
                               )}
                             />
                             {formErrors.name && (
@@ -486,7 +534,7 @@ export function CRCostCalculator() {
                           </div>
                           
                           <div>
-                            <Label htmlFor="email" className="text-primary">Email Address *</Label>
+                            <Label htmlFor="email" className="text-primary font-semibold">Email Address *</Label>
                             <Input
                               id="email"
                               type="email"
@@ -494,8 +542,8 @@ export function CRCostCalculator() {
                               onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
                               placeholder="john@company.com"
                               className={cn(
-                                "mt-1",
-                                formErrors.email && "border-destructive"
+                                "mt-2 h-12 text-lg border-2",
+                                formErrors.email ? "border-destructive" : "border-border focus:border-accent"
                               )}
                             />
                             {formErrors.email && (
@@ -504,28 +552,28 @@ export function CRCostCalculator() {
                           </div>
                           
                           <div>
-                            <Label htmlFor="phone" className="text-primary">Phone (Optional)</Label>
+                            <Label htmlFor="phone" className="text-primary font-semibold">Phone (Optional)</Label>
                             <Input
                               id="phone"
                               type="tel"
                               value={leadForm.phone}
                               onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
                               placeholder="+973 1700 0000"
-                              className="mt-1"
+                              className="mt-2 h-12 text-lg border-2 border-border focus:border-accent"
                             />
                           </div>
                           
                           <Button
                             onClick={handleLeadSubmit}
-                            className="w-full bg-primary hover:bg-primary/90 text-white h-12 text-lg mt-4"
+                            className="w-full bg-accent hover:bg-accent/90 text-primary h-14 text-lg font-bold mt-4 shadow-lg hover:shadow-xl transition-all group"
                           >
                             Get Detailed Quote
-                            <Send className="ml-2 h-5 w-5" />
+                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                           </Button>
                           
                           <button
                             onClick={handleReset}
-                            className="w-full text-center text-sm text-muted-foreground hover:text-primary transition-colors mt-2"
+                            className="w-full text-center text-sm font-semibold text-muted-foreground hover:text-primary transition-colors mt-2"
                           >
                             Start Over
                           </button>
@@ -533,27 +581,27 @@ export function CRCostCalculator() {
                       </div>
                     </div>
                   ) : (
-                    /* Success State */
-                    <div className="text-center py-12">
+                    /* Success State - Enhanced */
+                    <div className="text-center py-16">
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                        className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
+                        className="w-24 h-24 bg-green-100 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg"
                       >
-                        <Check className="h-10 w-10 text-green-600" />
+                        <Check className="h-12 w-12 text-green-600" />
                       </motion.div>
-                      <h3 className="text-2xl font-bold text-primary mb-3">
+                      <h3 className="text-3xl font-bold text-primary mb-4">
                         Quote Request Submitted!
                       </h3>
-                      <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+                      <p className="text-xl text-muted-foreground mb-10 max-w-md mx-auto">
                         Thank you for your interest. Our team will review your requirements 
                         and contact you within 24 hours with a detailed proposal.
                       </p>
                       <Button
                         onClick={handleReset}
                         variant="outline"
-                        className="border-primary text-primary hover:bg-primary hover:text-white"
+                        className="border-2 border-primary text-primary hover:bg-primary hover:text-white h-12 px-8 font-bold"
                       >
                         Calculate Another Quote
                       </Button>
@@ -563,26 +611,26 @@ export function CRCostCalculator() {
               )}
             </AnimatePresence>
 
-            {/* Navigation Buttons */}
+            {/* Navigation Buttons - Enhanced */}
             {!showResult && (
-              <div className="flex justify-between mt-10 pt-6 border-t border-border">
+              <div className="flex justify-between mt-12 pt-8 border-t-2 border-border">
                 <Button
                   variant="outline"
                   onClick={handleBack}
                   disabled={step === 1}
-                  className="border-border text-muted-foreground hover:text-primary"
+                  className="border-2 border-border text-muted-foreground hover:text-primary hover:border-primary h-12 px-6 font-semibold"
                 >
-                  <ChevronLeft className="mr-2 h-4 w-4" />
+                  <ChevronLeft className="mr-2 h-5 w-5" />
                   Back
                 </Button>
                 
                 <Button
                   onClick={handleNext}
                   disabled={!canProceed()}
-                  className="bg-primary hover:bg-primary/90 text-white"
+                  className="bg-primary hover:bg-primary/90 text-white h-12 px-8 font-bold shadow-lg hover:shadow-xl transition-all"
                 >
                   {step === totalSteps ? "Calculate" : "Continue"}
-                  <ChevronRight className="ml-2 h-4 w-4" />
+                  <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
             )}

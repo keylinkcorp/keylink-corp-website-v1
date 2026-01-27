@@ -10,7 +10,8 @@ import {
   UserCog,
   Building2,
   ArrowRight,
-  Clock
+  Clock,
+  Zap
 } from "lucide-react";
 
 const amendmentTypes = [
@@ -69,7 +70,7 @@ export function CRAmendmentsSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28">
+    <section ref={ref} className="py-24 md:py-32">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content Side */}
@@ -79,31 +80,38 @@ export function CRAmendmentsSection() {
             animate={isInView ? "visible" : "hidden"}
           >
             <motion.div variants={staggerItem}>
-              <span className="section-badge">CR Amendments</span>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold border border-accent/20 mb-4">
+                <Settings className="w-4 h-4" />
+                CR Amendments
+              </span>
             </motion.div>
-            <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-bold mb-6">
+            <motion.h2 variants={staggerItem} className="text-3xl md:text-5xl font-bold mb-8 tracking-tight">
               Need to Modify Your{" "}
               <span className="text-accent">Commercial Registration</span>?
             </motion.h2>
-            <motion.p variants={staggerItem} className="text-lg text-muted-foreground mb-8">
+            <motion.p variants={staggerItem} className="text-xl text-muted-foreground mb-10 leading-relaxed">
               Business needs change. Whether you're expanding activities, restructuring ownership, 
               or updating company details, we handle all types of CR amendments efficiently through 
               the MOIC SIJILAT system.
             </motion.p>
 
-            <motion.div variants={staggerItem} className="space-y-4 mb-8">
-              <div className="flex items-center gap-3 p-4 bg-secondary/50 rounded-xl">
-                <Clock className="w-6 h-6 text-accent" />
+            <motion.div variants={staggerItem} className="space-y-5 mb-10">
+              <div className="flex items-center gap-4 p-5 bg-accent/5 rounded-2xl border-2 border-accent/20 hover:border-accent/40 transition-colors">
+                <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center">
+                  <Clock className="w-7 h-7 text-accent" />
+                </div>
                 <div>
-                  <div className="font-semibold">Fast Processing</div>
-                  <div className="text-sm text-muted-foreground">Most amendments complete in 2-5 business days</div>
+                  <div className="font-bold text-lg">Fast Processing</div>
+                  <div className="text-muted-foreground">Most amendments complete in 2-5 business days</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-4 bg-secondary/50 rounded-xl">
-                <Settings className="w-6 h-6 text-accent" />
+              <div className="flex items-center gap-4 p-5 bg-primary/5 rounded-2xl border-2 border-primary/20 hover:border-primary/40 transition-colors">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Zap className="w-7 h-7 text-primary" />
+                </div>
                 <div>
-                  <div className="font-semibold">Full-Service Handling</div>
-                  <div className="text-sm text-muted-foreground">We manage all MOIC submissions and follow-ups</div>
+                  <div className="font-bold text-lg">Full-Service Handling</div>
+                  <div className="text-muted-foreground">We manage all MOIC submissions and follow-ups</div>
                 </div>
               </div>
             </motion.div>
@@ -111,37 +119,38 @@ export function CRAmendmentsSection() {
             <motion.a
               variants={staggerItem}
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-primary rounded-xl font-bold hover:bg-accent/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 group"
             >
               Request CR Amendment
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </motion.a>
           </motion.div>
 
-          {/* Amendment Types Grid */}
+          {/* Amendment Types Grid - Enhanced */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="grid sm:grid-cols-2 gap-4"
+            className="grid sm:grid-cols-2 gap-5"
           >
             {amendmentTypes.map((type, index) => (
               <motion.div
                 key={index}
                 variants={staggerItem}
-                className="bg-white rounded-xl p-5 border border-border hover:border-accent hover:shadow-md transition-all group"
+                whileHover={{ y: -4, scale: 1.02 }}
+                className="bg-white rounded-2xl p-6 border-2 border-border hover:border-accent shadow-lg hover:shadow-xl transition-all group"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-lg bg-accent/10 group-hover:bg-accent/20 flex items-center justify-center flex-shrink-0 transition-colors">
-                    <type.icon className="w-5 h-5 text-accent" />
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 group-hover:bg-gradient-to-br group-hover:from-accent/20 group-hover:to-accent/10 flex items-center justify-center flex-shrink-0 transition-all">
+                    <type.icon className="w-6 h-6 text-accent" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1 group-hover:text-accent transition-colors">
+                    <h3 className="font-bold text-lg mb-1.5 group-hover:text-accent transition-colors">
                       {type.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-2">{type.description}</p>
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-accent">
-                      <Clock className="w-3 h-3" />
+                    <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent/10 text-accent text-sm font-bold rounded-lg">
+                      <Clock className="w-3.5 h-3.5" />
                       {type.timeline}
                     </span>
                   </div>
@@ -151,16 +160,16 @@ export function CRAmendmentsSection() {
           </motion.div>
         </div>
 
-        {/* Bottom Note */}
+        {/* Bottom Note - Enhanced */}
         <motion.div
           variants={staggerItem}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mt-12 text-center"
+          className="mt-14 text-center"
         >
-          <p className="text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             Have a complex amendment or company restructuring? 
-            <a href="/contact" className="text-accent font-medium ml-1 hover:underline">
+            <a href="/contact" className="text-accent font-bold ml-2 hover:underline">
               Book a consultation for expert guidance →
             </a>
           </p>
