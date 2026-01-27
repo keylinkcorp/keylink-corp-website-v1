@@ -79,7 +79,7 @@ export function BankAccountOpening() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.15 + index * 0.1 }}
-                className="p-6 rounded-xl border border-border bg-white hover:shadow-md hover:border-gold/40 transition-all duration-300 border-l-4 border-l-gold"
+                className="p-6 rounded-xl border border-border bg-white hover:shadow-sm hover:border-gold/40 transition-all duration-300 border-l-4 border-l-gold"
               >
                 <h4 className="font-semibold text-primary text-lg mb-4">
                   {bank.name}

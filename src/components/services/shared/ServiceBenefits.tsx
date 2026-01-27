@@ -60,7 +60,7 @@ export function ServiceBenefits({
             <motion.div
               key={index}
               variants={staggerItem}
-              className="bg-white rounded-2xl p-6 border border-border shadow-sm hover:shadow-lg transition-shadow"
+              className="bg-white rounded-2xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
                 <benefit.icon className="w-7 h-7 text-accent" />

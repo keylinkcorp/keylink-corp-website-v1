@@ -140,7 +140,7 @@ export function RequirementsChecklist() {
                   className={cn(
                     "bg-white rounded-2xl border overflow-hidden transition-all duration-300",
                     isExpanded 
-                      ? "border-gold/40 shadow-lg" 
+                      ? "border-gold/40 shadow-md" 
                       : "border-border hover:border-gold/20"
                   )}
                 >

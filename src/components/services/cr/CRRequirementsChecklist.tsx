@@ -155,8 +155,8 @@ export function CRRequirementsChecklist() {
               className={cn(
                 "flex items-center gap-3 px-6 py-4 rounded-xl border-2 transition-all font-semibold",
                 activeTab === tab.id
-                  ? "bg-primary text-white border-primary shadow-lg shadow-primary/20"
-                  : "bg-white text-foreground border-border hover:border-accent hover:shadow-md"
+                  ? "bg-primary text-white border-primary shadow-sm"
+                  : "bg-white text-foreground border-border hover:border-accent hover:shadow-sm"
               )}
             >
               <tab.icon className="w-5 h-5" />
@@ -181,7 +181,7 @@ export function CRRequirementsChecklist() {
           transition={{ duration: 0.4 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-white rounded-3xl border-2 border-border shadow-xl overflow-hidden">
+          <div className="bg-white rounded-3xl border-2 border-border shadow-sm overflow-hidden">
             <div className="p-6 border-b-2 border-border bg-secondary/40">
               <h3 className="text-xl font-bold flex items-center gap-3">
                 <span className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
@@ -273,7 +273,7 @@ export function CRRequirementsChecklist() {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-sm hover:shadow-md hover:-translate-y-1"
           >
             <Download className="w-5 h-5" />
             Get Personalized Checklist

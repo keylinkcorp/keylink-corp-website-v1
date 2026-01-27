@@ -97,8 +97,8 @@ export function PricingPackages() {
               className={cn(
                 "relative rounded-2xl p-8 transition-all duration-300",
                 pkg.popular 
-                  ? "bg-primary text-white shadow-2xl shadow-primary/20 scale-105" 
-                  : "bg-white border-2 border-border hover:border-gold/40 hover:shadow-xl"
+                  ? "bg-primary text-white shadow-sm scale-105" 
+                  : "bg-white border-2 border-border hover:border-gold/40 hover:shadow-md"
               )}
             >
               {pkg.popular && (

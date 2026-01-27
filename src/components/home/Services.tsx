@@ -91,7 +91,7 @@ export function Services() {
             >
               <Link 
                 to={service.href}
-                className="group block bg-white rounded-2xl p-10 border border-border/50 hover:border-gold/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/5 h-full"
+                className="group block bg-white rounded-2xl p-10 border border-border/50 hover:border-gold/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-md h-full"
               >
                 {/* Icon */}
                 <motion.div 

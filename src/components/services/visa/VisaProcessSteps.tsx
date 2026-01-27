@@ -120,11 +120,11 @@ export function VisaProcessSteps() {
               <button
                 key={phase.id}
                 onClick={() => setActivePhase(phase.id)}
-                className={`flex items-center gap-3 px-6 py-4 rounded-xl transition-all ${
-                  activePhase === phase.id
-                    ? "bg-primary text-white shadow-lg"
-                    : "bg-white border border-border hover:border-accent"
-                }`}
+              className={`flex items-center gap-3 px-6 py-4 rounded-xl transition-all ${
+                activePhase === phase.id
+                  ? "bg-primary text-white shadow-sm"
+                  : "bg-white border border-border hover:border-accent"
+              }`}
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                   activePhase === phase.id ? "bg-white/20" : "bg-accent/10"

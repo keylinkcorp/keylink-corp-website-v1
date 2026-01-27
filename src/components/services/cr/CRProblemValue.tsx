@@ -108,7 +108,7 @@ export function CRProblemValue() {
               key={index}
               variants={staggerItem}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="bg-white rounded-2xl p-7 border-l-4 border-l-red-400 border-t border-r border-b border-border shadow-md hover:shadow-lg transition-all"
+              className="bg-white rounded-2xl p-7 border-l-4 border-l-red-400 border-t border-r border-b border-border shadow-sm hover:shadow-md transition-all"
             >
               <div className="w-14 h-14 rounded-xl bg-red-50 flex items-center justify-center mb-5">
                 <point.icon className="w-7 h-7 text-red-500" />
@@ -136,7 +136,7 @@ export function CRProblemValue() {
           
           {/* Documents Image - Enhanced */}
           <div className="relative max-w-lg mx-auto hidden md:block">
-            <div className="rounded-3xl overflow-hidden shadow-lg border-2 border-border">
+            <div className="rounded-3xl overflow-hidden shadow-sm border-2 border-border">
               <img
                 src={crDocumentsImage}
                 alt="Professional business documents and certificates"
@@ -145,7 +145,7 @@ export function CRProblemValue() {
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
             </div>
             {/* Floating Badge - Enhanced */}
-            <div className="absolute -bottom-5 -right-5 bg-white rounded-xl p-4 shadow-md border-2 border-accent">
+            <div className="absolute -bottom-5 -right-5 bg-white rounded-xl p-4 shadow-sm border-2 border-accent">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
                   <CheckCircle2 className="w-5 h-5 text-accent" />
@@ -188,7 +188,7 @@ export function CRProblemValue() {
               key={index}
               variants={staggerItem}
               whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.2 } }}
-              className="bg-white rounded-2xl p-7 border-2 border-border shadow-md hover:border-accent hover:shadow-lg transition-all group"
+              className="bg-white rounded-2xl p-7 border-2 border-border shadow-sm hover:border-accent hover:shadow-md transition-all group"
             >
               <div className="w-14 h-14 rounded-xl bg-accent/10 group-hover:bg-accent/20 flex items-center justify-center mb-5 transition-colors">
                 <solution.icon className="w-7 h-7 text-accent" />

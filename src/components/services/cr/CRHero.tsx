@@ -196,7 +196,7 @@ export function CRHero() {
             {/* Main Image - Enhanced shadow */}
             <motion.div
               variants={imageReveal}
-              className="relative rounded-3xl overflow-hidden shadow-lg"
+              className="relative rounded-3xl overflow-hidden shadow-sm"
             >
               <img
                 src={crHeroImage}
@@ -211,7 +211,7 @@ export function CRHero() {
             {/* Floating Badge - Success Rate - Enhanced */}
             <motion.div
               variants={floatingBadge}
-              className="absolute -right-4 top-8 lg:top-12 bg-white backdrop-blur-md rounded-2xl p-5 shadow-lg border-2 border-border hover:border-accent transition-colors"
+              className="absolute -right-4 top-8 lg:top-12 bg-white backdrop-blur-md rounded-2xl p-5 shadow-sm border-2 border-border hover:border-accent transition-colors"
             >
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center">
@@ -227,7 +227,7 @@ export function CRHero() {
             {/* Floating Badge - CRs Processed - Enhanced */}
             <motion.div
               variants={floatingBadge}
-              className="absolute -left-4 bottom-8 lg:bottom-12 bg-white backdrop-blur-md rounded-2xl p-5 shadow-lg border-2 border-border hover:border-accent transition-colors"
+              className="absolute -left-4 bottom-8 lg:bottom-12 bg-white backdrop-blur-md rounded-2xl p-5 shadow-sm border-2 border-border hover:border-accent transition-colors"
             >
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">

@@ -120,7 +120,7 @@ export function WhatIsCR() {
               variants={imageReveal}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="relative rounded-3xl overflow-hidden shadow-2xl hidden lg:block"
+              className="relative rounded-3xl overflow-hidden shadow-sm hidden lg:block"
             >
               <img
                 src={crCertificateImage}
@@ -129,7 +129,7 @@ export function WhatIsCR() {
               />
               
               {/* Floating Info Card - Enhanced with glassmorphism */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-5 shadow-xl border border-white/50">
+              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-5 shadow-sm border border-white/50">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-accent" />

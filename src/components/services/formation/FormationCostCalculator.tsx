@@ -196,7 +196,7 @@ export function FormationCostCalculator() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-white rounded-3xl border-2 border-border shadow-xl p-8 md:p-12">
+          <div className="bg-white rounded-3xl border-2 border-border shadow-sm p-8 md:p-12">
             {/* Progress Bar */}
             {!showResult && (
               <div className="mb-10">
