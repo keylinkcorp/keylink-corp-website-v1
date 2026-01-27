@@ -103,7 +103,7 @@ export function CRGovernmentFees() {
               variants={staggerItem}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="bg-white rounded-3xl border-2 border-border overflow-hidden shadow-xl hover:shadow-2xl hover:border-accent/50 transition-all"
+              className="bg-white rounded-3xl border-2 border-border overflow-hidden shadow-md hover:shadow-lg hover:border-accent/50 transition-all"
             >
               <div className="p-6 border-b-2 border-border bg-gradient-to-r from-primary to-primary/90 text-white relative">
                 <span className="absolute top-3 right-3 px-2 py-1 bg-accent text-primary text-xs font-bold rounded-lg flex items-center gap-1">
@@ -133,7 +133,7 @@ export function CRGovernmentFees() {
               variants={staggerItem}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="bg-white rounded-3xl border-2 border-border overflow-hidden shadow-xl hover:shadow-2xl hover:border-accent/50 transition-all"
+              className="bg-white rounded-3xl border-2 border-border overflow-hidden shadow-md hover:shadow-lg hover:border-accent/50 transition-all"
             >
               <div className="p-6 border-b-2 border-border bg-accent/10">
                 <h3 className="text-xl font-bold flex items-center gap-3">
@@ -159,7 +159,7 @@ export function CRGovernmentFees() {
               variants={staggerItem}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="bg-white rounded-3xl border-2 border-border overflow-hidden shadow-xl hover:shadow-2xl hover:border-accent/50 transition-all"
+              className="bg-white rounded-3xl border-2 border-border overflow-hidden shadow-md hover:shadow-lg hover:border-accent/50 transition-all"
             >
               <div className="p-6 border-b-2 border-border bg-secondary/60">
                 <h3 className="text-xl font-bold flex items-center gap-3">
@@ -228,7 +228,7 @@ export function CRGovernmentFees() {
             </p>
             <a
               href="/contact"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 group"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group"
             >
               <Calculator className="w-5 h-5" />
               Get Free Cost Estimate
