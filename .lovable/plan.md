@@ -1,601 +1,485 @@
 
 
-# Phase 5 - Full Copy Draft: Business License Bahrain Landing Page
-
-## Executive Summary
-
-This plan delivers a complete, SEO-optimized landing page for "business license bahrain" targeting foreign entrepreneurs and local startups seeking to obtain a business license in Bahrain. The page will follow the proven conversion-optimized structure established by the Commercial Registration and Company Formation pages.
-
-**Target Word Count**: 2,800-3,400 words
-**Primary Keyword**: business license bahrain
-**Route**: `/services/business-license`
+# Phase 6 – Visual & Layout Plan
+## "Single Person Company Bahrain" Landing Page
 
 ---
 
-## Section-by-Section Copy Draft
+## 1. Page Architecture Overview
 
-### Block 1: Hero Section
-**Component**: `BLHero.tsx` (new)
-**Word Count**: 80-100 words
+The page follows the established conversion-optimized sequence used across service pages, adapted for SPC-specific content.
 
+### Page Route
+`/services/single-person-company`
+
+### Component Structure
 ```text
-Badge: "Business Licensing Services"
+src/pages/services/SinglePersonCompany.tsx
+src/components/services/spc/
+  ├── SPCHero.tsx
+  ├── SPCTrustBar.tsx
+  ├── SPCCostCalculator.tsx
+  ├── WhyChooseSPC.tsx
+  ├── SPCLegalUpdate.tsx
+  ├── SPCvsWLLComparison.tsx
+  ├── SPCProcessTimeline.tsx
+  ├── SPCRequirements.tsx
+  ├── SPCGovernmentFees.tsx
+  ├── SPCBankAccountUpdate.tsx
+  ├── SPCTestimonials.tsx
+  ├── SPCSuccessSnapshot.tsx
+  ├── SPCRelatedServices.tsx
+  ├── SPCFAQ.tsx
+  └── SPCCTA.tsx
+```
 
-H1: "Get Your Business License in Bahrain — Fast, Simple, Guaranteed"
-
-Subtitle: "From application to approval in 3-7 days. 100% foreign ownership. Complete MOIC and trade licensing support."
-
-Feature Pills:
-- 100% Foreign Ownership
-- From BHD 350
-- 3-7 Days Processing
-
-Primary CTA: "Get Free Consultation"
-Secondary CTA: "Calculate Your Costs"
-
-Social Proof: 4.9 Google Reviews | 4.8 Trustpilot
-Trust Line: Registered with MOIC • LMRA • Bahrain Chamber
+### Content Flow (16 Blocks)
+```text
+1. Hero (Hook & Promise)
+2. TrustBar (Credibility Stats)
+3. Cost Calculator (Lead Capture)
+4. Why Choose SPC (Pain Points Solved)
+5. 2020 Legal Update (Education)
+6. SPC vs WLL Comparison (Decision Support)
+7. 6-Step Process Timeline
+8. Requirements Checklist
+9. Government Fees Breakdown
+10. 2024 Bank Account Update
+11. Testimonials (Social Proof)
+12. Success Snapshot (Case Study)
+13. Related Services
+14. FAQ (12 Questions)
+15. Final CTA
 ```
 
 ---
 
-### Block 2: Trust Bar
-**Component**: Reuse `ServiceTrustBar`
-**Word Count**: 20 words
-
-```text
-Stats:
-- 2,500+ Licenses Issued
-- 100% Success Rate
-- 48hr Processing
-- 10+ Years Experience
-```
+## 2. Section-by-Section Visual Specifications
 
 ---
 
-### Block 3: Cost Calculator (Interactive Hook)
-**Component**: Adapt `FormationCostCalculator` or create `BLCostCalculator`
-**Word Count**: 150 words (interface copy)
+### Block 1: SPCHero
 
-```text
-Badge: "Instant Quote"
-H2: "Calculate Your Business License Cost"
-Subtitle: "Get an accurate estimate in 60 seconds. No obligation, no hidden fees."
+**Layout**: 60/40 split (text left, image right on desktop); stacked on mobile
 
-Steps:
-1. License Type: Commercial | Industrial | Professional | Services
-2. Activity Count: 1-3 | 4-6 | 7-10 | 10+
-3. Owner Nationality: Bahraini | GCC | Foreign
-4. Add-On Services: Trade Name Reservation (+BHD 15) | Virtual Office (+BHD 150/yr) | PRO Support (+BHD 100)
+**Background**:
+- Gold radial gradient blur at top center (rgba(199,167,99,0.15))
+- 24px dot grid pattern with bottom fade mask (85% solid, 15% fade)
+- White base (#FFFFFF)
 
-Lead Capture:
-"Enter your details to see your personalized quote"
-- Name, Email, Phone
-- Button: "View My Quote"
+**Content Elements**:
+| Element | Specification |
+|---------|--------------|
+| Trust Badge | Gold/10 pill: "Bahrain's Simplest Business Structure" |
+| H1 Headline | 60px bold, 3 lines: "Single Person Company", "in Bahrain", "Start Solo in 3-14 Days" (gold underline on last line) |
+| Subheading | 22px, muted-foreground, max 420px width |
+| Feature Pills | 3 horizontal items: Shield icon + "100% Foreign Ownership", Wallet + "From BHD 750", Clock + "BHD 50 Minimum Capital" |
+| Primary CTA | Gold background, navy text, "Get Free Consultation" with ArrowRight |
+| Secondary CTA | Outline, navy border, "Calculate Your Costs" |
+| Social Proof | Google (4.9 stars) + Trustpilot (4.8 stars) with avatar stacks |
+| Trust Line | "Registered with MOIC, LMRA, Bahrain Chamber" |
 
-Results Display:
-- Government Fees Breakdown
-- Service Fees
-- Total Estimate
-- "This is an estimate. Final costs confirmed during consultation."
-```
+**Hero Image**:
+- Solo entrepreneur/consultant image (new asset: `spc-hero-entrepreneur.jpg`)
+- 580px height, rounded-2xl, shadow-sm
+- Floating badge bottom-left: "Starting from BHD 750"
+- Floating badge top-right: "100% Success Rate"
 
----
-
-### Block 4: Problem / Value Proposition
-**Component**: `BLProblemValue.tsx` (new)
-**Word Count**: 180-220 words
-**Keywords**: business license bahrain, MOIC, trade license
-
-```text
-Badge: "The Challenge"
-H2: "Navigating Bahrain's Business Licensing Can Be Overwhelming"
-
-Pain Points (3 cards):
-1. Confusing Requirements
-   "Multiple government portals, unclear documentation lists, and constantly changing regulations."
-
-2. Hidden Costs & Delays
-   "Unexpected fees, rejected applications, and months of waiting without clear timelines."
-
-3. Language & Bureaucracy Barriers
-   "Arabic-only systems, complex legal terminology, and no single point of contact."
-
-Value Statement:
-"That's why over 2,500 entrepreneurs trust Keylink for their Bahrain business license. We handle every step — from MOIC submission to trade license approval — so you focus on your business, not paperwork."
-
-CTA: "Let Us Handle It For You →"
-```
+**Animations**:
+- Staggered headline reveal (heroHeadlineContainer/Line)
+- Image reveal with scale (imageReveal variant)
+- Floating badges with y-axis slide-in
 
 ---
 
-### Block 5: What Is a Business License in Bahrain
-**Component**: `WhatIsBL.tsx` (new)
-**Word Count**: 200-250 words
-**Keywords**: business license bahrain, commercial registration, trade license, MOIC, SIJILAT
+### Block 2: SPCTrustBar
 
-```text
-Badge: "Understanding Licensing"
-H2: "What Is a Business License in Bahrain?"
+**Layout**: Horizontal bar with trust statement left, animated stats right
 
-Paragraph 1:
-"A business license in Bahrain is the official government authorization required to operate commercially. It consists of two key documents: the Commercial Registration (CR), which establishes your legal entity, and the Trade License, which permits specific business activities."
+**Background**: White with border-y border-border/50
 
-Paragraph 2:
-"Both are issued by the Ministry of Industry and Commerce (MOIC) through the SIJILAT electronic portal. Without a valid business license, you cannot legally operate, open bank accounts, hire employees, or sign contracts in Bahrain."
+**Stats**:
+| Stat | Value |
+|------|-------|
+| SPCs Formed | 350+ |
+| Years Experience | 10+ |
+| Success Rate | 100% |
+| Average Timeline | 3-14 Days |
 
-Key Facts Grid (2x2):
-- Issuing Authority: Ministry of Industry and Commerce (MOIC)
-- Processing Portal: SIJILAT Electronic System
-- Validity Period: 1 Year (renewable)
-- Foreign Ownership: 100% permitted for most activities
-
-Callout Box:
-"Important: As of June 2024, all new business licenses require proof of a corporate bank account before final issuance. We guide you through this requirement."
-```
+**Component**: Reuse AnimatedCounter pattern from FormationTrustBar
 
 ---
 
-### Block 6: License Types Comparison
-**Component**: `BLTypesComparison.tsx` (new)
-**Word Count**: 250-300 words
-**Keywords**: commercial license, industrial license, professional license, WLL, SPC
+### Block 3: SPCCostCalculator
 
+**Layout**: Centered card with multi-step form inside
+
+**Background**:
+- Light gray (#F8F8F8) section
+- 16px dot grid pattern with center ellipse mask
+
+**Calculator Flow** (Simplified for SPC):
 ```text
-Badge: "License Categories"
-H2: "Choose the Right License for Your Business"
-Subtitle: "Bahrain offers four main license categories based on your business activities"
-
-Tabbed Comparison:
-[Commercial] [Industrial] [Professional] [Services]
-
-Commercial License Tab:
-- Best For: Trading, retail, import/export, e-commerce
-- Activities: General trading, wholesale, distribution, commercial agencies
-- Typical Entity: WLL, SPC, Branch Office
-- Government Fee: BHD 50-200/year per activity
-- Processing: 3-5 business days
-
-Industrial License Tab:
-- Best For: Manufacturing, production, assembly
-- Activities: Factory operations, industrial processing, fabrication
-- Typical Entity: WLL, Holding Company
-- Government Fee: BHD 100-300/year
-- Processing: 5-10 business days (may require EWA, Municipality)
-
-Professional License Tab:
-- Best For: Consultants, freelancers, service providers
-- Activities: Legal, accounting, IT consulting, engineering
-- Typical Entity: SPC (Single Person Company)
-- Government Fee: BHD 50-100/year
-- Processing: 3-5 business days
-
-Services License Tab:
-- Best For: Hospitality, tourism, healthcare, education
-- Activities: Restaurants, hotels, clinics, training centers
-- Typical Entity: WLL, Branch
-- Government Fee: BHD 100-250/year
-- Processing: 5-7 business days (sector approvals may apply)
-
-Footer Note:
-"Not sure which license type fits your business? Our experts analyze your activities and recommend the optimal structure."
+Step 1: Business Activity (4 options: Consulting, Trading, Tech, Regulated)
+Step 2: Owner Nationality (Bahraini/GCC, Foreign)
+Step 3: Visa Requirements (None, 1 Investor Visa)
+Step 4: Office Type (Virtual, Serviced, Small)
+Step 5: Additional Services (Bank, PRO, Accounting)
+Step 6: Lead Capture (Name, Email, Phone)
 ```
+
+**Visual Elements**:
+- Progress bar at top with step indicators
+- Card with rounded-2xl, border, shadow-sm
+- Gold accent for selected options
+- Navy primary button for navigation
+- Results breakdown: Line items with service fees + government fees
+
+**Animations**:
+- AnimatePresence for step transitions
+- Fade-up for result reveal
 
 ---
 
-### Block 7: Process Steps Timeline
-**Component**: `BLProcessSteps.tsx` (new)
-**Word Count**: 280-350 words
-**Keywords**: business license process, MOIC registration, how to get business license bahrain
+### Block 4: WhyChooseSPC (Pain Points Solved)
 
-```text
-Badge: "Your Journey"
-H2: "How to Get Your Business License in Bahrain"
-Subtitle: "A proven 6-step process with transparent timelines"
+**Layout**: Split - Image left (40%), 6-item benefits grid right (60%)
 
-Step 1: Initial Consultation (Day 1)
-"We analyze your business model, recommend the right license type, and create a customized documentation checklist."
-Requirements: Business description, target activities
+**Background**: White (#FFFFFF)
 
-Step 2: Trade Name Reservation (Days 1-2)
-"Reserve your unique business name through MOIC's SIJILAT portal. We ensure compliance with naming regulations."
-Requirements: 3 name options, entity type confirmation
-Timeline Badge: "1-2 Days"
+**Content**:
+- Section header with gold pill "Why Single Person Company?"
+- H2: "Perfect for Solo Entrepreneurs"
 
-Step 3: Document Preparation (Days 2-4)
-"We prepare all required documents including MOA/AOA drafting, shareholder details, and activity mapping."
-Requirements: Passport copies, proof of address, CV (for some activities)
-Timeline Badge: "2-3 Days"
+**6 Differentiators**:
+| Icon | Title | Description |
+|------|-------|-------------|
+| User | Total Control | 100% ownership, no partners needed |
+| Wallet | Lowest Entry Cost | BHD 50 minimum capital requirement |
+| Shield | Limited Liability | Personal assets protected |
+| Zap | Fast Registration | 3-14 days complete setup |
+| Globe | 100% Foreign Ownership | No local sponsor required |
+| FileCheck | Simple Compliance | Minimal annual requirements |
 
-Step 4: MOIC Submission & CR Issuance (Days 4-6)
-"Submit application through SIJILAT, pay government fees, and receive your Commercial Registration certificate."
-Requirements: Completed application, fee payment
-Timeline Badge: "1-3 Days"
-
-Step 5: Trade License Activation (Days 5-7)
-"Activate your trade license for approved commercial activities. Additional sector approvals obtained if required."
-Requirements: CR certificate, activity-specific permits
-Timeline Badge: "1-2 Days"
-
-Step 6: Bank Account & Final Compliance (Days 7-14)
-"Open your corporate bank account (mandatory since June 2024) and complete LMRA registration if hiring staff."
-Requirements: CR + Trade License, bank application
-Timeline Badge: "5-10 Days"
-
-Total Timeline Callout:
-"Most straightforward business licenses complete in 7-14 days. Complex cases with sector approvals may take 2-4 weeks."
-```
+**Image**: Professional consultant working solo (new asset: `spc-solo-consultant.jpg`)
+- Floating stat badge: "350+ SPCs Formed"
 
 ---
 
-### Block 8: Requirements Checklist
-**Component**: Adapt `CRRequirementsChecklist`
-**Word Count**: 200-250 words
-**Keywords**: business license requirements, documents needed
+### Block 5: SPCLegalUpdate (2020 Decree Explanation)
 
-```text
-Badge: "Documentation"
-H2: "What Documents Do You Need?"
-Subtitle: "Requirements vary by applicant type. We guide you through every item."
+**Layout**: Centered content block with icon callout
 
-Tabs: [Individual Applicant] [Corporate Shareholder] [Branch Office]
+**Background**: White with dashed grid pattern (top fade)
 
-Individual Applicant Tab:
-□ Valid passport (6+ months validity)
-□ Passport-sized photographs (white background)
-□ Proof of residential address
-□ Professional CV (for licensed professions)
-□ Power of Attorney (for remote registration)
-□ Office lease agreement or virtual office subscription
+**Visual Design**:
+- Alert-style card with gold left border (4px)
+- Scale/Balance icon in gold icon box
+- H3: "2020 Legal Update: What Changed?"
+- Body text explaining Decree 28/2020 merger
+- 3 bullet points with CheckCircle2 icons:
+  - "SPC merged into single-shareholder WLL framework"
+  - "Same benefits, enhanced legal recognition"
+  - "Keylink handles all technical requirements"
 
-Corporate Shareholder Tab:
-□ Certificate of Incorporation (apostilled)
-□ Memorandum & Articles of Association
-□ Board Resolution authorizing Bahrain entity
-□ Certificate of Good Standing (recent)
-□ Passport copies of authorized signatories
-□ Power of Attorney
-
-Branch Office Tab:
-□ Parent company incorporation documents (apostilled)
-□ Parent company financial statements (2 years)
-□ Board Resolution to establish Bahrain branch
-□ Appointment letter for Branch Manager
-□ Branch Manager passport and CV
-□ Registered office address in Bahrain
-
-Pro Tip Callout:
-"Don't have all documents ready? We can begin with what you have and guide you on obtaining the rest. Many clients start with just a passport copy."
-```
+**Animations**: Fade-in-up on scroll
 
 ---
 
-### Block 9: Government Fees Breakdown
-**Component**: Adapt `CRGovernmentFees`
-**Word Count**: 180-220 words
-**Keywords**: business license cost bahrain, government fees, MOIC fees
+### Block 6: SPCvsWLLComparison
 
-```text
-Badge: "Transparent Pricing"
-H2: "Official Government Fees for Business Licensing"
-Subtitle: "These are MOIC-mandated fees. Our service fees are quoted separately."
+**Layout**: Tabbed comparison (reuse CRTypesComparison pattern)
 
-Fee Table:
-| Fee Type | Amount | Frequency |
-|----------|--------|-----------|
-| Trade Name Reservation | BHD 15 | One-time |
-| Commercial Registration | BHD 50-200 | Annual |
-| Trade License (per activity) | BHD 20-300 | Annual |
-| Chamber of Commerce | BHD 50-100 | Annual |
-| LMRA Registration | BHD 50-100 | One-time |
-| Security Approval (Foreign) | BHD 50 | One-time |
+**Background**: Light gray with 16px dot grid
 
-Total Range Callout:
-"Typical government fees for a standard business license: BHD 250-600/year"
+**Tabs**: SPC | WLL (default: SPC selected)
 
-Note:
-"Fees vary based on license type, number of activities, and entity structure. Industrial licenses and regulated activities may have additional sector-specific fees. We provide exact fee breakdowns during consultation."
+**Comparison Table**:
+| Attribute | SPC | WLL |
+|-----------|-----|-----|
+| Shareholders | 1 only | 2-50 |
+| Minimum Capital | BHD 50 | BHD 20,000 |
+| Best For | Solo entrepreneurs | Partnerships |
+| Control | Full owner control | Shared decision-making |
+| Conversion | Can upgrade to WLL | N/A |
+| Processing | 3-14 days | 5-7 days |
 
-Badge: "No Hidden Costs"
-"What we quote is what you pay. Government fees are clearly separated from our professional service fees."
-```
+**CTA Side Panel**: Navy gradient with gold button "Start Your SPC Today"
 
 ---
 
-### Block 10: 2024 Regulatory Update
-**Component**: `BL2024Update.tsx` (new)
-**Word Count**: 120-150 words
-**Keywords**: bahrain business license 2024, new requirements
+### Block 7: SPCProcessTimeline
 
-```text
-Badge: "Regulatory Update"
-H2: "2024 Licensing Changes You Need to Know"
+**Layout**: Vertical timeline with expandable accordion steps
 
-Alert Banner (Gold border):
-"Effective June 2024: Bank Account Requirement"
+**Background**: Light gray (secondary/30) with center-fading dot grid
 
-Content:
-"The Ministry of Industry and Commerce now requires all new business license applicants to open a corporate bank account before final CR issuance. This applies to all entity types including WLL, SPC, and branch offices.
+**Timeline Structure** (6 Steps):
+| Step | Icon | Title | Timeframe |
+|------|------|-------|-----------|
+| 1 | ShieldCheck | Security Approval | Day 1-3 |
+| 2 | FileText | Name Reservation | Day 2-3 |
+| 3 | Wallet | Bank Account Opening | Day 3-7 |
+| 4 | Stamp | Document Notarization | Day 5-8 |
+| 5 | Building2 | CR Issuance | Day 7-12 |
+| 6 | CreditCard | LMRA & ID Processing | Day 10-14 |
 
-What this means for you:
-• Bank account opening is now part of the registration process
-• Expect 5-10 additional days for banking procedures
-• Minimum deposits vary by bank (BHD 500 - USD 10,000)
+**Visual Elements**:
+- Gold circle step numbers
+- Clock badge for timeframe
+- Expandable content with requirements list
+- Gold left border on expanded state
 
-Keylink Advantage: Our banking introduction service connects you with relationship managers at major Bahraini banks, streamlining the account opening process."
-```
-
----
-
-### Block 11: Why Choose Keylink
-**Component**: Reuse `ServiceWhyChoose`
-**Word Count**: 150-180 words
-
-```text
-Badge: "Why Keylink"
-H2: "Bahrain's Trusted Business License Partner"
-Subtitle: "10+ years of expertise with 100% success rate"
-
-Differentiators (6 cards):
-1. Full-Service Convenience
-   "Zero client effort — we handle MOIC, banking, and all government liaisons"
-
-2. 100% Success Rate
-   "Never had a license application rejected in over a decade"
-
-3. MOIC Experts
-   "Deep expertise navigating SIJILAT and Bahrain regulations"
-
-4. Remote Registration
-   "Complete your business license without visiting Bahrain"
-
-5. Transparent Pricing
-   "Fixed fees with government costs clearly separated"
-
-6. Ongoing Support
-   "License renewals, amendments, and compliance assistance"
-
-Floating Stat: "2,500+ Licenses Issued"
-Image: Team collaboration photo
-```
+**Bottom Badge**: "Complete SPC Formation in 3-14 Business Days"
 
 ---
 
-### Block 12: Testimonials
-**Component**: Adapt `CRTestimonials` or reuse
-**Word Count**: 150-180 words
+### Block 8: SPCRequirements
 
-```text
-Badge: "Client Success"
-H2: "What Our Clients Say"
+**Layout**: Tabbed checklist (Individual vs Corporate Shareholder)
 
-Testimonial 1:
-"Keylink made getting our business license incredibly easy. We're based in the UK and they handled everything remotely — we had our license within 10 days."
-— James Mitchell, Tech Startup Founder
+**Background**: White with subtle dot grid
 
-Testimonial 2:
-"As a first-time entrepreneur, I was overwhelmed by Bahrain's requirements. Keylink's team explained every step and delivered exactly as promised. Highly recommend."
-— Sarah Al-Rashid, E-commerce Business Owner
+**Tab 1 - Individual Requirements**:
+- Valid passport copy
+- Professional CV/resume
+- Proof of residential address
+- Passport-size photograph
+- Business plan outline
 
-Testimonial 3:
-"We needed to set up a branch office quickly. Keylink expedited our application and we were operational in under 3 weeks. Professional service throughout."
-— Ahmed Hassan, Regional Director, Manufacturing Company
+**Tab 2 - Corporate Shareholder** (if applicable):
+- Certificate of incorporation
+- Board resolution
+- Parent company CR
+- Audited financials
+- Power of attorney
 
-Trust Badges: Google 4.9★ | Trustpilot 4.8★
-```
-
----
-
-### Block 13: Client Success Snapshot
-**Component**: `BLSuccessStory.tsx` (new)
-**Word Count**: 150-180 words
-**Keywords**: business license success, testimonial
-
-```text
-Badge: "Case Study"
-H2: "From Dubai to Bahrain in 12 Days"
-
-Client Profile Card:
-Name: David Chen
-Business: FinTech Consulting
-License Type: Professional Services
-Timeline: 12 Days (including bank account)
-
-Story:
-"David wanted to expand his Dubai-based consulting firm to Bahrain but was concerned about navigating a new regulatory system remotely. 
-
-We handled his entire application — from trade name reservation to CR issuance — while David continued operating in the UAE. Using Power of Attorney, we submitted all documents, obtained his professional services license, and coordinated bank account opening with NBB.
-
-Result: David received his business license and corporate bank account in 12 days without setting foot in Bahrain."
-
-Quote:
-"The team made it feel effortless. I just sent my documents and they took care of everything."
-
-Stats Cards:
-- 12 Days to License
-- 100% Remote Process
-- Bank Account Included
-```
+**Visual Style**: Cards with CheckCircle2 icons, gold accent on completion
 
 ---
 
-### Block 14: Related Services
-**Component**: Reuse `RelatedServicesGrid`
-**Word Count**: 80-100 words
+### Block 9: SPCGovernmentFees
 
-```text
-Badge: "Related Services"
-H2: "Complete Your Business Setup"
-Subtitle: "Explore services to become fully operational in Bahrain"
+**Layout**: 3-column fee cards (reuse CRGovernmentFees pattern)
 
-Cards:
-1. Visa & Immigration — Work visas, family visas, Golden Visa | From BHD 250
-2. Company Formation — Complete company setup packages | From BHD 750
-3. PRO Services — Government liaison and processing | From BHD 50
-4. License Renewal — Annual renewal with penalty avoidance | From BHD 150
-```
+**Background**: Light gray with large grid pattern
 
----
+**Fee Categories**:
 
-### Block 15: FAQ Section
-**Component**: Reuse `ServiceFAQ`
-**Word Count**: 500-600 words
-**Keywords**: Featured snippet targets
+**Column 1 - Registration Fees** (Most Common badge):
+- Name Reservation: BHD 15
+- CR Registration: BHD 50/year
+- Trade License: BHD 20-200
 
-```text
-Badge: "FAQ"
-H2: "Business License Questions Answered"
-Subtitle: "Everything you need to know about getting licensed in Bahrain"
+**Column 2 - Post-Registration**:
+- LMRA Registration: BHD 50
+- Chamber of Commerce: BHD 50-100/year
+- Signatory Card: BHD 10
 
-12 FAQs:
+**Column 3 - Optional**:
+- Virtual Office: BHD 300+/year
+- Bank Account Support: Included in packages
 
-1. What is a business license in Bahrain?
-"A business license in Bahrain consists of two documents: the Commercial Registration (CR), which establishes your legal entity, and the Trade License, which permits specific commercial activities. Both are issued by the Ministry of Industry and Commerce (MOIC) through the SIJILAT portal and are required for legal business operations."
-
-2. How long does it take to get a business license in Bahrain?
-"Standard business license processing takes 3-7 business days for straightforward applications. Including the now-mandatory bank account opening, expect 10-14 days total. Complex cases with industrial or regulated activities may take 2-4 weeks."
-
-3. How much does a business license cost in Bahrain?
-"Government fees range from BHD 250-600 annually depending on license type and activities. This includes Trade Name (BHD 15), CR (BHD 50-200), Trade License (BHD 20-300 per activity), and Chamber fees (BHD 50-100). Professional service fees are quoted separately."
-
-4. Can foreigners get a business license in Bahrain?
-"Yes, Bahrain allows 100% foreign ownership for most commercial activities. Foreign entrepreneurs can obtain business licenses without requiring a local sponsor or partner. Only a few regulated sectors may require local partnership."
-
-5. Do I need a local partner for a business license?
-"No local partner is required for most business activities. Bahrain actively encourages foreign investment with 100% ownership permitted. Certain regulated sectors like real estate may have local partnership requirements."
-
-6. Can I get a business license remotely?
-"Yes, remote business license registration is fully possible through a Power of Attorney (POA). Our team can act as your authorized representative, handling all submissions without requiring your physical presence in Bahrain."
-
-7. What documents do I need for a business license?
-"Individual applicants need: valid passport, proof of address, CV (for professional licenses), and photos. Corporate shareholders need: Certificate of Incorporation, MOA, Board Resolution, and Good Standing Certificate. All applicants need a Bahrain office address."
-
-8. What types of business licenses are available?
-"Bahrain offers Commercial licenses (trading, retail), Industrial licenses (manufacturing), Professional licenses (consulting, services), and Services licenses (hospitality, healthcare). The right type depends on your planned business activities."
-
-9. What is the difference between CR and trade license?
-"The Commercial Registration (CR) is your company identity document establishing the legal entity. The Trade License authorizes specific commercial activities you can conduct. Both are required and are typically issued together during the licensing process."
-
-10. What are the 2024 business license requirements?
-"As of June 2024, new business licenses require proof of a corporate bank account before final CR issuance. This adds 5-10 days to the process. Minimum deposits vary by bank from BHD 500 to USD 10,000."
-
-11. Which ministry handles business licensing in Bahrain?
-"The Ministry of Industry and Commerce (MOIC) handles all business licensing through the SIJILAT electronic portal. For regulated activities, additional approvals from sector-specific authorities (CBB for finance, NHRA for healthcare) may be required."
-
-12. What happens if my business license expires?
-"Operating with an expired license incurs penalties of BHD 20-100 per month. Extended expiry (6+ months) may result in license cancellation requiring full re-registration. We recommend renewing at least 30 days before expiry."
-```
+**Disclaimer Box**: Gold-bordered info card with notes about 2024 fee updates
 
 ---
 
-### Block 16: Final CTA
-**Component**: Reuse `ServiceCTA`
-**Word Count**: 60-80 words
+### Block 10: SPCBankAccountUpdate
 
-```text
-Badge: "Start Today"
-H2: "Ready to Get Your Business License in Bahrain?"
-Subtitle: "Expert guidance from application to approval. Free consultation, no obligations."
+**Layout**: Alert banner with icon and details
 
-Primary CTA: "Book Free Consultation"
-Secondary CTA: "Call Us Now"
+**Background**: Navy gradient (#002C4D to #001A35)
 
-Features: 100% Success Rate • Same-Week Processing • Full MOIC Support
-```
+**Content**:
+- AlertCircle icon (gold)
+- H3: "June 2024 Update: Mandatory Bank Account"
+- Body: Explanation of new requirement
+- 3 checkmarks: What's required, timeline impact, how Keylink helps
+
+**Visual Style**: White text, gold accents, backdrop-blur cards for stats
 
 ---
 
-## Technical Implementation Plan
+### Block 11: SPCTestimonials
 
-### Files to Create
+**Layout**: 3-column testimonial cards
 
-| File Path | Purpose |
-|-----------|---------|
-| `src/pages/services/BusinessLicense.tsx` | Main page component |
-| `src/components/services/bl/BLHero.tsx` | Hero section |
-| `src/components/services/bl/BLProblemValue.tsx` | Pain points section |
-| `src/components/services/bl/WhatIsBL.tsx` | Educational content |
-| `src/components/services/bl/BLTypesComparison.tsx` | License types tabs |
-| `src/components/services/bl/BLProcessSteps.tsx` | 6-step timeline |
-| `src/components/services/bl/BLRequirementsChecklist.tsx` | Tabbed documents |
-| `src/components/services/bl/BLGovernmentFees.tsx` | Fee table |
-| `src/components/services/bl/BL2024Update.tsx` | Regulatory update |
-| `src/components/services/bl/BLSuccessStory.tsx` | Case study |
-| `src/components/services/bl/BLCostCalculator.tsx` | Interactive calculator |
-| `src/components/services/bl/BLTestimonials.tsx` | Social proof |
-| `src/lib/schema/businessLicenseSchema.ts` | JSON-LD schema |
+**Background**: Light gray with center-fading dot grid
 
-### Files to Modify
+**Testimonials**: 3 cards featuring solo entrepreneurs
+- Quote with star ratings
+- Client photo with BadgeCheck
+- Name, role, company
 
-| File Path | Change |
-|-----------|--------|
-| `src/App.tsx` | Add route `/services/business-license` |
+**Trust Badges**: Google (4.9) + Trustpilot (4.8) pills at bottom
 
-### Component Reuse Strategy
+---
 
-These existing components will be reused directly:
-- `ServiceTrustBar` - Trust metrics bar
-- `ServiceWhyChoose` - Why choose section
-- `ServiceFAQ` - FAQ accordion
-- `ServiceCTA` - Final CTA section
-- `RelatedServicesGrid` - Related services
-- `Layout`, `FloatingWhatsApp`, `BackToTop` - Page scaffolding
+### Block 12: SPCSuccessSnapshot
 
-### SEO Implementation
+**Layout**: Navy background with 3 cards (Challenge/Solution/Result)
 
-```typescript
-// Page metadata
-title: "Business License in Bahrain - Get Licensed in 3-7 Days | From BHD 350 | Keylink Corp"
-description: "Get your Bahrain business license with 100% foreign ownership. Commercial, industrial, and professional licenses in 3-7 days. Expert MOIC registration from BHD 350. Free consultation."
-canonical: "https://keylinkcorp.com/services/business-license"
+**Background**: Primary (#002C4D) with gold blur accents
 
-// JSON-LD Schema
-- Service schema (BusinessLicense)
+**Case Study Content**:
+- Client: "UK-based consultant"
+- Challenge: Needed simple structure for GCC consulting
+- Solution: SPC formation with virtual office
+- Result: Operational in 10 days, first client within 2 weeks
+
+**Stats Row**: 4 glassmorphic cards (Days, Entity Type, Investment, Setup Type)
+
+**Client Quote Box**: Portrait + testimonial quote
+
+---
+
+### Block 13: SPCRelatedServices
+
+**Layout**: 4-column grid of service cards
+
+**Background**: White
+
+**Related Services**:
+1. Business License (icon: FileCheck)
+2. Visa & Immigration (icon: IdCard)
+3. PRO Services (icon: Users)
+4. CR Renewal (icon: RefreshCw)
+
+**Card Style**: White cards with gold icon boxes, arrow links
+
+---
+
+### Block 14: SPCFAQ
+
+**Layout**: 2-column accordion grid
+
+**Background**: White with dashed top-fade pattern
+
+**12 Questions** (from Phase 5 copy):
+1. What is a Single Person Company in Bahrain?
+2. Can foreigners own 100% of an SPC?
+3. What is the minimum capital for SPC?
+4. How long does SPC registration take?
+5. Do I need to be in Bahrain to register?
+6. What's the difference between SPC and WLL?
+7. Can I convert SPC to WLL later?
+8. What documents are required?
+9. What are the annual compliance requirements?
+10. Can I get a work visa through my SPC?
+11. What business activities are allowed?
+12. How much does SPC formation cost?
+
+**Visual Style**: Gold left-border on open state, shadow-md
+
+---
+
+### Block 15: SPCCTA
+
+**Layout**: Centered content with stacked CTAs
+
+**Background**: White with center-fading dashed grid
+
+**Content**:
+- Sparkles badge: "Ready to Start?"
+- H2: 64px "Start Your Solo Business in Bahrain Today"
+- Subtext: Join 350+ successful solo entrepreneurs
+- Feature pills: Free Consultation | No Obligations | Expert Guidance
+- Primary CTA: Gold "Get Free Consultation"
+- Secondary CTA: Outline "Call +973 1700 0000"
+- Trust line: "Trusted by 350+ solo entrepreneurs across 30+ countries"
+
+---
+
+## 3. New Image Assets Required
+
+| Asset | Description | Dimensions |
+|-------|-------------|------------|
+| spc-hero-entrepreneur.jpg | Solo professional at modern desk/laptop | 800x580px |
+| spc-solo-consultant.jpg | Consultant working independently | 600x480px |
+| spc-success-portrait.jpg | Client headshot for case study | 144x144px |
+
+**Style Guidelines**:
+- Modern corporate aesthetic
+- Navy (#002C4D) and Gold (#C7A763) tones
+- Clean backgrounds (white/light gray)
+- Professional but approachable subjects
+
+---
+
+## 4. Animation Specifications
+
+| Section | Animation Type | Trigger |
+|---------|---------------|---------|
+| Hero | staggered headline, image scale reveal | Page load |
+| TrustBar | fade-up, counter animation | In view |
+| Calculator | step transitions with AnimatePresence | User interaction |
+| Why Choose | stagger container, icon hover effects | In view |
+| Legal Update | fade-in-up | In view |
+| Comparison | tab switch with layoutId animation | User interaction |
+| Timeline | accordion expand with height animation | User interaction |
+| Testimonials | stagger cards, star rating cascade | In view |
+| Success Story | glassmorphic card hover effects | In view |
+| FAQ | accordion with gold border transition | User interaction |
+| CTA | scale on button hover | User interaction |
+
+**Easing**: cubic-bezier(0.22, 1, 0.36, 1) for premium feel
+
+---
+
+## 5. Typography Scale
+
+| Element | Size | Weight | Color |
+|---------|------|--------|-------|
+| H1 (Hero) | 60px | 700 | #002C4D |
+| H2 (Sections) | 52px | 700 | #002C4D |
+| H3 (Subsections) | 28px | 600 | #002C4D |
+| Body Large | 22px | 400 | #666666 |
+| Body Regular | 16px | 400 | #666666 |
+| Captions/Labels | 14px | 500 | #C7A763 |
+
+---
+
+## 6. Responsive Breakpoints
+
+| Breakpoint | Layout Changes |
+|------------|----------------|
+| Desktop (1024px+) | Full layouts as specified |
+| Tablet (768-1023px) | 2-column grids become 2-col, hero stacks |
+| Mobile (< 768px) | Single column, full-width buttons, reduced padding |
+
+---
+
+## 7. SEO & Schema Implementation
+
+**Page Title**: "Single Person Company in Bahrain - Register SPC in 3-14 Days | From BHD 750 | Keylink Corp"
+
+**Meta Description**: "Start your solo business in Bahrain with 100% foreign ownership. Register a Single Person Company (SPC) in 3-14 days from BHD 50 minimum capital. Expert MOIC registration & LMRA support. Free consultation."
+
+**JSON-LD Schemas**:
+- Service schema (Single Person Company Formation)
 - FAQPage schema (12 questions)
-- BreadcrumbList schema
 - LocalBusiness schema
+
+---
+
+## 8. Technical Notes
+
+### File Structure
+```text
+src/lib/schema/spcSchema.ts  (new)
+src/pages/services/SinglePersonCompany.tsx  (new)
+src/components/services/spc/  (new folder with 15 components)
 ```
 
-### Implementation Sequence
+### Routing Addition
+```typescript
+// In App.tsx or router config
+{ path: "/services/single-person-company", element: <SinglePersonCompany /> }
+```
 
-1. Create JSON-LD schema file
-2. Create new components directory (`src/components/services/bl/`)
-3. Build hero component with animations
-4. Build problem/value and educational sections
-5. Build interactive elements (calculator, comparison tabs)
-6. Build process timeline and requirements
-7. Build trust sections (testimonials, success story)
-8. Assemble main page with SEO hooks
-9. Add route to App.tsx
-10. Test and verify all components
-
----
-
-## Copy Self-Review
-
-| Element | Location |
-|---------|----------|
-| **Main Promise** | Hero H1: "Get Your Business License in Bahrain — Fast, Simple, Guaranteed" |
-| **Biggest Proof** | Block 2 Trust Bar: 2,500+ Licenses, 100% Success Rate |
-| **Biggest Reassurance** | Block 10: 2024 regulatory guidance + Block 11: Why Choose differentiators |
-| **Strongest CTA** | Block 3: Interactive calculator with lead capture |
-| **Featured Snippet Targets** | Block 15: 12 FAQs structured for Google |
-
----
-
-## Narrative Flow Summary
-
-**Emotional Journey**: Anxiety/Confusion → Hope → Clarity → Confidence → Action
-
-1. **Hook** (Hero): Immediate promise of speed, simplicity, and guaranteed success
-2. **Credibility** (Trust Bar): Quantitative proof establishes authority
-3. **Engagement** (Calculator): Interactive tool captures intent and builds investment
-4. **Empathy** (Problem/Value): Acknowledge pain points, position as solution
-5. **Education** (What Is/Types): Build understanding and reduce uncertainty
-6. **Clarity** (Process/Requirements): Remove mystery with transparent timelines
-7. **Trust** (Fees/Update): Radical transparency on costs and regulations
-8. **Proof** (Why Choose/Testimonials/Success): Social proof and differentiation
-9. **Bridge** (Related Services): Expand engagement opportunities
-10. **Resolution** (FAQ): Address remaining objections
-11. **Action** (CTA): Clear path to conversion
+### Shared Component Reuse
+- AnimatedCounter from existing
+- Accordion from ui/accordion
+- Button, Card, Input from ui components
+- Animation variants from lib/animations.ts
 
