@@ -14,6 +14,7 @@ import Accounting from "./pages/services/Accounting";
 import BusinessLicense from "./pages/services/BusinessLicense";
 import SinglePersonCompany from "./pages/services/SinglePersonCompany";
 import MOA from "./pages/services/MOA";
+import BranchOffice from "./pages/services/BranchOffice";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/services/business-license" element={<BusinessLicense />} />
           <Route path="/services/single-person-company" element={<SinglePersonCompany />} />
           <Route path="/services/moa" element={<MOA />} />
+          <Route path="/services/branch-office" element={<BranchOffice />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
