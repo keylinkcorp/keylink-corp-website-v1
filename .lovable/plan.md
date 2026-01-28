@@ -1,206 +1,185 @@
 
 
-# CRProcessSteps Accordion Timeline Enhancement
+# Apply Accordion Timeline Pattern to FormationProcessDetailed and SPCProcessTimeline
 
 ## Overview
 
-Apply the same clean accordion timeline pattern from `CRAmendmentProcess` to the `CRProcessSteps` component. This will ensure visual consistency across CR-related pages while maintaining all existing 6-step content.
+Update both `FormationProcessDetailed` and `SPCProcessTimeline` components to use the same clean Radix UI Accordion timeline pattern established in `CRAmendmentProcess`, ensuring visual consistency across all process/timeline sections.
 
 ---
 
-## Current vs Target Comparison
+## Components to Update
 
-| Aspect | Current (CRProcessSteps) | Target (Match CRAmendmentProcess) |
-|--------|--------------------------|-----------------------------------|
-| Animation Library | Framer Motion (heavy) | None (static) |
-| Accordion | Custom useState + AnimatePresence | Radix UI Accordion |
-| Vertical Line | Gradient line | Solid `bg-accent` line |
-| Step Node | Large 14px circle with conditional styling | 12px circle with `border-4 border-white` |
-| Card Styling | `border-2 rounded-2xl` | `border rounded-xl` (lighter) |
-| Header Layout | Timeline badge above title | Icon + Title + Badge inline |
-| Content | Details with `bg-accent/5` backgrounds | Clean details without backgrounds |
+| Component | Current State | Changes Needed |
+|-----------|---------------|----------------|
+| FormationProcessDetailed | Framer Motion + custom useState accordion with phase tabs | Replace with Radix UI Accordion, keep phase tabs |
+| SPCProcessTimeline | Framer Motion + custom useState accordion | Replace with Radix UI Accordion |
 
 ---
 
-## Implementation Details
+## Pattern to Apply (from CRAmendmentProcess)
 
-### File Modified
-`src/components/services/cr/CRProcessSteps.tsx`
+```text
+[Timeline Indicator Box]
 
-### Key Changes
+●─────  [01] Step Title                    Badge  [▼]
+│       
+│       Description text...
+│       ✓ Detail 1    ✓ Detail 2
+│       ✓ Detail 3    ✓ Detail 4
+│
+●─────  [02] Next Step                     Badge  [▶]
+│       (collapsed)
+...
+
+[Bottom Badge / CTA]
+```
+
+### Key Design Elements
+- Solid vertical line: `bg-accent` (not gradient)
+- Circular nodes: `w-12 h-12 rounded-full bg-accent border-4 border-white shadow-sm`
+- Clean cards: `bg-white rounded-xl border border-border`
+- Radix UI Accordion: `type="single"`, `collapsible`, `defaultValue="step-0"`
+- No Framer Motion animations
+
+---
+
+## File 1: FormationProcessDetailed.tsx
+
+### Special Considerations
+This component has a **3-phase tabbed structure** that should be preserved. The accordion pattern applies to the steps within each phase.
+
+### Changes
 
 1. **Remove Framer Motion**
    - Remove `motion`, `useInView`, `AnimatePresence` imports
-   - Remove `staggerContainer`, `staggerItem` usage
-   - Remove `useRef` and `useState` hooks
+   - Remove `useRef` hook
+   - Keep `useState` for `activePhase` only (tabs still needed)
+   - Remove `expandedSteps` state (Radix handles this)
    - Convert all `motion.div` to regular `div`
 
 2. **Add Radix UI Accordion**
-   - Import `Accordion`, `AccordionContent`, `AccordionItem`, `AccordionTrigger`
+   - Import Accordion components from `@/components/ui/accordion`
+   - Wrap phase steps in `<Accordion type="single" collapsible defaultValue="phase-X-step-0">`
+
+3. **Update Timeline Structure**
+   - Add solid vertical line: `bg-accent`
+   - Standardize nodes: `w-12 h-12` with step number
+   - Update card styling to match pattern
+
+4. **Preserve Phase Tabs**
+   - Keep the 3 phase buttons
+   - Maintain phase switching functionality
+   - Reset accordion to first step when phase changes
+
+### Data Structure (Preserved)
+- Phase 1: 4 steps (Security Approval, Name Registration, Capital, Partner Setup)
+- Phase 2: 4 steps (Address, Sector Approvals, Notarization, Bank Account)
+- Phase 3: 4 steps (LMRA, Medical, Residence Permit, CPR)
+
+---
+
+## File 2: SPCProcessTimeline.tsx
+
+### Changes
+
+1. **Remove Framer Motion**
+   - Remove `motion`, `useInView`, `AnimatePresence` imports
+   - Remove `staggerContainer`, `staggerItem` imports
+   - Remove `useRef`, `useState` hooks
+   - Remove `cn` utility (not needed)
+   - Convert all `motion.div` to regular `div`
+
+2. **Add Radix UI Accordion**
+   - Import Accordion components
    - Use `type="single"`, `collapsible`, `defaultValue="step-0"`
 
-3. **Restructure Timeline Layout**
-   - Solid vertical line: `bg-accent` (not gradient)
-   - Smaller nodes: `w-12 h-12` with `border-4 border-white shadow-sm`
-   - Node positioned at `left-6` to align with line
+3. **Update Timeline Structure**
+   - Solid vertical line: `bg-accent` (replace gradient)
+   - Standardize nodes: `w-12 h-12 rounded-full bg-accent border-4 border-white shadow-sm`
+   - Update cards: `bg-white rounded-xl border border-border`
 
-4. **Simplify Card Design**
-   - Change from `border-2 rounded-2xl` to `border rounded-xl`
-   - Cleaner header with icon, title, and timeline badge inline
-   - Remove heavy detail backgrounds (`bg-accent/5`)
+4. **Update Background Pattern**
+   - Use ellipse mask fade pattern (white base, matching CRAmendmentProcess)
 
-5. **Update Background Pattern**
-   - Use ellipse mask fade pattern (matching CRAmendmentProcess)
+5. **Simplify Bottom CTA**
+   - Remove motion wrapper
+   - Keep button styling and functionality
 
----
-
-## Preserved Content
-
-All 6 process steps with their data:
-- Step 01: Consultation & Planning (Day 1)
-- Step 02: Document Preparation (Day 1-2)
-- Step 03: Name Reservation (Day 2)
-- Step 04: MOIC Submission (Day 2-3)
-- Step 05: CR Issuance (Day 3-5)
-- Step 06: Post-Registration Support (Ongoing)
-
-Also preserved:
-- All step icons (MessageSquare, FileText, Search, Send, Award, HeartHandshake)
-- All descriptions and detail checklists
-- Section header badge, H2, and subheading
-- Timeline indicator box (3-7 Business Days)
-- Bottom CTA button
+### Data Structure (Preserved)
+- 6 steps: Security Approval, Name Reservation, Bank Account, Document Notarization, CR Issuance, LMRA & ID Processing
+- All step data (numbers, icons, titles, timelines, descriptions, details)
 
 ---
 
-## Code Structure
-
-### Imports (Updated)
-```tsx
-import { 
-  MessageSquare, FileText, Search, Send, Award, HeartHandshake,
-  Clock, CheckCircle2, ArrowRight
-} from "lucide-react";
-import {
-  Accordion, AccordionContent, AccordionItem, AccordionTrigger,
-} from "@/components/ui/accordion";
-```
-
-### Accordion Timeline Structure
-```tsx
-<div className="max-w-4xl mx-auto relative">
-  {/* Solid vertical line */}
-  <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-accent hidden md:block" />
-  
-  <Accordion type="single" collapsible defaultValue="step-0" className="space-y-6">
-    {processSteps.map((step, index) => {
-      const StepIcon = step.icon;
-      return (
-        <AccordionItem key={index} value={`step-${index}`} className="border-none">
-          <div className="flex gap-6">
-            {/* Node */}
-            <div className="relative z-10 hidden md:block">
-              <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-primary font-bold text-sm border-4 border-white shadow-sm">
-                {step.number}
-              </div>
-            </div>
-            
-            {/* Content Card */}
-            <div className="flex-1 bg-white rounded-xl border border-border overflow-hidden">
-              <AccordionTrigger className="w-full px-6 py-4 hover:no-underline hover:bg-muted/30 [&[data-state=open]]:border-b [&[data-state=open]]:border-border">
-                <div className="flex items-center gap-3 flex-1">
-                  <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-primary font-bold text-xs md:hidden">
-                    {step.number}
-                  </div>
-                  <StepIcon className="w-5 h-5 text-accent hidden md:block" />
-                  <h3 className="text-lg font-bold text-left">{step.title}</h3>
-                  <span className="px-2 py-0.5 bg-accent/10 text-accent text-xs font-semibold rounded ml-auto mr-2">
-                    {step.timeline}
-                  </span>
-                </div>
-              </AccordionTrigger>
-              
-              <AccordionContent className="px-6 pb-6 pt-4">
-                <p className="text-muted-foreground mb-4">{step.description}</p>
-                <div className="grid sm:grid-cols-2 gap-2">
-                  {step.details.map((detail, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{detail}</span>
-                    </div>
-                  ))}
-                </div>
-              </AccordionContent>
-            </div>
-          </div>
-        </AccordionItem>
-      );
-    })}
-  </Accordion>
-</div>
-```
-
----
-
-## Removed Elements
-
-- `useRef`, `useState` hooks
-- `motion`, `useInView`, `AnimatePresence` from framer-motion
-- `staggerContainer`, `staggerItem` animation variants
-- `cn` utility (no longer needed for conditional styling)
-- `crConsultantImage` import (unused)
-- `ChevronDown` explicit import (Accordion provides its own)
-- Gradient on vertical line
-- Heavy card borders (`border-2`)
-- Background fills on detail items (`bg-accent/5 rounded-xl`)
-- Conditional node styling based on expanded state
-
----
-
-## Styling Specifications
+## Styling Specifications (Consistent Across All)
 
 | Element | Style |
 |---------|-------|
-| Background | Ellipse mask fade dot grid pattern |
-| Timeline Line | `absolute left-6 w-0.5 bg-accent` |
-| Node | `w-12 h-12 rounded-full bg-accent text-primary border-4 border-white shadow-sm` |
-| Card | `bg-white rounded-xl border border-border` |
-| Trigger | `px-6 py-4 hover:no-underline hover:bg-muted/30` |
-| Icon | `w-5 h-5 text-accent` |
+| Background | Ellipse mask fade dot grid |
+| Timeline Line | `absolute left-6 w-0.5 bg-accent hidden md:block` |
+| Node | `w-12 h-12 rounded-full bg-accent text-primary font-bold text-sm border-4 border-white shadow-sm` |
+| Card | `bg-white rounded-xl border border-border overflow-hidden` |
+| Trigger | `w-full px-6 py-4 hover:no-underline hover:bg-muted/30` |
+| Open Border | `[&[data-state=open]]:border-b [&[data-state=open]]:border-border` |
+| Icon | `w-5 h-5 text-accent hidden md:block` |
+| Mobile Number | `w-10 h-10 rounded-full bg-accent text-primary font-bold text-xs md:hidden` |
 | Title | `text-lg font-bold text-left` |
 | Badge | `px-2 py-0.5 bg-accent/10 text-accent text-xs font-semibold rounded` |
+| Content | `px-6 pb-6 pt-4` |
 | Description | `text-muted-foreground mb-4` |
-| Detail Items | `flex items-start gap-2 text-sm text-muted-foreground` |
+| Details Grid | `grid sm:grid-cols-2 gap-2` |
+| Detail Item | `flex items-start gap-2 text-sm` with CheckCircle2 icon |
 
 ---
 
-## Bottom CTA Adjustments
+## Removed Elements (Both Files)
 
-Keep the bottom CTA but simplify styling to remove Framer Motion:
-```tsx
-<div className="text-center mt-14">
-  <p className="text-lg text-muted-foreground mb-6">
-    Ready to start your registration journey?
-  </p>
-  <a
-    href="/contact"
-    className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-primary rounded-xl font-bold hover:bg-accent/90 transition-all shadow-sm hover:shadow-md hover:-translate-y-1 group"
-  >
-    <MessageSquare className="w-5 h-5" />
-    Book Free Consultation
-    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-  </a>
-</div>
-```
+- All `motion.div` and motion animations
+- `useInView` hooks
+- `AnimatePresence` wrappers
+- `staggerContainer`, `staggerItem` variants
+- Custom expand/collapse logic with useState
+- Gradient vertical lines
+- Heavy borders (`border-2`)
+- Background fills on detail items
 
 ---
 
-## Summary of Changes
+## Preserved Elements
 
+### FormationProcessDetailed
+- 3-phase tab navigation
+- All 12 steps across 3 phases
+- Step icons, descriptions, requirements
+- Timeline badge showing "3-7 Business Days"
+- Section header with badge, H2, subheading
+
+### SPCProcessTimeline
+- All 6 process steps with full data
+- Step icons (ShieldCheck, FileText, Wallet, Stamp, Building2, CreditCard)
+- Timeline indicator box (3-14 Business Days)
+- Bottom badge and CTA button
+- Section header
+
+---
+
+## Implementation Summary
+
+### FormationProcessDetailed.tsx
+1. Remove Framer Motion imports and hooks
+2. Keep `useState` for `activePhase` only
+3. Add Radix UI Accordion imports
+4. Wrap phase steps in Accordion component
+5. Apply consistent timeline structure (line, nodes, cards)
+6. Update background pattern
+7. Remove motion wrappers from phase tabs and timeline badge
+
+### SPCProcessTimeline.tsx
 1. Remove all Framer Motion dependencies
-2. Replace custom accordion with Radix UI Accordion
-3. Simplify vertical timeline (solid line, cleaner nodes)
-4. Update background to ellipse mask fade pattern
-5. Remove heavy card and detail styling
-6. Match exact structure of CRAmendmentProcess
+2. Replace useState accordion with Radix UI Accordion
+3. Apply consistent timeline structure
+4. Update background to white with ellipse mask
+5. Simplify bottom CTA section
+6. Match exact styling from CRAmendmentProcess
 
