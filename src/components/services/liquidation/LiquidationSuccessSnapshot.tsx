@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Quote, CheckCircle2, Clock, Wallet, Building2 } from "lucide-react";
+import liquidationSuccessClient from "@/assets/liquidation-success-client.jpg";
 
 export function LiquidationSuccessSnapshot() {
   const ref = useRef<HTMLDivElement>(null);
@@ -78,8 +79,19 @@ export function LiquidationSuccessSnapshot() {
                 </div>
               </div>
 
-              {/* Right - Quote */}
+              {/* Right - Quote with Image */}
               <div className="flex flex-col justify-center">
+                {/* Client Image */}
+                <div className="mb-8">
+                  <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-accent/30 shadow-lg">
+                    <img 
+                      src={liquidationSuccessClient} 
+                      alt="Regional Trading Company Managing Director" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+
                 <div className="relative">
                   <Quote className="w-12 h-12 text-accent/30 absolute -top-4 -left-2" />
                   <blockquote className="text-xl md:text-2xl font-medium text-primary leading-relaxed pl-8 relative z-10">
