@@ -3,7 +3,7 @@ import { motion, useInView, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Award, Briefcase, ArrowRight, Phone, Star, Shield, Building2, FileCheck, Globe, Clock, Coins } from "lucide-react";
 import { cn } from "@/lib/utils";
-import heroImage from "@/assets/industry-professional.jpg";
+import heroImage from "@/assets/bl-hero-professional.jpg";
 
 const heroFeatures = [
   { icon: Globe, text: "100% Foreign Ownership" },

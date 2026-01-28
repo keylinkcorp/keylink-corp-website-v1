@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Star, Clock, Shield, Wallet } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/spc-hero-entrepreneur.jpg";
+import heroImage from "@/assets/spc-hero-professional.jpg";
 import { heroHeadlineContainer, heroHeadlineLine, imageReveal } from "@/lib/animations";
 
 const heroFeatures = [

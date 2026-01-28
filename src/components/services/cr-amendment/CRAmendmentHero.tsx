@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Award, Clock, ArrowRight, Phone, Star, Shield, Building2, FileCheck, Globe } from "lucide-react";
-import crHeroImage from "@/assets/cr-hero-professional.jpg";
+import crHeroImage from "@/assets/cr-amendment-hero-professional.jpg";
 
 const heroFeatures = [
   { icon: Clock, text: "2-5 Day Processing" },
