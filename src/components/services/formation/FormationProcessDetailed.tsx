@@ -1,11 +1,15 @@
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { 
   ShieldCheck, Building2, Landmark, Users, MapPin, FileCheck, 
   Stamp, Wallet, ClipboardList, HeartPulse, IdCard, CreditCard,
-  ChevronDown, Clock, CheckCircle2
+  Clock, CheckCircle2
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface ProcessStep {
   icon: React.ElementType;
@@ -131,43 +135,28 @@ const phases: Phase[] = [
 ];
 
 export function FormationProcessDetailed() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activePhase, setActivePhase] = useState("phase-1");
-  const [expandedSteps, setExpandedSteps] = useState<string[]>([]);
-
-  const toggleStep = (stepId: string) => {
-    setExpandedSteps(prev => 
-      prev.includes(stepId) 
-        ? prev.filter(id => id !== stepId)
-        : [...prev, stepId]
-    );
-  };
-
   const activePhaseData = phases.find(p => p.id === activePhase);
 
   return (
-    <section ref={ref} className="py-28 lg:py-36 bg-secondary/30 relative overflow-hidden">
-      {/* Dot grid pattern */}
-      <div 
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-          maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, #000 40%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, #000 40%, transparent 100%)",
-        }}
-      />
+    <section className="py-28 lg:py-36 relative overflow-hidden">
+      {/* Background Pattern - Ellipse mask fade dot grid */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
+            backgroundSize: "16px 16px",
+            maskImage: "radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%)",
+          }}
+        />
+      </div>
       
       <div className="container relative">
         {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <p className="text-sm font-medium text-accent tracking-wide uppercase mb-4">
             Step-by-Step Process
           </p>
           <h2 className="text-[44px] md:text-[52px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
@@ -176,165 +165,116 @@ export function FormationProcessDetailed() {
           <p className="text-lg text-muted-foreground leading-[1.8]">
             Our comprehensive 3-phase process ensures a smooth and compliant company formation experience.
           </p>
-        </motion.div>
+        </div>
 
         {/* Phase Tabs */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
-        >
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
           {phases.map((phase, index) => (
             <button
               key={phase.id}
               onClick={() => setActivePhase(phase.id)}
-              className={cn(
-                "relative px-6 py-4 rounded-xl font-medium transition-all duration-300",
+              className={`relative px-6 py-4 rounded-xl font-medium transition-all duration-300 ${
                 activePhase === phase.id
                   ? "bg-primary text-white shadow-sm"
                   : "bg-white text-muted-foreground hover:bg-primary/5 border border-border"
-              )}
+              }`}
             >
               <span className="flex items-center gap-3">
-                <span className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold",
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                   activePhase === phase.id
-                    ? "bg-gold text-primary"
+                    ? "bg-accent text-primary"
                     : "bg-primary/10 text-primary"
-                )}>
+                }`}>
                   {index + 1}
                 </span>
                 <span className="hidden sm:block">
                   <span className="block text-left font-semibold">{phase.title}</span>
-                  <span className={cn(
-                    "block text-xs",
+                  <span className={`block text-xs ${
                     activePhase === phase.id ? "text-white/80" : "text-muted-foreground"
-                  )}>
+                  }`}>
                     {phase.subtitle}
                   </span>
                 </span>
               </span>
             </button>
           ))}
-        </motion.div>
+        </div>
 
         {/* Steps Accordion */}
-        <AnimatePresence mode="wait">
-          {activePhaseData && (
-            <motion.div
-              key={activePhaseData.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="max-w-4xl mx-auto space-y-4"
+        {activePhaseData && (
+          <div className="max-w-4xl mx-auto relative">
+            {/* Solid vertical line */}
+            <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-accent hidden md:block" />
+            
+            <Accordion 
+              type="single" 
+              collapsible 
+              defaultValue={`${activePhase}-step-0`}
+              key={activePhase}
+              className="space-y-6"
             >
               {activePhaseData.steps.map((step, stepIndex) => {
-                const stepId = `${activePhaseData.id}-step-${stepIndex}`;
-                const isExpanded = expandedSteps.includes(stepId);
-                const Icon = step.icon;
+                const StepIcon = step.icon;
+                const stepValue = `${activePhase}-step-${stepIndex}`;
 
                 return (
-                  <motion.div
-                    key={stepId}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: stepIndex * 0.1 }}
-                    className={cn(
-                      "bg-white rounded-2xl border overflow-hidden transition-all duration-300",
-                      isExpanded 
-                        ? "border-gold/40 shadow-lg border-l-4 border-l-gold" 
-                        : "border-border hover:border-gold/20"
-                    )}
+                  <AccordionItem 
+                    key={stepValue} 
+                    value={stepValue} 
+                    className="border-none"
                   >
-                    <button
-                      onClick={() => toggleStep(stepId)}
-                      className="w-full px-6 py-5 flex items-center gap-4 text-left"
-                    >
-                      <div className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center transition-colors",
-                        isExpanded ? "bg-gold text-primary" : "bg-gold/10 text-gold"
-                      )}>
-                        <Icon className="h-6 w-6" />
+                    <div className="flex gap-6">
+                      {/* Node */}
+                      <div className="relative z-10 hidden md:block">
+                        <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-primary font-bold text-sm border-4 border-white shadow-sm">
+                          {String(stepIndex + 1).padStart(2, '0')}
+                        </div>
                       </div>
                       
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-medium text-gold">
-                            Step {stepIndex + 1}
-                          </span>
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">
-                            <Clock className="h-3 w-3" />
-                            {step.timeframe}
-                          </span>
-                        </div>
-                        <h3 className="text-lg font-semibold text-primary">
-                          {step.title}
-                        </h3>
-                      </div>
-
-                      <ChevronDown className={cn(
-                        "h-5 w-5 text-muted-foreground transition-transform duration-300",
-                        isExpanded && "rotate-180"
-                      )} />
-                    </button>
-
-                    <AnimatePresence>
-                      {isExpanded && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-6 pt-0 ml-16">
-                            <p className="text-muted-foreground leading-[1.8] mb-4">
-                              {step.description}
-                            </p>
-                            
-                            {step.requirements && step.requirements.length > 0 && (
-                              <div className="mt-4 p-4 bg-secondary/50 rounded-xl">
-                                <p className="text-sm font-semibold text-primary mb-3">
-                                  Requirements:
-                                </p>
-                                <ul className="space-y-2">
-                                  {step.requirements.map((req, reqIndex) => (
-                                    <li 
-                                      key={reqIndex}
-                                      className="flex items-start gap-2 text-sm text-muted-foreground"
-                                    >
-                                      <CheckCircle2 className="h-4 w-4 text-gold mt-0.5 flex-shrink-0" />
-                                      {req}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
+                      {/* Content Card */}
+                      <div className="flex-1 bg-white rounded-xl border border-border overflow-hidden">
+                        <AccordionTrigger className="w-full px-6 py-4 hover:no-underline hover:bg-muted/30 [&[data-state=open]]:border-b [&[data-state=open]]:border-border">
+                          <div className="flex items-center gap-3 flex-1">
+                            <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-primary font-bold text-xs md:hidden">
+                              {String(stepIndex + 1).padStart(2, '0')}
+                            </div>
+                            <StepIcon className="w-5 h-5 text-accent hidden md:block" />
+                            <h3 className="text-lg font-bold text-left">{step.title}</h3>
+                            <span className="px-2 py-0.5 bg-accent/10 text-accent text-xs font-semibold rounded ml-auto mr-2">
+                              {step.timeframe}
+                            </span>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
+                        </AccordionTrigger>
+                        
+                        <AccordionContent className="px-6 pb-6 pt-4">
+                          <p className="text-muted-foreground mb-4">{step.description}</p>
+                          {step.requirements && step.requirements.length > 0 && (
+                            <div className="grid sm:grid-cols-2 gap-2">
+                              {step.requirements.map((req, reqIndex) => (
+                                <div key={reqIndex} className="flex items-start gap-2 text-sm">
+                                  <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                                  <span className="text-muted-foreground">{req}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </AccordionContent>
+                      </div>
+                    </div>
+                  </AccordionItem>
                 );
               })}
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </Accordion>
+          </div>
+        )}
 
         {/* Timeline badge */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="text-center mt-12"
-        >
+        <div className="text-center mt-12">
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-primary rounded-full text-white">
-            <Clock className="h-5 w-5 text-gold" />
+            <Clock className="h-5 w-5 text-accent" />
             <span className="font-medium">Complete Formation in 3-7 Business Days</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
