@@ -26,7 +26,7 @@ import {
   Edit,
   Plane
 } from "lucide-react";
-import teamCollaboration from "@/assets/cr-team-collaboration.jpg";
+import teamCollaboration from "@/assets/moa-team-collaboration.jpg";
 
 const whyChooseDifferentiators = [
   { icon: Scale, title: "Commercial Law Expertise", description: "Deep knowledge of Law No. 21/2001 and Article 15 requirements" },
