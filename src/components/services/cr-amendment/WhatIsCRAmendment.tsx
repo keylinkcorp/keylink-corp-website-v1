@@ -16,8 +16,10 @@ export function WhatIsCRAmendment() {
 
   return (
     <section ref={ref} className="py-24 md:py-32 relative overflow-hidden">
-      {/* Dot grid background */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
+      {/* Ellipse mask fade dot grid background */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white">
+        <div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+      </div>
 
       <div className="container mx-auto px-4">
         <motion.div
@@ -56,22 +58,20 @@ export function WhatIsCRAmendment() {
             </p>
           </motion.div>
 
-          {/* Key Points Box */}
+          {/* Key Points Box - Cleaner Design */}
           <motion.div 
             variants={staggerItem}
-            className="bg-white rounded-2xl border-2 border-border shadow-sm p-8"
+            className="bg-white rounded-2xl border border-border shadow-sm p-8"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-accent" />
-              </div>
-              <h3 className="text-xl font-bold">Key Points About CR Amendments</h3>
+            <div className="flex items-center gap-2 mb-6">
+              <Clock className="w-5 h-5 text-accent" />
+              <h3 className="text-lg font-bold">Key Points About CR Amendments</h3>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               {keyPoints.map((point, index) => (
-                <div key={index} className="flex items-start gap-3 p-4 bg-secondary/50 rounded-xl">
+                <div key={index} className="flex items-start gap-3 p-3">
                   <point.icon className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="font-medium">{point.text}</span>
+                  <span className="text-muted-foreground">{point.text}</span>
                 </div>
               ))}
             </div>
