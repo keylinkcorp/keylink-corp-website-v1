@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, Star, Clock, Shield, Wallet } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/formation-hero-consultant.jpg";
+import heroImage from "@/assets/formation-hero-professional.jpg";
 import { heroHeadlineContainer, heroHeadlineLine, imageReveal } from "@/lib/animations";
 
 const heroFeatures = [
