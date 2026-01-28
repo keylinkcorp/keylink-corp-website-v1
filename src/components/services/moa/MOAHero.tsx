@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Award, Clock, ArrowRight, Phone, Star, Shield, Building2, FileCheck, Globe } from "lucide-react";
-import crHeroImage from "@/assets/cr-hero-professional.jpg";
+import moaHeroImage from "@/assets/moa-hero-professional.jpg";
 
 const heroFeatures = [
   { icon: Clock, text: "24-48hr Turnaround" },
@@ -194,9 +194,9 @@ export function MOAHero() {
               className="relative rounded-3xl overflow-hidden shadow-sm"
             >
               <img
-                src={crHeroImage}
-                alt="Professional legal consultant reviewing MOA documents"
-                className="w-full h-auto object-cover aspect-square"
+                src={moaHeroImage}
+                alt="Bahrain Memorandum of Association document with official notary stamp and gold seal"
+                className="w-full h-auto object-cover aspect-[4/3]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent" />
             </motion.div>
