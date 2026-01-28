@@ -45,7 +45,7 @@ const LeaseRegistration = () => {
       canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute("href", "https://keylinkcorp.com/services/lease-registration");
+    canonical.setAttribute("href", "https://keylinkcorp.com/services/lease-contract-registration");
 
     // Inject JSON-LD schema
     const existingSchema = document.querySelector('script[data-schema="lease-registration"]');
