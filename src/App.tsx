@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import CompanyFormation from "./pages/services/CompanyFormation";
 import CommercialRegistration from "./pages/services/CommercialRegistration";
+import CRAmendment from "./pages/services/CRAmendment";
 import CRRenewal from "./pages/services/CRRenewal";
 import VisaImmigration from "./pages/services/VisaImmigration";
 import PROServices from "./pages/services/PROServices";
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/services/company-formation" element={<CompanyFormation />} />
           <Route path="/services/commercial-registration" element={<CommercialRegistration />} />
+          <Route path="/services/cr-amendment" element={<CRAmendment />} />
           <Route path="/services/cr-renewal" element={<CRRenewal />} />
           <Route path="/services/visa-immigration" element={<VisaImmigration />} />
           <Route path="/services/pro-services" element={<PROServices />} />
