@@ -1,83 +1,58 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { staggerContainer, staggerItem } from "@/lib/animations";
-import { FileText, CheckCircle2, AlertTriangle, Clock, Building2 } from "lucide-react";
+import { ServiceExplainer } from "@/components/services/shared/ServiceExplainer";
+import { 
+  FileText, 
+  Building2, 
+  CheckCircle2, 
+  AlertTriangle, 
+  Clock, 
+  Globe,
+  Users,
+  MapPin,
+  Scale,
+  Briefcase
+} from "lucide-react";
 
-const keyPoints = [
-  { icon: CheckCircle2, text: "Mandatory for any business structure change" },
-  { icon: Building2, text: "Processed through Sijilat 3.0 portal" },
-  { icon: FileText, text: "Required for continued legal operations" },
-  { icon: AlertTriangle, text: "Non-compliance triggers penalties and restrictions" }
+const keyFacts = [
+  { icon: Building2, label: "Governing Authority", text: "Ministry of Industry and Commerce" },
+  { icon: FileText, label: "Processing Portal", text: "Sijilat 3.0 Electronic System" },
+  { icon: Clock, label: "Standard Timeline", text: "2-5 Business Days" },
+  { icon: Globe, label: "Requirement", text: "Mandatory for any CR change" }
+];
+
+const benefits = [
+  { icon: FileText, text: "Change business activities" },
+  { icon: Users, text: "Update shareholder structure" },
+  { icon: Building2, text: "Modify company name" },
+  { icon: MapPin, text: "Change registered address" },
+  { icon: Scale, text: "Update capital amounts" },
+  { icon: Briefcase, text: "Convert entity type" }
 ];
 
 export function WhatIsCRAmendment() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section ref={ref} className="py-24 md:py-32 relative overflow-hidden">
-      {/* Ellipse mask fade dot grid background */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white">
-        <div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
-      </div>
-
-      <div className="container mx-auto px-4">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="max-w-4xl mx-auto"
-        >
-          <motion.div variants={staggerItem} className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold border border-accent/20 mb-4">
-              <FileText className="w-4 h-4" />
-              Understanding CR Amendments
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
-              What Is a <span className="text-accent">CR Amendment</span> in Bahrain?
-            </h2>
-          </motion.div>
-
-          <motion.div variants={staggerItem} className="prose prose-lg max-w-none mb-12">
-            <p className="text-xl text-muted-foreground leading-relaxed mb-6">
-              A Commercial Registration amendment is an official update to your existing CR details through the 
-              Ministry of Industry and Commerce (MOIC). When your business structure, activities, or ownership 
-              changes, Bahrain law requires you to reflect these updates in your CR within specific timeframes.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              The MOIC processes all amendments through the Sijilat 3.0 electronic portal. Each amendment type 
-              follows a distinct workflow with different document requirements, government fees, and processing windows.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              Failing to update your CR creates real problems. Banks may freeze transactions. Visa processing stops. 
-              Contracts become legally questionable. The MOIC can impose penalties or even cancel non-compliant registrations.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Most amendments complete in 2-5 business days when filed correctly. Complex changes like entity 
-              conversions or multi-shareholder transfers may extend to 7-10 days.
-            </p>
-          </motion.div>
-
-          {/* Key Points Box - Cleaner Design */}
-          <motion.div 
-            variants={staggerItem}
-            className="bg-white rounded-2xl border border-border shadow-sm p-8"
-          >
-            <div className="flex items-center gap-2 mb-6">
-              <Clock className="w-5 h-5 text-accent" />
-              <h3 className="text-lg font-bold">Key Points About CR Amendments</h3>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {keyPoints.map((point, index) => (
-                <div key={index} className="flex items-start gap-3 p-3">
-                  <point.icon className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">{point.text}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
+    <ServiceExplainer
+      badge="Understanding CR Amendments"
+      badgeIcon={FileText}
+      title={<>What Is a <span className="text-accent">CR Amendment</span> in Bahrain?</>}
+      paragraphs={[
+        <>A Commercial Registration amendment is an official update to your existing CR details through the Ministry of Industry and Commerce (MOIC). When your business structure, activities, or ownership changes, Bahrain law requires you to reflect these updates in your CR within specific timeframes.</>,
+        <>The MOIC processes all amendments through the Sijilat 3.0 electronic portal. Each amendment type follows a distinct workflow with different document requirements, government fees, and processing windows.</>,
+        <>Failing to update your CR creates real problems. Banks may freeze transactions. Visa processing stops. Contracts become legally questionable. The MOIC can impose penalties or even cancel non-compliant registrations.</>,
+        <>Most amendments complete in 2-5 business days when filed correctly. Complex changes like entity conversions or multi-shareholder transfers may extend to 7-10 days.</>
+      ]}
+      keyFacts={keyFacts}
+      callout={{
+        icon: AlertTriangle,
+        title: "Compliance Deadline",
+        text: "Most CR amendments must be filed within 30 days of the change occurring. Delayed amendments may result in penalties or rejection."
+      }}
+      panelTitle="What Amendments Enable"
+      panelSubtitle="CR amendments allow you to officially update:"
+      benefits={benefits}
+      panelFooter={{
+        icon: CheckCircle2,
+        text: "Keep your CR current and fully compliant"
+      }}
+    />
   );
 }
