@@ -17,6 +17,7 @@ import SinglePersonCompany from "./pages/services/SinglePersonCompany";
 import MOA from "./pages/services/MOA";
 import BranchOffice from "./pages/services/BranchOffice";
 import LeaseRegistration from "./pages/services/LeaseRegistration";
+import WLLCompany from "./pages/services/WLLCompany";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/services/moa" element={<MOA />} />
           <Route path="/services/branch-office" element={<BranchOffice />} />
           <Route path="/services/lease-contract-registration" element={<LeaseRegistration />} />
+          <Route path="/services/wll-company" element={<WLLCompany />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
