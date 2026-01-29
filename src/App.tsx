@@ -12,6 +12,7 @@ import CRRenewal from "./pages/services/CRRenewal";
 import VisaImmigration from "./pages/services/VisaImmigration";
 import PROServices from "./pages/services/PROServices";
 import Accounting from "./pages/services/Accounting";
+import AccountingServices from "./pages/services/AccountingServices";
 import BusinessLicense from "./pages/services/BusinessLicense";
 import SinglePersonCompany from "./pages/services/SinglePersonCompany";
 import MOA from "./pages/services/MOA";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/services/visa-immigration" element={<VisaImmigration />} />
           <Route path="/services/pro-services" element={<PROServices />} />
           <Route path="/services/accounting" element={<Accounting />} />
+          <Route path="/services/accounting-services" element={<AccountingServices />} />
           <Route path="/services/business-license" element={<BusinessLicense />} />
           <Route path="/services/single-person-company" element={<SinglePersonCompany />} />
           <Route path="/services/moa" element={<MOA />} />
