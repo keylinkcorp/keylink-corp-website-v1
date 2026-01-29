@@ -33,7 +33,7 @@ export const accountingFAQData = [
   },
   {
     question: "What is included in bookkeeping services?",
-    answer: "Our bookkeeping includes daily transaction recording, bank reconciliation, accounts payable and receivable management, monthly trial balance, and financial statements (P&L, balance sheet). All data is accessible via your cloud dashboard 24/7."
+    answer: "Our bookkeeping includes daily transaction recording, bank reconciliation, accounts payable and receivable management, monthly trial balance, and financial statements (P&L, balance sheet). All reports delivered monthly in easy-to-understand formats."
   },
   {
     question: "Do you handle payroll and SIO contributions?",
@@ -49,7 +49,7 @@ export const accountingFAQData = [
   },
   {
     question: "Do you provide financial reports?",
-    answer: "Every package includes monthly financial reports: profit & loss statement, balance sheet, cash flow summary, and key metrics dashboard. Enterprise clients receive additional CFO-level analysis, forecasting, and board-ready reporting."
+    answer: "Every package includes monthly financial reports: profit & loss statement, balance sheet, cash flow summary, and key performance indicators summary. Enterprise clients receive additional CFO-level analysis, forecasting, and board-ready reporting."
   },
   {
     question: "What qualifications do your accountants have?",
@@ -57,6 +57,6 @@ export const accountingFAQData = [
   },
   {
     question: "How does accounting integrate with your other services?",
-    answer: "This is what sets us apart. Your accountant has visibility into what your PRO filed, your visa status, and your CR renewal dates. When we handle your formation, the accounting is already set up correctly. One dashboard, one partner, zero coordination headaches."
+    answer: "This is what sets us apart. Your accountant has visibility into what your PRO filed, your visa status, and your CR renewal dates. When we handle your formation, the accounting is already set up correctly. One partner, one team, zero coordination headaches."
   }
 ];

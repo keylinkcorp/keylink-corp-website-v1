@@ -140,7 +140,7 @@ export default function AccountingServices() {
           title="Your Books Shouldn't Keep You Up at Night" 
           subtitle="Book your free financial health check. We'll assess your current setup and recommend the right service tier — no obligation."
           primaryCTA={{ text: "Book Free Consultation", href: "/contact" }} 
-          features={["NBR Registered", "Cloud-Based", "Audit-Ready"]} 
+          features={["NBR Registered", "Dedicated Team", "Audit-Ready"]} 
         />
       </Layout>
       

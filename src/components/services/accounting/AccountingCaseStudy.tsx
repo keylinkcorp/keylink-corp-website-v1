@@ -23,7 +23,7 @@ export function AccountingCaseStudy({ caseImage }: AccountingCaseStudyProps) {
       "VAT fully compliant within 2 weeks",
       "First audit passed with zero findings",
       "Monthly books closed by the 5th of each month",
-      "Real-time dashboard access for Dubai HQ"
+      "Monthly financial reports delivered to Dubai HQ on schedule"
     ],
     quote: "Keylink turned a stressful situation into a smooth operation. We went from panic mode to having better financial visibility in Bahrain than we do in Dubai.",
     quotee: "Sarah M., CFO, TechFlow Solutions"

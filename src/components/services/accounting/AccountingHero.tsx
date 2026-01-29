@@ -2,12 +2,12 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Phone, Shield, BarChart3, FileCheck, Clock } from "lucide-react";
+import { ArrowRight, Phone, Shield, Users, FileCheck, Clock } from "lucide-react";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 
 const featurePills = [
   { icon: Shield, text: "NBR Registered" },
-  { icon: BarChart3, text: "Cloud-Based" },
+  { icon: Users, text: "Dedicated Support" },
   { icon: FileCheck, text: "100% Audit Pass Rate" },
   { icon: Clock, text: "10+ Years Experience" },
 ];
@@ -139,7 +139,7 @@ export function AccountingHero({ heroImage }: AccountingHeroProps) {
                 />
               ) : (
                 <div className="w-full aspect-[4/3] bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                  <BarChart3 className="w-24 h-24 text-accent/30" />
+                  <FileCheck className="w-24 h-24 text-accent/30" />
                 </div>
               )}
               
