@@ -25,6 +25,8 @@ import { Building2, Calculator, FileCheck, Award, RefreshCw, Plane, UserCheck } 
 import heroImage from "@/assets/accounting-hero-professional.jpg";
 import teamImage from "@/assets/accounting-team-collaboration.jpg";
 import caseImage from "@/assets/accounting-success-client.jpg";
+import techImage from "@/assets/accounting-cloud-dashboard.jpg";
+import vatImage from "@/assets/accounting-vat-documents.jpg";
 
 const trustBarStats = [
   { icon: Building2, value: 300, suffix: "+", label: "Clients Served" },
@@ -100,13 +102,13 @@ export default function AccountingServices() {
         <AccountingServicesGrid />
         
         {/* Block 7: VAT Deep Dive */}
-        <VATDeepDive />
+        <VATDeepDive vatImage={vatImage} />
         
         {/* Block 8: In-House vs Outsource Comparison */}
         <InHouseVsOutsource />
         
         {/* Block 9: Tech Stack */}
-        <AccountingTechStack />
+        <AccountingTechStack techImage={techImage} />
         
         {/* Block 10: Case Study */}
         <AccountingCaseStudy caseImage={caseImage} />
