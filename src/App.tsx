@@ -20,6 +20,7 @@ import BranchOffice from "./pages/services/BranchOffice";
 import LeaseRegistration from "./pages/services/LeaseRegistration";
 import WLLCompany from "./pages/services/WLLCompany";
 import BusinessConsulting from "./pages/services/BusinessConsulting";
+import ManagementConsulting from "./pages/services/ManagementConsulting";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/services/lease-contract-registration" element={<LeaseRegistration />} />
           <Route path="/services/wll-company" element={<WLLCompany />} />
           <Route path="/services/business-consulting" element={<BusinessConsulting />} />
+          <Route path="/services/management-consulting" element={<ManagementConsulting />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
