@@ -544,7 +544,7 @@ export function WLLCostCalculator() {
           className="max-w-4xl mx-auto"
         >
           <div className="bg-white rounded-3xl border-2 border-border shadow-sm overflow-hidden">
-            {/* Progress Bar */}
+            {/* Progress Bar with Step Indicators */}
             {!showResult && (
               <div className="p-6 border-b border-border">
                 <div className="flex items-center justify-between mb-3">
@@ -553,7 +553,34 @@ export function WLLCostCalculator() {
                   </span>
                   <span className="text-sm font-medium text-gold">{Math.round(progress)}%</span>
                 </div>
-                <Progress value={progress} className="h-2" />
+                <Progress value={progress} className="h-2 mb-4" />
+                
+                {/* Step indicators with checkmarks */}
+                <div className="flex items-center justify-between gap-1">
+                  {Array.from({ length: totalSteps }, (_, i) => {
+                    const stepNum = i + 1;
+                    const isCompleted = stepNum < step;
+                    const isCurrent = stepNum === step;
+                    
+                    return (
+                      <div
+                        key={i}
+                        className={cn(
+                          "flex-1 h-1.5 rounded-full transition-all duration-300",
+                          isCompleted ? "bg-gold" : isCurrent ? "bg-gold/50" : "bg-border"
+                        )}
+                      />
+                    );
+                  })}
+                </div>
+                
+                {/* Completed steps indicator */}
+                {step > 1 && (
+                  <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
+                    <Check className="w-3.5 h-3.5 text-gold" />
+                    <span>{step - 1} step{step > 2 ? 's' : ''} completed</span>
+                  </div>
+                )}
               </div>
             )}
 

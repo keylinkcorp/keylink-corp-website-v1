@@ -55,12 +55,12 @@ export function WLLvsSPCComparison() {
           </motion.p>
         </motion.div>
 
-        {/* Comparison Table */}
+        {/* Comparison Table - Desktop */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-4xl mx-auto mb-12"
+          className="max-w-4xl mx-auto mb-12 hidden md:block"
         >
           <div className="bg-white rounded-3xl border-2 border-border shadow-sm overflow-hidden">
             {/* Header */}
@@ -92,6 +92,39 @@ export function WLLvsSPCComparison() {
               );
             })}
           </div>
+        </motion.div>
+
+        {/* Comparison Cards - Mobile */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="md:hidden space-y-4 mb-12"
+        >
+          {comparisonData.map((row, index) => {
+            const IconComponent = row.icon;
+            return (
+              <div 
+                key={index} 
+                className="bg-white rounded-2xl border-2 border-border shadow-sm p-4"
+              >
+                <div className="flex items-center gap-3 mb-3 pb-3 border-b border-border">
+                  <IconComponent className="w-5 h-5 text-gold flex-shrink-0" />
+                  <span className="font-semibold text-primary">{row.attribute}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-gold/5 rounded-xl p-3 border border-gold/20">
+                    <p className="text-xs text-muted-foreground mb-1">WLL</p>
+                    <p className="font-semibold text-primary text-sm">{row.wll}</p>
+                  </div>
+                  <div className="bg-secondary/50 rounded-xl p-3">
+                    <p className="text-xs text-muted-foreground mb-1">SPC</p>
+                    <p className="text-muted-foreground text-sm">{row.spc}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </motion.div>
 
         {/* Key Metrics Cards */}

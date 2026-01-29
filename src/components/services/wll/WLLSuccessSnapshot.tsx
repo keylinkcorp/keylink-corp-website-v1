@@ -105,23 +105,27 @@ export function WLLSuccessSnapshot() {
               </div>
 
               {/* Right: Quote + Image */}
-              <div className="bg-primary p-8 lg:p-10 flex flex-col justify-between">
-                <div>
-                  <Quote className="w-10 h-10 text-gold mb-6" />
-                  <p className="text-white/90 text-lg leading-relaxed mb-6">
-                    "{caseStudy.quote}"
-                  </p>
+              <div className="bg-primary p-8 lg:p-10 flex flex-col justify-between relative">
+                {/* Decorative quote marks */}
+                <div className="absolute top-4 left-6 text-gold/20 text-8xl font-serif leading-none select-none">"</div>
+                <div className="absolute bottom-4 right-6 text-gold/20 text-8xl font-serif leading-none select-none rotate-180">"</div>
+                
+                <div className="relative z-10">
+                  <Quote className="w-10 h-10 text-gold mb-4" />
+                  <blockquote className="text-white/95 text-lg md:text-xl leading-relaxed mb-6 font-light italic">
+                    {caseStudy.quote}
+                  </blockquote>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 relative z-10">
                   <img 
                     src={successImage} 
                     alt="WLL success story partners" 
-                    className="w-16 h-16 rounded-full object-cover border-2 border-gold"
+                    className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border-2 border-gold shadow-lg"
                   />
                   <div>
-                    <p className="font-semibold text-white">{caseStudy.author}</p>
-                    <p className="text-white/70 text-sm">{caseStudy.company}</p>
+                    <p className="font-semibold text-white text-sm md:text-base">{caseStudy.author}</p>
+                    <p className="text-gold/80 text-xs md:text-sm">{caseStudy.company}</p>
                   </div>
                 </div>
               </div>
