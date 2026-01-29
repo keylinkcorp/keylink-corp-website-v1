@@ -120,24 +120,45 @@ export function WLLFAQ() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-3xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`faq-${index}`}
-                className="bg-white rounded-xl border border-border px-6 shadow-sm"
-              >
-                <AccordionTrigger className="text-left font-semibold hover:no-underline py-5">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <div className="grid md:grid-cols-2 gap-4">
+            {/* Left Column */}
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqs.slice(0, Math.ceil(faqs.length / 2)).map((faq, index) => (
+                <AccordionItem 
+                  key={index} 
+                  value={`faq-${index}`}
+                  className="bg-white rounded-xl border border-border px-6 shadow-sm"
+                >
+                  <AccordionTrigger className="text-left font-semibold hover:no-underline py-5 text-sm md:text-base">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-5 text-sm">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+            
+            {/* Right Column */}
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqs.slice(Math.ceil(faqs.length / 2)).map((faq, index) => (
+                <AccordionItem 
+                  key={index} 
+                  value={`faq-right-${index}`}
+                  className="bg-white rounded-xl border border-border px-6 shadow-sm"
+                >
+                  <AccordionTrigger className="text-left font-semibold hover:no-underline py-5 text-sm md:text-base">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-5 text-sm">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </motion.div>
       </div>
     </section>
