@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/lib/animations";
-import { Target, RefreshCw, Eye, Quote, BarChart3 } from "lucide-react";
+import { Target, RefreshCw, Eye, Quote, FileText } from "lucide-react";
 
 const differentiators = [
   {
-    icon: BarChart3,
-    title: "Cloud-Based Real-Time Dashboards",
-    description: "Access your financial data anytime, from anywhere — no more waiting for month-end reports."
+    icon: FileText,
+    title: "Monthly Reports You'll Actually Understand",
+    description: "Clear, jargon-free financial summaries delivered every month. Know exactly where your business stands."
   },
   {
     icon: Target,

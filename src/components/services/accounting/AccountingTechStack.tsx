@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/lib/animations";
-import { Cloud, Zap, Users, Shield } from "lucide-react";
+import { FolderOpen, Zap, Users, Shield } from "lucide-react";
 
 const platforms = [
   { name: "QuickBooks", category: "Global Leader" },
@@ -14,9 +14,9 @@ const platforms = [
 
 const benefits = [
   {
-    icon: Cloud,
-    title: "Real-Time Access",
-    description: "View your financial data anywhere, anytime — on any device."
+    icon: FolderOpen,
+    title: "Organized Records",
+    description: "Every receipt, invoice, and document systematically filed and easy to retrieve."
   },
   {
     icon: Zap,
@@ -70,7 +70,7 @@ export function AccountingTechStack({ techImage }: AccountingTechStackProps) {
           <motion.div variants={staggerItem} className="text-center mb-14">
             <span className="section-badge">Modern Technology</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Cloud Accounting Tools We Work With
+              Accounting Software We Work With
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               We work with your preferred platform — or help you choose the right one for your business.
@@ -118,7 +118,7 @@ export function AccountingTechStack({ techImage }: AccountingTechStackProps) {
             {/* Benefits */}
             <motion.div variants={staggerContainer} className="space-y-6">
               <motion.h3 variants={staggerItem} className="text-xl font-semibold text-primary mb-4">
-                Why Cloud Accounting?
+                Why Professional Accounting Software?
               </motion.h3>
               {benefits.map((benefit, index) => (
                 <motion.div
