@@ -180,43 +180,43 @@ export function WLLProcessTimeline() {
 
         {/* Process Steps Accordion */}
         <div className="max-w-4xl mx-auto relative">
-          {/* Solid vertical line */}
-          <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-accent hidden md:block" />
+          {/* Solid vertical line - adjusted positioning */}
+          <div className="absolute left-[23px] top-8 bottom-8 w-0.5 bg-gradient-to-b from-gold via-gold/60 to-gold/20 hidden md:block" />
           
-          <Accordion type="single" collapsible defaultValue="step-0" className="space-y-6">
+          <Accordion type="single" collapsible defaultValue="step-0" className="space-y-4 md:space-y-6">
             {processSteps.map((step, index) => {
               const StepIcon = step.icon;
               return (
                 <AccordionItem key={index} value={`step-${index}`} className="border-none">
-                  <div className="flex gap-6">
-                    {/* Node */}
-                    <div className="relative z-10 hidden md:block">
-                      <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-primary font-bold text-sm border-4 border-white shadow-sm">
+                  <div className="flex gap-4 md:gap-6">
+                    {/* Node - refined with gold accent */}
+                    <div className="relative z-10 hidden md:flex flex-col items-center">
+                      <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center text-primary font-bold text-sm border-4 border-white shadow-md ring-2 ring-gold/20">
                         {step.number}
                       </div>
                     </div>
                     
                     {/* Content Card */}
-                    <div className="flex-1 bg-white rounded-xl border border-border overflow-hidden">
-                      <AccordionTrigger className="w-full px-6 py-4 hover:no-underline hover:bg-muted/30 [&[data-state=open]]:border-b [&[data-state=open]]:border-border">
+                    <div className="flex-1 bg-white rounded-xl border border-border overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                      <AccordionTrigger className="w-full px-4 md:px-6 py-4 hover:no-underline hover:bg-muted/30 [&[data-state=open]]:border-b [&[data-state=open]]:border-border">
                         <div className="flex items-center gap-3 flex-1">
-                          <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-primary font-bold text-xs md:hidden">
+                          <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-primary font-bold text-xs md:hidden shadow-sm">
                             {step.number}
                           </div>
-                          <StepIcon className="w-5 h-5 text-accent hidden md:block" />
-                          <h3 className="text-lg font-bold text-left">{step.title}</h3>
-                          <span className="px-2 py-0.5 bg-accent/10 text-accent text-xs font-semibold rounded ml-auto mr-2">
+                          <StepIcon className="w-5 h-5 text-gold hidden md:block" />
+                          <h3 className="text-base md:text-lg font-bold text-left">{step.title}</h3>
+                          <span className="px-2 py-0.5 bg-gold/10 text-gold text-xs font-semibold rounded-full ml-auto mr-2 border border-gold/20">
                             {step.timeline}
                           </span>
                         </div>
                       </AccordionTrigger>
                       
-                      <AccordionContent className="px-6 pb-6 pt-4">
-                        <p className="text-muted-foreground mb-4">{step.description}</p>
+                      <AccordionContent className="px-4 md:px-6 pb-5 pt-4">
+                        <p className="text-muted-foreground mb-4 text-sm md:text-base">{step.description}</p>
                         <div className="grid sm:grid-cols-2 gap-2">
                           {step.details.map((detail, idx) => (
                             <div key={idx} className="flex items-start gap-2 text-sm">
-                              <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                              <CheckCircle2 className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                               <span className="text-muted-foreground">{detail}</span>
                             </div>
                           ))}
