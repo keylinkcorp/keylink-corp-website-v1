@@ -86,23 +86,23 @@ export default function AccountingServices() {
         {/* Block 1: Hero */}
         <AccountingHero heroImage={heroImage} />
         
-        {/* Block 2: Trust Bar */}
-        <ServiceTrustBar stats={trustBarStats} />
-        
-        {/* Block 3: Problem Agitation */}
-        <AccountingProblemAgitation />
-        
-        {/* Block 4: Solution */}
-        <AccountingSolution />
-        
-        {/* Block 5: Interactive Calculator */}
+        {/* Block 2: Interactive Calculator */}
         <AccountingCostCalculator />
         
-        {/* Block 6: Services Grid */}
+        {/* Block 3: Services Grid */}
         <AccountingServicesGrid />
         
-        {/* Block 7: VAT Deep Dive */}
+        {/* Block 4: Problem Agitation */}
+        <AccountingProblemAgitation />
+        
+        {/* Block 5: VAT Deep Dive */}
         <VATDeepDive vatImage={vatImage} />
+        
+        {/* Block 6: Trust Bar */}
+        <ServiceTrustBar stats={trustBarStats} />
+        
+        {/* Block 7: Solution */}
+        <AccountingSolution />
         
         {/* Block 8: In-House vs Outsource Comparison */}
         <InHouseVsOutsource />
