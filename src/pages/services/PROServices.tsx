@@ -1,199 +1,90 @@
 import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { ServiceHero } from "@/components/services/shared/ServiceHero";
 import { ServiceTrustBar } from "@/components/services/shared/ServiceTrustBar";
-import { ServiceBenefits } from "@/components/services/shared/ServiceBenefits";
 import { ServicePricing } from "@/components/services/shared/ServicePricing";
-import { ServiceWhyChoose } from "@/components/services/shared/ServiceWhyChoose";
 import { ServiceFAQ } from "@/components/services/shared/ServiceFAQ";
 import { ServiceCTA } from "@/components/services/shared/ServiceCTA";
 import { RelatedServicesGrid } from "@/components/services/shared/RelatedServicesGrid";
+import { PROHero } from "@/components/services/pro/PROHero";
+import { PROAudienceClarity } from "@/components/services/pro/PROAudienceClarity";
+import { PROProblemAgitation } from "@/components/services/pro/PROProblemAgitation";
+import { PROWhatIs } from "@/components/services/pro/PROWhatIs";
+import { PROSolutionFramework } from "@/components/services/pro/PROSolutionFramework";
 import { PROServicesList } from "@/components/services/pro/PROServicesList";
+import { PROProcessTimeline } from "@/components/services/pro/PROProcessTimeline";
 import { MinistriesCovered } from "@/components/services/pro/MinistriesCovered";
+import { PRODIYComparison } from "@/components/services/pro/PRODIYComparison";
+import { PROTeamAuthority } from "@/components/services/pro/PROTeamAuthority";
+import { PROCaseStudy } from "@/components/services/pro/PROCaseStudy";
+import { proFAQData } from "@/components/services/pro/proFAQData";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { BackToTop } from "@/components/BackToTop";
 import { proServicesSchema } from "@/lib/schema/proServicesSchema";
 import {
-  UserCheck,
+  FileCheck,
   Clock,
   Building2,
-  FileCheck,
-  CheckCircle2,
   Award,
-  Zap,
-  Headphones,
-  Calendar,
-  Shield,
   RefreshCw,
   Plane,
   Calculator
 } from "lucide-react";
 
-const heroFeatures = [
-  { icon: Building2, text: "All Ministries" },
-  { icon: Clock, text: "Same-Day Collection" },
-  { icon: FileCheck, text: "Document Attestation" }
-];
-
 const trustBarStats = [
-  { icon: FileCheck, value: 10000, suffix: "+", label: "Documents Processed" },
+  { icon: FileCheck, value: 5000, suffix: "+", label: "Documents Processed" },
   { icon: Building2, value: 15, suffix: "+", label: "Ministries Covered" },
-  { icon: Clock, value: 24, suffix: "hr", label: "Service Speed" },
+  { icon: Clock, value: 98, suffix: "%", label: "Same-Day Rate" },
   { icon: Award, value: 10, suffix: "+", label: "Years Experience" }
-];
-
-const benefits = [
-  {
-    icon: Clock,
-    title: "No Waiting Lines",
-    description: "Skip the queues – we handle all government office visits for you"
-  },
-  {
-    icon: UserCheck,
-    title: "Expert Navigation",
-    description: "Our PROs know every process, form, and shortcut"
-  },
-  {
-    icon: Zap,
-    title: "Same-Day Service",
-    description: "Many documents collected and delivered same day"
-  },
-  {
-    icon: Calendar,
-    title: "Status Updates",
-    description: "Real-time tracking of all your document requests"
-  },
-  {
-    icon: Shield,
-    title: "Cost Savings",
-    description: "Fixed fees with no hidden charges or surprises"
-  }
 ];
 
 const pricingTiers = [
   {
-    name: "Pay-Per-Service",
-    price: "BHD 50",
-    period: "service",
-    description: "One-time document processing",
+    name: "Per-Task",
+    price: "BHD 25",
+    period: "from",
+    description: "Pay only when you need it",
     features: [
       "Single document processing",
       "Government fee handling",
       "Collection & delivery",
-      "Email confirmation",
-      "Standard 24-48hr processing"
+      "WhatsApp updates",
+      "24-48hr processing"
     ],
-    ctaText: "Request Service",
+    ctaText: "Request Quote",
     ctaHref: "/contact"
   },
   {
     name: "Monthly Retainer",
     price: "BHD 300",
     period: "month",
-    description: "Regular PRO support for growing businesses",
+    description: "For growing businesses",
     popular: true,
     features: [
-      "5 services included/month",
+      "Up to 10 tasks included",
       "Priority processing",
       "Dedicated PRO assigned",
       "Renewal reminders",
-      "Phone & WhatsApp support",
-      "Additional services at BHD 40"
+      "WhatsApp support",
+      "Additional tasks at BHD 25"
     ],
     ctaText: "Get Started",
     ctaHref: "/contact"
   },
   {
-    name: "Annual Contract",
-    price: "BHD 3,000",
-    period: "year",
-    description: "Unlimited PRO services for enterprises",
+    name: "Premium Unlimited",
+    price: "BHD 500",
+    period: "month",
+    description: "For enterprises needing full coverage",
     features: [
-      "Unlimited services",
-      "Express same-day processing",
+      "Unlimited PRO tasks",
+      "Same-day priority",
       "Senior PRO assigned",
-      "All renewals handled",
+      "All renewals managed",
       "Quarterly compliance review",
       "24/7 emergency support"
     ],
     ctaText: "Contact Sales",
     ctaHref: "/contact"
-  }
-];
-
-const whyChooseDifferentiators = [
-  {
-    icon: Building2,
-    title: "All Ministries",
-    description: "We cover every government office in Bahrain"
-  },
-  {
-    icon: Clock,
-    title: "Same-Day Service",
-    description: "Most documents processed within 24 hours"
-  },
-  {
-    icon: UserCheck,
-    title: "Expert PROs",
-    description: "Experienced government relations specialists"
-  },
-  {
-    icon: Shield,
-    title: "Full Transparency",
-    description: "Real-time updates on all your requests"
-  },
-  {
-    icon: Zap,
-    title: "Express Options",
-    description: "Urgent processing when you need it fast"
-  },
-  {
-    icon: Award,
-    title: "100% Success",
-    description: "We get your documents approved right"
-  }
-];
-
-const faqs = [
-  {
-    question: "What is a PRO and what do they do?",
-    answer: "A PRO (Public Relations Officer) is a government liaison specialist who handles document processing, visa applications, and other formalities with Bahrain government ministries on behalf of companies and individuals."
-  },
-  {
-    question: "What services do your PROs handle?",
-    answer: "Our PROs handle: CR registration and renewal, trade license processing, visa and immigration, LMRA formalities, document attestation, ministry approvals, chamber of commerce, municipality clearances, and more."
-  },
-  {
-    question: "How long does PRO service take?",
-    answer: "Most single-document services are completed within 24-48 hours. Complex processes involving multiple ministries may take 3-5 business days. We offer express same-day service for urgent requests."
-  },
-  {
-    question: "Do I need to visit any government offices?",
-    answer: "No, that's the whole point! Our PROs visit all offices on your behalf. You simply provide documents, and we handle everything from submission to collection."
-  },
-  {
-    question: "What's included in the monthly retainer?",
-    answer: "The monthly retainer includes 5 PRO services, priority processing, a dedicated PRO, renewal reminders, and phone/WhatsApp support. Additional services beyond 5 are charged at BHD 40 each."
-  },
-  {
-    question: "Can you handle urgent/emergency requests?",
-    answer: "Yes, we offer express same-day processing for urgent matters. Contact us immediately for emergency requests – our team is available during extended hours for critical documents."
-  },
-  {
-    question: "Do you cover all government ministries?",
-    answer: "Yes, we cover all 15+ government ministries and agencies including MOIC, LMRA, Immigration, Municipality, Chamber of Commerce, Ministry of Foreign Affairs, courts, and specialized authorities."
-  },
-  {
-    question: "What documents do I need to provide?",
-    answer: "This varies by service. Generally, you'll need relevant original documents, ID copies, and authorization letters. We provide a specific checklist for each request type."
-  },
-  {
-    question: "How do you handle payments to government offices?",
-    answer: "We advance all government fees on your behalf and include them in our invoice. This way, you receive a single consolidated bill with no hidden charges."
-  },
-  {
-    question: "Can you help with document attestation?",
-    answer: "Yes, we handle all types of document attestation including Ministry of Foreign Affairs, embassies, chamber of commerce, and notarization services for local and international use."
   }
 ];
 
@@ -230,11 +121,11 @@ const relatedServices = [
 
 export default function PROServices() {
   useEffect(() => {
-    document.title = "PRO Services Bahrain - Government Liaison | Document Processing";
+    document.title = "PRO Services Bahrain | Government Liaison & Document Processing | Keylink";
     
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute("content", "Professional PRO services in Bahrain. Government liaison, document processing, and attestation. Expert support from BHD 50/service. All ministries covered.");
+      metaDescription.setAttribute("content", "Professional PRO services in Bahrain. Same-day document processing across 15+ ministries. No office visits required. Fixed pricing from BHD 50. Skip the queues today.");
     }
 
     const existingSchema = document.querySelector('script[data-schema="pro-services"]');
@@ -257,54 +148,51 @@ export default function PROServices() {
   return (
     <>
       <Layout>
-        <ServiceHero
-          badge="PRO Services"
-          title="PRO Services"
-          highlight="in Bahrain"
-          subtitle="Government Liaison. Document Processing. Save Time on Government Paperwork."
-          features={heroFeatures}
-          primaryCTA={{ text: "Get PRO Support", href: "/contact" }}
-          secondaryCTA={{ text: "View Services", href: "#services" }}
-          priceFrom="BHD 50"
-          priceLabel="Services from"
-        />
+        {/* 1. Hero */}
+        <PROHero />
         
+        {/* 2. Trust Bar */}
         <ServiceTrustBar stats={trustBarStats} />
         
+        {/* 3. Audience Clarity */}
+        <PROAudienceClarity />
+        
+        {/* 4. Problem Agitation */}
+        <PROProblemAgitation />
+        
+        {/* 5. What Is a PRO */}
+        <PROWhatIs />
+        
+        {/* 6. Solution Framework */}
+        <PROSolutionFramework />
+        
+        {/* 7. Services List */}
         <PROServicesList />
         
-        <ServiceBenefits
-          badge="Why PRO Services"
-          title="Let Us Handle the Paperwork"
-          subtitle="Focus on your business while we navigate government processes"
-          benefits={benefits}
-        />
+        {/* 8. Process Timeline */}
+        <PROProcessTimeline />
         
+        {/* 9. Ministries Covered */}
+        <MinistriesCovered />
+        
+        {/* 10. DIY Comparison */}
+        <PRODIYComparison />
+        
+        {/* 11. Pricing */}
         <ServicePricing
-          badge="Flexible Pricing"
-          title="PRO Service Packages"
-          subtitle="Choose pay-per-service or save with a retainer"
+          badge="Transparent Pricing"
+          title="PRO Services Pricing"
+          subtitle="Choose pay-per-task or save with a monthly retainer"
           tiers={pricingTiers}
         />
         
-        <MinistriesCovered />
+        {/* 12. Team Authority */}
+        <PROTeamAuthority />
         
-        <ServiceWhyChoose
-          badge="Why Keylink"
-          title="Bahrain's Most Trusted PRO Team"
-          subtitle="10,000+ documents processed across all government ministries"
-          differentiators={whyChooseDifferentiators}
-          floatingStatValue="10,000+"
-          floatingStatLabel="Documents Processed"
-        />
+        {/* 13. Case Study */}
+        <PROCaseStudy />
         
-        <ServiceFAQ
-          badge="FAQ"
-          title="PRO Services Questions"
-          subtitle="Common questions about our government liaison services"
-          faqs={faqs}
-        />
-        
+        {/* 14. Related Services */}
         <RelatedServicesGrid
           badge="Related Services"
           title="Complete Business Support"
@@ -313,12 +201,21 @@ export default function PROServices() {
           currentService="/services/pro-services"
         />
         
+        {/* 15. FAQ */}
+        <ServiceFAQ
+          badge="PRO Services FAQ"
+          title="Frequently Asked Questions"
+          subtitle="Everything you need to know about our PRO services"
+          faqs={proFAQData}
+        />
+        
+        {/* 16. CTA */}
         <ServiceCTA
           badge="Skip the Queues"
           title="Let Us Handle Your Government Paperwork"
-          subtitle="Professional PRO services that save you time and hassle"
-          primaryCTA={{ text: "Request Service", href: "/contact" }}
-          secondaryCTA={{ text: "Call Us", href: "tel:+97317000000" }}
+          subtitle="Professional PRO services that save you time, money, and stress"
+          primaryCTA={{ text: "Get PRO Support", href: "/contact" }}
+          secondaryCTA={{ text: "WhatsApp Us", href: "https://wa.me/97317000000" }}
           features={["All Ministries", "Same-Day Service", "Fixed Pricing"]}
         />
       </Layout>
