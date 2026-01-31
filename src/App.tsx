@@ -22,6 +22,7 @@ import WLLCompany from "./pages/services/WLLCompany";
 import BusinessConsulting from "./pages/services/BusinessConsulting";
 import ManagementConsulting from "./pages/services/ManagementConsulting";
 import TaxServices from "./pages/services/TaxServices";
+import LegalConsulting from "./pages/services/LegalConsulting";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/services/business-consulting" element={<BusinessConsulting />} />
           <Route path="/services/management-consulting" element={<ManagementConsulting />} />
           <Route path="/services/tax-services" element={<TaxServices />} />
+          <Route path="/services/legal-consulting" element={<LegalConsulting />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
