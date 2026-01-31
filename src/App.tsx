@@ -21,6 +21,7 @@ import LeaseRegistration from "./pages/services/LeaseRegistration";
 import WLLCompany from "./pages/services/WLLCompany";
 import BusinessConsulting from "./pages/services/BusinessConsulting";
 import ManagementConsulting from "./pages/services/ManagementConsulting";
+import TaxServices from "./pages/services/TaxServices";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ const App = () => (
           <Route path="/services/wll-company" element={<WLLCompany />} />
           <Route path="/services/business-consulting" element={<BusinessConsulting />} />
           <Route path="/services/management-consulting" element={<ManagementConsulting />} />
+          <Route path="/services/tax-services" element={<TaxServices />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
