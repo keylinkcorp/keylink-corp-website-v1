@@ -1,480 +1,379 @@
 
+# Phase 4: Refined Landing Page Outline
+## Certificate Attestation in Bahrain
 
-# Phase 5 - Chamber of Commerce Services Landing Page Implementation Plan
+---
 
 ## Overview
 
-Create a complete, SEO-optimized landing page for "Chamber of Commerce Services Bahrain" following the refined Phase 4 outline. This implementation will create **14 new components** following the established Tax Services architectural pattern, with AI-generated images and modern minimalist aesthetics.
+This plan details the complete component architecture and content structure for the Certificate Attestation landing page, following the established DocumentClearance pattern with attestation-specific customizations.
 
 ---
 
-## Target Word Count: 2,000-2,600 words
-## Primary Keyword: `chamber of commerce service bahrain`
-## URL: `/services/chamber-of-commerce`
-
----
-
-## File Structure to Create
+## File Structure
 
 ```text
 src/
 ├── pages/services/
-│   └── ChamberOfCommerceServices.tsx (NEW - Main page)
-├── components/services/chamber/
-│   ├── ChamberHero.tsx (NEW)
-│   ├── ChamberTrustBar.tsx (NEW)
-│   ├── ChamberProblemAgitation.tsx (NEW)
-│   ├── ChamberAudienceClarity.tsx (NEW)
-│   ├── ChamberBCCIExplainer.tsx (NEW)
-│   ├── ChamberServicePillars.tsx (NEW)
-│   ├── ChamberProcess.tsx (NEW)
-│   ├── ChamberDIYComparison.tsx (NEW)
-│   ├── ChamberPricing.tsx (NEW)
-│   ├── ChamberGuarantees.tsx (NEW)
-│   ├── ChamberTeamAuthority.tsx (NEW)
-│   ├── ChamberRelatedServices.tsx (NEW)
-│   ├── ChamberCTA.tsx (NEW)
-│   └── chamberFAQData.ts (NEW)
-├── lib/schema/
-│   └── chamberServicesSchema.ts (NEW - JSON-LD)
-└── assets/
-    ├── chamber-hero-professional.jpg (AI-GENERATED)
-    ├── chamber-bcci-building.jpg (AI-GENERATED)
-    ├── chamber-team-authority.jpg (AI-GENERATED)
-    └── chamber-success-client.jpg (AI-GENERATED)
+│   └── CertificateAttestation.tsx          # Main page component
+├── components/services/certificate-attestation/
+│   ├── CertificateAttestationHero.tsx
+│   ├── CertificateAttestationAudienceClarity.tsx
+│   ├── CertificateAttestationProblemAgitation.tsx
+│   ├── CertificateAttestationWhatIs.tsx
+│   ├── CertificateAttestationServicesGrid.tsx
+│   ├── CertificateAttestationEmbassyCoverage.tsx
+│   ├── CertificateAttestationProcessTimeline.tsx
+│   ├── CertificateAttestationDIYComparison.tsx
+│   ├── CertificateAttestationCountryPricing.tsx
+│   ├── CertificateAttestationDocumentChecklist.tsx
+│   ├── CertificateAttestationGuarantees.tsx
+│   └── certificateAttestationFAQData.ts
+└── lib/schema/
+    └── certificateAttestationSchema.ts      # JSON-LD structured data
 ```
 
 ---
 
-## Content Blocks with Full SEO Copy
+## Section-by-Section Breakdown
 
-### Block 1: Hero Section (ChamberHero.tsx)
-**Word Count: ~150 words**
+### Section 1: Hero
+**Component:** `CertificateAttestationHero.tsx`
+**Word Count:** ~150 words
 
-**Headline:**
-> Chamber of Commerce Services in Bahrain — Hassle-Free BCCI Registration
+| Element | Content |
+|---------|---------|
+| Badge | "Certificate Attestation in Bahrain" |
+| H1 | "One Submission. 99.5% First-Time Approval. Zero Confusion." |
+| Subheadline | "MOFA, Embassy, and Apostille attestation for educational, commercial, and personal documents. 15+ embassies covered. From BHD 15." |
+| Feature Pills | Same-Day Available, 15+ Embassies, 99.5% Approval |
+| Price Anchor | "Services from BHD 15" |
+| Primary CTA | WhatsApp: "Get Free Consultation" |
+| Secondary CTA | "View Pricing" (anchor to pricing section) |
 
-**Subheadline:**
-> Complete membership registration, certificate of origin attestation, and trade documentation services. We handle every step with the Bahrain Chamber of Commerce and Industry so you can focus on growing your business.
-
-**Feature Pills:**
-- BCCI-Certified Partners
-- Same-Day Certificate Processing
-- Arabic & English Support
-- 1,200+ Documents Processed
-
-**CTA:** "Get Free Quote" + "Call +973 1700 0000"
-
-**Starting Price Badge:** "From BHD 35"
+**Keywords Targeted:** certificate attestation in bahrain, document attestation bahrain
 
 ---
 
-### Block 2: Trust Bar (ChamberTrustBar.tsx)
-**Stats Display:**
-| Metric | Value | Label |
-|--------|-------|-------|
-| Documents | 1,200+ | Certificates Processed |
-| Rate | 99.8% | First-Submission Approval |
-| Time | 24hrs | Average Turnaround |
-| Years | 10+ | BCCI Experience |
+### Section 2: Trust Bar
+**Component:** Shared `ServiceTrustBar`
+**Word Count:** ~30 words
+
+| Stat | Value | Label |
+|------|-------|-------|
+| FileCheck | 3,000+ | Documents Processed |
+| Building2 | 15+ | Embassies Covered |
+| Award | 99.5% | First-Time Approval |
+| Clock | 8+ | Years Experience |
 
 ---
 
-### Block 3: Problem Agitation (ChamberProblemAgitation.tsx)
-**Word Count: ~200 words**
+### Section 3: Audience Clarity
+**Component:** `CertificateAttestationAudienceClarity.tsx`
+**Word Count:** ~180 words
 
-**Badge:** "The Hidden Cost of Going It Alone"
-
-**Title:**
-> Missing a Certificate of Origin Deadline Can Cost You the Entire Shipment
-
-**Narrative Copy:**
-For exporters, timing is everything. A single rejected document at the Bahrain Chamber of Commerce and Industry can delay your shipment, frustrate your buyer, and damage your reputation.
-
-The typical DIY experience includes:
-- Multiple visits to BCCI offices in Manama
-- Arabic paperwork you cannot read
-- Unclear rejection reasons with no guidance
-- Lost hours waiting in queues
-
-Every day your Certificate of Origin is delayed, your goods sit at port. Storage fees accumulate. Buyers lose patience. Contracts fall through.
-
-For new businesses, the mandatory BCCI membership registration feels like an afterthought — until the Ministry of Industry rejects your license renewal because your membership lapsed.
-
-**Consequences Grid:**
-| Issue | Impact |
-|-------|--------|
-| Rejected CO | Shipment delays + storage fees |
-| Lapsed Membership | License renewal blocked |
-| Wrong Classification | Duty miscalculation |
-| Missing Attestation | Contract disputes |
+| Audience Segment | Description |
+|------------------|-------------|
+| HR Departments | "Need to process employee documents for overseas assignments quickly and correctly" |
+| Job Seekers | "Require degree attestation for UAE, Saudi, or GCC employment" |
+| Families Relocating | "Need birth certificates, marriage certificates for family visa applications" |
+| Business Owners | "Commercial documents requiring legalization for international contracts" |
+| Students | "Educational certificates for university admission abroad" |
 
 ---
 
-### Block 4: Audience Segmentation (ChamberAudienceClarity.tsx)
-**Word Count: ~180 words**
+### Section 4: Problem Agitation
+**Component:** `CertificateAttestationProblemAgitation.tsx`
+**Word Count:** ~200 words
 
-**Title:**
-> Chamber of Commerce Support for Every Business Stage
+| Pain Stat | Value | Label |
+|-----------|-------|-------|
+| Clock | 3-5 | Offices to visit per document |
+| AlertTriangle | 40%+ | Rejection rate for DIY submissions |
+| Banknote | BHD 200+ | Lost to re-submissions and delays |
+| Building2 | 2-4 Weeks | Average DIY timeline |
 
-**Two Columns:**
+**Empathy Quote:** "If you've had documents returned because of 'incorrect attestation chain' or 'missing authentication'... you know exactly what we're talking about."
 
-**Column 1: Exporters & Importers**
-- Certificate of Origin issuance
-- Commercial invoice attestation
-- Packing list verification
-- Legalization for GCC/MENA markets
-- Rush processing for urgent shipments
-
-**Column 2: New & Established Businesses**
-- Initial BCCI membership registration
-- Annual membership renewal
-- Activity code classification
-- Trade license alignment
-- Networking event access
+**Keywords Targeted:** document rejection, complex paperwork, embassy requirements
 
 ---
 
-### Block 5: BCCI Explainer (ChamberBCCIExplainer.tsx)
-**Word Count: ~250 words**
+### Section 5: What Is Certificate Attestation
+**Component:** `CertificateAttestationWhatIs.tsx`
+**Word Count:** ~250 words
 
-**Title:**
-> Understanding the Bahrain Chamber of Commerce and Industry
+**Educational Content:**
+- Definition of attestation vs. apostille
+- The attestation chain explained (Notary → MOFA → Embassy)
+- When each type is required
+- Hague Convention context for Bahrain
 
-**Key Facts Cards:**
-1. **Mandatory Membership** — All registered businesses in Bahrain must maintain active BCCI membership
-2. **Certificate of Origin** — Required for exports to verify goods manufactured/sourced in Bahrain
-3. **Document Attestation** — Commercial documents need BCCI stamp for international validity
+**Visual:** Simple 3-step attestation chain diagram
 
-**Membership Tiers Table:**
-| Business Type | Annual Fee | Includes |
-|--------------|------------|----------|
-| Sole Proprietor | BHD 50 | Basic membership + 1 CO/year |
-| SME (WLL/SPC) | BHD 100 | Full membership + events |
-| Large Enterprise | BHD 200+ | Premium services + priority |
-
-**Callout:**
-> Not sure which tier applies? Our team reviews your Commercial Registration and recommends the optimal membership level — no overcharging, no surprises.
+**Keywords Targeted:** MOFA attestation bahrain, difference between apostille and attestation
 
 ---
 
-### Block 6: Service Pillars (ChamberServicePillars.tsx)
-**Word Count: ~300 words**
+### Section 6: Services Grid (Service Pillars)
+**Component:** `CertificateAttestationServicesGrid.tsx`
+**Word Count:** ~220 words
 
-**Title:**
-> Complete Chamber of Commerce Services Under One Roof
-
-**4 Service Cards:**
-
-**1. BCCI Membership Registration**
-- New member application
-- Document preparation
-- Fee calculation and payment
-- Membership card collection
-- Activity code alignment
-
-**2. Annual Membership Renewal**
-- Renewal deadline tracking
-- Payment processing
-- Updated membership documents
-- License alignment verification
-- Compliance confirmation
-
-**3. Certificate of Origin (CO)**
-- Application preparation
-- Product classification
-- BCCI submission
-- Same-day processing available
-- Digital and physical copies
-
-**4. Document Attestation**
-- Commercial invoice attestation
-- Packing list verification
-- Contracts and agreements
-- Legalization for GCC/MENA
-- Ministry coordination
+| Service | Icon | Description |
+|---------|------|-------------|
+| MOFA Attestation | Building2 | Ministry of Foreign Affairs authentication for all document types |
+| Embassy Legalization | Flag | Country-specific legalization for 15+ embassies |
+| Apostille Services | Stamp | Hague Convention apostille for applicable countries |
+| Notarization | FileCheck | Initial notarization and authentication |
+| Educational Certificates | GraduationCap | Degree, diploma, transcript attestation |
+| Commercial Documents | Briefcase | Company documents, contracts, POA |
+| Personal Documents | User | Birth, marriage, police clearance |
 
 ---
 
-### Block 7: Three-Step Process (ChamberProcess.tsx)
-**Word Count: ~120 words**
+### Section 7: Embassy Coverage (Unique Section)
+**Component:** `CertificateAttestationEmbassyCoverage.tsx`
+**Word Count:** ~180 words
 
-**Title:**
-> How It Works — 3 Simple Steps
+**Visual:** Embassy flags/logos grid with hover states
 
-**Steps:**
-1. **Share Your Documents** — Send us your CR, trade license, and export documents via email or WhatsApp
-2. **We Handle Everything** — Our team prepares applications, coordinates with BCCI, and manages all submissions
-3. **Receive Your Certificates** — Get your attested documents delivered to your office or collect from our Manama location
+| Embassy | Flag | Processing Time |
+|---------|------|-----------------|
+| UAE | AE | 2-3 days |
+| Saudi Arabia | SA | 3-5 days |
+| Kuwait | KW | 2-3 days |
+| Qatar | QA | 2-3 days |
+| Oman | OM | 2-3 days |
+| India | IN | 3-5 days |
+| Pakistan | PK | 3-5 days |
+| Philippines | PH | 2-3 days |
+| Egypt | EG | 3-5 days |
 
-**Timeline Badge:** "Most requests completed within 24-48 hours"
-
----
-
-### Block 8: DIY vs. Keylink Comparison (ChamberDIYComparison.tsx)
-**Word Count: ~200 words**
-
-**Title:**
-> Why Work With BCCI-Certified Specialists?
-
-**Comparison Table:**
-| Factor | DIY Approach | With Keylink |
-|--------|--------------|--------------|
-| Processing Time | 3-5 days (multiple visits) | 24-48 hours |
-| Rejection Risk | High — unclear requirements | Near-zero — we know the criteria |
-| Language | Arabic forms only | Full Arabic & English support |
-| Your Time | 4+ hours per request | 10-minute handoff |
-| Rush Handling | Not available | Same-day processing |
-| Hidden Costs | Travel + parking + lost time | Transparent fixed pricing |
-
-**Bottom Line Callout:**
-> Our service fee is typically less than the cost of a single rejection and resubmission. Clients pay for certainty — and recoup the investment in avoided delays.
+**Keywords Targeted:** UAE embassy attestation bahrain, Saudi embassy legalization
 
 ---
 
-### Block 9: Pricing Transparency (ChamberPricing.tsx)
-**Word Count: ~180 words**
+### Section 8: Process Timeline
+**Component:** `CertificateAttestationProcessTimeline.tsx`
+**Word Count:** ~200 words
 
-**Title:**
-> Transparent Pricing — No Hidden Fees
-
-**Pricing Cards:**
-
-**Certificate of Origin**
-- From BHD 35
-- Per certificate
-- Includes preparation + submission
-- Same-day rush: +BHD 20
-
-**BCCI Membership**
-- From BHD 75
-- Service fee only
-- Excludes BCCI membership fee
-- Includes all paperwork
-
-**Document Attestation**
-- From BHD 25
-- Per document
-- Commercial invoices, packing lists
-- Bulk discounts available
-
-**Monthly Retainer**
-- From BHD 150/month
-- For regular exporters
-- Unlimited COs (up to 10/month)
-- Priority processing
-
-**Note:** "Government fees (BCCI membership, CO stamps) are separate and payable directly to authorities. We provide a complete fee breakdown before you commit."
+| Step | Icon | Title | Timeline |
+|------|------|-------|----------|
+| 01 | MessageSquare | Free Consultation | Instant |
+| 02 | FileText | Document Review | Same Day |
+| 03 | Stamp | MOFA Attestation | 1-2 Days |
+| 04 | Flag | Embassy Legalization | 2-5 Days |
+| 05 | Package | Delivery | Same Day |
 
 ---
 
-### Block 10: Risk Reduction / Guarantees (ChamberGuarantees.tsx)
-**Word Count: ~150 words**
+### Section 9: DIY vs Professional Comparison
+**Component:** `CertificateAttestationDIYComparison.tsx`
+**Word Count:** ~200 words
 
-**Title:**
-> Our Commitment to Your Success
-
-**Guarantee Cards:**
-1. **First-Submission Approval** — If your document is rejected due to our error, we resubmit at no additional cost
-2. **Transparent Pricing** — Complete fee breakdown upfront — no surprise charges after the fact
-3. **Deadline Guarantee** — We meet agreed timelines or waive our service fee for that transaction
-4. **Dedicated Support** — Direct WhatsApp line to your assigned coordinator — no call centers
-
-**Trust Badge:** "10+ years serving Bahrain businesses. We stake our reputation on every document."
-
----
-
-### Block 11: Team Authority (ChamberTeamAuthority.tsx)
-**Word Count: ~150 words**
-
-**Title:**
-> BCCI-Certified Specialists With Local Market Knowledge
-
-**Credentials Grid:**
-- BCCI-Certified Representatives
-- 10+ Years Bahrain Experience
-- 1,200+ Documents Processed
-- Arabic & English Fluency
-- Direct BCCI Relationships
-- Ministry Coordination Experience
-
-**Authority Statement:**
-> Our team includes former BCCI liaison officers who understand the internal processes, common rejection reasons, and fastest paths to approval. We do not just submit forms — we advocate for your documents.
+| Factor | DIY | With Keylink |
+|--------|-----|--------------|
+| Time Investment | 3-5 office visits | 0 visits |
+| Success Rate | ~60% first attempt | 99.5% first attempt |
+| Processing Time | 2-4 weeks | 3-5 days standard |
+| Hidden Costs | Re-submissions, travel, time off | Fixed quote upfront |
+| Arabic Forms | Your responsibility | We handle everything |
+| Embassy Protocols | Learn each embassy's rules | 8+ years expertise |
+| Document Safety | You carry originals | Secure handling & tracking |
 
 ---
 
-### Block 12: FAQ Section (chamberFAQData.ts)
-**Word Count: ~800 words (12 questions)**
+### Section 10: Country-Specific Pricing Table (Unique Section)
+**Component:** `CertificateAttestationCountryPricing.tsx`
+**Word Count:** ~150 words
 
-**Questions:**
-1. Is Chamber of Commerce membership mandatory in Bahrain?
-2. How much does BCCI membership cost?
-3. What is a Certificate of Origin and when do I need one?
-4. How long does it take to get a Certificate of Origin?
-5. Can you process documents if I am outside Bahrain?
-6. What documents are needed for BCCI membership?
-7. Do you handle document attestation for other countries?
-8. What happens if my Certificate of Origin is rejected?
-9. Can you help with rush or urgent requests?
-10. How do I renew my BCCI membership?
-11. What is the difference between preferential and non-preferential CO?
-12. How do I get started with Keylink's chamber services?
+| Service | MOFA | Embassy | Full Package |
+|---------|------|---------|--------------|
+| UAE | BHD 15 | BHD 25 | BHD 75 |
+| Saudi Arabia | BHD 15 | BHD 35 | BHD 85 |
+| India | BHD 15 | BHD 25 | BHD 75 |
+| Pakistan | BHD 15 | BHD 25 | BHD 75 |
+| Other GCC | BHD 15 | BHD 25 | BHD 75 |
+
+**Note:** "Government fees included. Express service available for additional fee."
 
 ---
 
-### Block 13: Related Services (ChamberRelatedServices.tsx)
-**Word Count: ~100 words**
+### Section 11: Document Checklist (Unique Section)
+**Component:** `CertificateAttestationDocumentChecklist.tsx`
+**Word Count:** ~180 words
 
-**Cross-Sell Cards:**
-1. PRO Services — Ministry liaison and government coordination
-2. Document Clearance — Embassy legalization and authentication
-3. Commercial Registration — CR issuance and amendments
-4. Company Formation — WLL, SPC, and Branch Office setup
+**Educational Certificates:**
+- Original certificate
+- Copy of passport
+- Authorization letter (if applicable)
 
----
+**Commercial Documents:**
+- Original document
+- CR copy
+- Company authorization
 
-### Block 14: Final CTA (ChamberCTA.tsx)
-**Word Count: ~100 words**
+**Personal Documents:**
+- Original certificate
+- Passport copies
+- Supporting documents (varies)
 
-**Title:**
-> Stop Waiting in BCCI Queues — Let Us Handle It
-
-**Subtext:**
-> Get your Certificate of Origin, membership registration, or document attestation processed within 24-48 hours. Book a free consultation today and receive a complete quote within 2 hours.
-
-**Trust Pills:**
-- Free Quote
-- No Commitment
-- Same-Day Response
-
-**CTAs:** "Get Free Quote" + "WhatsApp Us"
+**CTA:** "Not sure what you need? Get a free document review."
 
 ---
 
-## Technical Implementation Details
+### Section 12: Guarantees Section (Unique Section)
+**Component:** `CertificateAttestationGuarantees.tsx`
+**Word Count:** ~120 words
 
-### 1. Page Component Structure
-The main page (`ChamberOfCommerceServices.tsx`) will follow the Tax Services pattern with:
-- SEO meta tags injection via useEffect
-- JSON-LD schema injection
-- Article itemScope for structured data
-- Component composition in narrative order
+| Guarantee | Description |
+|-----------|-------------|
+| Free Re-submission | If rejected due to our error, we re-process at no charge |
+| Timeline Guarantee | Service fee waived if we miss committed timeline |
+| Document Safety | Your originals are handled with bank-level security |
 
-### 2. JSON-LD Schema
-Create `chamberServicesSchema.ts` with:
-- ProfessionalService type
-- LocalBusiness reference
-- FAQPage with all 12 questions
-- BreadcrumbList for navigation
+---
 
-### 3. AI Image Generation Prompts
-Four images needed using the Nano banana model:
+### Section 13: Related Services
+**Component:** Shared `RelatedServicesGrid`
+**Word Count:** ~80 words
 
-**1. chamber-hero-professional.jpg**
-```text
-Professional business consultant in modern Bahrain office, reviewing 
-trade documents with Chamber of Commerce certificates visible, 
-clean minimalist interior, natural lighting, navy blue and gold 
-accent colors, 16:9 aspect ratio, photorealistic, corporate setting
-```
+| Service | Link |
+|---------|------|
+| PRO Services | /services/pro-services |
+| Visa & Immigration | /services/visa-immigration |
+| Document Clearance | /services/document-clearance |
+| Company Formation | /services/company-formation |
 
-**2. chamber-bcci-building.jpg**
-```text
-Bahrain Chamber of Commerce and Industry building exterior, 
-modern architecture, clear blue sky, professional corporate 
-photography style, 4:3 aspect ratio, daytime lighting
-```
+---
 
-**3. chamber-team-authority.jpg**
-```text
-Professional team of business consultants in meeting room, 
-diverse group, reviewing documents together, modern office 
-environment, warm lighting, navy suits, 16:9 aspect ratio
-```
+### Section 14: FAQ Section
+**Component:** Shared `ServiceFAQ` with `certificateAttestationFAQData.ts`
+**Word Count:** ~400 words (10-12 questions)
 
-**4. chamber-success-client.jpg**
-```text
-Happy business owner receiving approved certificate documents, 
-celebratory moment, modern office, professional attire, 
-warm lighting, genuine expression, 4:3 aspect ratio
-```
+**FAQ Questions (Targeting Long-Tail Keywords):**
 
-### 4. Route Registration
-Add to `App.tsx`:
+1. How much does certificate attestation cost in Bahrain?
+2. How long does MOFA attestation take?
+3. What is the difference between attestation and apostille?
+4. Do I need attestation for UAE work visa?
+5. Which documents need embassy legalization?
+6. Can I get same-day attestation in Bahrain?
+7. What happens if my document is rejected?
+8. Do you provide document pickup and delivery?
+9. Can you attest documents for multiple countries?
+10. Is attestation required for Saudi family visa?
+11. How do I verify my attestation is genuine?
+12. What is the attestation chain for educational certificates?
+
+---
+
+### Section 15: Final CTA
+**Component:** Shared `ServiceCTA`
+**Word Count:** ~80 words
+
+| Element | Content |
+|---------|---------|
+| Badge | "Skip the Confusion" |
+| Title | "Get Your Documents Attested Right — The First Time" |
+| Subtitle | "8+ years of expertise. 99.5% first-submission approval. Free consultation." |
+| Primary CTA | "WhatsApp Us Now" |
+| Secondary CTA | "Request a Quote" |
+| Features | 15+ Embassies, Same-Day Available, Free Re-submission |
+
+---
+
+## Technical Implementation
+
+### JSON-LD Schema (`certificateAttestationSchema.ts`)
+
 ```typescript
-import ChamberOfCommerceServices from "./pages/services/ChamberOfCommerceServices";
-
-// In Routes
-<Route path="/services/chamber-of-commerce" element={<ChamberOfCommerceServices />} />
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "name": "Certificate Attestation Services in Bahrain",
+      "description": "Professional certificate attestation, MOFA authentication, and embassy legalization services in Bahrain...",
+      "areaServed": { "@type": "Country", "name": "Bahrain" },
+      "serviceType": "Certificate Attestation",
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "15",
+        "highPrice": "85",
+        "priceCurrency": "BHD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [/* 12 FAQ items */]
+    },
+    {
+      "@type": "LocalBusiness",
+      "name": "Keylink Corp",
+      "address": { /* Manama, Bahrain */ }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [/* Home > Services > Certificate Attestation */]
+    }
+  ]
+}
 ```
 
-### 5. Icon System
-Following the existing pattern, icons from `lucide-react`:
-- Building2 — BCCI/Chamber
-- FileCheck — Certificate of Origin
-- Stamp — Attestation
-- Users — Membership
-- Clock — Timing
-- Shield — Guarantees
-- Globe — International trade
-- CheckCircle — Success/Features
-- AlertTriangle — Warnings
-- ArrowRight — CTAs
+### SEO Meta Tags
 
-### 6. Animation Patterns
-Reuse from `src/lib/animations.ts`:
-- staggerContainer / staggerItem for section reveals
-- fadeInUp for hero elements
-- useInView with margin: "-100px" for scroll triggers
+```html
+<title>Certificate Attestation Bahrain | MOFA, Embassy, Apostille | Keylink</title>
+<meta name="description" content="Professional certificate attestation in Bahrain. MOFA, Embassy legalization, Apostille. 15+ embassies covered. 99.5% first-time approval. From BHD 15. Free consultation.">
+```
 
-### 7. Design Tokens Applied
-Following custom knowledge:
-- Primary: #002C4D (Dark Navy)
-- Accent: #C7A763 (Gold)
-- Background patterns per section (as defined in design system)
-- 8px spacing grid
-- Inter font family
-- Proper responsive breakpoints (768px, 1024px)
+---
+
+## Word Count Summary
+
+| Section | Words |
+|---------|-------|
+| Hero | 150 |
+| Trust Bar | 30 |
+| Audience Clarity | 180 |
+| Problem Agitation | 200 |
+| What Is Attestation | 250 |
+| Services Grid | 220 |
+| Embassy Coverage | 180 |
+| Process Timeline | 200 |
+| DIY Comparison | 200 |
+| Country Pricing | 150 |
+| Document Checklist | 180 |
+| Guarantees | 120 |
+| Related Services | 80 |
+| FAQ Section | 400 |
+| Final CTA | 80 |
+| **TOTAL** | **~2,620 words** |
+
+---
+
+## Competitive Differentiators Built Into Page
+
+1. **Embassy-by-Embassy Pricing** — Competitors lack transparent country-specific pricing
+2. **99.5% Approval Stat** — Strong authority signal with specific metric
+3. **Document Checklist Section** — Reduces pre-purchase anxiety
+4. **Triple Guarantee** — Addresses "What if it fails?" objection
+5. **Educational "What Is" Section** — Captures informational intent searches
+6. **FAQ Schema** — Targets 12 long-tail keyword opportunities
 
 ---
 
 ## Implementation Order
 
-1. Create `chamberFAQData.ts` — Data file first
-2. Create `chamberServicesSchema.ts` — SEO schema
-3. Generate AI images and add to assets
-4. Create components in order:
-   - ChamberHero
-   - ChamberTrustBar
-   - ChamberProblemAgitation
-   - ChamberAudienceClarity
-   - ChamberBCCIExplainer
-   - ChamberServicePillars
-   - ChamberProcess
-   - ChamberDIYComparison
-   - ChamberPricing
-   - ChamberGuarantees
-   - ChamberTeamAuthority
-   - ChamberRelatedServices
-   - ChamberCTA
-5. Create main page `ChamberOfCommerceServices.tsx`
-6. Register route in `App.tsx`
-7. Test and verify
+1. Create `certificateAttestationSchema.ts`
+2. Create `certificateAttestationFAQData.ts`
+3. Create attestation-specific components (Hero → Guarantees)
+4. Create main `CertificateAttestation.tsx` page
+5. Verify route already registered in `App.tsx`
 
 ---
 
-## SEO Optimization Summary
+## Next Steps
 
-- **Title Tag:** "Chamber of Commerce Services Bahrain - BCCI Registration & Certificate of Origin | Keylink Corp"
-- **Meta Description:** "Expert chamber of commerce services in Bahrain. BCCI membership registration, certificate of origin, document attestation. Same-day processing. Free consultation."
-- **H1:** "Chamber of Commerce Services in Bahrain"
-- **H2s:** One per major section (12 total)
-- **Internal Links:** Related services, contact page
-- **Schema Markup:** Full JSON-LD with FAQ, LocalBusiness, BreadcrumbList
-
----
-
-## Estimated Total Word Count: ~2,450 words
-
-This meets the target range of 2,000-2,600 words while maintaining readability and avoiding keyword stuffing. The content is original, written in natural language patterns to avoid AI detection, and structured for both users and search engines.
-
+Upon approval, I will proceed to **Phase 5: Implementation** where I'll build all components following this refined outline and the established codebase patterns.
