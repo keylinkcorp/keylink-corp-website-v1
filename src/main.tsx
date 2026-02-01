@@ -1,3 +1,4 @@
+// GitHub sync test - 2026-02-01
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
