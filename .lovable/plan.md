@@ -1,379 +1,267 @@
 
-# Phase 4: Refined Landing Page Outline
-## Certificate Attestation in Bahrain
-
----
+# Certificate Attestation Page Visual Enhancement Plan
 
 ## Overview
 
-This plan details the complete component architecture and content structure for the Certificate Attestation landing page, following the established DocumentClearance pattern with attestation-specific customizations.
+This plan enhances the Certificate Attestation page with professional imagery, improved visual hierarchy, and modern UI/UX patterns matching the established design system. We'll add a professional hero image, enhance section visuals with supporting images, and apply refined styling throughout.
 
 ---
 
-## File Structure
+## Enhancement Strategy
 
+### 1. Hero Section Enhancement
+
+**Current State:** Uses a navy gradient box with flag emojis and stats
+**Enhanced State:** Professional hero image with floating stat badges (matching Home Hero pattern)
+
+**Changes to `CertificateAttestationHero.tsx`:**
+
+| Element | Current | Enhanced |
+|---------|---------|----------|
+| Right Visual | Flag emoji grid in navy box | Professional photo with document/attestation theme |
+| Floating Badge | Single badge (8+ years) | Multiple floating badges with staggered animations |
+| Background | Gold radial + dot grid | Enhanced with decorative blur elements |
+| Stats Display | Embedded in navy box | Overlay badges on image (like Home Hero) |
+
+**Image Asset Required:**
+- Create/use `src/assets/certificate-attestation-hero-professional.jpg` (similar to `document-clearance-hero-professional.jpg`)
+- Alt: "Professional handling official document attestation"
+
+**Visual Pattern to Follow:**
 ```text
-src/
-├── pages/services/
-│   └── CertificateAttestation.tsx          # Main page component
-├── components/services/certificate-attestation/
-│   ├── CertificateAttestationHero.tsx
-│   ├── CertificateAttestationAudienceClarity.tsx
-│   ├── CertificateAttestationProblemAgitation.tsx
-│   ├── CertificateAttestationWhatIs.tsx
-│   ├── CertificateAttestationServicesGrid.tsx
-│   ├── CertificateAttestationEmbassyCoverage.tsx
-│   ├── CertificateAttestationProcessTimeline.tsx
-│   ├── CertificateAttestationDIYComparison.tsx
-│   ├── CertificateAttestationCountryPricing.tsx
-│   ├── CertificateAttestationDocumentChecklist.tsx
-│   ├── CertificateAttestationGuarantees.tsx
-│   └── certificateAttestationFAQData.ts
-└── lib/schema/
-    └── certificateAttestationSchema.ts      # JSON-LD structured data
+┌─────────────────────────────────────────────────────────────────┐
+│  [Badge] Certificate Attestation                                │
+│                                                                 │
+│  H1: One Submission. 99.5%        ┌────────────────────────┐   │
+│      First-Time Approval.         │                        │   │
+│      Zero Confusion.              │   Professional Image   │   │
+│                                   │   with attestation/    │   │
+│  Subheadline text...              │   document theme       │   │
+│                                   │                        │   │
+│  [Pills] Same-Day | 15+ Embassies │  ┌─────────┐           │   │
+│                                   │  │ 99.5%   │  ← Floating│   │
+│  From BHD 15                      │  │ Approval│    Badge  │   │
+│                                   └──┴─────────┴───────────┘   │
+│  [CTA Button] [CTA Button]                                     │
+│                      ┌──────────┐                              │
+│                      │ 8+ Years │  ← Floating Badge            │
+│                      └──────────┘                              │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Section-by-Section Breakdown
+### 2. Embassy Coverage Section Enhancement
 
-### Section 1: Hero
-**Component:** `CertificateAttestationHero.tsx`
-**Word Count:** ~150 words
+**Current State:** Simple card grid with flag emojis and text
+**Enhanced State:** More prominent cards with better visual hierarchy
 
-| Element | Content |
-|---------|---------|
-| Badge | "Certificate Attestation in Bahrain" |
-| H1 | "One Submission. 99.5% First-Time Approval. Zero Confusion." |
-| Subheadline | "MOFA, Embassy, and Apostille attestation for educational, commercial, and personal documents. 15+ embassies covered. From BHD 15." |
-| Feature Pills | Same-Day Available, 15+ Embassies, 99.5% Approval |
-| Price Anchor | "Services from BHD 15" |
-| Primary CTA | WhatsApp: "Get Free Consultation" |
-| Secondary CTA | "View Pricing" (anchor to pricing section) |
-
-**Keywords Targeted:** certificate attestation in bahrain, document attestation bahrain
+**Changes to `CertificateAttestationEmbassyCoverage.tsx`:**
+- Add subtle gradient hover effects on cards
+- Enhance country code typography (larger, bolder)
+- Add gold accent border on hover
+- Add decorative gold blur elements to background
+- Better visual separation between GCC and non-GCC embassies
 
 ---
 
-### Section 2: Trust Bar
-**Component:** Shared `ServiceTrustBar`
-**Word Count:** ~30 words
+### 3. Services Grid Enhancement
 
-| Stat | Value | Label |
-|------|-------|-------|
-| FileCheck | 3,000+ | Documents Processed |
-| Building2 | 15+ | Embassies Covered |
-| Award | 99.5% | First-Time Approval |
-| Clock | 8+ | Years Experience |
+**Current State:** Standard card grid with icons
+**Enhanced State:** Cards with improved hover animations and visual polish
 
----
-
-### Section 3: Audience Clarity
-**Component:** `CertificateAttestationAudienceClarity.tsx`
-**Word Count:** ~180 words
-
-| Audience Segment | Description |
-|------------------|-------------|
-| HR Departments | "Need to process employee documents for overseas assignments quickly and correctly" |
-| Job Seekers | "Require degree attestation for UAE, Saudi, or GCC employment" |
-| Families Relocating | "Need birth certificates, marriage certificates for family visa applications" |
-| Business Owners | "Commercial documents requiring legalization for international contracts" |
-| Students | "Educational certificates for university admission abroad" |
+**Changes to `CertificateAttestationServicesGrid.tsx`:**
+- Add subtle gold gradient on icon containers
+- Enhanced hover effect with gold border glow
+- Add small illustrative icons or subtle background patterns
+- Better spacing and visual rhythm
 
 ---
 
-### Section 4: Problem Agitation
-**Component:** `CertificateAttestationProblemAgitation.tsx`
-**Word Count:** ~200 words
+### 4. What Is Attestation Section Enhancement
 
-| Pain Stat | Value | Label |
-|-----------|-------|-------|
-| Clock | 3-5 | Offices to visit per document |
-| AlertTriangle | 40%+ | Rejection rate for DIY submissions |
-| Banknote | BHD 200+ | Lost to re-submissions and delays |
-| Building2 | 2-4 Weeks | Average DIY timeline |
+**Current State:** Two-column text layout with timeline
+**Enhanced State:** Add visual diagram/illustration element
 
-**Empathy Quote:** "If you've had documents returned because of 'incorrect attestation chain' or 'missing authentication'... you know exactly what we're talking about."
-
-**Keywords Targeted:** document rejection, complex paperwork, embassy requirements
+**Changes to `CertificateAttestationWhatIs.tsx`:**
+- Enhance the attestation chain visual with connecting gold lines
+- Add subtle animation on the step connections
+- Improve the Key Terms card styling with gold accent bar
+- Add decorative background elements
 
 ---
 
-### Section 5: What Is Certificate Attestation
-**Component:** `CertificateAttestationWhatIs.tsx`
-**Word Count:** ~250 words
+### 5. Process Timeline Enhancement
 
-**Educational Content:**
-- Definition of attestation vs. apostille
-- The attestation chain explained (Notary → MOFA → Embassy)
-- When each type is required
-- Hague Convention context for Bahrain
+**Current State:** Accordion with step numbers
+**Enhanced State:** More visual timeline with enhanced step indicators
 
-**Visual:** Simple 3-step attestation chain diagram
-
-**Keywords Targeted:** MOFA attestation bahrain, difference between apostille and attestation
+**Changes to `CertificateAttestationProcessTimeline.tsx`:**
+- Enhance the vertical timeline line with gradient effect
+- Add subtle glow on active step
+- Better visual connection between steps
+- Enhanced accordion trigger styling
 
 ---
 
-### Section 6: Services Grid (Service Pillars)
-**Component:** `CertificateAttestationServicesGrid.tsx`
-**Word Count:** ~220 words
+### 6. DIY Comparison Enhancement
 
-| Service | Icon | Description |
-|---------|------|-------------|
-| MOFA Attestation | Building2 | Ministry of Foreign Affairs authentication for all document types |
-| Embassy Legalization | Flag | Country-specific legalization for 15+ embassies |
-| Apostille Services | Stamp | Hague Convention apostille for applicable countries |
-| Notarization | FileCheck | Initial notarization and authentication |
-| Educational Certificates | GraduationCap | Degree, diploma, transcript attestation |
-| Commercial Documents | Briefcase | Company documents, contracts, POA |
-| Personal Documents | User | Birth, marriage, police clearance |
+**Current State:** Comparison table with X and checkmarks
+**Enhanced State:** More dramatic visual contrast
+
+**Changes to `CertificateAttestationDIYComparison.tsx`:**
+- Add subtle red background tint to DIY column
+- Add subtle green/gold tint to Keylink column
+- Enhanced bottom summary card with image or illustration
+- Better visual hierarchy in table rows
 
 ---
 
-### Section 7: Embassy Coverage (Unique Section)
-**Component:** `CertificateAttestationEmbassyCoverage.tsx`
-**Word Count:** ~180 words
+### 7. Guarantees Section Enhancement
 
-**Visual:** Embassy flags/logos grid with hover states
+**Current State:** Dark navy background with cards
+**Enhanced State:** Add subtle pattern overlay and enhanced card styling
 
-| Embassy | Flag | Processing Time |
-|---------|------|-----------------|
-| UAE | AE | 2-3 days |
-| Saudi Arabia | SA | 3-5 days |
-| Kuwait | KW | 2-3 days |
-| Qatar | QA | 2-3 days |
-| Oman | OM | 2-3 days |
-| India | IN | 3-5 days |
-| Pakistan | PK | 3-5 days |
-| Philippines | PH | 2-3 days |
-| Egypt | EG | 3-5 days |
-
-**Keywords Targeted:** UAE embassy attestation bahrain, Saudi embassy legalization
+**Changes to `CertificateAttestationGuarantees.tsx`:**
+- Add dashed grid pattern overlay (matching design system)
+- Enhanced card borders with gold accent
+- Add subtle glow effect on guarantee icons
+- Improved typography hierarchy
 
 ---
 
-### Section 8: Process Timeline
-**Component:** `CertificateAttestationProcessTimeline.tsx`
-**Word Count:** ~200 words
+## Files to Modify
 
-| Step | Icon | Title | Timeline |
-|------|------|-------|----------|
-| 01 | MessageSquare | Free Consultation | Instant |
-| 02 | FileText | Document Review | Same Day |
-| 03 | Stamp | MOFA Attestation | 1-2 Days |
-| 04 | Flag | Embassy Legalization | 2-5 Days |
-| 05 | Package | Delivery | Same Day |
-
----
-
-### Section 9: DIY vs Professional Comparison
-**Component:** `CertificateAttestationDIYComparison.tsx`
-**Word Count:** ~200 words
-
-| Factor | DIY | With Keylink |
-|--------|-----|--------------|
-| Time Investment | 3-5 office visits | 0 visits |
-| Success Rate | ~60% first attempt | 99.5% first attempt |
-| Processing Time | 2-4 weeks | 3-5 days standard |
-| Hidden Costs | Re-submissions, travel, time off | Fixed quote upfront |
-| Arabic Forms | Your responsibility | We handle everything |
-| Embassy Protocols | Learn each embassy's rules | 8+ years expertise |
-| Document Safety | You carry originals | Secure handling & tracking |
+| File | Changes |
+|------|---------|
+| `CertificateAttestationHero.tsx` | Replace emoji grid with professional image, add floating badges, enhance animations |
+| `CertificateAttestationEmbassyCoverage.tsx` | Enhance card styling, add visual polish, improve grid layout |
+| `CertificateAttestationServicesGrid.tsx` | Improve card hover effects, enhance icon containers |
+| `CertificateAttestationWhatIs.tsx` | Enhance attestation chain visual, improve card styling |
+| `CertificateAttestationProcessTimeline.tsx` | Enhanced timeline line, improved step indicators |
+| `CertificateAttestationDIYComparison.tsx` | Add column tinting, enhance bottom summary |
+| `CertificateAttestationGuarantees.tsx` | Add pattern overlay, enhance cards |
 
 ---
 
-### Section 10: Country-Specific Pricing Table (Unique Section)
-**Component:** `CertificateAttestationCountryPricing.tsx`
-**Word Count:** ~150 words
+## New Assets Required
 
-| Service | MOFA | Embassy | Full Package |
-|---------|------|---------|--------------|
-| UAE | BHD 15 | BHD 25 | BHD 75 |
-| Saudi Arabia | BHD 15 | BHD 35 | BHD 85 |
-| India | BHD 15 | BHD 25 | BHD 75 |
-| Pakistan | BHD 15 | BHD 25 | BHD 75 |
-| Other GCC | BHD 15 | BHD 25 | BHD 75 |
+**Option A: Use AI Image Generation**
+- Generate a professional document attestation hero image
+- Theme: Professional hands stamping/processing official documents with embassy/government building in background
+- Style: High-quality, professional, warm lighting
 
-**Note:** "Government fees included. Express service available for additional fee."
+**Option B: Use Existing Similar Asset**
+- Reuse `document-clearance-hero-professional.jpg` as it has similar theme
+- Can be renamed/copied for this page
 
 ---
 
-### Section 11: Document Checklist (Unique Section)
-**Component:** `CertificateAttestationDocumentChecklist.tsx`
-**Word Count:** ~180 words
+## Technical Implementation Details
 
-**Educational Certificates:**
-- Original certificate
-- Copy of passport
-- Authorization letter (if applicable)
-
-**Commercial Documents:**
-- Original document
-- CR copy
-- Company authorization
-
-**Personal Documents:**
-- Original certificate
-- Passport copies
-- Supporting documents (varies)
-
-**CTA:** "Not sure what you need? Get a free document review."
-
----
-
-### Section 12: Guarantees Section (Unique Section)
-**Component:** `CertificateAttestationGuarantees.tsx`
-**Word Count:** ~120 words
-
-| Guarantee | Description |
-|-----------|-------------|
-| Free Re-submission | If rejected due to our error, we re-process at no charge |
-| Timeline Guarantee | Service fee waived if we miss committed timeline |
-| Document Safety | Your originals are handled with bank-level security |
-
----
-
-### Section 13: Related Services
-**Component:** Shared `RelatedServicesGrid`
-**Word Count:** ~80 words
-
-| Service | Link |
-|---------|------|
-| PRO Services | /services/pro-services |
-| Visa & Immigration | /services/visa-immigration |
-| Document Clearance | /services/document-clearance |
-| Company Formation | /services/company-formation |
-
----
-
-### Section 14: FAQ Section
-**Component:** Shared `ServiceFAQ` with `certificateAttestationFAQData.ts`
-**Word Count:** ~400 words (10-12 questions)
-
-**FAQ Questions (Targeting Long-Tail Keywords):**
-
-1. How much does certificate attestation cost in Bahrain?
-2. How long does MOFA attestation take?
-3. What is the difference between attestation and apostille?
-4. Do I need attestation for UAE work visa?
-5. Which documents need embassy legalization?
-6. Can I get same-day attestation in Bahrain?
-7. What happens if my document is rejected?
-8. Do you provide document pickup and delivery?
-9. Can you attest documents for multiple countries?
-10. Is attestation required for Saudi family visa?
-11. How do I verify my attestation is genuine?
-12. What is the attestation chain for educational certificates?
-
----
-
-### Section 15: Final CTA
-**Component:** Shared `ServiceCTA`
-**Word Count:** ~80 words
-
-| Element | Content |
-|---------|---------|
-| Badge | "Skip the Confusion" |
-| Title | "Get Your Documents Attested Right — The First Time" |
-| Subtitle | "8+ years of expertise. 99.5% first-submission approval. Free consultation." |
-| Primary CTA | "WhatsApp Us Now" |
-| Secondary CTA | "Request a Quote" |
-| Features | 15+ Embassies, Same-Day Available, Free Re-submission |
-
----
-
-## Technical Implementation
-
-### JSON-LD Schema (`certificateAttestationSchema.ts`)
+### Hero Image Implementation Pattern
+Following the Home Hero (`src/components/home/Hero.tsx:215-231`):
 
 ```typescript
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "ProfessionalService",
-      "name": "Certificate Attestation Services in Bahrain",
-      "description": "Professional certificate attestation, MOFA authentication, and embassy legalization services in Bahrain...",
-      "areaServed": { "@type": "Country", "name": "Bahrain" },
-      "serviceType": "Certificate Attestation",
-      "offers": {
-        "@type": "AggregateOffer",
-        "lowPrice": "15",
-        "highPrice": "85",
-        "priceCurrency": "BHD"
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [/* 12 FAQ items */]
-    },
-    {
-      "@type": "LocalBusiness",
-      "name": "Keylink Corp",
-      "address": { /* Manama, Bahrain */ }
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [/* Home > Services > Certificate Attestation */]
-    }
-  ]
-}
-```
+// Import image asset
+import heroImage from "@/assets/certificate-attestation-hero-professional.jpg";
 
-### SEO Meta Tags
-
-```html
-<title>Certificate Attestation Bahrain | MOFA, Embassy, Apostille | Keylink</title>
-<meta name="description" content="Professional certificate attestation in Bahrain. MOFA, Embassy legalization, Apostille. 15+ embassies covered. 99.5% first-time approval. From BHD 15. Free consultation.">
+// Image container with floating badges
+<div className="rounded-2xl overflow-hidden shadow-sm relative">
+  <img 
+    src={heroImage} 
+    alt="Professional document attestation services" 
+    className="w-full h-[500px] object-cover"
+  />
+  
+  {/* Floating stat badge - bottom left */}
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 1.1 }}
+    className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-sm"
+  >
+    <p className="text-2xl font-bold text-primary">99.5%</p>
+    <p className="text-xs text-muted-foreground">First-Time Approval</p>
+  </motion.div>
+  
+  {/* Floating stat badge - top right */}
+  <motion.div 
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 1.2 }}
+    className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-sm"
+  >
+    <p className="text-2xl font-bold text-accent">15+</p>
+    <p className="text-xs text-muted-foreground">Embassies</p>
+  </motion.div>
+</div>
 ```
 
 ---
 
-## Word Count Summary
+## Enhanced Card Styling Pattern
 
-| Section | Words |
-|---------|-------|
-| Hero | 150 |
-| Trust Bar | 30 |
-| Audience Clarity | 180 |
-| Problem Agitation | 200 |
-| What Is Attestation | 250 |
-| Services Grid | 220 |
-| Embassy Coverage | 180 |
-| Process Timeline | 200 |
-| DIY Comparison | 200 |
-| Country Pricing | 150 |
-| Document Checklist | 180 |
-| Guarantees | 120 |
-| Related Services | 80 |
-| FAQ Section | 400 |
-| Final CTA | 80 |
-| **TOTAL** | **~2,620 words** |
+```typescript
+// Enhanced hover effect with gold border glow
+className="bg-white rounded-xl p-6 border border-border shadow-sm 
+  hover:shadow-lg hover:border-accent/50 hover:shadow-accent/10 
+  transition-all duration-300 group"
+```
 
 ---
 
-## Competitive Differentiators Built Into Page
+## Background Pattern Enhancement for Dark Sections
 
-1. **Embassy-by-Embassy Pricing** — Competitors lack transparent country-specific pricing
-2. **99.5% Approval Stat** — Strong authority signal with specific metric
-3. **Document Checklist Section** — Reduces pre-purchase anxiety
-4. **Triple Guarantee** — Addresses "What if it fails?" objection
-5. **Educational "What Is" Section** — Captures informational intent searches
-6. **FAQ Schema** — Targets 12 long-tail keyword opportunities
+```typescript
+// Adding dashed grid pattern to Guarantees section
+<div 
+  className="absolute inset-0"
+  style={{
+    backgroundImage: `
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)
+    `,
+    backgroundSize: "20px 20px",
+    maskImage: `radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)`,
+    WebkitMaskImage: `radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)`
+  }}
+/>
+```
 
 ---
 
 ## Implementation Order
 
-1. Create `certificateAttestationSchema.ts`
-2. Create `certificateAttestationFAQData.ts`
-3. Create attestation-specific components (Hero → Guarantees)
-4. Create main `CertificateAttestation.tsx` page
-5. Verify route already registered in `App.tsx`
+1. Copy/generate hero image to `src/assets/`
+2. Update `CertificateAttestationHero.tsx` with image and floating badges
+3. Enhance `CertificateAttestationEmbassyCoverage.tsx` card styling
+4. Enhance `CertificateAttestationServicesGrid.tsx` hover effects
+5. Enhance `CertificateAttestationWhatIs.tsx` attestation chain visual
+6. Enhance `CertificateAttestationProcessTimeline.tsx` timeline styling
+7. Enhance `CertificateAttestationDIYComparison.tsx` visual contrast
+8. Enhance `CertificateAttestationGuarantees.tsx` pattern and cards
 
 ---
 
-## Next Steps
+## Summary of Visual Improvements
 
-Upon approval, I will proceed to **Phase 5: Implementation** where I'll build all components following this refined outline and the established codebase patterns.
+| Section | Key Enhancement |
+|---------|-----------------|
+| Hero | Professional image with floating stat badges |
+| Embassy Coverage | Enhanced cards with gold hover borders |
+| Services Grid | Improved card animations and icon styling |
+| What Is | Enhanced attestation chain diagram |
+| Process Timeline | Gradient timeline line with better step indicators |
+| DIY Comparison | Column color tinting for visual contrast |
+| Guarantees | Pattern overlay and enhanced card styling |
+
+---
+
+## Expected Outcome
+
+- **Professional Appearance:** Hero image immediately establishes credibility
+- **Modern UI/UX:** Smooth animations, refined hover states, gold accent highlights
+- **Consistent Branding:** All enhancements follow the Navy/Gold color system
+- **Improved Engagement:** Visual elements guide user attention through the page
+- **Mobile Responsive:** All enhancements maintain mobile-first approach
