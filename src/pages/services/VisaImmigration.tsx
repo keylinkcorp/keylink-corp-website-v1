@@ -1,43 +1,39 @@
 import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { ServiceHero } from "@/components/services/shared/ServiceHero";
 import { ServiceTrustBar } from "@/components/services/shared/ServiceTrustBar";
-import { ServiceBenefits } from "@/components/services/shared/ServiceBenefits";
-import { ServicePricing } from "@/components/services/shared/ServicePricing";
 import { ServiceWhyChoose } from "@/components/services/shared/ServiceWhyChoose";
-import { ServiceFAQ } from "@/components/services/shared/ServiceFAQ";
 import { ServiceCTA } from "@/components/services/shared/ServiceCTA";
 import { RelatedServicesGrid } from "@/components/services/shared/RelatedServicesGrid";
-import { VisaTypeComparison } from "@/components/services/visa/VisaTypeComparison";
-import { VisaProcessSteps } from "@/components/services/visa/VisaProcessSteps";
-import { GoldenVisaSection } from "@/components/services/visa/GoldenVisaSection";
-import { VisaRequirements } from "@/components/services/visa/VisaRequirements";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { BackToTop } from "@/components/BackToTop";
 import { visaImmigrationSchema } from "@/lib/schema/visaImmigrationSchema";
+
+// New enhanced visa components
+import {
+  VisaServicesHero,
+  VisaProblemAgitation,
+  VisaComparisonTable,
+  VisaProcessTimeline,
+  VisaDocumentChecklists,
+  VisaPricingCards,
+  VisaApprovalGuarantee,
+  VisaFAQ,
+  GoldenVisaSection
+} from "@/components/services/visa";
+
 import {
   Plane,
   Clock,
   CheckCircle2,
   Users,
   Globe,
-  Award,
-  Shield,
-  Zap,
   Headphones,
-  Calendar,
-  FileCheck,
+  Shield,
   Building2,
   RefreshCw,
   UserCheck,
   Calculator
 } from "lucide-react";
-
-const heroFeatures = [
-  { icon: Clock, text: "5-Day Processing" },
-  { icon: Award, text: "Golden Visa Eligible" },
-  { icon: Users, text: "Family Sponsorship" }
-];
 
 const trustBarStats = [
   { icon: Plane, value: 5000, suffix: "+", label: "Visas Processed" },
@@ -46,87 +42,11 @@ const trustBarStats = [
   { icon: Globe, value: 40, suffix: "+", label: "Nationalities Served" }
 ];
 
-const benefits = [
-  {
-    icon: Zap,
-    title: "Fast Processing",
-    description: "Work visas processed in as little as 5 business days"
-  },
-  {
-    icon: Users,
-    title: "Family Sponsorship",
-    description: "Bring your family with dependent visa sponsorship"
-  },
-  {
-    icon: Award,
-    title: "Golden Visa Support",
-    description: "10-year residency for investors and professionals"
-  },
-  {
-    icon: Calendar,
-    title: "Renewal Reminders",
-    description: "Never miss a visa renewal with our reminder service"
-  },
-  {
-    icon: Shield,
-    title: "LMRA Compliance",
-    description: "Full compliance with labor market regulations"
-  }
-];
-
-const pricingTiers = [
-  {
-    name: "Work Visa",
-    price: "BHD 250",
-    description: "Employment visa for company employees",
-    features: [
-      "Work permit application",
-      "LMRA registration",
-      "Medical coordination",
-      "CPR card processing",
-      "Visa stamping assistance"
-    ],
-    ctaText: "Apply Now",
-    ctaHref: "/contact"
-  },
-  {
-    name: "Family Visa",
-    price: "BHD 350",
-    description: "Dependent visas for spouse and children",
-    popular: true,
-    features: [
-      "Spouse visa processing",
-      "Children visa applications",
-      "Family CPR cards",
-      "School enrollment support",
-      "Medical exam coordination",
-      "Renewal management"
-    ],
-    ctaText: "Get Started",
-    ctaHref: "/contact"
-  },
-  {
-    name: "Golden Visa",
-    price: "BHD 1,500",
-    description: "10-year residency for investors",
-    features: [
-      "Eligibility assessment",
-      "Application preparation",
-      "Investment documentation",
-      "Family inclusion",
-      "Premium processing",
-      "Dedicated case manager"
-    ],
-    ctaText: "Learn More",
-    ctaHref: "/contact"
-  }
-];
-
 const whyChooseDifferentiators = [
   {
     icon: CheckCircle2,
     title: "100% Approval Rate",
-    description: "We've never had a visa application rejected"
+    description: "We've never had a properly submitted application rejected"
   },
   {
     icon: Clock,
@@ -152,57 +72,6 @@ const whyChooseDifferentiators = [
     icon: Shield,
     title: "Full Compliance",
     description: "100% LMRA and immigration compliant"
-  }
-];
-
-const faqs = [
-  {
-    question: "How long does it take to get a work visa in Bahrain?",
-    answer: "A standard work visa takes 5-10 business days once all documents are submitted. This includes LMRA approval, visa issuance, and CPR card processing. Express processing options are available for urgent cases."
-  },
-  {
-    question: "Can I sponsor my family on a work visa?",
-    answer: "Yes, employees earning above BHD 400/month can sponsor their spouse and unmarried children under 25. Family visa processing takes an additional 5-7 days after the primary visa is issued."
-  },
-  {
-    question: "What is the Bahrain Golden Visa?",
-    answer: "The Golden Visa is a 10-year renewable residency permit for investors, entrepreneurs, talented professionals, and retirees. It offers greater flexibility than standard visas and doesn't require a sponsor."
-  },
-  {
-    question: "Who is eligible for the Golden Visa?",
-    answer: "Eligibility includes: investors with BHD 100,000+ in Bahrain assets, company owners employing 10+ Bahrainis, executives earning BHD 2,000+/month, professionals with exceptional skills, and retirees with sufficient pension income."
-  },
-  {
-    question: "What documents are required for a work visa?",
-    answer: "Required documents include: passport copy (6+ months validity), passport-size photos, educational certificates (attested), employment contract, company CR and license copies, and medical fitness certificate."
-  },
-  {
-    question: "Can I change employers while on a work visa?",
-    answer: "Yes, visa transfer between employers is possible after completing 1 year with the current employer, or immediately with a No Objection Certificate (NOC) from your current employer."
-  },
-  {
-    question: "What is the Flexi Permit and how does it work?",
-    answer: "The Flexi Permit allows individuals to work for multiple employers in Bahrain without a fixed sponsor. It's valid for 2 years and is ideal for freelancers or those between jobs. Cost is approximately BHD 500/year."
-  },
-  {
-    question: "How long can I stay in Bahrain on a visit visa?",
-    answer: "Visit visas are typically valid for 14 days, extendable to 30 days. Multiple-entry visas are available for 3 months or 1 year. GCC residents can enter on e-visa for 2 weeks."
-  },
-  {
-    question: "What medical tests are required for visa?",
-    answer: "All work visa applicants must complete a medical exam including blood tests (HIV, Hepatitis B/C), chest X-ray, and general physical examination at an approved health center."
-  },
-  {
-    question: "Can I apply for permanent residency in Bahrain?",
-    answer: "Permanent residency is available after 15 years of continuous legal residence, or through the Golden Visa program for qualified investors and professionals. Our team can advise on the best pathway."
-  },
-  {
-    question: "What happens if my visa expires?",
-    answer: "Overstaying results in fines of BHD 10/day and potential deportation. You may also face entry bans. Contact us immediately if your visa is about to expire – we offer emergency renewal services."
-  },
-  {
-    question: "Do you handle visa renewals?",
-    answer: "Yes, we provide full visa renewal services including medical re-examination, LMRA renewal, and CPR card updates. We recommend starting the renewal process 30 days before expiry."
   }
 ];
 
@@ -239,11 +108,11 @@ const relatedServices = [
 
 export default function VisaImmigration() {
   useEffect(() => {
-    document.title = "Visa & Immigration Services Bahrain - Work Visa | Golden Visa";
+    document.title = "Visa Services Bahrain - Work Visa, Family Visa & Golden Visa | Keylink";
     
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute("content", "Work visas, family visas, and Golden Visa in Bahrain. Fast processing from 5 days. Expert visa services for businesses and investors. 100% approval rate.");
+      metaDescription.setAttribute("content", "Professional visa services in Bahrain. Work visas, family visas, and 10-year Golden Visa. Fast 5-day processing with 100% approval rate. Expert immigration support for businesses and investors.");
     }
 
     const existingSchema = document.querySelector('script[data-schema="visa-immigration"]');
@@ -266,59 +135,47 @@ export default function VisaImmigration() {
   return (
     <>
       <Layout>
-        <ServiceHero
-          badge="Visa & Immigration"
-          title="Visa & Immigration"
-          highlight="Services"
-          titleEnd="in Bahrain"
-          subtitle="Work Visas. Family Visas. Golden Visa. Expert Support for Living and Working in Bahrain."
-          features={heroFeatures}
-          primaryCTA={{ text: "Apply for Visa", href: "/contact" }}
-          secondaryCTA={{ text: "Check Eligibility", href: "tel:+97317000000" }}
-          priceFrom="BHD 250"
-          priceLabel="Work visas from"
-        />
+        {/* Block 1: Enhanced Hero with AI Image */}
+        <VisaServicesHero />
         
+        {/* Block 2: Trust Bar with Animated Counters */}
         <ServiceTrustBar stats={trustBarStats} />
         
-        <VisaTypeComparison />
+        {/* Block 3: Problem Agitation Section */}
+        <VisaProblemAgitation />
         
-        <ServiceBenefits
-          badge="Why Choose Us"
-          title="Expert Visa Services for Every Need"
-          subtitle="From work permits to Golden Visa, we handle all your immigration needs"
-          benefits={benefits}
-        />
+        {/* Block 4: Visa Type Comparison Table */}
+        <VisaComparisonTable />
         
-        <VisaProcessSteps />
+        {/* Block 5: 3-Phase Process Timeline */}
+        <VisaProcessTimeline />
         
+        {/* Block 6: Golden Visa Deep-Dive with AI Image */}
         <GoldenVisaSection />
         
-        <ServicePricing
-          badge="Transparent Pricing"
-          title="Visa Service Packages"
-          subtitle="Clear pricing for all visa types – no hidden fees"
-          tiers={pricingTiers}
-        />
+        {/* Block 7: Document Checklists (Tabbed) */}
+        <VisaDocumentChecklists />
         
-        <VisaRequirements />
+        {/* Block 8: Transparent Pricing Cards */}
+        <VisaPricingCards />
         
+        {/* Block 9: 100% Approval Guarantee */}
+        <VisaApprovalGuarantee />
+        
+        {/* Block 10: Why Choose Keylink */}
         <ServiceWhyChoose
           badge="Why Keylink"
-          title="Bahrain's Leading Visa Specialists"
+          title="Why Businesses Trust Keylink for Visa Services"
           subtitle="5,000+ visas processed with 100% approval rate"
           differentiators={whyChooseDifferentiators}
           floatingStatValue="100%"
           floatingStatLabel="Approval Rate"
         />
         
-        <ServiceFAQ
-          badge="FAQ"
-          title="Visa & Immigration Questions"
-          subtitle="Everything you need to know about visas in Bahrain"
-          faqs={faqs}
-        />
+        {/* Block 11: Expanded FAQ (12+ Questions, Two-Column) */}
+        <VisaFAQ />
         
+        {/* Related Services */}
         <RelatedServicesGrid
           badge="Related Services"
           title="Complete Your Business Journey"
@@ -327,11 +184,12 @@ export default function VisaImmigration() {
           currentService="/services/visa-immigration"
         />
         
+        {/* Block 12: Final CTA Section */}
         <ServiceCTA
           badge="Ready to Move to Bahrain?"
-          title="Start Your Visa Application Today"
-          subtitle="Expert support from application to approval. 100% success rate guaranteed."
-          primaryCTA={{ text: "Apply Now", href: "/contact" }}
+          title="Start Your Bahrain Visa Application Today"
+          subtitle="Expert support from eligibility assessment to CPR card collection. 100% approval rate guaranteed."
+          primaryCTA={{ text: "WhatsApp Consultation", href: "https://wa.me/97317000000" }}
           secondaryCTA={{ text: "Call Us", href: "tel:+97317000000" }}
           features={["5-Day Processing", "100% Approval Rate", "Family Support"]}
         />
