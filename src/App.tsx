@@ -26,6 +26,7 @@ import ChamberOfCommerceServices from "./pages/services/ChamberOfCommerceService
 import LegalConsulting from "./pages/services/LegalConsulting";
 import BankAccount from "./pages/services/BankAccount";
 import DocumentClearance from "./pages/services/DocumentClearance";
+import CertificateAttestation from "./pages/services/CertificateAttestation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -60,6 +61,7 @@ const App = () => (
           <Route path="/services/legal-consulting" element={<LegalConsulting />} />
           <Route path="/services/bank-account" element={<BankAccount />} />
           <Route path="/services/document-clearance" element={<DocumentClearance />} />
+          <Route path="/services/certificate-attestation" element={<CertificateAttestation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
