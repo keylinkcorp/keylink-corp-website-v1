@@ -22,6 +22,7 @@ import WLLCompany from "./pages/services/WLLCompany";
 import BusinessConsulting from "./pages/services/BusinessConsulting";
 import ManagementConsulting from "./pages/services/ManagementConsulting";
 import TaxServices from "./pages/services/TaxServices";
+import ChamberOfCommerceServices from "./pages/services/ChamberOfCommerceServices";
 import LegalConsulting from "./pages/services/LegalConsulting";
 import BankAccount from "./pages/services/BankAccount";
 import DocumentClearance from "./pages/services/DocumentClearance";
@@ -55,6 +56,7 @@ const App = () => (
           <Route path="/services/business-consulting" element={<BusinessConsulting />} />
           <Route path="/services/management-consulting" element={<ManagementConsulting />} />
           <Route path="/services/tax-services" element={<TaxServices />} />
+          <Route path="/services/chamber-of-commerce" element={<ChamberOfCommerceServices />} />
           <Route path="/services/legal-consulting" element={<LegalConsulting />} />
           <Route path="/services/bank-account" element={<BankAccount />} />
           <Route path="/services/document-clearance" element={<DocumentClearance />} />
