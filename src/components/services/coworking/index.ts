@@ -1,0 +1,11 @@
+export { CoworkingHero } from './CoworkingHero';
+export { CoworkingTrustBar } from './CoworkingTrustBar';
+export { CoworkingExplainer } from './CoworkingExplainer';
+export { WorkspaceTypes } from './WorkspaceTypes';
+export { CoworkingAmenities } from './CoworkingAmenities';
+export { CoworkingWhyChoose } from './CoworkingWhyChoose';
+export { CoworkingPricing } from './CoworkingPricing';
+export { CoworkingGallery } from './CoworkingGallery';
+export { CoworkingBenefits } from './CoworkingBenefits';
+export { CoworkingContact } from './CoworkingContact';
+export { CoworkingLocation } from './CoworkingLocation';
