@@ -12,14 +12,16 @@ import {
   ArrowRight,
   CheckCircle2,
   Clock,
-  Globe
+  Globe,
+  MessageCircle
 } from "lucide-react";
+import goldenVisaHeroImage from "@/assets/golden-visa-hero.jpg";
 
 const eligibilityCategories = [
   {
     icon: Building2,
     title: "Investors",
-    requirement: "BHD 100,000+ in Bahrain assets or property"
+    requirement: "BHD 100,000+ in Bahrain property or assets"
   },
   {
     icon: Briefcase,
@@ -28,8 +30,8 @@ const eligibilityCategories = [
   },
   {
     icon: GraduationCap,
-    title: "Professionals",
-    requirement: "Executives earning BHD 2,000+/month"
+    title: "Executives",
+    requirement: "Salary of BHD 2,000+/month"
   },
   {
     icon: Users,
@@ -44,9 +46,7 @@ const benefits = [
   "Work for any employer",
   "Include spouse and children",
   "Multiple entry privileges",
-  "Business ownership rights",
-  "Access to healthcare and education",
-  "Path to citizenship eligibility"
+  "Path to citizenship"
 ];
 
 export function GoldenVisaSection() {
@@ -67,7 +67,7 @@ export function GoldenVisaSection() {
       />
 
       <div className="container relative z-10 mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content Side */}
           <motion.div
             variants={staggerContainer}
@@ -85,23 +85,32 @@ export function GoldenVisaSection() {
               variants={staggerItem}
               className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
             >
-              Bahrain <span className="text-accent">Golden Visa</span>
+              Bahrain <span className="text-accent">Golden Visa</span>: 10-Year Residency for Investors & Professionals
             </motion.h2>
+
+            <motion.p 
+              variants={staggerItem}
+              className="text-lg text-white/80 mb-6 leading-relaxed"
+            >
+              The Golden Visa program represents Bahrain's commitment to attracting talent and 
+              investment. Unlike standard work visas that require employer sponsorship and renewal 
+              every two years, the Golden Visa offers decade-long stability with full independence.
+            </motion.p>
 
             <motion.p 
               variants={staggerItem}
               className="text-lg text-white/70 mb-8 leading-relaxed"
             >
-              Secure 10-year residency in Bahrain with the Golden Visa program. 
-              Perfect for investors, entrepreneurs, and talented professionals 
-              seeking long-term stability in the Gulf region.
+              You choose where you work—or whether you work at all. Your family travels with you 
+              under the same visa. And perhaps most importantly, you're building toward potential 
+              citizenship eligibility.
             </motion.p>
 
             <motion.div 
               variants={staggerItem}
-              className="grid sm:grid-cols-2 gap-4 mb-8"
+              className="grid sm:grid-cols-2 gap-3 mb-8"
             >
-              {benefits.slice(0, 6).map((benefit, index) => (
+              {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
                   <span className="text-white/90 text-sm">{benefit}</span>
@@ -111,10 +120,10 @@ export function GoldenVisaSection() {
 
             <motion.div variants={staggerItem} className="flex flex-wrap gap-4">
               <Button asChild className="btn-gold">
-                <Link to="/contact">
+                <a href="https://wa.me/97317000000" target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="w-5 h-5" />
                   Check Eligibility
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
+                </a>
               </Button>
               <Button 
                 asChild 
@@ -128,42 +137,56 @@ export function GoldenVisaSection() {
             </motion.div>
           </motion.div>
 
-          {/* Eligibility Cards */}
+          {/* Right Side: Image + Eligibility Cards */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="space-y-4"
+            className="space-y-6"
           >
+            {/* Hero Image */}
+            <motion.div 
+              variants={staggerItem}
+              className="rounded-2xl overflow-hidden shadow-2xl"
+            >
+              <img 
+                src={goldenVisaHeroImage} 
+                alt="Successful professional businessman overlooking Bahrain skyline - Golden Visa opportunity" 
+                className="w-full h-auto object-cover aspect-video"
+              />
+            </motion.div>
+
             <motion.h3 
               variants={staggerItem}
-              className="text-xl font-semibold text-white mb-6"
+              className="text-xl font-semibold text-white"
             >
               Who Qualifies?
             </motion.h3>
 
-            {eligibilityCategories.map((category, index) => (
-              <motion.div
-                key={index}
-                variants={staggerItem}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10 hover:bg-white/15 transition-colors"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
-                    <category.icon className="w-6 h-6 text-accent" />
+            <div className="grid sm:grid-cols-2 gap-4">
+              {eligibilityCategories.map((category, index) => (
+                <motion.div
+                  key={index}
+                  variants={staggerItem}
+                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/15 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center">
+                      <category.icon className="w-5 h-5 text-accent" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white text-sm">{category.title}</h4>
+                      <p className="text-xs text-white/70">{category.requirement}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-white">{category.title}</h4>
-                    <p className="text-sm text-white/70">{category.requirement}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
 
             {/* Stats Row */}
             <motion.div 
               variants={staggerItem}
-              className="grid grid-cols-3 gap-4 pt-6"
+              className="grid grid-cols-3 gap-4 pt-4"
             >
               <div className="text-center">
                 <div className="flex items-center justify-center gap-1 mb-1">
