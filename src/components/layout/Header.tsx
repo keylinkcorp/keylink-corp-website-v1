@@ -115,10 +115,7 @@ const megaMenuItems = [
       {
         heading: "Visa Services",
         links: [
-          { title: "Work Visa", href: "/services/work-visa", description: "Employee work permits" },
-          { title: "Golden Visa", href: "/services/golden-visa", description: "Long-term residency" },
-          { title: "Family Visa", href: "/services/family-visa", description: "Dependent visas" },
-          { title: "Visa Consultation", href: "/services/visa-consultation", description: "Expert visa advice" },
+          { title: "Visa Services", href: "/services/visa-immigration", description: "Work, Family & Golden visas" },
         ],
       },
       {
