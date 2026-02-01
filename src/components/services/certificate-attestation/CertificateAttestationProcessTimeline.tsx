@@ -97,7 +97,19 @@ export function CertificateAttestationProcessTimeline() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28 relative overflow-hidden bg-secondary/30">
+    <section ref={ref} className="py-20 md:py-28 relative overflow-hidden">
+      {/* Enhanced Background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-secondary/30" />
+        <div 
+          className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]"
+          style={{
+            maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)"
+          }}
+        />
+      </div>
+
       <div className="container mx-auto px-4">
         <motion.div
           variants={staggerContainer}
@@ -106,7 +118,7 @@ export function CertificateAttestationProcessTimeline() {
         >
           {/* Header */}
           <motion.div variants={staggerItem} className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-4 border border-accent/20">
               Simple Process
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -122,8 +134,11 @@ export function CertificateAttestationProcessTimeline() {
             variants={staggerItem}
             className="max-w-3xl mx-auto relative"
           >
-            {/* Vertical Line */}
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-accent hidden md:block" />
+            {/* Vertical Line with Gradient */}
+            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-1 hidden md:block">
+              <div className="absolute inset-0 bg-gradient-to-b from-accent via-accent/50 to-accent rounded-full" />
+              <div className="absolute inset-0 bg-gradient-to-b from-accent via-accent/30 to-accent blur-sm" />
+            </div>
 
             <Accordion type="single" collapsible defaultValue="step-1" className="space-y-6">
               {steps.map((step, index) => (
@@ -133,16 +148,16 @@ export function CertificateAttestationProcessTimeline() {
                   className="border-0"
                 >
                   <div className="flex gap-4 md:gap-6">
-                    {/* Step Number Circle */}
+                    {/* Step Number Circle - Enhanced */}
                     <div className="relative z-10 flex-shrink-0">
-                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-accent flex items-center justify-center border-4 border-white shadow-md">
+                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center border-4 border-white shadow-lg shadow-accent/20">
                         <step.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                       </div>
                     </div>
 
-                    {/* Content Card */}
-                    <div className="flex-1 bg-white rounded-xl border border-border shadow-sm overflow-hidden">
-                      <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-secondary/30 transition-colors [&[data-state=open]]:bg-secondary/30">
+                    {/* Content Card - Enhanced */}
+                    <div className="flex-1 bg-white rounded-xl border border-border shadow-sm overflow-hidden hover:shadow-md hover:border-accent/30 transition-all">
+                      <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-secondary/30 transition-colors [&[data-state=open]]:bg-secondary/30 [&[data-state=open]]:border-l-4 [&[data-state=open]]:border-l-accent">
                         <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 text-left w-full pr-4">
                           <span className="text-xs font-bold text-accent uppercase tracking-wider">
                             Step {step.number}
@@ -151,7 +166,7 @@ export function CertificateAttestationProcessTimeline() {
                             <h3 className="text-lg font-semibold">{step.title}</h3>
                             <p className="text-sm text-muted-foreground">{step.subtitle}</p>
                           </div>
-                          <span className="text-xs bg-accent/10 text-accent px-3 py-1 rounded-full font-medium whitespace-nowrap">
+                          <span className="text-xs bg-accent/10 text-accent px-3 py-1.5 rounded-full font-medium whitespace-nowrap border border-accent/20">
                             {step.timeline}
                           </span>
                         </div>
@@ -161,10 +176,10 @@ export function CertificateAttestationProcessTimeline() {
                         <p className="text-muted-foreground mb-4">
                           {step.content.description}
                         </p>
-                        <ul className="grid sm:grid-cols-2 gap-2">
+                        <ul className="grid sm:grid-cols-2 gap-3">
                           {step.content.details.map((detail, i) => (
                             <li key={i} className="flex items-center gap-2 text-sm">
-                              <div className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                              <div className="w-2 h-2 rounded-full bg-accent flex-shrink-0" />
                               <span>{detail}</span>
                             </li>
                           ))}
