@@ -27,10 +27,34 @@ export function CertificateAttestationGuarantees() {
 
   return (
     <section ref={ref} className="py-20 md:py-28 relative overflow-hidden">
-      {/* Background Pattern */}
+      {/* Background - Navy with dashed grid pattern */}
       <div className="absolute inset-0 -z-10 bg-primary" />
       
-      <div className="container mx-auto px-4">
+      {/* Dashed grid pattern overlay */}
+      <div 
+        className="absolute inset-0 -z-5"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: "20px 20px",
+          maskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)
+          `,
+          WebkitMaskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)
+          `,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in"
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -38,7 +62,7 @@ export function CertificateAttestationGuarantees() {
         >
           {/* Header */}
           <motion.div variants={staggerItem} className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-4 border border-white/20">
               Our Guarantees
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
@@ -49,23 +73,29 @@ export function CertificateAttestationGuarantees() {
             </p>
           </motion.div>
 
-          {/* Guarantees Grid */}
+          {/* Guarantees Grid - Enhanced cards */}
           <motion.div 
             variants={staggerItem}
             className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"
           >
             {guarantees.map((guarantee, index) => (
-              <div 
+              <motion.div 
                 key={index}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/15 transition-colors"
+                whileHover={{ y: -4 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/15 hover:border-accent/30 transition-all duration-300 group"
               >
-                <div className="w-14 h-14 rounded-xl bg-accent flex items-center justify-center mb-6">
-                  <guarantee.icon className="w-7 h-7 text-primary" />
+                {/* Icon with glow effect */}
+                <div className="relative mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-accent flex items-center justify-center shadow-lg shadow-accent/30 group-hover:shadow-accent/50 transition-shadow">
+                    <guarantee.icon className="w-7 h-7 text-primary" />
+                  </div>
+                  {/* Glow behind icon */}
+                  <div className="absolute inset-0 w-14 h-14 rounded-xl bg-accent/30 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 
                 <h3 className="text-xl font-semibold mb-3 text-white">{guarantee.title}</h3>
                 <p className="text-white/70 text-sm leading-relaxed">{guarantee.description}</p>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>
