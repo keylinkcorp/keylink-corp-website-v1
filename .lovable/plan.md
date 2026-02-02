@@ -1,186 +1,237 @@
 
-
-# Hero Section Redesign - Slick & Aesthetic
+# Light Mode Enhancement for Coworking Space Page
 
 ## Overview
 
-Transform the hero section into a cleaner, more impactful design by removing the search bar and adding a 2x2 image grid on the right side. The layout will feature content on the left and four workspace images on the right, creating a modern split-hero aesthetic.
+Transform the Coworking Space landing page from dark navy theme to a clean, professional light mode design matching the Company Formation page aesthetic. This will create visual consistency across service pages while maintaining the modern, premium feel.
 
 ---
 
-## Design Changes
+## Design System Alignment
 
-### Current Layout
-- Full-screen background image with overlay
-- Left-aligned content with search bar
-- Tab filters (to be removed)
-- Search input with button (to be removed)
-- Trust indicators at bottom
+The Company Formation page establishes a consistent light mode pattern:
 
-### New Layout
+| Element | Formation (Light) | Coworking (Current Dark) | Coworking (New Light) |
+|---------|-------------------|--------------------------|------------------------|
+| Background | `bg-white` | `bg-[hsl(var(--navy))]` | `bg-white` |
+| Text Primary | `text-primary` (navy) | `text-white` | `text-primary` |
+| Text Secondary | `text-muted-foreground` | `text-white/70` | `text-muted-foreground` |
+| Accents | Gold on white | Gold on navy | Gold on white |
+| Patterns | Light dot grids | Gold dots on navy | Light dot grids |
+| Cards | White with border | Glass with blur | White with border |
+
+---
+
+## Components to Modify
+
+### 1. CoworkingHero.tsx
+
+**Current**: Navy gradient background, white text, dark glass cards
+
+**Changes**:
+- Replace navy background with white + gold radial gradient (like Formation)
+- Add light dot pattern with fade mask
+- Change text from white to `text-primary` (navy)
+- Update 2x2 image grid cards with light borders and shadows
+- Change trust indicators from glass-card to white cards with borders
+- Update CTA buttons to gold primary and navy outline
+
+**Visual Structure** (unchanged layout, new colors):
 ```text
-┌─────────────────────────────────────────────────────────────────────┐
-│ [Navy gradient background with subtle dot pattern]                  │
-│                                                                     │
-│  ┌──────────────────────────┐    ┌──────────────────────────────┐  │
-│  │                          │    │  ┌─────────┐  ┌─────────────┐│  │
-│  │ [Badge: Premium Cowork]  │    │  │ Hot Desk│  │ Dedicated   ││  │
-│  │                          │    │  │  Image  │  │   Desk      ││  │
-│  │ Find Your Perfect        │    │  └─────────┘  └─────────────┘│  │
-│  │ Flexible Workspace       │    │                              │  │
-│  │ in Manama                │    │  ┌─────────┐  ┌─────────────┐│  │
-│  │                          │    │  │ Private │  │  Meeting    ││  │
-│  │ [Description text...]    │    │  │ Office  │  │   Room      ││  │
-│  │                          │    │  └─────────┘  └─────────────┘│  │
-│  │ [Book Tour] [Pricing]    │    │                              │  │
-│  │                          │    └──────────────────────────────┘  │
-│  └──────────────────────────┘                                      │
-│                                                                     │
-│  ┌──────┐  ┌──────┐  ┌──────┐  ┌──────┐                           │
-│  │ 500+ │  │  10+ │  │  50+ │  │  98% │  ← Trust indicators       │
-│  └──────┘  └──────┘  └──────┘  └──────┘                           │
-└─────────────────────────────────────────────────────────────────────┘
+Background: White with gold radial gradient from top
+Left: Navy headline text, gold accent on key phrase
+Right: Image grid with light borders, navy/gold overlays
+Bottom: White stat cards with borders
 ```
 
 ---
 
-## Elements to Remove
+### 2. CoworkingTrustBar.tsx
 
-1. Tab filters (Hot Desks, Private Offices, etc.)
-2. Search input field
-3. Search button
-4. Full background image (replaced with gradient)
+**Current**: Navy background with floating orbs
 
----
-
-## Elements to Add
-
-### 2x2 Image Grid (Right Side)
-Four workspace images arranged in a modern grid:
-
-| Position | Image | Label |
-|----------|-------|-------|
-| Top Left | `hot-desk.jpg` | Hot Desk |
-| Top Right | `private-office.jpg` | Dedicated Desk |
-| Bottom Left | `meeting-room.jpg` | Private Office |
-| Bottom Right | `lounge-kitchen.jpg` | Meeting Room |
-
-**Image Card Styling:**
-- Rounded corners (rounded-2xl)
-- Subtle glassmorphism overlay
-- Smooth hover effects (scale, brightness)
-- Floating gold badge with workspace type
-- Staggered animation on load
-
-### Enhanced Trust Indicators (Based on Reference)
-Update to match the uploaded reference image with 4 stats:
-- 500+ Active Members
-- 10+ Years Experience  
-- 50+ Workspace Options
-- 98% Satisfaction Rate
-
-Each indicator will have:
-- Glass card background
-- Gold icon above the number
-- Bold number with gold accent
-- Subtle label below
+**Changes**:
+- Replace `bg-[hsl(var(--navy))]` with `bg-white border-y border-border/50`
+- Remove floating orbs
+- Change stat cards from glass-card to white cards with accent/10 backgrounds
+- Update text colors to primary/muted-foreground
+- Simplify to match FormationTrustBar pattern
 
 ---
 
-## Visual Enhancements
+### 3. WorkspaceTypes.tsx
 
-### Background
-- Solid navy gradient (no full background image)
-- Subtle dot pattern overlay at low opacity
-- Floating gradient orbs for depth
-- Clean, minimal aesthetic
+**Current**: Mixed gradient with floating orbs, dark overlays on images
 
-### Image Grid Effects
-```css
-- Rounded-2xl corners
-- Shadow-xl on hover
-- Scale 1.02 on hover
-- Glassmorphism overlay with title
-- Staggered fade-in animation
-```
-
-### Spacing
-- Generous padding between elements
-- More breathing room for content
-- Clean visual hierarchy
+**Changes**:
+- Keep gradient background but use lighter tones (`from-secondary/30 via-background`)
+- Remove floating orbs
+- Update image cards with lighter gradient overlays
+- Change glass badges to white/gold badges
+- Update button styles to match Formation
 
 ---
 
-## Technical Implementation
+### 4. CoworkingAmenities.tsx
 
-### File to Modify
-`src/components/services/coworking/CoworkingHero.tsx`
+**Current**: Full navy section with glass cards
 
-### Key Changes
+**Changes**:
+- Replace `bg-[hsl(var(--navy))]` with `bg-white` and grid line pattern
+- Change section badge to `section-badge` class (gold on white)
+- Update amenity cards from glass-card to white cards with borders
+- Change icon backgrounds from gold/15 to `bg-accent/10`
+- Update all text to primary/muted-foreground
 
-1. **Remove** tab filters section (lines 96-122)
-2. **Remove** search bar section (lines 124-146)
-3. **Change** layout to grid: `grid lg:grid-cols-2 gap-12`
-4. **Add** 2x2 image grid on right side
-5. **Update** trust indicators to 4 items with icons
-6. **Simplify** background to gradient only
-7. **Import** additional images (hot-desk, private-office, etc.)
+---
 
-### Image Grid Structure
+### 5. CoworkingWhyChoose.tsx
+
+**Current**: Light gradient with floating orbs
+
+**Changes**:
+- Remove floating orbs
+- Keep clean gradient background
+- Cards already have proper light styling, just polish borders
+- Ensure consistent with WhyChooseKeylink pattern
+
+---
+
+### 6. CoworkingPricing.tsx
+
+**Current**: Mixed, popular card uses navy background
+
+**Changes**:
+- Keep popular card navy (for contrast)
+- Update regular cards styling for consistency
+- Ensure button styles match Formation pricing
+
+---
+
+### 7. CoworkingGallery.tsx
+
+**Current**: Light gradient with floating orbs
+
+**Changes**:
+- Remove floating orbs
+- Keep image hover effects but use lighter overlays
+- Update filter buttons to match Formation styling
+
+---
+
+### 8. CoworkingBenefits.tsx
+
+**Current**: Full navy section
+
+**Changes**:
+- Replace `bg-[hsl(var(--navy))]` with `bg-secondary/20`
+- Change glass cards to white cards with borders
+- Update all text colors to dark theme
+- Keep image card overlays but lighter
+
+---
+
+### 9. CoworkingContact.tsx
+
+**Current**: Light form, dark contact panel
+
+**Changes**:
+- Keep split layout (form on white, contact on navy)
+- Remove floating orbs from background
+- Polish form card styling
+- Contact panel can stay navy for contrast
+
+---
+
+### 10. CoworkingLocation.tsx
+
+**Current**: Light gradient with orbs
+
+**Changes**:
+- Remove floating orbs
+- Keep transport card navy (for variety)
+- Polish map placeholder styling
+
+---
+
+### 11. CoworkingExplainer.tsx
+
+**Current**: Light left side, navy right panel
+
+**Changes**:
+- Remove floating orbs
+- Keep navy benefits panel (works well for contrast)
+- Update left side text styling
+
+---
+
+## Specific CSS Pattern Updates
+
+### Badge Pattern
+**Current** (dark sections):
 ```tsx
-<div className="grid grid-cols-2 gap-4">
-  {workspaceImages.map((workspace) => (
-    <motion.div className="group relative overflow-hidden rounded-2xl">
-      <img src={workspace.image} className="object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy/80" />
-      <span className="absolute bottom-4 left-4">{workspace.title}</span>
-    </motion.div>
-  ))}
-</div>
+<span className="inline-block px-4 py-1.5 rounded-full bg-[hsl(var(--gold)/0.15)] text-[hsl(var(--gold))] ...">
+```
+**New** (light sections):
+```tsx
+<span className="section-badge">
 ```
 
-### Trust Indicators with Icons
+### Card Pattern
+**Current** (glass):
 ```tsx
-const trustIndicators = [
-  { icon: Users, value: "500+", label: "Active Members" },
-  { icon: Award, value: "10+", label: "Years Experience" },
-  { icon: Building2, value: "50+", label: "Workspace Options" },
-  { icon: Star, value: "98%", label: "Satisfaction Rate" },
-];
+<div className="glass-card p-6 ...">
 ```
+**New** (light):
+```tsx
+<div className="bg-white rounded-xl border border-border p-6 shadow-sm ...">
+```
+
+### Icon Container Pattern
+**Current**:
+```tsx
+<div className="bg-[hsl(var(--gold)/0.15)] ...">
+```
+**New**:
+```tsx
+<div className="bg-accent/10 ...">
+```
+
+---
+
+## Files to Modify
+
+| File | Key Changes |
+|------|-------------|
+| `CoworkingHero.tsx` | Full light redesign matching FormationHero |
+| `CoworkingTrustBar.tsx` | White background, simple stats bar |
+| `WorkspaceTypes.tsx` | Remove orbs, lighter overlays |
+| `CoworkingAmenities.tsx` | White background with grid pattern |
+| `CoworkingWhyChoose.tsx` | Remove orbs, polish styling |
+| `CoworkingPricing.tsx` | Minor styling updates |
+| `CoworkingGallery.tsx` | Remove orbs, lighter styling |
+| `CoworkingBenefits.tsx` | Light background with white cards |
+| `CoworkingContact.tsx` | Remove orbs from background |
+| `CoworkingLocation.tsx` | Remove orbs, polish styling |
+| `CoworkingExplainer.tsx` | Remove orbs, keep navy panel |
 
 ---
 
 ## Animation Strategy
 
-### Staggered Image Grid
-- Each image fades in with 0.1s delay between them
-- Subtle scale effect on initial load
-- Hover: brightness increase + slight lift
-
-### Trust Indicators
-- Count-up animation for numbers
-- Fade-in with stagger delay
-- Subtle hover glow effect
-
----
-
-## Mobile Responsiveness
-
-- Stack content and images vertically on mobile
-- Images become 2x2 grid below content
-- Trust indicators wrap to 2x2 on mobile
-- Maintain generous spacing
+- Keep existing framer-motion animations
+- They work well in light mode
+- No changes needed to animation logic
 
 ---
 
 ## Expected Outcome
 
-A clean, slick hero section featuring:
-- Clear visual hierarchy with headline prominence
-- Engaging 4-image preview of workspaces
-- Trust-building statistics with icons
-- Modern glassmorphism aesthetic
-- Smooth, purposeful animations
-- Clean navy/gold color scheme
-
+After implementation:
+- Consistent visual language with Company Formation page
+- Clean, professional light mode aesthetic
+- Navy and gold accents on white backgrounds
+- Improved readability with proper contrast
+- Strategic navy sections for visual variety (Pricing popular card, Contact panel, Transport card)
+- Removed floating orbs for cleaner look
+- Maintained premium, modern feel
