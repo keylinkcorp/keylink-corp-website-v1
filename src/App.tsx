@@ -30,6 +30,7 @@ import DocumentClearance from "./pages/services/DocumentClearance";
 import CertificateAttestation from "./pages/services/CertificateAttestation";
 import LocalSponsorship from "./pages/services/LocalSponsorship";
 import BusinessIncubators from "./pages/services/BusinessIncubators";
+import VirtualOffice from "./pages/services/VirtualOffice";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -68,6 +69,7 @@ const App = () => (
           <Route path="/services/certificate-attestation" element={<CertificateAttestation />} />
           <Route path="/services/local-sponsorship" element={<LocalSponsorship />} />
           <Route path="/services/business-incubators" element={<BusinessIncubators />} />
+          <Route path="/services/virtual-office" element={<VirtualOffice />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
