@@ -42,7 +42,10 @@ export function AboutValues() {
 
   return (
     <section ref={ref} className="section-spacing relative overflow-hidden">
-      <div className="container px-4">
+      {/* Grid Lines Pattern */}
+      <div className="absolute inset-0 pattern-grid-lines-light" />
+      
+      <div className="container px-4 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,15 +69,25 @@ export function AboutValues() {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`grid lg:grid-cols-2 gap-12 items-center ${
+              className={`grid lg:grid-cols-2 gap-12 items-center relative ${
                 value.reverse ? "lg:flex-row-reverse" : ""
               }`}
             >
+              {/* Alternating radial gradient per section */}
+              <div 
+                className="absolute inset-0 -z-10 rounded-3xl"
+                style={{
+                  background: index % 2 === 0 
+                    ? "radial-gradient(ellipse 80% 60% at 20% 50%, rgba(199, 167, 99, 0.06) 0%, transparent 60%)"
+                    : "radial-gradient(ellipse 80% 60% at 80% 50%, rgba(199, 167, 99, 0.06) 0%, transparent 60%)"
+                }}
+              />
+              
               {/* Image */}
               <div
                 className={`relative ${value.reverse ? "lg:order-2" : ""}`}
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-xl group">
+                <div className="relative rounded-2xl overflow-hidden shadow-xl group hover-zoom-glow">
                   <img
                     src={value.image}
                     alt={value.title}
@@ -82,16 +95,23 @@ export function AboutValues() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
                 </div>
-                {/* Decorative elements */}
+                {/* Enhanced Decorative Corner Accents */}
                 <div
                   className={`absolute -bottom-6 ${
                     value.reverse ? "-left-6" : "-right-6"
                   } w-24 h-24 bg-accent/20 rounded-2xl -z-10`}
+                  style={{
+                    boxShadow: "0 0 30px rgba(199, 167, 99, 0.2)"
+                  }}
                 />
                 <div
                   className={`absolute -top-6 ${
                     value.reverse ? "-right-6" : "-left-6"
-                  } w-16 h-16 border-2 border-accent/30 rounded-xl -z-10`}
+                  } w-16 h-16 border-2 border-accent/40 rounded-xl -z-10`}
+                />
+                {/* Additional gold accent line */}
+                <div
+                  className={`absolute ${value.reverse ? "right-0 top-1/2" : "left-0 top-1/2"} w-1 h-20 bg-accent/30 rounded-full -z-10 transform -translate-y-1/2 ${value.reverse ? "translate-x-4" : "-translate-x-4"}`}
                 />
               </div>
 

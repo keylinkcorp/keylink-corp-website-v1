@@ -62,6 +62,33 @@ export function AboutCredentials() {
 
   return (
     <section ref={ref} className="section-spacing relative overflow-hidden bg-muted/30">
+      {/* Dashed Top Fade Grid Pattern */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+            linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
+          `,
+          backgroundSize: "20px 20px",
+          maskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
+          `,
+          WebkitMaskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
+          `,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in" as const,
+        }}
+      />
+      
+      {/* Radial Gradient from Top */}
+      <div className="absolute inset-0 overlay-gold-radial" />
+      
       <div className="container px-4 relative z-10">
         {/* Header */}
         <motion.div
@@ -77,7 +104,7 @@ export function AboutCredentials() {
           </p>
         </motion.div>
 
-        {/* Credentials Grid */}
+        {/* Credentials Grid with Card-Glow Effect */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -88,9 +115,9 @@ export function AboutCredentials() {
             <motion.div
               key={credential.title}
               variants={itemVariants}
-              className="card-elevated-hover p-6 text-center"
+              className="card-elevated-hover p-6 text-center card-glow group"
             >
-              <div className={`w-16 h-16 rounded-2xl ${credential.color} flex items-center justify-center mx-auto mb-4`}>
+              <div className={`w-16 h-16 rounded-2xl ${credential.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
                 <credential.icon className="w-8 h-8" />
               </div>
               <h4 className="font-semibold text-primary mb-2">{credential.title}</h4>
@@ -99,14 +126,19 @@ export function AboutCredentials() {
           ))}
         </motion.div>
 
-        {/* Partner Logos Ticker */}
+        {/* Partner Logos Ticker with Enhanced Gradient Masks */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="bg-white rounded-2xl shadow-lg p-8"
+          className="bg-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
         >
-          <p className="text-center text-muted-foreground mb-6 font-medium">
+          {/* Left gradient mask */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          {/* Right gradient mask */}
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          
+          <p className="text-center text-muted-foreground mb-6 font-medium relative z-20">
             Trusted Partnerships & Affiliations
           </p>
           <div className="relative overflow-hidden">
@@ -114,7 +146,7 @@ export function AboutCredentials() {
               {[...partners, ...partners].map((partner, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 flex items-center gap-2 px-6 py-3 bg-muted/50 rounded-lg"
+                  className="flex-shrink-0 flex items-center gap-2 px-6 py-3 bg-muted/50 rounded-lg hover:bg-accent/10 transition-colors duration-300"
                 >
                   <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
                   <span className="text-primary font-medium whitespace-nowrap">

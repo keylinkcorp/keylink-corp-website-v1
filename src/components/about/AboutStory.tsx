@@ -50,8 +50,35 @@ export function AboutStory() {
 
   return (
     <section ref={ref} className="section-spacing relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 pattern-dots opacity-50" />
+      {/* Dashed Top Fade Grid Pattern */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+            linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
+          `,
+          backgroundSize: "20px 20px",
+          maskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
+          `,
+          WebkitMaskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
+          `,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in" as const,
+        }}
+      />
+      
+      {/* Mesh Gradient Gold Overlay */}
+      <div className="absolute inset-0 mesh-gradient-gold opacity-50" />
+      
+      {/* Floating Orb - Gold */}
+      <div className="absolute top-20 right-10 w-72 h-72 floating-orb floating-orb-gold animate-float opacity-25" />
       
       <div className="container px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -62,7 +89,7 @@ export function AboutStory() {
             transition={{ duration: 0.7 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl hover-zoom-glow">
               <img
                 src={foundingImage}
                 alt="Keylink Corp founding team"
@@ -106,7 +133,7 @@ export function AboutStory() {
               business services powerhouse, trusted by entrepreneurs and corporations alike.
             </motion.p>
 
-            {/* Timeline */}
+            {/* Timeline with Enhanced Markers */}
             <div className="space-y-6">
               {timelineEvents.map((event, index) => (
                 <motion.div
@@ -114,7 +141,7 @@ export function AboutStory() {
                   variants={itemVariants}
                   className="flex gap-4"
                 >
-                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center timeline-marker-glow">
                     <span className="text-accent font-bold text-sm">{event.year}</span>
                   </div>
                   <div className="pt-2">
@@ -128,14 +155,15 @@ export function AboutStory() {
             {/* Pull Quote */}
             <motion.div
               variants={itemVariants}
-              className="mt-10 p-6 bg-primary rounded-2xl relative"
+              className="mt-10 p-6 bg-primary rounded-2xl relative overflow-hidden"
             >
+              <div className="absolute inset-0 pattern-dots opacity-10" />
               <Quote className="absolute top-4 left-4 w-8 h-8 text-accent/30" />
-              <p className="text-white/90 italic pl-8">
+              <p className="text-white/90 italic pl-8 relative z-10">
                 "We built Keylink Corp on the belief that every entrepreneur deserves 
                 expert guidance and unwavering support on their business journey."
               </p>
-              <p className="text-accent font-semibold mt-4 pl-8">— Founding Team</p>
+              <p className="text-accent font-semibold mt-4 pl-8 relative z-10">— Founding Team</p>
             </motion.div>
           </motion.div>
         </div>
