@@ -54,30 +54,28 @@ export function CoworkingAmenities() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-background">
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: "48px 48px",
-          maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
-        }}
-      />
-
-      {/* Subtle Gradient */}
-      <div
-        className="absolute inset-0 opacity-50"
-        style={{
-          backgroundImage: `
-            radial-gradient(ellipse 50% 40% at 20% 30%, hsl(var(--gold) / 0.08) 0%, transparent 60%),
-            radial-gradient(ellipse 60% 50% at 80% 70%, hsl(var(--gold) / 0.05) 0%, transparent 60%)
-          `,
-        }}
-      />
+      {/* Enhanced Background */}
+      <div className="absolute inset-0">
+        {/* Warm gradient from top */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--gold) / 0.08) 0%, transparent 60%)`,
+          }}
+        />
+        {/* Subtle secondary gradient from bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 via-transparent to-transparent" />
+        {/* Dot pattern with fade mask */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+            maskImage: "linear-gradient(to bottom, black 20%, transparent 80%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 20%, transparent 80%)",
+          }}
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
@@ -88,12 +86,11 @@ export function CoworkingAmenities() {
           className="text-center mb-14"
         >
           <span className="section-badge">All Included</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-            Premium <span className="text-accent">Amenities</span> & Services
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
+            Premium Amenities & Services
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Every membership includes access to our full range of professional amenities, 
-            designed to help you work productively and connect with others.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Everything you need to work productively and connect with others
           </p>
         </motion.div>
 

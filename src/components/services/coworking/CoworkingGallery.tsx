@@ -34,18 +34,28 @@ export function CoworkingGallery() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
-
-      {/* Pattern */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "48px 48px",
-          opacity: 0.4,
-        }}
-      />
+      {/* Enhanced Background */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 via-background to-secondary/30" />
+        {/* Gold accent */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(ellipse 70% 50% at 30% 80%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
+          }}
+        />
+        {/* Dot pattern with fade */}
+        <div
+          className="absolute inset-0 opacity-25"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+            backgroundSize: "48px 48px",
+            maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
+          }}
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
@@ -56,11 +66,11 @@ export function CoworkingGallery() {
           className="text-center mb-10"
         >
           <span className="section-badge">Gallery</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Explore Our <span className="text-accent">Spaces</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
+            Explore Our Spaces
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Take a virtual tour of our premium coworking facilities in Bahrain
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Take a virtual tour of our premium coworking facilities
           </p>
         </motion.div>
 

@@ -83,18 +83,32 @@ export function CoworkingPricing() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
-
-      {/* Pattern */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
+    <section ref={ref} id="pricing" className="relative py-20 md:py-28 overflow-hidden">
+      {/* Enhanced Background */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
+        {/* Gold accents */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(ellipse 60% 40% at 50% 0%, hsl(var(--gold) / 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse 50% 50% at 20% 100%, hsl(var(--gold) / 0.05) 0%, transparent 50%)
+            `,
+          }}
+        />
+        {/* Dot pattern */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+            maskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
+          }}
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
@@ -105,12 +119,11 @@ export function CoworkingPricing() {
           className="text-center mb-14"
         >
           <span className="section-badge">Pricing Plans</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Simple, Transparent <span className="text-accent">Pricing</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
+            Simple, Transparent Pricing
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Choose a plan that fits your needs. All memberships include access to our 
-            premium amenities with no hidden fees.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            All memberships include access to our premium amenities with no hidden fees
           </p>
         </motion.div>
 

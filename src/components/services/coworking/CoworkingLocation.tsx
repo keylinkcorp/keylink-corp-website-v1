@@ -16,17 +16,28 @@ export function CoworkingLocation() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
-
-      {/* Pattern */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
+      {/* Enhanced Background */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 via-background to-secondary/30" />
+        {/* Gold accent */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(ellipse 50% 50% at 80% 50%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
+          }}
+        />
+        {/* Dot pattern */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+            maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
+          }}
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
@@ -37,12 +48,12 @@ export function CoworkingLocation() {
           className="text-center mb-14"
         >
           <span className="section-badge">Our Location</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Strategically Located in <span className="text-accent">Sanabis</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
+            Strategically Located in Sanabis
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Our coworking space is situated in Sanabis Exhibition Tower, 
-            offering easy access to major shopping destinations and business centers.
+            offering easy access to major shopping destinations and business centers
           </p>
         </motion.div>
 
