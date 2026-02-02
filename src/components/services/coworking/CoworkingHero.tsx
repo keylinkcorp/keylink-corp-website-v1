@@ -1,4 +1,3 @@
-import { motion, useScroll, useTransform } from "framer-motion";
 import { Users, Award, Building2, Star, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
@@ -24,18 +23,10 @@ const trustIndicators = [
 ];
 
 export function CoworkingHero() {
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 300], [1, 0.3]);
-
   return (
     <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-[hsl(var(--navy))]">
       {/* Navy Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--navy))] via-[hsl(var(--navy-light)/0.95)] to-[hsl(var(--navy))]" />
-
-      {/* Animated Floating Orbs */}
-      <div className="absolute top-20 right-[15%] w-80 h-80 floating-orb floating-orb-gold animate-float opacity-40" />
-      <div className="absolute bottom-32 left-[10%] w-48 h-48 floating-orb floating-orb-gold animate-float-slow opacity-30" />
-      <div className="absolute top-1/3 left-[25%] w-24 h-24 floating-orb floating-orb-navy animate-pulse-glow opacity-50" />
 
       {/* Dot Pattern Overlay */}
       <div
@@ -46,52 +37,33 @@ export function CoworkingHero() {
         }}
       />
 
-      <motion.div style={{ opacity }} className="container relative z-10 mx-auto px-4 py-20 md:py-28">
+      <div className="container relative z-10 mx-auto px-4 py-20 md:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-8">
             {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            <div>
               <span className="glass-card inline-flex items-center gap-2 px-5 py-2.5 text-white text-sm font-medium">
                 <Sparkles className="w-4 h-4 text-[hsl(var(--gold))]" />
                 Premium Coworking Space
               </span>
-            </motion.div>
+            </div>
 
             {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]"
-            >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
               Find Your Perfect{" "}
               <span className="text-[hsl(var(--gold))]">Flexible Workspace</span> in Manama
-            </motion.h1>
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg md:text-xl text-white/80 leading-relaxed max-w-xl"
-            >
+            <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-xl">
               Hot desks, private offices & meeting rooms with high-speed WiFi, 
               business address, and networking opportunities. Flexible memberships 
               starting from BHD 15/day.
-            </motion.p>
+            </p>
 
             {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap gap-4"
-            >
+            <div className="flex flex-wrap gap-4">
               <Button 
                 size="lg" 
                 className="h-14 px-8 rounded-2xl bg-[hsl(var(--gold))] hover:bg-[hsl(var(--gold-dark))] text-[hsl(var(--navy))] font-semibold shadow-lg shadow-[hsl(var(--gold)/0.3)] transition-all hover:scale-[1.02]"
@@ -106,26 +78,14 @@ export function CoworkingHero() {
               >
                 View Pricing
               </Button>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right Side - 2x2 Image Grid */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="grid grid-cols-2 gap-4"
-          >
-            {workspaceImages.map((workspace, index) => (
-              <motion.div
+          <div className="grid grid-cols-2 gap-4">
+            {workspaceImages.map((workspace) => (
+              <div
                 key={workspace.id}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: 0.3 + index * 0.1,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
                 className="group relative aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer"
               >
                 {/* Image */}
@@ -150,27 +110,19 @@ export function CoworkingHero() {
                 
                 {/* Decorative Border on Hover */}
                 <div className="absolute inset-0 rounded-2xl border-2 border-[hsl(var(--gold)/0)] group-hover:border-[hsl(var(--gold)/0.5)] transition-all duration-300" />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* Trust Indicators */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-16 lg:mt-20"
-        >
+        <div className="mt-16 lg:mt-20">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {trustIndicators.map((indicator, index) => {
               const Icon = indicator.icon;
               return (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
                   className="glass-card px-5 py-5 text-center group hover:bg-white/10 transition-all duration-300"
                 >
                   <Icon className="w-6 h-6 text-[hsl(var(--gold))] mx-auto mb-2 group-hover:scale-110 transition-transform" />
@@ -182,12 +134,12 @@ export function CoworkingHero() {
                     />
                   </div>
                   <div className="text-sm text-white/70 mt-1">{indicator.label}</div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[5]" />
