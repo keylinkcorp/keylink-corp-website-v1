@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Check, Star, ArrowRight } from "lucide-react";
+import { Check, Star, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const pricingPlans = [
@@ -74,8 +74,8 @@ const staggerContainer = {
 };
 
 const staggerItem = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } },
 };
 
 export function CoworkingPricing() {
@@ -84,12 +84,19 @@ export function CoworkingPricing() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
+
+      {/* Floating Orbs */}
+      <div className="absolute top-20 left-[10%] w-64 h-64 floating-orb floating-orb-gold animate-float opacity-25" />
+      <div className="absolute bottom-32 right-[15%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-30" />
+
+      {/* Pattern */}
       <div
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "32px 32px",
+          backgroundSize: "40px 40px",
         }}
       />
 
@@ -122,33 +129,41 @@ export function CoworkingPricing() {
             <motion.div
               key={plan.id}
               variants={staggerItem}
-              className={`relative rounded-2xl border ${
+              whileHover={{ y: plan.popular ? -8 : -5 }}
+              className={`relative rounded-2xl overflow-hidden transition-all duration-300 ${
                 plan.popular
-                  ? "border-accent bg-gradient-to-b from-accent/5 to-background shadow-xl scale-105"
-                  : "border-border bg-background"
-              } overflow-hidden`}
+                  ? "bg-[hsl(var(--navy))] shadow-2xl scale-105 z-10"
+                  : "bg-background border border-border hover:border-accent/30 hover:shadow-xl card-glow"
+              }`}
             >
               {/* Popular Badge */}
               {plan.popular && (
-                <div className="absolute top-0 right-0 bg-accent text-accent-foreground px-4 py-1.5 rounded-bl-xl text-sm font-semibold flex items-center gap-1.5">
-                  <Star className="w-4 h-4" />
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-[hsl(var(--gold))] via-[hsl(var(--gold-light))] to-[hsl(var(--gold))] text-[hsl(var(--navy))] px-4 py-2 text-sm font-bold flex items-center justify-center gap-2">
+                  <Sparkles className="w-4 h-4" />
                   Most Popular
+                  <Sparkles className="w-4 h-4" />
                 </div>
               )}
 
-              <div className="p-8">
+              <div className={`p-8 ${plan.popular ? 'pt-14' : ''}`}>
                 {/* Plan Name & Description */}
                 <div className="mb-6">
-                  <h3 className="text-xl font-bold text-primary mb-2">{plan.name}</h3>
-                  <p className="text-muted-foreground text-sm">{plan.description}</p>
+                  <h3 className={`text-xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-primary'}`}>
+                    {plan.name}
+                  </h3>
+                  <p className={`text-sm ${plan.popular ? 'text-white/70' : 'text-muted-foreground'}`}>
+                    {plan.description}
+                  </p>
                 </div>
 
                 {/* Price */}
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-sm text-muted-foreground">BHD</span>
-                    <span className="text-4xl font-bold text-primary">{plan.price}</span>
-                    <span className="text-muted-foreground">/{plan.period}</span>
+                    <span className={`text-sm ${plan.popular ? 'text-white/60' : 'text-muted-foreground'}`}>BHD</span>
+                    <span className={`text-5xl font-bold ${plan.popular ? 'text-[hsl(var(--gold))]' : 'text-primary'}`}>
+                      {plan.price}
+                    </span>
+                    <span className={plan.popular ? 'text-white/60' : 'text-muted-foreground'}>/{plan.period}</span>
                   </div>
                 </div>
 
@@ -156,8 +171,14 @@ export function CoworkingPricing() {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
+                      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                        plan.popular ? 'bg-[hsl(var(--gold)/0.2)]' : 'bg-accent/10'
+                      }`}>
+                        <Check className={`w-3 h-3 ${plan.popular ? 'text-[hsl(var(--gold))]' : 'text-accent'}`} />
+                      </div>
+                      <span className={`text-sm ${plan.popular ? 'text-white/80' : 'text-muted-foreground'}`}>
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -166,16 +187,18 @@ export function CoworkingPricing() {
                 <Button
                   className={`w-full ${
                     plan.popular
-                      ? "bg-accent hover:bg-accent/90 text-accent-foreground"
-                      : ""
+                      ? "bg-[hsl(var(--gold))] hover:bg-[hsl(var(--gold-dark))] text-[hsl(var(--navy))] shadow-lg shadow-[hsl(var(--gold)/0.3)]"
+                      : "bg-primary hover:bg-primary/90"
                   }`}
-                  variant={plan.popular ? "default" : "outline"}
                   size="lg"
                 >
                   {plan.cta}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
+
+              {/* Shimmer for popular */}
+              {plan.popular && <div className="shimmer" />}
             </motion.div>
           ))}
         </motion.div>
