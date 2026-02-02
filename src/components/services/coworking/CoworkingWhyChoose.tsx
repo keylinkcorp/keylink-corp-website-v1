@@ -6,32 +6,32 @@ const advantages = [
   {
     icon: MapPin,
     title: "Prime Sanabis Location",
-    description: "Strategically located in Sanabis Exhibition Tower with easy access to major shopping centers, business hubs, and transportation links.",
+    description: "Strategically located in Sanabis Exhibition Tower with easy access to Seef Mall, City Centre Bahrain, and major business hubs. Just 20 minutes from Bahrain International Airport—ideal for meeting international clients.",
   },
   {
     icon: Users,
-    title: "Thriving Business Community",
-    description: "Join a diverse community of over 500 professionals, entrepreneurs, and established businesses. Build meaningful connections that drive growth.",
+    title: "Thriving Bahrain Business Community",
+    description: "Join a diverse community of over 500 professionals, entrepreneurs, freelancers, and established businesses. Our coworking space in Bahrain connects you with potential partners, clients, and collaborators from across the GCC.",
   },
   {
     icon: Briefcase,
-    title: "Professional Amenities",
-    description: "From high-speed fiber internet to fully-equipped meeting rooms, everything you need to impress clients and work productively is included.",
+    title: "Professional Business Amenities",
+    description: "From high-speed fiber internet to fully-equipped meeting rooms for client presentations, every amenity you need to impress clients and work productively is included in your coworking membership.",
   },
   {
     icon: Network,
     title: "Networking Opportunities",
-    description: "Regular community events, workshops, and social gatherings help you connect with potential partners, clients, and collaborators.",
+    description: "Regular community events, workshops, and social gatherings help you connect with potential partners, clients, and collaborators in Bahrain's growing business ecosystem.",
   },
   {
     icon: TrendingUp,
-    title: "Scalable Options",
-    description: "Start with a hot desk and grow into a private office as your team expands. Our flexible workspace solutions adapt to your changing needs.",
+    title: "Scalable Workspace Options",
+    description: "Start with a hot desk and grow into a private office as your team expands. Our flexible workspace solutions in Bahrain adapt to your changing business needs.",
   },
   {
     icon: CalendarCheck,
     title: "Flexible Memberships",
-    description: "No long-term contracts required. Choose daily, weekly, or monthly plans that match your work style and budget. Cancel anytime.",
+    description: "No long-term contracts required. Choose daily, weekly, or monthly plans that match your work style and budget. Cancel anytime with just 30 days notice.",
   },
 ];
 
@@ -59,21 +59,21 @@ export function CoworkingWhyChoose() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-white">
-      {/* Ellipse Mask Dot Grid Pattern */}
+      {/* Ellipse Mask Dot Grid Pattern - Softer */}
       <div className="absolute inset-0">
         <div 
-          className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"
+          className="absolute h-full w-full bg-[radial-gradient(#f0f0f0_1px,transparent_1px)] [background-size:16px_16px]"
           style={{
-            maskImage: 'radial-gradient(ellipse 60% 50% at 50% 50%, #000 40%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 60% 50% at 50% 50%, #000 40%, transparent 100%)',
+            maskImage: 'radial-gradient(ellipse 60% 50% at 50% 50%, #000 25%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 60% 50% at 50% 50%, #000 25%, transparent 100%)',
           }}
         />
       </div>
-      {/* Gold accent */}
+      {/* Gold accent - Softer */}
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 50% 40% at 70% 30%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(ellipse 50% 40% at 70% 30%, hsl(var(--gold) / 0.04) 0%, transparent 50%)`,
         }}
       />
 
@@ -90,7 +90,7 @@ export function CoworkingWhyChoose() {
             The Keylink Advantage
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Over 10 years of experience in Bahrain's business services sector
+            Over 10 years of experience providing premium coworking spaces in Bahrain
           </p>
         </motion.div>
 
@@ -108,7 +108,7 @@ export function CoworkingWhyChoose() {
                 key={index}
                 variants={staggerItem}
                 whileHover={{ y: -8 }}
-                className="group relative p-8 rounded-2xl bg-background border border-border hover:border-accent/50 hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                className="group relative p-8 rounded-2xl bg-background border border-border hover:border-accent/50 hover:shadow-lg transition-all duration-300 overflow-hidden"
               >
                 {/* Decorative corner element */}
                 <div className="absolute top-0 right-0 w-24 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">

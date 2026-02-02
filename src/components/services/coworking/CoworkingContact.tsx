@@ -35,21 +35,21 @@ export function CoworkingContact() {
 
   return (
     <section ref={ref} id="contact" className="relative py-20 md:py-28 overflow-hidden">
-      {/* Modern Grid Lines Background */}
+      {/* Modern Grid Lines Background - Softer */}
       <div className="absolute inset-0 bg-[#F8F8F8]">
         <div 
-          className="absolute inset-0 bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] bg-[size:4rem_4rem]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,#ebebeb_1px,transparent_1px),linear-gradient(to_bottom,#ebebeb_1px,transparent_1px)] bg-[size:4rem_4rem]"
           style={{
             maskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, #000 40%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, #000 40%, transparent 100%)',
           }}
         />
       </div>
-      {/* Gold accent */}
+      {/* Gold accent - Softer */}
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 60% 40% at 30% 20%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(ellipse 60% 40% at 30% 20%, hsl(var(--gold) / 0.04) 0%, transparent 50%)`,
         }}
       />
 
@@ -60,14 +60,14 @@ export function CoworkingContact() {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="bg-background rounded-2xl border border-border p-8 md:p-10 shadow-xl"
+            className="bg-background rounded-2xl border border-border p-8 md:p-10 shadow-lg"
           >
             <span className="section-badge">Get Started</span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Book Your <span className="text-accent">Free Tour</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Experience our coworking space firsthand. Fill out the form and our team will 
+              Experience our coworking space in Bahrain firsthand. Fill out the form and our team will 
               arrange a personalized tour at your convenience.
             </p>
 
@@ -75,7 +75,7 @@ export function CoworkingContact() {
             <div className="flex items-center gap-4 mb-8">
               <div className={`flex items-center gap-2 ${step >= 1 ? "text-accent" : "text-muted-foreground"}`}>
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
-                  step >= 1 ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20" : "bg-secondary"
+                  step >= 1 ? "bg-accent text-accent-foreground shadow-md shadow-accent/15" : "bg-secondary"
                 }`}>
                   {step > 1 ? <CheckCircle2 className="w-5 h-5" /> : "1"}
                 </div>
@@ -86,7 +86,7 @@ export function CoworkingContact() {
               </div>
               <div className={`flex items-center gap-2 ${step >= 2 ? "text-accent" : "text-muted-foreground"}`}>
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
-                  step >= 2 ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20" : "bg-secondary"
+                  step >= 2 ? "bg-accent text-accent-foreground shadow-md shadow-accent/15" : "bg-secondary"
                 }`}>
                   2
                 </div>
@@ -116,7 +116,7 @@ export function CoworkingContact() {
                           onClick={() => setSelectedWorkspace(option.id)}
                           className={`group p-5 rounded-xl border text-left transition-all duration-300 ${
                             selectedWorkspace === option.id
-                              ? "border-accent bg-accent/10 shadow-lg shadow-accent/10"
+                              ? "border-accent bg-accent/10 shadow-md shadow-accent/10"
                               : "border-border bg-background hover:border-accent/50 hover:bg-secondary/50"
                           }`}
                         >
@@ -227,7 +227,7 @@ export function CoworkingContact() {
                     </Button>
                     <Button 
                       type="submit" 
-                      className="flex-1 bg-accent hover:bg-accent/90 rounded-xl shadow-lg shadow-accent/20" 
+                      className="flex-1 bg-accent hover:bg-accent/90 rounded-xl shadow-md shadow-accent/15" 
                       size="lg"
                     >
                       Book Free Tour
@@ -255,7 +255,7 @@ export function CoworkingContact() {
               <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
               <p className="text-primary-foreground/70 mb-8">
                 Prefer to reach out directly? Our team is available to answer your questions 
-                and help you find the perfect workspace.
+                and help you find the perfect workspace in Bahrain.
               </p>
 
               <div className="space-y-6">

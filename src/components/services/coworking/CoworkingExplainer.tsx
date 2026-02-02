@@ -36,10 +36,10 @@ export function CoworkingExplainer() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-white">
-      {/* Clean Dot Grid Background */}
+      {/* Clean Dot Grid Background - Lighter color */}
       <div className="absolute inset-0">
         <div 
-          className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]"
+          className="absolute h-full w-full bg-[radial-gradient(#f0f0f0_1px,transparent_1px)] [background-size:20px_20px]"
           style={{
             maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 50%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 50%, transparent 100%)',
@@ -50,13 +50,13 @@ export function CoworkingExplainer() {
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 50% 40% at 80% 20%, hsl(var(--gold) / 0.05) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(ellipse 50% 40% at 80% 20%, hsl(var(--gold) / 0.04) 0%, transparent 50%)`,
         }}
       />
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Content Column */}
+          {/* Content Column - SEO Enhanced */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -67,26 +67,30 @@ export function CoworkingExplainer() {
             </motion.div>
 
             <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-primary">
-              Flexible Workspace Solutions for Modern Professionals
+              Flexible Office Solutions in Bahrain
             </motion.h2>
 
             <motion.div variants={staggerItem} className="space-y-4 text-lg text-muted-foreground leading-relaxed">
               <p>
-                A coworking space in Bahrain provides shared office facilities where 
-                freelancers, startups, and established businesses work alongside each other 
-                in a dynamic, collaborative environment. Unlike traditional office leases, 
-                coworking offers the flexibility to scale your workspace as your business grows.
+                A <strong>coworking space in Bahrain</strong> provides shared office facilities where 
+                freelancers, remote workers, startups, and established businesses work alongside each 
+                other in a collaborative environment. Unlike traditional office leases that require 
+                long-term commitments, coworking spaces offer <strong>flexible workspace solutions</strong> that 
+                scale with your business needs.
               </p>
               <p>
-                At Keylink Corp's coworking spaces in Sanabis, you'll find everything from 
-                hot desks for daily use to dedicated desks and private offices for teams. 
-                Our serviced office solutions include high-speed internet, meeting room access, 
-                mail handling, and a prestigious business address—all with flexible membership terms.
+                At Keylink Corp's premium <strong>coworking spaces in Sanabis</strong>, you'll find everything 
+                from <strong>hot desks</strong> for daily use to <strong>dedicated desks</strong> for regular 
+                professionals and fully-serviced <strong>private offices</strong> for growing teams. Our 
+                <strong> shared office space</strong> includes high-speed gigabit internet, professional 
+                meeting room access, mail handling services, and a prestigious <strong>business address</strong> for 
+                your CR registration—all with flexible membership terms and no long-term contracts.
               </p>
               <p>
-                Whether you're a freelancer seeking a productive environment, a startup 
-                looking to minimize overhead costs, or an established company needing 
-                satellite office space in Bahrain, our workspace solutions adapt to your needs.
+                Whether you're a freelancer seeking a productive work environment away from home, a 
+                startup founder looking to minimize overhead costs while maximizing professionalism, 
+                or an established company needing satellite <strong>office space in Bahrain's</strong> commercial 
+                hub, our flexible workspace solutions in Sanabis adapt to your evolving requirements.
               </p>
             </motion.div>
           </motion.div>
@@ -105,7 +109,7 @@ export function CoworkingExplainer() {
               </div>
 
               <h3 className="text-xl font-semibold mb-6">
-                Why Choose a Shared Office Space?
+                Why Choose a Shared Office Space in Bahrain?
               </h3>
 
               <ul className="space-y-4 mb-8">

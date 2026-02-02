@@ -7,7 +7,7 @@ const pricingPlans = [
   {
     id: "day-pass",
     name: "Day Pass",
-    description: "Perfect for occasional workspace needs",
+    description: "Perfect for freelancers and remote workers who need occasional access to a professional coworking space in Bahrain.",
     price: "15",
     period: "day",
     popular: false,
@@ -24,7 +24,7 @@ const pricingPlans = [
   {
     id: "flexible",
     name: "Flexible Membership",
-    description: "Ideal for freelancers and remote workers",
+    description: "Ideal for freelancers, consultants, and remote professionals who need regular access to a shared office space in Bahrain.",
     price: "99",
     period: "month",
     popular: true,
@@ -44,7 +44,7 @@ const pricingPlans = [
   {
     id: "dedicated",
     name: "Dedicated Desk",
-    description: "Your permanent workspace with storage",
+    description: "Your permanent workspace in Bahrain's premier coworking space. Unlimited 24/7 access with all the benefits of a traditional office.",
     price: "199",
     period: "month",
     popular: false,
@@ -84,17 +84,17 @@ export function CoworkingPricing() {
 
   return (
     <section ref={ref} id="pricing" className="relative py-20 md:py-28 overflow-hidden bg-[#F8F8F8]">
-      {/* Large Grid Lines Pattern */}
+      {/* Large Grid Lines Pattern - Softer */}
       <div className="absolute inset-0">
         <div 
-          className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,#f5f5f5_1px,transparent_1px),linear-gradient(to_bottom,#f5f5f5_1px,transparent_1px)] bg-[size:6rem_4rem]"
         />
       </div>
-      {/* Gold accent from top */}
+      {/* Gold accent from top - Softer */}
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 70% 40% at 50% 0%, hsl(var(--gold) / 0.08) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(ellipse 70% 40% at 50% 0%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
         }}
       />
 
@@ -106,24 +106,24 @@ export function CoworkingPricing() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 hidden md:block"
         >
-          <div className="px-6 py-2 rounded-full bg-accent text-accent-foreground font-bold text-sm shadow-lg shadow-accent/30 animate-float-subtle">
+          <div className="px-6 py-2 rounded-full bg-accent text-accent-foreground font-bold text-sm shadow-md shadow-accent/20 animate-float-subtle">
             💰 Save up to 60% vs traditional offices
           </div>
         </motion.div>
 
-        {/* Header */}
+        {/* Header - SEO Enhanced */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="section-badge">Pricing Plans</span>
+          <span className="section-badge">Coworking Pricing Plans</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            Simple, Transparent Pricing
+            How Much Does a Coworking Space Cost in Bahrain?
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            All memberships include access to our premium amenities with no hidden fees
+            Transparent pricing with no hidden fees. All memberships include access to our premium amenities.
           </p>
         </motion.div>
 
@@ -141,8 +141,8 @@ export function CoworkingPricing() {
               whileHover={{ y: plan.popular ? -8 : -5 }}
               className={`relative rounded-2xl overflow-hidden transition-all duration-300 ${
                 plan.popular
-                  ? "bg-primary shadow-2xl scale-105 z-10"
-                  : "bg-background border border-border hover:border-accent/30 hover:shadow-xl"
+                  ? "bg-primary shadow-lg scale-105 z-10"
+                  : "bg-background border border-border hover:border-accent/30 hover:shadow-md"
               }`}
             >
               {/* Popular Badge */}
@@ -196,7 +196,7 @@ export function CoworkingPricing() {
                 <Button
                   className={`w-full ${
                     plan.popular
-                      ? "bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg shadow-accent/30"
+                      ? "bg-accent hover:bg-accent/90 text-accent-foreground shadow-md shadow-accent/20"
                       : "bg-primary hover:bg-primary/90"
                   }`}
                   size="lg"

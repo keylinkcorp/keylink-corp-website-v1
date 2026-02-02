@@ -9,7 +9,7 @@ const testimonials = [
     role: "Founder",
     company: "TechStart BH",
     rating: 5,
-    quote: "The best coworking space in Bahrain. The networking opportunities alone have helped me land three major clients. The facilities are world-class.",
+    quote: "The best coworking space in Bahrain. The networking opportunities alone have helped me land three major clients. The facilities are world-class and the community is incredible.",
     avatar: "A",
   },
   {
@@ -18,7 +18,7 @@ const testimonials = [
     role: "Remote Team Lead",
     company: "Global Consulting Group",
     rating: 5,
-    quote: "Moving from a traditional office to Keylink was the best decision for our team. We saved 60% on costs while getting better facilities and flexibility.",
+    quote: "Moving from a traditional office to Keylink's coworking space was the best decision for our team. We saved 60% on costs while getting better facilities and flexibility.",
     avatar: "S",
   },
   {
@@ -27,7 +27,7 @@ const testimonials = [
     role: "Freelance Designer",
     company: "Independent",
     rating: 5,
-    quote: "Great value and excellent atmosphere. The coffee is always fresh, WiFi is blazing fast, and I've made genuine connections with fellow professionals.",
+    quote: "Great value for a shared office space in Bahrain. The coffee is always fresh, WiFi is blazing fast, and I've made genuine connections with fellow professionals.",
     avatar: "M",
   },
 ];
@@ -51,21 +51,21 @@ export function CoworkingTestimonials() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-white">
-      {/* Center Fade Dot Grid */}
+      {/* Center Fade Dot Grid - Softer */}
       <div className="absolute inset-0">
         <div 
-          className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"
+          className="absolute h-full w-full bg-[radial-gradient(#f0f0f0_1px,transparent_1px)] [background-size:16px_16px]"
           style={{
-            maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, #000 30%, transparent 70%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, #000 30%, transparent 70%)',
+            maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, #000 20%, transparent 70%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, #000 20%, transparent 70%)',
           }}
         />
       </div>
-      {/* Gold accent from bottom */}
+      {/* Gold accent from bottom - Softer */}
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 60% 40% at 50% 100%, hsl(var(--gold) / 0.05) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(ellipse 60% 40% at 50% 100%, hsl(var(--gold) / 0.04) 0%, transparent 50%)`,
         }}
       />
 
@@ -79,10 +79,10 @@ export function CoworkingTestimonials() {
         >
           <span className="section-badge">Testimonials</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            What Our Members Say
+            What Our Coworking Members Say
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Join hundreds of satisfied professionals who call Keylink home
+            Join hundreds of satisfied professionals who call Keylink their workspace home in Bahrain
           </p>
         </motion.div>
 
@@ -99,9 +99,9 @@ export function CoworkingTestimonials() {
               variants={staggerItem}
               className="group relative"
             >
-              <div className="relative h-full bg-background rounded-2xl border border-border p-6 md:p-8 transition-all duration-300 hover:shadow-xl hover:border-accent/30">
+              <div className="relative h-full bg-background rounded-2xl border border-border p-6 md:p-8 transition-all duration-300 hover:shadow-md hover:border-accent/30">
                 {/* Quote Icon */}
-                <div className="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-lg">
+                <div className="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-md">
                   <Quote className="w-5 h-5 text-accent-foreground" />
                 </div>
 
