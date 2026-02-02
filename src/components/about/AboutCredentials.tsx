@@ -1,32 +1,40 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Building, FileCheck, Users2, Award } from "lucide-react";
+import { Building, FileCheck, Users2, Award, CheckCircle2, ExternalLink } from "lucide-react";
 
 const credentials = [
   {
     icon: Building,
     title: "MOIC Registered",
+    shortTitle: "MOIC",
     description: "Officially registered with the Ministry of Industry and Commerce",
-    color: "bg-blue-500/10 text-blue-600",
+    fullDescription: "Our MOIC registration ensures we operate with full government authorization, giving you peace of mind that all services are legally compliant.",
+    color: "#3B82F6",
   },
   {
     icon: FileCheck,
     title: "LMRA Approved",
+    shortTitle: "LMRA",
     description: "Authorized to handle labor and immigration services",
-    color: "bg-green-500/10 text-green-600",
+    fullDescription: "LMRA approval allows us to process work permits, visas, and all labor-related documentation on behalf of our clients.",
+    color: "#10B981",
   },
   {
     icon: Users2,
     title: "Chamber Member",
+    shortTitle: "BCCI",
     description: "Active member of the Bahrain Chamber of Commerce",
-    color: "bg-purple-500/10 text-purple-600",
+    fullDescription: "Our chamber membership connects us to Bahrain's business community and keeps us updated on the latest commercial developments.",
+    color: "#8B5CF6",
   },
   {
     icon: Award,
     title: "Tamkeen Partner",
+    shortTitle: "Tamkeen",
     description: "Official partner in supporting local business development",
-    color: "bg-accent/10 text-accent",
+    fullDescription: "As a Tamkeen partner, we help businesses access government support programs and funding opportunities for growth.",
+    color: "#C7A763",
   },
 ];
 
@@ -48,47 +56,38 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, scale: 0.8, rotateY: -15 },
   visible: {
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 },
+    scale: 1,
+    rotateY: 0,
+    transition: { duration: 0.6, type: "spring" as const },
   },
 };
 
 export function AboutCredentials() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [flippedCard, setFlippedCard] = useState<number | null>(null);
 
   return (
     <section ref={ref} className="section-spacing relative overflow-hidden bg-muted/30">
-      {/* Dashed Top Fade Grid Pattern */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, #e7e5e4 1px, transparent 1px),
-            linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
-          `,
-          backgroundSize: "20px 20px",
-          maskImage: `
-            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
-            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
-            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
-          `,
-          WebkitMaskImage: `
-            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
-            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
-            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
-          `,
-          maskComposite: "intersect",
-          WebkitMaskComposite: "source-in" as const,
-        }}
-      />
-      
-      {/* Radial Gradient from Top */}
-      <div className="absolute inset-0 overlay-gold-radial" />
-      
+      {/* Enhanced Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/50 to-background" />
+        
+        {/* Radial accents */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(circle at 20% 20%, rgba(199, 167, 99, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 80% 80%, rgba(0, 44, 77, 0.06) 0%, transparent 40%)
+            `
+          }}
+        />
+      </div>
+
       <div className="container px-4 relative z-10">
         {/* Header */}
         <motion.div
@@ -104,67 +103,151 @@ export function AboutCredentials() {
           </p>
         </motion.div>
 
-        {/* Credentials Grid with Card-Glow Effect */}
+        {/* Circular Credential Badges with Flip Effect */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16"
         >
-          {credentials.map((credential) => (
+          {credentials.map((credential, index) => (
             <motion.div
               key={credential.title}
               variants={itemVariants}
-              className="card-elevated-hover p-6 text-center card-glow group"
+              className="relative group"
+              style={{ perspective: "1000px" }}
+              onMouseEnter={() => setFlippedCard(index)}
+              onMouseLeave={() => setFlippedCard(null)}
             >
-              <div className={`w-16 h-16 rounded-2xl ${credential.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <credential.icon className="w-8 h-8" />
+              <div 
+                className="relative w-full transition-transform duration-500"
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: flippedCard === index ? "rotateY(180deg)" : "rotateY(0deg)",
+                }}
+              >
+                {/* Front - Circular Badge */}
+                <div 
+                  className="relative"
+                  style={{ backfaceVisibility: "hidden" }}
+                >
+                  <div className="relative flex flex-col items-center">
+                    {/* Animated ring */}
+                    <motion.div
+                      className="absolute w-32 h-32 rounded-full border-2"
+                      style={{ borderColor: `${credential.color}40` }}
+                      animate={{
+                        scale: [1, 1.1, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                      }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    
+                    {/* Badge circle */}
+                    <div 
+                      className="w-28 h-28 rounded-full flex items-center justify-center relative z-10"
+                      style={{ 
+                        background: `linear-gradient(135deg, ${credential.color}20 0%, ${credential.color}05 100%)`,
+                        border: `2px solid ${credential.color}30`
+                      }}
+                    >
+                      <credential.icon className="w-12 h-12" style={{ color: credential.color }} />
+                    </div>
+                    
+                    {/* Title below */}
+                    <h4 className="mt-4 font-semibold text-primary text-center">{credential.title}</h4>
+                    <p className="text-muted-foreground text-sm text-center mt-1">{credential.description}</p>
+                    
+                    {/* Verified checkmark */}
+                    <motion.div
+                      className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center z-20"
+                      initial={{ scale: 0 }}
+                      animate={isInView ? { scale: 1 } : {}}
+                      transition={{ delay: 0.5 + index * 0.1, type: "spring" }}
+                    >
+                      <CheckCircle2 className="w-5 h-5 text-white" />
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Back - Full Description */}
+                <div 
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ 
+                    backfaceVisibility: "hidden",
+                    transform: "rotateY(180deg)",
+                  }}
+                >
+                  <div 
+                    className="w-full p-6 rounded-2xl text-center"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${credential.color}20 0%, ${credential.color}05 100%)`,
+                      border: `2px solid ${credential.color}30`
+                    }}
+                  >
+                    <div 
+                      className="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center"
+                      style={{ backgroundColor: `${credential.color}20` }}
+                    >
+                      <credential.icon className="w-6 h-6" style={{ color: credential.color }} />
+                    </div>
+                    <h4 className="font-semibold text-primary mb-2">{credential.shortTitle}</h4>
+                    <p className="text-muted-foreground text-sm">{credential.fullDescription}</p>
+                  </div>
+                </div>
               </div>
-              <h4 className="font-semibold text-primary mb-2">{credential.title}</h4>
-              <p className="text-muted-foreground text-sm">{credential.description}</p>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Partner Logos Ticker with Enhanced Gradient Masks */}
+        {/* Partner Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="bg-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+          className="bg-white rounded-3xl shadow-xl p-8 md:p-12"
         >
-          {/* Left gradient mask */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          {/* Right gradient mask */}
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-          
-          <p className="text-center text-muted-foreground mb-6 font-medium relative z-20">
+          <p className="text-center text-muted-foreground mb-8 font-medium">
             Trusted Partnerships & Affiliations
           </p>
-          <div className="relative overflow-hidden">
-            <div className="flex animate-[scroll_30s_linear_infinite] gap-12">
-              {[...partners, ...partners].map((partner, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 flex items-center gap-2 px-6 py-3 bg-muted/50 rounded-lg hover:bg-accent/10 transition-colors duration-300"
-                >
-                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-primary font-medium whitespace-nowrap">
+          
+          {/* Static grid instead of scrolling ticker */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {partners.map((partner, index) => (
+              <motion.div
+                key={partner}
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.4 + index * 0.05 }}
+                className="group"
+              >
+                <div className="flex flex-col items-center p-4 rounded-xl bg-muted/50 hover:bg-accent/10 transition-all duration-300 h-full">
+                  {/* Logo placeholder - grayscale to color on hover */}
+                  <div 
+                    className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3 transition-all duration-300 group-hover:bg-accent/20"
+                  >
+                    <CheckCircle2 className="w-6 h-6 text-muted-foreground group-hover:text-accent transition-colors" />
+                  </div>
+                  <span className="text-primary font-medium text-sm text-center">
                     {partner}
                   </span>
                 </div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Learn more link */}
+          <div className="text-center mt-8">
+            <a 
+              href="#" 
+              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
+            >
+              View all certifications
+              <ExternalLink className="w-4 h-4" />
+            </a>
           </div>
         </motion.div>
       </div>
-
-      <style>{`
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
     </section>
   );
 }
