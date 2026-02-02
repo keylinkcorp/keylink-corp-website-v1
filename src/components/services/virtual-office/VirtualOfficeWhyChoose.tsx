@@ -1,8 +1,16 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { MapPin, Shield, Mail, Phone, Users, TrendingUp } from "lucide-react";
+import { MapPin, Shield, Mail, Phone, Users, TrendingUp, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const advantages = [
+interface Advantage {
+  icon: typeof MapPin;
+  title: string;
+  description: string;
+  linkText?: string;
+  linkHref?: string;
+}
+const advantages: Advantage[] = [
   {
     icon: Shield,
     title: "CR-Compliant Address",
@@ -32,6 +40,8 @@ const advantages = [
     icon: TrendingUp,
     title: "Flexible & Scalable",
     description: "Start with a basic address package and add services as you grow. Upgrade to coworking or private office anytime. No long-term contracts.",
+    linkText: "Explore Coworking",
+    linkHref: "/services/coworking-space",
   },
 ];
 
@@ -127,9 +137,20 @@ export function VirtualOfficeWhyChoose() {
                 <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-accent transition-colors">
                   {advantage.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed mb-3">
                   {advantage.description}
                 </p>
+                
+                {/* Internal Link */}
+                {advantage.linkHref && (
+                  <Link 
+                    to={advantage.linkHref} 
+                    className="inline-flex items-center gap-1 text-accent font-medium text-sm hover:underline"
+                  >
+                    {advantage.linkText}
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                )}
 
                 {/* Bottom accent line */}
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

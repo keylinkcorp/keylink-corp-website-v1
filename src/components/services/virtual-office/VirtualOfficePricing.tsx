@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Check, ArrowRight, Sparkles } from "lucide-react";
+import { Check, ArrowRight, Sparkles, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const pricingPlans = [
   {
@@ -206,17 +207,32 @@ export function VirtualOfficePricing() {
         </motion.div>
 
         {/* Additional Info */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center text-muted-foreground mt-10"
+          className="text-center mt-10 space-y-4"
         >
-          Need a custom package or have questions?{" "}
-          <a href="#contact" className="text-accent hover:underline font-medium">
-            Contact us for personalized solutions
-          </a>
-        </motion.p>
+          <p className="text-muted-foreground">
+            Need a custom package or have questions?{" "}
+            <a href="#contact" className="text-accent hover:underline font-medium">
+              Contact us for personalized solutions
+            </a>
+          </p>
+          
+          {/* Internal Link to Coworking */}
+          <div className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-primary/5 border border-border">
+            <Users className="w-5 h-5 text-accent" />
+            <span className="text-muted-foreground">Need a physical workspace?</span>
+            <Link 
+              to="/services/coworking-space" 
+              className="text-accent hover:underline font-semibold inline-flex items-center gap-1"
+            >
+              Explore our Coworking Space
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

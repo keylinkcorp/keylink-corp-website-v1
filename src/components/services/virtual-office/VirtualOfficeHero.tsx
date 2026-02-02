@@ -1,12 +1,26 @@
 import { Building2, Award, Clock, TrendingUp, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { Link } from "react-router-dom";
+
+// Import hero images
+import businessAddressImg from "@/assets/virtual-office/business-address.jpg";
+import mailHandlingImg from "@/assets/virtual-office/mail-handling.jpg";
+import phoneAnsweringImg from "@/assets/virtual-office/phone-answering.jpg";
+import meetingRoomImg from "@/assets/virtual-office/meeting-room.jpg";
 
 const trustIndicators = [
   { icon: Building2, value: 1000, suffix: "+", label: "Registered Businesses" },
   { icon: Award, value: 10, suffix: "+", label: "Years Experience" },
   { icon: Clock, value: 24, suffix: "hr", label: "Same-Day Setup" },
   { icon: TrendingUp, value: 98, suffix: "%", label: "Client Retention" },
+];
+
+const heroFeatures = [
+  { title: "Business Address", desc: "CR-compliant Sanabis address", image: businessAddressImg },
+  { title: "Mail Handling", desc: "Receive, scan & forward mail", image: mailHandlingImg },
+  { title: "Phone Answering", desc: "Professional call reception", image: phoneAnsweringImg },
+  { title: "Meeting Rooms", desc: "On-demand room booking", image: meetingRoomImg },
 ];
 
 export function VirtualOfficeHero() {
@@ -88,29 +102,33 @@ export function VirtualOfficeHero() {
             </div>
           </div>
 
-          {/* Right Side - Feature Cards Grid */}
+          {/* Right Side - Feature Cards Grid with Real Images */}
           <div className="grid grid-cols-2 gap-4">
-            {[
-              { title: "Business Address", desc: "CR-compliant Sanabis address", icon: "🏢" },
-              { title: "Mail Handling", desc: "Receive, scan & forward mail", icon: "📬" },
-              { title: "Phone Answering", desc: "Professional call reception", icon: "📞" },
-              { title: "Meeting Rooms", desc: "On-demand room booking", icon: "🤝" },
-            ].map((feature, index) => (
+            {heroFeatures.map((feature, index) => (
               <div
                 key={index}
-                className="group relative p-6 overflow-hidden rounded-2xl border border-border bg-background/80 backdrop-blur-sm shadow-md cursor-pointer hover:border-accent/30 hover:shadow-lg transition-all duration-300"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-background shadow-md cursor-pointer hover:border-accent/30 hover:shadow-lg transition-all duration-300"
               >
-                {/* Icon */}
-                <div className="text-4xl mb-4">{feature.icon}</div>
+                {/* Image */}
+                <div className="relative h-32 overflow-hidden">
+                  <img
+                    src={feature.image}
+                    alt={`${feature.title} - Virtual office service in Bahrain`}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+                </div>
                 
-                {/* Title */}
-                <h3 className="font-semibold text-primary mb-1 group-hover:text-accent transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                {/* Content */}
+                <div className="p-4">
+                  <h3 className="font-semibold text-primary mb-1 group-hover:text-accent transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                </div>
                 
                 {/* Decorative Border on Hover */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-accent/0 group-hover:border-accent/30 transition-all duration-300" />
+                <div className="absolute inset-0 rounded-2xl border-2 border-accent/0 group-hover:border-accent/30 transition-all duration-300 pointer-events-none" />
               </div>
             ))}
           </div>

@@ -53,7 +53,7 @@ const coworkingFAQs = [
   },
   {
     question: "Do you offer virtual office services in Bahrain?",
-    answer: "Yes! Our virtual office package provides a prestigious Sanabis business address for your company registration and mail handling, without the need for physical presence. You can also book meeting rooms hourly when you need to meet clients in person. This is perfect for businesses that want a professional presence in Bahrain without the overhead of physical office space."
+    answer: "Yes! Our virtual office package provides a prestigious Sanabis business address for your company registration and mail handling, without the need for physical presence. You can also book meeting rooms hourly when you need to meet clients in person. This is perfect for businesses that want a professional presence in Bahrain without the overhead of physical office space. Learn more about our virtual office packages at /services/virtual-office."
   },
   {
     question: "Is there a minimum commitment or contract for coworking?",

@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Users, Video, Building2, Globe } from "lucide-react";
+import { Link } from "react-router-dom";
 import hotDeskImg from "@/assets/coworking/hot-desk.jpg";
 import privateOfficeImg from "@/assets/coworking/private-office.jpg";
 import meetingRoomImg from "@/assets/coworking/meeting-room.jpg";
@@ -16,6 +17,7 @@ interface Workspace {
   icon: typeof Users;
   image: string;
   size: "featured" | "medium" | "small";
+  linkTo?: string;
 }
 
 const workspaces: Workspace[] = [
@@ -63,6 +65,7 @@ const workspaces: Workspace[] = [
     icon: Globe,
     image: loungeImg,
     size: "small",
+    linkTo: "/services/virtual-office",
   },
 ];
 
@@ -250,55 +253,67 @@ export function WorkspaceTypes() {
           >
             {smallWorkspaces.map((workspace) => {
               const Icon = workspace.icon;
-              return (
+              
+              const cardContent = (
+                <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-lg hover:border-accent/30">
+                  {/* Image */}
+                  <div className="relative h-[45%] overflow-hidden">
+                    <img
+                      src={workspace.image}
+                      alt={`${workspace.title} - ${workspace.category.toLowerCase()} in Bahrain`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    
+                    {/* Floating Icon Badge */}
+                    <div className="absolute top-3 left-3 w-9 h-9 rounded-lg bg-accent flex items-center justify-center shadow-md">
+                      <Icon className="w-4 h-4 text-accent-foreground" />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-4 md:p-5">
+                    {/* Category */}
+                    <span className="text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
+                      {workspace.category}
+                    </span>
+                    
+                    {/* Title */}
+                    <h3 className="text-lg font-bold text-primary mt-1 mb-2 group-hover:text-accent transition-colors">
+                      {workspace.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {workspace.description}
+                    </p>
+                    
+                    {/* CTA Button */}
+                    <span
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-xs font-medium hover:bg-primary/90 transition-colors"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      {workspace.cta}
+                    </span>
+                  </div>
+                </div>
+              );
+              
+              return workspace.linkTo ? (
+                <Link
+                  key={workspace.id}
+                  to={workspace.linkTo}
+                  className="group cursor-pointer block"
+                >
+                  {cardContent}
+                </Link>
+              ) : (
                 <div
                   key={workspace.id}
                   className="group cursor-pointer"
                 >
-                  <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-lg hover:border-accent/30">
-                    {/* Image */}
-                    <div className="relative h-[45%] overflow-hidden">
-                      <img
-                        src={workspace.image}
-                        alt={`${workspace.title} - ${workspace.category.toLowerCase()} in Bahrain`}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                      
-                      {/* Floating Icon Badge */}
-                      <div className="absolute top-3 left-3 w-9 h-9 rounded-lg bg-accent flex items-center justify-center shadow-md">
-                        <Icon className="w-4 h-4 text-accent-foreground" />
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-4 md:p-5">
-                      {/* Category */}
-                      <span className="text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
-                        {workspace.category}
-                      </span>
-                      
-                      {/* Title */}
-                      <h3 className="text-lg font-bold text-primary mt-1 mb-2 group-hover:text-accent transition-colors">
-                        {workspace.title}
-                      </h3>
-                      
-                      {/* Description */}
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        {workspace.description}
-                      </p>
-                      
-                      {/* CTA Button */}
-                      <a
-                        href="#contact"
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-xs font-medium hover:bg-primary/90 transition-colors"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                        {workspace.cta}
-                      </a>
-                    </div>
-                  </div>
+                  {cardContent}
                 </div>
               );
             })}
