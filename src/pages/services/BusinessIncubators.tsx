@@ -11,7 +11,6 @@ import {
   IncubatorHero,
   IncubatorLogos,
   IncubatorExplainer,
-  ProgramTypes,
   IncubatorBenefits,
   IncubatorProcess,
   IncubatorComparison,
@@ -116,8 +115,6 @@ export default function BusinessIncubators() {
       {/* SEO Explainer */}
       <IncubatorExplainer />
 
-      {/* Program Types Bento Grid */}
-      <ProgramTypes />
 
       {/* Benefits Grid */}
       <IncubatorBenefits />
