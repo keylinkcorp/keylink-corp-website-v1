@@ -1,7 +1,6 @@
 export { IncubatorHero } from './IncubatorHero';
 export { IncubatorLogos } from './IncubatorLogos';
 export { IncubatorExplainer } from './IncubatorExplainer';
-export { ProgramTypes } from './ProgramTypes';
 export { IncubatorBenefits } from './IncubatorBenefits';
 export { IncubatorProcess } from './IncubatorProcess';
 export { IncubatorComparison } from './IncubatorComparison';
