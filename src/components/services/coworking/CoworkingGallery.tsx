@@ -33,27 +33,11 @@ export function CoworkingGallery() {
     : galleryImages.filter((img) => img.category === activeFilter);
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Enhanced Background */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[#FAFAFA]">
+      {/* Subtle radial gradient */}
       <div className="absolute inset-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 via-background to-secondary/30" />
-        {/* Gold accent */}
         <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(ellipse 70% 50% at 30% 80%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
-          }}
-        />
-        {/* Dot pattern with fade */}
-        <div
-          className="absolute inset-0 opacity-25"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-            backgroundSize: "48px 48px",
-            maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
-          }}
+          className="absolute inset-0 bg-[radial-gradient(100%_60%_at_50%_0%,rgba(199,167,99,0.04)_0,rgba(199,167,99,0)_60%)]"
         />
       </div>
 

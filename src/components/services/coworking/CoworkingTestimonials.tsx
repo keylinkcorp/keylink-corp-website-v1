@@ -50,26 +50,24 @@ export function CoworkingTestimonials() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-white">
+      {/* Center Fade Dot Grid */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
         <div 
-          className="absolute inset-0"
+          className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"
           style={{
-            backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 100%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-            maskImage: "linear-gradient(to top, black 30%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to top, black 30%, transparent 100%)",
+            maskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, #000 30%, transparent 70%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 50% 50% at 50% 50%, #000 30%, transparent 70%)',
           }}
         />
       </div>
+      {/* Gold accent from bottom */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(ellipse 60% 40% at 50% 100%, hsl(var(--gold) / 0.05) 0%, transparent 50%)`,
+        }}
+      />
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}

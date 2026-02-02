@@ -18,12 +18,12 @@ export function CoworkingLogos() {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section ref={ref} className="relative py-12 md:py-16 overflow-hidden bg-background border-y border-border">
-      {/* Subtle background */}
+    <section ref={ref} className="relative py-12 md:py-16 overflow-hidden bg-[#FAFAFA] border-y border-border/50">
+      {/* Clean subtle background */}
       <div 
-        className="absolute inset-0 opacity-50"
+        className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 50%, hsl(var(--gold) / 0.04) 0%, transparent 70%)`,
+          backgroundImage: `radial-gradient(ellipse 100% 80% at 50% 50%, hsl(var(--gold) / 0.03) 0%, transparent 60%)`,
         }}
       />
 

@@ -35,29 +35,24 @@ export function CoworkingExplainer() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Enhanced Background */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-white">
+      {/* Clean Dot Grid Background */}
       <div className="absolute inset-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/20 to-background" />
-        {/* Gold accent */}
         <div 
-          className="absolute inset-0"
+          className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]"
           style={{
-            backgroundImage: `radial-gradient(ellipse 60% 50% at 70% 30%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
-          }}
-        />
-        {/* Dot pattern */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-            backgroundSize: "48px 48px",
-            maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 50%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 50%, transparent 100%)',
           }}
         />
       </div>
+      {/* Subtle gold accent */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(ellipse 50% 40% at 80% 20%, hsl(var(--gold) / 0.05) 0%, transparent 50%)`,
+        }}
+      />
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
