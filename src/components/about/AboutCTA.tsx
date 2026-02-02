@@ -19,11 +19,18 @@ export function AboutCTA() {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 overlay-navy-gradient" />
+        
+        {/* Animated Gradient Sweep */}
+        <div className="absolute inset-0 animate-gradient-sweep pointer-events-none" />
+        
+        {/* Noise Texture */}
+        <div className="absolute inset-0 noise-texture pointer-events-none" />
       </div>
 
-      {/* Decorative elements */}
-      <div className="absolute top-10 right-10 w-64 h-64 floating-orb floating-orb-gold animate-float opacity-30" />
-      <div className="absolute bottom-10 left-10 w-80 h-80 floating-orb floating-orb-gold animate-float-slow opacity-20" />
+      {/* Enhanced Floating Orbs with Pulse Animation */}
+      <div className="absolute top-10 right-10 w-64 h-64 floating-orb floating-orb-gold animate-float-pulse opacity-35" />
+      <div className="absolute bottom-10 left-10 w-80 h-80 floating-orb floating-orb-gold animate-float-slow animate-pulse-glow opacity-25" />
+      <div className="absolute top-1/2 left-1/4 w-48 h-48 floating-orb floating-orb-gold animate-pulse-glow opacity-20" />
 
       {/* Content */}
       <div className="container px-4 relative z-10">
@@ -47,22 +54,38 @@ export function AboutCTA() {
             ongoing business support, our team is ready to help you succeed in Bahrain.
           </p>
 
+          {/* Enhanced CTA Buttons with Glow Effects */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="btn-gold" size="lg" asChild>
+            <Button 
+              className="btn-gold group relative overflow-hidden" 
+              size="lg" 
+              asChild
+            >
               <a href="https://wa.me/97317008888" target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Free Consultation
+                <span className="relative z-10 flex items-center">
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Free Consultation
+                </span>
+                {/* Button glow on hover */}
+                <span 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: "radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%)"
+                  }}
+                />
               </a>
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="border-2 border-white text-white hover:bg-white hover:text-primary"
+              className="border-2 border-white text-white hover:bg-white hover:text-primary group relative overflow-hidden"
               asChild
             >
               <a href="tel:+97317008888">
-                <Phone className="w-5 h-5 mr-2" />
-                Call +973 1700 8888
+                <span className="relative z-10 flex items-center">
+                  <Phone className="w-5 h-5 mr-2" />
+                  Call +973 1700 8888
+                </span>
               </a>
             </Button>
           </div>

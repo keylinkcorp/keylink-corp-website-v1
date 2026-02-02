@@ -46,8 +46,20 @@ export function AboutMission() {
 
   return (
     <section ref={ref} className="section-spacing relative overflow-hidden bg-muted/30">
+      {/* Ellipse Mask Fade Dot Grid Pattern */}
+      <div 
+        className="absolute inset-0 -z-10 
+          bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] 
+          [background-size:16px_16px] 
+          [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"
+      />
+      
       {/* Mesh gradient background */}
       <div className="absolute inset-0 mesh-gradient-gold opacity-60" />
+      
+      {/* Floating Orbs */}
+      <div className="absolute top-10 left-10 w-64 h-64 floating-orb floating-orb-gold animate-float opacity-25" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 floating-orb floating-orb-navy animate-float-slow opacity-20" />
       
       <div className="container px-4 relative z-10">
         <motion.div
@@ -74,10 +86,10 @@ export function AboutMission() {
           animate={isInView ? "visible" : "hidden"}
           className="grid md:grid-cols-3 gap-6 mb-8"
         >
-          {/* Mission Card - Large */}
+          {/* Mission Card - Large with card-glow */}
           <motion.div
             variants={itemVariants}
-            className="md:row-span-2 relative rounded-2xl overflow-hidden min-h-[400px] group"
+            className="md:row-span-2 relative rounded-2xl overflow-hidden min-h-[400px] group card-glow"
           >
             <img
               src={missionImage}
@@ -86,7 +98,7 @@ export function AboutMission() {
             />
             <div className="absolute inset-0 overlay-navy-gradient" />
             <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-4">
+              <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-4 backdrop-blur-sm">
                 <Target className="w-7 h-7 text-accent" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-3">Our Mission</h3>
@@ -101,11 +113,12 @@ export function AboutMission() {
           {/* Vision Card */}
           <motion.div
             variants={itemVariants}
-            className="relative rounded-2xl overflow-hidden bg-primary p-8 min-h-[200px]"
+            className="relative rounded-2xl overflow-hidden bg-primary p-8 min-h-[200px] card-glow"
           >
             <div className="absolute inset-0 pattern-dots opacity-10" />
+            <div className="absolute inset-0 overlay-gold-radial opacity-50" />
             <div className="relative z-10">
-              <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mb-4 backdrop-blur-sm">
                 <Eye className="w-6 h-6 text-accent" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Our Vision</h3>
@@ -119,7 +132,7 @@ export function AboutMission() {
           {/* Image Card */}
           <motion.div
             variants={itemVariants}
-            className="relative rounded-2xl overflow-hidden min-h-[200px] group"
+            className="relative rounded-2xl overflow-hidden min-h-[200px] group card-glow"
           >
             <img
               src={collabImage}
@@ -135,7 +148,7 @@ export function AboutMission() {
           </motion.div>
         </motion.div>
 
-        {/* Values Row */}
+        {/* Values Row with Enhanced Hover */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -146,9 +159,9 @@ export function AboutMission() {
             <motion.div
               key={value.title}
               variants={itemVariants}
-              className="card-elevated-hover p-8 text-center"
+              className="card-elevated-hover p-8 text-center card-glow group"
             >
-              <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors duration-300">
                 <value.icon className="w-7 h-7 text-accent" />
               </div>
               <h4 className="text-lg font-semibold text-primary mb-2">{value.title}</h4>

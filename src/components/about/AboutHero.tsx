@@ -43,9 +43,19 @@ export function AboutHero() {
         {/* Navy Overlay Gradient */}
         <div className="absolute inset-0 overlay-navy-gradient" />
         
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 right-0 w-96 h-96 floating-orb floating-orb-gold animate-float opacity-40" />
+        {/* Radial Gradient Blur (gold tint) - NEW */}
+        <div className="absolute inset-0 overlay-gold-radial" />
+        
+        {/* Animated Gradient Sweep - NEW */}
+        <div className="absolute inset-0 animate-gradient-sweep pointer-events-none" />
+        
+        {/* Noise Texture Overlay - NEW */}
+        <div className="absolute inset-0 noise-texture pointer-events-none" />
+        
+        {/* Enhanced Floating Orbs with Pulse-Glow */}
+        <div className="absolute top-1/4 right-0 w-96 h-96 floating-orb floating-orb-gold animate-float-pulse opacity-40" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] floating-orb floating-orb-navy animate-float-slow opacity-30" />
+        <div className="absolute top-10 left-1/4 w-64 h-64 floating-orb floating-orb-gold animate-pulse-glow opacity-20" />
       </div>
 
       {/* Content */}
@@ -90,7 +100,7 @@ export function AboutHero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                className="glass-card p-6 text-center"
+                className="glass-card p-6 text-center group hover:bg-white/15 transition-all duration-300"
               >
                 <div className="text-3xl md:text-4xl font-bold text-accent mb-2">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />

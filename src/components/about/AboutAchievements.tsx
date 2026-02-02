@@ -43,12 +43,19 @@ export function AboutAchievements() {
 
   return (
     <section ref={ref} className="section-spacing relative overflow-hidden bg-primary">
+      {/* Grid Lines Pattern Overlay (white lines) */}
+      <div className="absolute inset-0 pattern-grid-lines" />
+      
       {/* Pattern overlay */}
       <div className="absolute inset-0 pattern-dots opacity-10" />
       
-      {/* Floating decorative elements */}
-      <div className="absolute top-20 left-10 w-64 h-64 floating-orb floating-orb-gold animate-float opacity-20" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 floating-orb floating-orb-gold animate-float-slow opacity-15" />
+      {/* Gold Sweep Gradient Animation */}
+      <div className="absolute inset-0 animate-gradient-sweep pointer-events-none" />
+      
+      {/* Enhanced Floating decorative elements with pulse-glow */}
+      <div className="absolute top-20 left-10 w-64 h-64 floating-orb floating-orb-gold animate-float-pulse opacity-25" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 floating-orb floating-orb-gold animate-float-slow animate-pulse-glow opacity-20" />
+      <div className="absolute top-1/2 right-1/4 w-48 h-48 floating-orb floating-orb-gold animate-pulse-glow opacity-15" />
 
       <div className="container px-4 relative z-10">
         {/* Header */}
@@ -67,7 +74,7 @@ export function AboutAchievements() {
           </p>
         </motion.div>
 
-        {/* Stats Grid */}
+        {/* Stats Grid with Enhanced Glass Cards */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -78,15 +85,20 @@ export function AboutAchievements() {
             <motion.div
               key={stat.label}
               variants={itemVariants}
-              className="glass-card p-8 text-center"
+              className="glass-card p-8 text-center group hover:bg-white/15 transition-all duration-300 relative overflow-hidden"
             >
-              <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mx-auto mb-4">
+              {/* Shimmer effect on hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="shimmer" />
+              </div>
+              
+              <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mx-auto mb-4 relative z-10">
                 <stat.icon className="w-7 h-7 text-accent" />
               </div>
-              <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+              <div className="text-4xl md:text-5xl font-bold text-white mb-2 relative z-10">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
-              <p className="text-white/60 text-sm">{stat.label}</p>
+              <p className="text-white/60 text-sm relative z-10">{stat.label}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -108,8 +120,14 @@ export function AboutAchievements() {
           animate={isInView ? "visible" : "hidden"}
           className="relative"
         >
-          {/* Timeline line */}
-          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-white/20 -translate-y-1/2" />
+          {/* Timeline line with glow effect */}
+          <div 
+            className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2"
+            style={{
+              background: "linear-gradient(90deg, transparent, rgba(199, 167, 99, 0.5), transparent)",
+              boxShadow: "0 0 10px rgba(199, 167, 99, 0.3)"
+            }}
+          />
           
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
             {milestones.map((milestone, index) => (
@@ -118,11 +136,16 @@ export function AboutAchievements() {
                 variants={itemVariants}
                 className="relative flex flex-col items-center text-center"
               >
-                {/* Connector dot */}
-                <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-accent z-10" />
+                {/* Connector dot with glow */}
+                <div 
+                  className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-accent z-10"
+                  style={{
+                    boxShadow: "0 0 15px rgba(199, 167, 99, 0.6)"
+                  }}
+                />
                 
-                <div className="glass-card p-4 w-full">
-                  <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center mx-auto mb-3">
+                <div className="glass-card p-4 w-full group hover:bg-white/15 transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center mx-auto mb-3 group-hover:bg-accent/30 transition-colors">
                     <milestone.icon className="w-5 h-5 text-accent" />
                   </div>
                   <p className="text-accent font-bold text-lg mb-1">{milestone.year}</p>

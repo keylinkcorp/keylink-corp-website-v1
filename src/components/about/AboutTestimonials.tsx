@@ -56,6 +56,17 @@ export function AboutTestimonials() {
 
   return (
     <section ref={ref} className="section-spacing relative overflow-hidden">
+      {/* Ellipse Mask Fade Dot Grid Pattern */}
+      <div 
+        className="absolute inset-0 -z-10 
+          bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] 
+          [background-size:16px_16px] 
+          [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"
+      />
+      
+      {/* Radial gradient (subtle gold) */}
+      <div className="absolute inset-0 overlay-gold-radial-center" />
+      
       <div className="container px-4 relative z-10">
         {/* Header */}
         <motion.div
@@ -71,7 +82,7 @@ export function AboutTestimonials() {
           </p>
         </motion.div>
 
-        {/* Featured Testimonial */}
+        {/* Featured Testimonial with Glass-Card-Dark Styling */}
         {featured && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -79,15 +90,22 @@ export function AboutTestimonials() {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <div className="relative rounded-3xl overflow-hidden bg-primary p-8 md:p-12">
+            <div className="relative rounded-3xl overflow-hidden glass-card-dark p-8 md:p-12">
               <div className="absolute inset-0 pattern-dots opacity-10" />
-              <div className="absolute top-8 right-8">
-                <Quote className="w-16 h-16 text-accent/20" />
+              
+              {/* Decorative Quote with Gold Glow */}
+              <div 
+                className="absolute top-8 right-8"
+                style={{
+                  filter: "drop-shadow(0 0 20px rgba(199, 167, 99, 0.3))"
+                }}
+              >
+                <Quote className="w-16 h-16 text-accent/30" />
               </div>
 
               <div className="relative z-10 grid md:grid-cols-[200px_1fr] gap-8 items-center">
                 <div className="mx-auto md:mx-0">
-                  <div className="w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden border-4 border-accent/20">
+                  <div className="w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden border-4 border-accent/30">
                     <img
                       src={featured.image}
                       alt={featured.author}
@@ -97,9 +115,16 @@ export function AboutTestimonials() {
                 </div>
 
                 <div>
+                  {/* Enhanced Star Rating */}
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: featured.rating }).map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-accent text-accent" />
+                      <Star 
+                        key={i} 
+                        className="w-5 h-5 fill-accent text-accent"
+                        style={{
+                          filter: "drop-shadow(0 0 4px rgba(199, 167, 99, 0.5))"
+                        }}
+                      />
                     ))}
                   </div>
                   <blockquote className="text-xl md:text-2xl text-white/90 leading-relaxed mb-6">
@@ -127,11 +152,15 @@ export function AboutTestimonials() {
             <motion.div
               key={testimonial.author}
               variants={itemVariants}
-              className="card-elevated p-8"
+              className="card-elevated p-8 card-glow group"
             >
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                  <Star 
+                    key={i} 
+                    className="w-4 h-4 fill-accent text-accent group-hover:scale-110 transition-transform duration-300"
+                    style={{ transitionDelay: `${i * 50}ms` }}
+                  />
                 ))}
               </div>
               <blockquote className="text-muted-foreground mb-6">
@@ -141,7 +170,7 @@ export function AboutTestimonials() {
                 <img
                   src={testimonial.image}
                   alt={testimonial.author}
-                  className="w-12 h-12 rounded-full object-cover"
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-accent/20"
                 />
                 <div>
                   <p className="font-semibold text-primary">{testimonial.author}</p>

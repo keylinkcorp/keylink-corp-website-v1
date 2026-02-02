@@ -82,7 +82,35 @@ export function AboutTeam() {
 
   return (
     <section ref={ref} className="section-spacing relative overflow-hidden">
-      <div className="absolute inset-0 pattern-dots opacity-30" />
+      {/* Dashed Center Fade Grid Pattern */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+            linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
+          `,
+          backgroundSize: "20px 20px",
+          maskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)
+          `,
+          WebkitMaskImage: `
+            repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+            repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+            radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)
+          `,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in" as const,
+        }}
+      />
+      
+      {/* Radial Gold Gradient from Center */}
+      <div className="absolute inset-0 overlay-gold-radial-center" />
+      
+      {/* Floating Orb */}
+      <div className="absolute bottom-20 left-10 w-64 h-64 floating-orb floating-orb-gold animate-float opacity-20" />
 
       <div className="container px-4 relative z-10">
         {/* Header */}
@@ -104,15 +132,24 @@ export function AboutTeam() {
           </motion.p>
         </motion.div>
 
-        {/* Featured Founder Card */}
+        {/* Featured Founder Card with Gold Border Glow */}
         {featuredMember && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="mb-16 bg-primary rounded-3xl overflow-hidden"
+            className="mb-16 bg-primary rounded-3xl overflow-hidden relative group"
           >
-            <div className="grid md:grid-cols-2">
+            {/* Gold glow on hover */}
+            <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{
+                boxShadow: "0 0 40px rgba(199, 167, 99, 0.3), inset 0 0 0 2px rgba(199, 167, 99, 0.3)"
+              }}
+            />
+            
+            <div className="absolute inset-0 pattern-dots opacity-5" />
+            
+            <div className="grid md:grid-cols-2 relative z-10">
               <div className="relative h-80 md:h-auto">
                 <img
                   src={featuredMember.image}
@@ -130,7 +167,7 @@ export function AboutTeam() {
                 </h3>
                 <p className="text-white/70 mb-6">{featuredMember.bio}</p>
                 
-                <div className="relative bg-white/10 rounded-xl p-6 mb-6">
+                <div className="relative bg-white/10 rounded-xl p-6 mb-6 backdrop-blur-sm">
                   <Quote className="absolute top-3 left-3 w-6 h-6 text-accent/40" />
                   <p className="text-white/90 italic pl-6">
                     "{featuredMember.quote}"
@@ -149,7 +186,7 @@ export function AboutTeam() {
           </motion.div>
         )}
 
-        {/* Team Grid */}
+        {/* Team Grid with Shimmer Effect */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -162,12 +199,16 @@ export function AboutTeam() {
               variants={itemVariants}
               className="group relative"
             >
-              <div className="relative rounded-2xl overflow-hidden aspect-square">
+              <div className="relative rounded-2xl overflow-hidden aspect-square card-glow">
                 <img
                   src={member.image}
                   alt={member.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
+                {/* Shimmer effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="shimmer" />
+                </div>
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                   <p className="text-white/80 text-sm">{member.bio}</p>
