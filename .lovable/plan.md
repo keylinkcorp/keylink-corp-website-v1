@@ -1,149 +1,120 @@
 
-# Redesign About Hero Section - Dynamic Layout with Team Photo
 
-## Current Problem
-The current hero has a full-bleed background image with dark overlay and centered text on top - a common but static approach that feels uninspired.
+# Redesign About Hero - Full Width Top Image with Centered Text Below
 
-## New Design Concept
-Transform the hero into a dynamic, modern layout that showcases the team photo prominently while keeping text content engaging. The team PNG (with transparent background) will be the visual focus, sitting on a clean background with pattern overlays only (no gradients per request).
+## Overview
+Transform the About Hero section to feature the team image prominently at the top spanning full width, with centered text content below for a clean, modern vertical layout.
+
+---
 
 ## New Layout Structure
 
 ```text
-[Full-Width Section with Pattern Overlays Only]
+[Full-Width Section]
 
-├── Background Layer (white + patterns only - NO gradients)
-│   ├── Dashed Center Fade Grid pattern
-│   ├── Subtle gold radial dot pattern
-│   └── Decorative floating orbs (subtle)
+├── Background Layer (pattern overlays only)
+│   ├── Dashed Top Fade Grid pattern
+│   ├── Subtle dot pattern
+│   └── Decorative floating orbs
 
-├── Content Area (two-column on desktop, stacked on mobile)
-│   │
-│   ├── LEFT COLUMN - Text Content
-│   │   ├── Badge: "About Keylink Corp"
-│   │   ├── H1: "Your Trusted Partner in Bahrain Business Success"
-│   │   ├── Subtitle paragraph
-│   │   └── Trust Stats (2x2 grid of stat cards)
-│   │
-│   └── RIGHT COLUMN - Team Image
-│       ├── Team PNG (transparent background, displayed large)
-│       ├── Subtle shadow/glow effect under team
-│       └── Optional: floating badge "50+ Team Members"
+├── TEAM IMAGE (Full Width, Top)
+│   ├── Team PNG spanning container width
+│   ├── Floating badges (Est. 2014, 50+ Team Members)
+│   └── Soft shadow underneath
 
-└── Bottom: Subtle fade or pattern transition
+├── TEXT CONTENT (Centered Below Image)
+│   ├── Badge: "About Keylink Corp"
+│   ├── H1: Centered heading with accent highlight
+│   ├── Subtitle: Centered paragraph
+│   └── Stats: Horizontal row (4 items) with glass-card styling
+
+└── Bottom fade transition
 ```
 
-## Visual Improvements
+---
 
-### No Gradients - Pattern Overlays Only
-- Dashed Center Fade Grid as primary pattern
-- Dot grid overlay with radial mask
-- Floating decorative gold/navy orbs
-- Clean white background base
+## Visual Design
 
-### Team Image Treatment
-- Use the uploaded team PNG with transparent background
-- Place on right side at large scale
-- Add soft shadow underneath for depth
-- Optional subtle glow/highlight effect
+### Image Section
+- Team photo at full container width
+- Displayed prominently at top
+- Floating badges positioned on the image
+- Soft shadow for depth
 
-### Text Side
-- Left-aligned content for better readability
-- Badge, heading, subtitle stacked cleanly
-- 2x2 stats grid with glass-card styling
+### Text Section (Centered)
+- All text center-aligned
+- Badge centered above heading
+- Clean typography hierarchy
+- Stats in horizontal 4-column row (responsive to 2x2 on mobile)
+
+### Background
+- Dashed Top Fade Grid pattern (radiates from top where image is)
+- Subtle dot overlay
+- Floating orbs for visual interest
+
+---
 
 ## Technical Implementation
 
-### Files to Modify
-1. **Copy team image to assets**: `src/assets/about/team-group-photo.png`
-2. **Update `src/components/about/AboutHero.tsx`**: Complete redesign
+### File to Modify
+`src/components/about/AboutHero.tsx`
 
 ### Component Structure
 ```tsx
-<section className="relative min-h-[90vh] flex items-center overflow-hidden">
-  {/* Background Patterns Only - NO Gradients */}
+<section className="relative min-h-screen overflow-hidden">
+  {/* Background Patterns */}
   <div className="absolute inset-0">
-    <div className="absolute inset-0 bg-white" />
-    
-    {/* Dashed Center Fade Grid Pattern */}
-    <div className="absolute inset-0" style={{
-      backgroundImage: `
-        linear-gradient(to right, #e7e5e4 1px, transparent 1px),
-        linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
-      `,
-      backgroundSize: "20px 20px",
-      maskImage: `
-        repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
-        repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
-        radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)
-      `,
-      maskComposite: "intersect"
-    }} />
-    
-    {/* Subtle dot pattern */}
-    <div className="absolute inset-0 
-      bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] 
-      [background-size:16px_16px] 
-      [mask-image:radial-gradient(ellipse_80%_60%_at_30%_50%,#000_40%,transparent_100%)]
-      opacity-60"
-    />
-    
-    {/* Floating orbs - decorative */}
-    <div className="floating-orb floating-orb-gold w-96 h-96 top-10 left-0 opacity-20" />
-    <div className="floating-orb floating-orb-navy w-80 h-80 bottom-0 right-20 opacity-15" />
+    {/* Dashed Top Fade Grid - focus from top */}
+    {/* Dot pattern overlay */}
+    {/* Floating orbs */}
   </div>
 
-  {/* Content Grid */}
-  <div className="container relative z-10 px-4">
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
+  <div className="container relative z-10 px-4 py-16 md:py-20">
+    
+    {/* TOP: Full Width Team Image */}
+    <motion.div className="relative mb-12 md:mb-16">
+      <img 
+        src={teamPhoto}
+        alt="Keylink Corp professional team"
+        className="w-full h-auto object-contain max-h-[500px] mx-auto"
+      />
+      {/* Floating badges on image */}
+      {/* Shadow underneath */}
+    </motion.div>
+
+    {/* BOTTOM: Centered Text Content */}
+    <motion.div className="text-center max-w-4xl mx-auto">
+      <Badge />
+      <h1 className="text-center">Your Trusted Partner...</h1>
+      <p className="text-center max-w-2xl mx-auto">Subtitle...</p>
       
-      {/* Left: Text Content */}
-      <motion.div className="order-2 lg:order-1">
-        <Badge />
-        <h1>Your Trusted Partner...</h1>
-        <p>Subtitle...</p>
-        <Stats Grid (2x2)/>
-      </motion.div>
-      
-      {/* Right: Team Photo */}
-      <motion.div className="order-1 lg:order-2">
-        <div className="relative">
-          <img 
-            src={teamPhoto} 
-            alt="Keylink Corp professional team"
-            className="w-full h-auto object-contain"
-          />
-          {/* Subtle shadow underneath */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 
-            bg-gradient-to-t from-black/10 to-transparent 
-            blur-lg -z-10" 
-          />
-          {/* Floating badge */}
-          <div className="absolute -bottom-4 right-8 bg-white rounded-xl shadow-lg px-4 py-2 border">
-            <span className="text-2xl font-bold text-accent">50+</span>
-            <span className="text-sm ml-1">Team Members</span>
-          </div>
-        </div>
-      </motion.div>
-      
-    </div>
+      {/* Stats Row - 4 columns centered */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 max-w-3xl mx-auto">
+        {stats.map(...)}
+      </div>
+    </motion.div>
+
   </div>
 </section>
 ```
+
+---
 
 ## Key Changes Summary
 
 | Aspect | Before | After |
 |--------|--------|-------|
-| Layout | Centered text over image | Two-column split layout |
-| Background | Photo with navy gradient | White + pattern overlays only |
-| Team Image | Hidden behind text | Featured prominently on right |
-| Text Position | Centered overlay | Left-aligned, readable |
-| Stats | Single row | 2x2 grid cards |
-| Gradients | Heavy navy overlay | None - patterns only |
+| Layout | Two-column side-by-side | Vertical stack (image top, text bottom) |
+| Image Position | Right column | Top, full width |
+| Text Alignment | Left-aligned | Centered |
+| Stats Grid | 2x2 on left | 4-column row centered (2x2 on mobile) |
+| Visual Flow | Horizontal split | Top-down vertical |
 
-## Animation Details
-- Text content: staggerChildren reveal
-- Team image: scale/fade reveal
-- Stats: staggered counter animation
-- Floating orbs: subtle animate-float
+---
+
+## Animation Updates
+- Image: Scale up fade in from top
+- Text: Stagger reveal from bottom after image
+- Stats: Sequential fade in after text
+- Floating orbs: Continue subtle float animation
+
