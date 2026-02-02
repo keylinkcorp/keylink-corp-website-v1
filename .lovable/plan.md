@@ -1,237 +1,179 @@
 
-# Light Mode Enhancement for Coworking Space Page
+
+# Workspace Cards Redesign & Location Update
 
 ## Overview
 
-Transform the Coworking Space landing page from dark navy theme to a clean, professional light mode design matching the Company Formation page aesthetic. This will create visual consistency across service pages while maintaining the modern, premium feel.
+Transform the "Choose Your Perfect Workspace" section from the current bento-style image cards to a modern, clean 4-column layout matching the reference design. Also update all location references to "Sanabis Exhibition Tower".
 
 ---
 
-## Design System Alignment
+## Changes Summary
 
-The Company Formation page establishes a consistent light mode pattern:
+### 1. WorkspaceTypes.tsx - Complete Redesign
 
-| Element | Formation (Light) | Coworking (Current Dark) | Coworking (New Light) |
-|---------|-------------------|--------------------------|------------------------|
-| Background | `bg-white` | `bg-[hsl(var(--navy))]` | `bg-white` |
-| Text Primary | `text-primary` (navy) | `text-white` | `text-primary` |
-| Text Secondary | `text-muted-foreground` | `text-white/70` | `text-muted-foreground` |
-| Accents | Gold on white | Gold on navy | Gold on white |
-| Patterns | Light dot grids | Gold dots on navy | Light dot grids |
-| Cards | White with border | Glass with blur | White with border |
+**Current Design Issues:**
+- Bento grid with varying column spans (complex layout)
+- Full background images with overlays
+- Too much visual weight
 
----
+**New Design (Matching Reference):**
+- Clean 4-column equal grid (1 row)
+- Simple white cards with subtle borders
+- Icon in accent/10 background container
+- Bold stat/title below
+- Short label underneath
+- Minimal, modern aesthetic
 
-## Components to Modify
-
-### 1. CoworkingHero.tsx
-
-**Current**: Navy gradient background, white text, dark glass cards
-
-**Changes**:
-- Replace navy background with white + gold radial gradient (like Formation)
-- Add light dot pattern with fade mask
-- Change text from white to `text-primary` (navy)
-- Update 2x2 image grid cards with light borders and shadows
-- Change trust indicators from glass-card to white cards with borders
-- Update CTA buttons to gold primary and navy outline
-
-**Visual Structure** (unchanged layout, new colors):
 ```text
-Background: White with gold radial gradient from top
-Left: Navy headline text, gold accent on key phrase
-Right: Image grid with light borders, navy/gold overlays
-Bottom: White stat cards with borders
+New Layout:
+┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐
+│    [Icon]   │  │    [Icon]   │  │    [Icon]   │  │    [Icon]   │
+│             │  │             │  │             │  │             │
+│   Hot Desk  │  │  Dedicated  │  │   Private   │  │  Meeting    │
+│  BHD 15/day │  │  BHD 99/mo  │  │  BHD 299/mo │  │  BHD 25/hr  │
+│             │  │             │  │             │  │             │
+│ Flex access │  │ Your spot   │  │ Team space  │  │ Hourly book │
+└─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘
 ```
 
----
-
-### 2. CoworkingTrustBar.tsx
-
-**Current**: Navy background with floating orbs
-
-**Changes**:
-- Replace `bg-[hsl(var(--navy))]` with `bg-white border-y border-border/50`
-- Remove floating orbs
-- Change stat cards from glass-card to white cards with accent/10 backgrounds
-- Update text colors to primary/muted-foreground
-- Simplify to match FormationTrustBar pattern
+**New Card Structure:**
+- White background with rounded-xl border
+- Subtle hover effect (border-accent/30, shadow)
+- Icon container: rounded-lg bg-accent/10
+- Title: bold navy text (workspace type)
+- Price: large accent color text
+- Description: muted small text
 
 ---
 
-### 3. WorkspaceTypes.tsx
+### 2. Location Updates
 
-**Current**: Mixed gradient with floating orbs, dark overlays on images
+Update address in both files to:
+- **Sanabis Exhibition Tower**
+- **Sanabis, Kingdom of Bahrain**
 
-**Changes**:
-- Keep gradient background but use lighter tones (`from-secondary/30 via-background`)
-- Remove floating orbs
-- Update image cards with lighter gradient overlays
-- Change glass badges to white/gold badges
-- Update button styles to match Formation
+**Files to Update:**
+- `CoworkingLocation.tsx` - Address card and Google Maps link
+- `CoworkingContact.tsx` - Contact info panel
 
----
-
-### 4. CoworkingAmenities.tsx
-
-**Current**: Full navy section with glass cards
-
-**Changes**:
-- Replace `bg-[hsl(var(--navy))]` with `bg-white` and grid line pattern
-- Change section badge to `section-badge` class (gold on white)
-- Update amenity cards from glass-card to white cards with borders
-- Change icon backgrounds from gold/15 to `bg-accent/10`
-- Update all text to primary/muted-foreground
+**New Nearby Landmarks (Sanabis area):**
+- Bahrain Exhibition Centre
+- Seef Mall
+- City Centre Bahrain
+- Free parking available
+- Restaurants & cafes nearby
 
 ---
 
-### 5. CoworkingWhyChoose.tsx
+## Technical Implementation
 
-**Current**: Light gradient with floating orbs
+### WorkspaceTypes.tsx Changes
 
-**Changes**:
-- Remove floating orbs
-- Keep clean gradient background
-- Cards already have proper light styling, just polish borders
-- Ensure consistent with WhyChooseKeylink pattern
+**Remove:**
+- Image imports (hot-desk.jpg, private-office.jpg, etc.)
+- Complex gridClass with varying spans
+- Background images and overlays
+- "Learn More" buttons
 
----
+**Add:**
+- Simple 4-column grid: `grid grid-cols-2 lg:grid-cols-4 gap-6`
+- Clean card structure with icon, price, and description
+- Subtle hover animations
 
-### 6. CoworkingPricing.tsx
-
-**Current**: Mixed, popular card uses navy background
-
-**Changes**:
-- Keep popular card navy (for contrast)
-- Update regular cards styling for consistency
-- Ensure button styles match Formation pricing
-
----
-
-### 7. CoworkingGallery.tsx
-
-**Current**: Light gradient with floating orbs
-
-**Changes**:
-- Remove floating orbs
-- Keep image hover effects but use lighter overlays
-- Update filter buttons to match Formation styling
-
----
-
-### 8. CoworkingBenefits.tsx
-
-**Current**: Full navy section
-
-**Changes**:
-- Replace `bg-[hsl(var(--navy))]` with `bg-secondary/20`
-- Change glass cards to white cards with borders
-- Update all text colors to dark theme
-- Keep image card overlays but lighter
-
----
-
-### 9. CoworkingContact.tsx
-
-**Current**: Light form, dark contact panel
-
-**Changes**:
-- Keep split layout (form on white, contact on navy)
-- Remove floating orbs from background
-- Polish form card styling
-- Contact panel can stay navy for contrast
-
----
-
-### 10. CoworkingLocation.tsx
-
-**Current**: Light gradient with orbs
-
-**Changes**:
-- Remove floating orbs
-- Keep transport card navy (for variety)
-- Polish map placeholder styling
-
----
-
-### 11. CoworkingExplainer.tsx
-
-**Current**: Light left side, navy right panel
-
-**Changes**:
-- Remove floating orbs
-- Keep navy benefits panel (works well for contrast)
-- Update left side text styling
-
----
-
-## Specific CSS Pattern Updates
-
-### Badge Pattern
-**Current** (dark sections):
-```tsx
-<span className="inline-block px-4 py-1.5 rounded-full bg-[hsl(var(--gold)/0.15)] text-[hsl(var(--gold))] ...">
-```
-**New** (light sections):
-```tsx
-<span className="section-badge">
+**New Data Structure:**
+```typescript
+const workspaces = [
+  {
+    id: "hot-desk",
+    title: "Hot Desk",
+    price: "BHD 15",
+    period: "/day",
+    description: "Flexible daily access",
+    icon: Laptop,
+  },
+  {
+    id: "dedicated-desk",
+    title: "Dedicated Desk",
+    price: "BHD 99",
+    period: "/month",
+    description: "Your permanent spot",
+    icon: Users,
+  },
+  {
+    id: "private-office",
+    title: "Private Office",
+    price: "BHD 299",
+    period: "/month",
+    description: "Team workspace",
+    icon: Building2,
+  },
+  {
+    id: "meeting-room",
+    title: "Meeting Room",
+    price: "BHD 25",
+    period: "/hour",
+    description: "Hourly booking",
+    icon: Clock,
+  },
+];
 ```
 
-### Card Pattern
-**Current** (glass):
-```tsx
-<div className="glass-card p-6 ...">
-```
-**New** (light):
-```tsx
-<div className="bg-white rounded-xl border border-border p-6 shadow-sm ...">
+### CoworkingLocation.tsx Changes
+
+**Update Address:**
+```typescript
+<h3>Keylink Coworking Space</h3>
+<p>
+  Sanabis Exhibition Tower<br />
+  Sanabis, Kingdom of Bahrain
+</p>
 ```
 
-### Icon Container Pattern
-**Current**:
-```tsx
-<div className="bg-[hsl(var(--gold)/0.15)] ...">
+**Update Nearby Landmarks:**
+```typescript
+const nearbyPlaces = [
+  { icon: Building, name: "Bahrain Exhibition Centre", distance: "2 min walk" },
+  { icon: ShoppingBag, name: "Seef Mall", distance: "5 min drive" },
+  { icon: Landmark, name: "City Centre Bahrain", distance: "7 min drive" },
+  { icon: Car, name: "Free parking", distance: "Available" },
+  { icon: Coffee, name: "Restaurants & cafes", distance: "Within building" },
+];
 ```
-**New**:
-```tsx
-<div className="bg-accent/10 ...">
+
+**Update Google Maps Link:**
+```typescript
+href="https://maps.google.com/?q=Sanabis+Exhibition+Tower+Bahrain"
+```
+
+### CoworkingContact.tsx Changes
+
+**Update Location in Contact Panel:**
+```typescript
+<p className="text-primary-foreground/70">
+  Sanabis Exhibition Tower<br />
+  Sanabis, Kingdom of Bahrain
+</p>
 ```
 
 ---
 
 ## Files to Modify
 
-| File | Key Changes |
-|------|-------------|
-| `CoworkingHero.tsx` | Full light redesign matching FormationHero |
-| `CoworkingTrustBar.tsx` | White background, simple stats bar |
-| `WorkspaceTypes.tsx` | Remove orbs, lighter overlays |
-| `CoworkingAmenities.tsx` | White background with grid pattern |
-| `CoworkingWhyChoose.tsx` | Remove orbs, polish styling |
-| `CoworkingPricing.tsx` | Minor styling updates |
-| `CoworkingGallery.tsx` | Remove orbs, lighter styling |
-| `CoworkingBenefits.tsx` | Light background with white cards |
-| `CoworkingContact.tsx` | Remove orbs from background |
-| `CoworkingLocation.tsx` | Remove orbs, polish styling |
-| `CoworkingExplainer.tsx` | Remove orbs, keep navy panel |
+| File | Changes |
+|------|---------|
+| `src/components/services/coworking/WorkspaceTypes.tsx` | Complete redesign to 4-column simple cards |
+| `src/components/services/coworking/CoworkingLocation.tsx` | Update address and nearby landmarks |
+| `src/components/services/coworking/CoworkingContact.tsx` | Update location in contact panel |
 
 ---
 
-## Animation Strategy
-
-- Keep existing framer-motion animations
-- They work well in light mode
-- No changes needed to animation logic
-
----
-
-## Expected Outcome
+## Visual Result
 
 After implementation:
-- Consistent visual language with Company Formation page
-- Clean, professional light mode aesthetic
-- Navy and gold accents on white backgrounds
-- Improved readability with proper contrast
-- Strategic navy sections for visual variety (Pricing popular card, Contact panel, Transport card)
-- Removed floating orbs for cleaner look
-- Maintained premium, modern feel
+- Modern, minimal 4-column workspace cards matching reference design
+- Consistent location: "Sanabis Exhibition Tower" across all sections
+- Clean aesthetic with proper visual hierarchy
+- Cards that are informative but not overwhelming
+- Mobile responsive: 2 columns on mobile, 4 columns on desktop
+
