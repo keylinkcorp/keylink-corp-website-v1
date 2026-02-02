@@ -1,55 +1,47 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Check, X, Sparkles } from "lucide-react";
+import { useInView } from "framer-motion";
+import { Check, X, Sparkles, Building2, Landmark } from "lucide-react";
 
 const comparisonData = [
   {
     feature: "Monthly Cost",
     coworking: "From BHD 15/day",
     traditional: "BHD 800+/month minimum",
-    isCoworkingBetter: true,
   },
   {
     feature: "Commitment",
     coworking: "No long-term contracts",
     traditional: "1-3 year lease required",
-    isCoworkingBetter: true,
   },
   {
     feature: "Setup Time",
     coworking: "Start working tomorrow",
     traditional: "Weeks of setup & furnishing",
-    isCoworkingBetter: true,
   },
   {
     feature: "Utilities & Internet",
     coworking: "All included",
     traditional: "Separate bills & contracts",
-    isCoworkingBetter: true,
   },
   {
     feature: "Maintenance & Cleaning",
     coworking: "Fully managed",
     traditional: "Your responsibility",
-    isCoworkingBetter: true,
   },
   {
     feature: "Networking",
     coworking: "Built-in community",
     traditional: "Isolated environment",
-    isCoworkingBetter: true,
   },
   {
     feature: "Scalability",
     coworking: "Scale up/down anytime",
     traditional: "Locked into fixed size",
-    isCoworkingBetter: true,
   },
   {
     feature: "Meeting Rooms",
     coworking: "On-demand booking",
     traditional: "Must build or rent separately",
-    isCoworkingBetter: true,
   },
 ];
 
@@ -81,85 +73,110 @@ export function CoworkingComparison() {
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+        <div
+          className={`text-center mb-14 transition-all duration-700 ${
+            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+          }`}
         >
           <span className="section-badge">Smart Choice</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            Why Choose Coworking Over Traditional?
+            Why Choose Coworking?
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            See how flexible workspace compares to traditional office leases
+            See the difference at a glance
           </p>
-        </motion.div>
+        </div>
 
-        {/* Comparison Table */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="bg-background rounded-2xl border border-border overflow-hidden shadow-lg">
-            {/* Table Header */}
-            <div className="grid grid-cols-3 bg-primary text-primary-foreground">
-              <div className="p-4 md:p-6 font-medium text-sm md:text-base">
-                Feature
+        {/* Two Column Cards */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          
+          {/* Keylink Card - Highlighted */}
+          <div
+            className={`relative p-6 md:p-8 rounded-2xl bg-background border-2 border-accent/30 shadow-xl overflow-hidden transition-all duration-700 delay-100 hover:-translate-y-1 ${
+              isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            {/* Decorative gradient */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent pointer-events-none" />
+            
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                <Building2 className="w-6 h-6 text-accent" />
               </div>
-              <div className="p-4 md:p-6 font-semibold text-sm md:text-base text-center border-l border-white/10">
-                <span className="hidden sm:inline">Keylink </span>Coworking
-              </div>
-              <div className="p-4 md:p-6 font-medium text-sm md:text-base text-center border-l border-white/10 text-primary-foreground/70">
-                Traditional Office
+              <div>
+                <h3 className="font-bold text-lg text-primary">Keylink Coworking</h3>
+                <span className="text-sm text-accent font-medium">Recommended</span>
               </div>
             </div>
-
-            {/* Table Body */}
-            {comparisonData.map((row, index) => (
-              <div
-                key={row.feature}
-                className={`grid grid-cols-3 ${
-                  index % 2 === 0 ? "bg-background" : "bg-secondary/30"
-                } ${index < comparisonData.length - 1 ? "border-b border-border" : ""}`}
-              >
-                <div className="p-4 md:p-5 text-sm md:text-base font-medium text-primary">
-                  {row.feature}
-                </div>
-                <div className="p-4 md:p-5 text-sm md:text-base text-center border-l border-border">
-                  <div className="flex items-center justify-center gap-2">
-                    <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
-                    <span className="text-primary">{row.coworking}</span>
+            
+            {/* Feature List */}
+            <div className="space-y-5">
+              {comparisonData.map((item, index) => (
+                <div 
+                  key={item.feature} 
+                  className="flex items-start gap-3"
+                  style={{
+                    transitionDelay: `${150 + index * 50}ms`,
+                  }}
+                >
+                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="w-4 h-4 text-green-600" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-primary">{item.coworking}</p>
+                    <p className="text-sm text-muted-foreground">{item.feature}</p>
                   </div>
                 </div>
-                <div className="p-4 md:p-5 text-sm md:text-base text-center border-l border-border">
-                  <div className="flex items-center justify-center gap-2">
-                    <X className="w-4 h-4 text-red-500 flex-shrink-0" />
-                    <span className="text-muted-foreground">{row.traditional}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Savings Callout */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 border border-accent/30 text-center"
+          {/* Traditional Card - Muted */}
+          <div
+            className={`p-6 md:p-8 rounded-2xl bg-secondary/40 border border-border transition-all duration-700 delay-200 ${
+              isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
           >
-            <div className="flex items-center justify-center gap-3 flex-wrap">
-              <Sparkles className="w-6 h-6 text-accent" />
-              <p className="text-lg md:text-xl font-bold text-primary">
-                Save up to <span className="text-accent">BHD 6,000/year</span> vs traditional office leases
-              </p>
-              <Sparkles className="w-6 h-6 text-accent" />
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-8 opacity-70">
+              <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
+                <Landmark className="w-6 h-6 text-muted-foreground" />
+              </div>
+              <h3 className="font-semibold text-lg text-muted-foreground">Traditional Office</h3>
             </div>
-          </motion.div>
-        </motion.div>
+            
+            {/* Feature List */}
+            <div className="space-y-5">
+              {comparisonData.map((item) => (
+                <div key={item.feature} className="flex items-start gap-3 opacity-70">
+                  <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <X className="w-4 h-4 text-red-500" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-muted-foreground">{item.traditional}</p>
+                    <p className="text-sm text-muted-foreground/70">{item.feature}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Savings Callout */}
+        <div
+          className={`mt-8 p-6 rounded-2xl bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 border border-accent/30 text-center max-w-5xl mx-auto transition-all duration-700 delay-300 ${
+            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+          }`}
+        >
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <Sparkles className="w-6 h-6 text-accent" />
+            <p className="text-lg md:text-xl font-bold text-primary">
+              Save up to <span className="text-accent">BHD 6,000/year</span> vs traditional office leases
+            </p>
+            <Sparkles className="w-6 h-6 text-accent" />
+          </div>
+        </div>
       </div>
     </section>
   );
