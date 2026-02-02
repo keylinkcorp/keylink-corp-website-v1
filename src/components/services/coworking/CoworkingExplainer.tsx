@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { CheckCircle2, Zap, Shield, Globe, TrendingUp, Clock } from "lucide-react";
+import { CheckCircle2, Zap, Shield, Globe, TrendingUp, Clock, Sparkles } from "lucide-react";
 
 const benefits = [
   { icon: Zap, text: "Instant access to professional workspaces" },
@@ -12,8 +12,8 @@ const benefits = [
 
 const facts = [
   { label: "Starting From", value: "BHD 15/day" },
-  { label: "Contract Length", value: "No long-term commitment" },
-  { label: "Locations", value: "Prime Manama District" },
+  { label: "Contract Length", value: "No commitment" },
+  { label: "Locations", value: "Prime Manama" },
   { label: "Amenities", value: "12+ included" },
 ];
 
@@ -36,12 +36,19 @@ export function CoworkingExplainer() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background Pattern */}
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/20 to-background" />
+
+      {/* Floating Orbs */}
+      <div className="absolute top-20 right-[15%] w-64 h-64 floating-orb floating-orb-gold animate-float opacity-25" />
+      <div className="absolute bottom-32 left-[10%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-30" />
+
+      {/* Pattern */}
       <div
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
+          backgroundSize: "48px 48px",
         }}
       />
 
@@ -83,42 +90,58 @@ export function CoworkingExplainer() {
             </motion.div>
           </motion.div>
 
-          {/* Benefits Panel */}
+          {/* Benefits Panel with Glass Effect */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-secondary/50 rounded-2xl border border-border p-8"
+            className="relative bg-[hsl(var(--navy))] rounded-2xl p-8 md:p-10 text-white overflow-hidden"
           >
-            <h3 className="text-xl font-semibold text-primary mb-6">
-              Why Choose a Shared Office Space?
-            </h3>
+            {/* Decorative orbs */}
+            <div className="absolute top-0 right-0 w-48 h-48 floating-orb floating-orb-gold opacity-30" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 floating-orb floating-orb-gold opacity-20" />
 
-            <ul className="space-y-4 mb-8">
-              {benefits.map((benefit, index) => {
-                const Icon = benefit.icon;
-                return (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center mt-0.5">
-                      <Icon className="w-4 h-4 text-accent" />
-                    </div>
-                    <span className="text-muted-foreground">{benefit.text}</span>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--gold)/0.15)] border border-[hsl(var(--gold)/0.2)] mb-6">
+                <Sparkles className="w-4 h-4 text-[hsl(var(--gold))]" />
+                <span className="text-sm font-medium text-[hsl(var(--gold))]">Key Benefits</span>
+              </div>
 
-            {/* Key Facts Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {facts.map((fact, index) => (
-                <div
-                  key={index}
-                  className="bg-background rounded-xl p-4 border border-border"
-                >
-                  <div className="text-sm text-muted-foreground mb-1">{fact.label}</div>
-                  <div className="text-lg font-semibold text-primary">{fact.value}</div>
-                </div>
-              ))}
+              <h3 className="text-xl font-semibold mb-6">
+                Why Choose a Shared Office Space?
+              </h3>
+
+              <ul className="space-y-4 mb-8">
+                {benefits.map((benefit, index) => {
+                  const Icon = benefit.icon;
+                  return (
+                    <motion.li 
+                      key={index} 
+                      className="flex items-start gap-3 group"
+                      whileHover={{ x: 4 }}
+                    >
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[hsl(var(--gold)/0.15)] flex items-center justify-center mt-0.5 group-hover:bg-[hsl(var(--gold)/0.25)] transition-colors">
+                        <Icon className="w-5 h-5 text-[hsl(var(--gold))]" />
+                      </div>
+                      <span className="text-white/80 pt-2">{benefit.text}</span>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+
+              {/* Key Facts Grid */}
+              <div className="grid grid-cols-2 gap-4">
+                {facts.map((fact, index) => (
+                  <motion.div
+                    key={index}
+                    className="glass-card p-4"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <div className="text-xs text-white/50 mb-1">{fact.label}</div>
+                    <div className="text-lg font-bold text-[hsl(var(--gold))]">{fact.value}</div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>

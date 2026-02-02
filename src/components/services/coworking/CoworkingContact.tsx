@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, ArrowLeft, Users, Building2, Clock, Laptop, CheckCircle2, Phone, Mail, MapPin } from "lucide-react";
+import { ArrowRight, ArrowLeft, Users, Building2, Clock, Laptop, CheckCircle2, Phone, Mail, MapPin, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -30,29 +30,36 @@ export function CoworkingContact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log({ selectedWorkspace, ...formData });
   };
 
   return (
-    <section ref={ref} id="contact" className="relative py-20 md:py-28 bg-secondary/30 overflow-hidden">
-      {/* Background Pattern */}
+    <section ref={ref} id="contact" className="relative py-20 md:py-28 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/30 to-background" />
+
+      {/* Floating Orbs */}
+      <div className="absolute top-20 left-[5%] w-64 h-64 floating-orb floating-orb-gold animate-float opacity-25" />
+      <div className="absolute bottom-32 right-[20%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-30" />
+
+      {/* Pattern */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
-          opacity: 0.5,
+          backgroundSize: "48px 48px",
+          opacity: 0.4,
         }}
       />
 
       <div className="container relative z-10 mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Left Column - Form */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
+            className="bg-background rounded-2xl border border-border p-8 md:p-10 shadow-xl"
           >
             <span className="section-badge">Get Started</span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -66,14 +73,20 @@ export function CoworkingContact() {
             {/* Step Indicator */}
             <div className="flex items-center gap-4 mb-8">
               <div className={`flex items-center gap-2 ${step >= 1 ? "text-accent" : "text-muted-foreground"}`}>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step >= 1 ? "bg-accent text-accent-foreground" : "bg-secondary"}`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
+                  step >= 1 ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20" : "bg-secondary"
+                }`}>
                   {step > 1 ? <CheckCircle2 className="w-5 h-5" /> : "1"}
                 </div>
                 <span className="text-sm font-medium hidden sm:inline">Choose Workspace</span>
               </div>
-              <div className="flex-1 h-px bg-border" />
+              <div className="flex-1 h-0.5 bg-border rounded-full overflow-hidden">
+                <div className={`h-full bg-accent transition-all duration-500 ${step >= 2 ? 'w-full' : 'w-0'}`} />
+              </div>
               <div className={`flex items-center gap-2 ${step >= 2 ? "text-accent" : "text-muted-foreground"}`}>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step >= 2 ? "bg-accent text-accent-foreground" : "bg-secondary"}`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
+                  step >= 2 ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20" : "bg-secondary"
+                }`}>
                   2
                 </div>
                 <span className="text-sm font-medium hidden sm:inline">Your Details</span>
@@ -100,13 +113,19 @@ export function CoworkingContact() {
                           key={option.id}
                           type="button"
                           onClick={() => setSelectedWorkspace(option.id)}
-                          className={`p-5 rounded-xl border text-left transition-all ${
+                          className={`group p-5 rounded-xl border text-left transition-all duration-300 ${
                             selectedWorkspace === option.id
-                              ? "border-accent bg-accent/5 shadow-md"
-                              : "border-border bg-background hover:border-accent/50"
+                              ? "border-accent bg-accent/10 shadow-lg shadow-accent/10"
+                              : "border-border bg-background hover:border-accent/50 hover:bg-secondary/50"
                           }`}
                         >
-                          <Icon className={`w-6 h-6 mb-3 ${selectedWorkspace === option.id ? "text-accent" : "text-muted-foreground"}`} />
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 transition-colors ${
+                            selectedWorkspace === option.id ? 'bg-accent/20' : 'bg-secondary group-hover:bg-accent/10'
+                          }`}>
+                            <Icon className={`w-5 h-5 transition-colors ${
+                              selectedWorkspace === option.id ? "text-accent" : "text-muted-foreground group-hover:text-accent"
+                            }`} />
+                          </div>
                           <h4 className="font-semibold text-primary mb-1">{option.label}</h4>
                           <p className="text-sm text-muted-foreground">{option.description}</p>
                         </button>
@@ -117,7 +136,7 @@ export function CoworkingContact() {
                     type="button"
                     onClick={() => setStep(2)}
                     disabled={!selectedWorkspace}
-                    className="w-full mt-6"
+                    className="w-full mt-6 bg-accent hover:bg-accent/90"
                     size="lg"
                   >
                     Continue
@@ -143,7 +162,7 @@ export function CoworkingContact() {
                         onChange={handleInputChange}
                         placeholder="John Smith"
                         required
-                        className="h-12"
+                        className="h-12 rounded-xl"
                       />
                     </div>
                     <div>
@@ -155,7 +174,7 @@ export function CoworkingContact() {
                         onChange={handleInputChange}
                         placeholder="john@company.com"
                         required
-                        className="h-12"
+                        className="h-12 rounded-xl"
                       />
                     </div>
                   </div>
@@ -169,7 +188,7 @@ export function CoworkingContact() {
                         onChange={handleInputChange}
                         placeholder="+973 1234 5678"
                         required
-                        className="h-12"
+                        className="h-12 rounded-xl"
                       />
                     </div>
                     <div>
@@ -179,7 +198,7 @@ export function CoworkingContact() {
                         value={formData.company}
                         onChange={handleInputChange}
                         placeholder="Your Company"
-                        className="h-12"
+                        className="h-12 rounded-xl"
                       />
                     </div>
                   </div>
@@ -199,13 +218,17 @@ export function CoworkingContact() {
                       type="button"
                       variant="outline"
                       onClick={() => setStep(1)}
-                      className="flex-1"
+                      className="flex-1 rounded-xl"
                       size="lg"
                     >
                       <ArrowLeft className="w-4 h-4 mr-2" />
                       Back
                     </Button>
-                    <Button type="submit" className="flex-1 bg-accent hover:bg-accent/90" size="lg">
+                    <Button 
+                      type="submit" 
+                      className="flex-1 bg-accent hover:bg-accent/90 rounded-xl shadow-lg shadow-accent/20" 
+                      size="lg"
+                    >
                       Book Free Tour
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -215,63 +238,74 @@ export function CoworkingContact() {
             </form>
           </motion.div>
 
-          {/* Right Column - Contact Info */}
+          {/* Right Column - Contact Info (Dark Glass Panel) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-primary rounded-2xl p-8 text-white"
+            className="relative bg-[hsl(var(--navy))] rounded-2xl p-8 md:p-10 text-white overflow-hidden"
           >
-            <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-            <p className="text-white/70 mb-8">
-              Prefer to reach out directly? Our team is available to answer your questions 
-              and help you find the perfect workspace.
-            </p>
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-40 h-40 floating-orb floating-orb-gold opacity-30" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 floating-orb floating-orb-gold opacity-20" />
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-5 h-5 text-accent" />
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--gold)/0.15)] border border-[hsl(var(--gold)/0.2)] mb-6">
+                <Sparkles className="w-4 h-4 text-[hsl(var(--gold))]" />
+                <span className="text-sm font-medium text-[hsl(var(--gold))]">Contact Us</span>
+              </div>
+
+              <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
+              <p className="text-white/70 mb-8">
+                Prefer to reach out directly? Our team is available to answer your questions 
+                and help you find the perfect workspace.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[hsl(var(--gold)/0.2)] transition-colors">
+                    <Phone className="w-5 h-5 text-[hsl(var(--gold))]" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium mb-1">Phone</h4>
+                    <p className="text-white/70">+973 1700 0000</p>
+                    <p className="text-white/70">+973 3300 0000</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-medium mb-1">Phone</h4>
-                  <p className="text-white/70">+973 1700 0000</p>
-                  <p className="text-white/70">+973 3300 0000</p>
+
+                <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[hsl(var(--gold)/0.2)] transition-colors">
+                    <Mail className="w-5 h-5 text-[hsl(var(--gold))]" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium mb-1">Email</h4>
+                    <p className="text-white/70">coworking@keylinkcorp.com</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[hsl(var(--gold)/0.2)] transition-colors">
+                    <MapPin className="w-5 h-5 text-[hsl(var(--gold))]" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium mb-1">Location</h4>
+                    <p className="text-white/70">
+                      Diplomatic Area, Building 247<br />
+                      Road 1705, Block 317<br />
+                      Manama, Kingdom of Bahrain
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 text-accent" />
+              {/* Business Hours */}
+              <div className="mt-10 pt-8 border-t border-white/10">
+                <h4 className="font-medium mb-4">Business Hours</h4>
+                <div className="space-y-2 text-white/70">
+                  <p>Sunday - Thursday: 8:00 AM - 8:00 PM</p>
+                  <p>Friday - Saturday: 9:00 AM - 5:00 PM</p>
+                  <p className="text-[hsl(var(--gold))] font-medium">24/7 access for members</p>
                 </div>
-                <div>
-                  <h4 className="font-medium mb-1">Email</h4>
-                  <p className="text-white/70">coworking@keylinkcorp.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-5 h-5 text-accent" />
-                </div>
-                <div>
-                  <h4 className="font-medium mb-1">Location</h4>
-                  <p className="text-white/70">
-                    Diplomatic Area, Building 247<br />
-                    Road 1705, Block 317<br />
-                    Manama, Kingdom of Bahrain
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="mt-10 pt-8 border-t border-white/10">
-              <h4 className="font-medium mb-4">Business Hours</h4>
-              <div className="space-y-2 text-white/70">
-                <p>Sunday - Thursday: 8:00 AM - 8:00 PM</p>
-                <p>Friday - Saturday: 9:00 AM - 5:00 PM</p>
-                <p className="text-accent">24/7 access for members</p>
               </div>
             </div>
           </motion.div>

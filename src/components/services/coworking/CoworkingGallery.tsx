@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import heroImg from "@/assets/coworking/hero-coworking.jpg";
 import hotDeskImg from "@/assets/coworking/hot-desk.jpg";
 import privateOfficeImg from "@/assets/coworking/private-office.jpg";
@@ -33,14 +33,21 @@ export function CoworkingGallery() {
     : galleryImages.filter((img) => img.category === activeFilter);
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 bg-secondary/30 overflow-hidden">
-      {/* Background Pattern */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
+
+      {/* Floating Orbs */}
+      <div className="absolute top-20 right-[10%] w-64 h-64 floating-orb floating-orb-gold animate-float opacity-20" />
+      <div className="absolute bottom-32 left-[5%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-25" />
+
+      {/* Pattern */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
-          opacity: 0.5,
+          backgroundSize: "48px 48px",
+          opacity: 0.4,
         }}
       />
 
@@ -61,59 +68,76 @@ export function CoworkingGallery() {
           </p>
         </motion.div>
 
-        {/* Filter Tabs */}
+        {/* Glass Filter Tabs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-2 mb-10"
+          className="flex flex-wrap justify-center gap-2 mb-12"
         >
           {filters.map((filter) => (
             <button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`relative px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden ${
                 activeFilter === filter.id
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "bg-background text-muted-foreground hover:bg-secondary border border-border"
+                  ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20"
+                  : "bg-background/80 backdrop-blur-sm text-muted-foreground hover:text-primary border border-border hover:border-accent/50"
               }`}
             >
               {filter.label}
+              {/* Underline animation */}
+              {activeFilter === filter.id && (
+                <motion.div
+                  layoutId="activeFilter"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-foreground/50"
+                />
+              )}
             </button>
           ))}
         </motion.div>
 
-        {/* Gallery Grid */}
+        {/* Gallery Grid with Masonry-style */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
         >
-          {filteredImages.map((image, index) => (
-            <motion.div
-              key={image.id}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer"
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
-              {/* Title */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-white font-semibold text-lg">{image.title}</h3>
-                <p className="text-white/70 text-sm">{image.alt}</p>
-              </div>
-            </motion.div>
-          ))}
+          <AnimatePresence mode="popLayout">
+            {filteredImages.map((image, index) => (
+              <motion.div
+                key={image.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className={`group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer card-glow ${
+                  index === 0 ? 'md:row-span-2 md:aspect-auto md:h-full' : ''
+                }`}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                
+                {/* Multi-layer Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--navy))] via-[hsl(var(--navy)/0.3)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--gold)/0.1)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Title Reveal */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <div className="glass-card-light px-4 py-3 inline-block">
+                    <h3 className="font-semibold text-primary text-lg">{image.title}</h3>
+                    <p className="text-muted-foreground text-sm">{image.alt}</p>
+                  </div>
+                </div>
+
+                {/* Corner accent */}
+                <div className="absolute top-4 right-4 w-3 h-3 rounded-full bg-accent/50 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { MapPin, Train, Car, Building, Landmark, Coffee } from "lucide-react";
+import { MapPin, Train, Car, Building, Landmark, Coffee, ExternalLink } from "lucide-react";
 
 const nearbyPlaces = [
   { icon: Building, name: "Bahrain Financial Harbour", distance: "5 min walk" },
@@ -16,12 +16,19 @@ export function CoworkingLocation() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background Pattern */}
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
+
+      {/* Floating Orbs */}
+      <div className="absolute top-32 right-[10%] w-56 h-56 floating-orb floating-orb-gold animate-float opacity-25" />
+      <div className="absolute bottom-20 left-[5%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-30" />
+
+      {/* Pattern */}
       <div
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "32px 32px",
+          backgroundSize: "40px 40px",
         }}
       />
 
@@ -44,31 +51,53 @@ export function CoworkingLocation() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-start">
-          {/* Map Placeholder */}
+          {/* Map Placeholder with Glass Effect */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="relative rounded-2xl overflow-hidden border border-border bg-secondary h-[400px]"
+            className="relative rounded-2xl overflow-hidden border border-border bg-secondary/50 h-[450px] group"
           >
-            {/* Map Placeholder - Replace with actual map embed */}
+            {/* Simulated map background pattern */}
+            <div
+              className="absolute inset-0 opacity-30"
+              style={{
+                backgroundImage: `
+                  linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
+                  linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)
+                `,
+                backgroundSize: "30px 30px",
+              }}
+            />
+            
+            {/* Map placeholder content */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
-                  <MapPin className="w-8 h-8 text-accent" />
+                <div className="relative inline-block mb-6">
+                  <div className="w-20 h-20 rounded-full bg-accent/20 flex items-center justify-center animate-pulse">
+                    <MapPin className="w-10 h-10 text-accent" />
+                  </div>
+                  <div className="absolute inset-0 w-20 h-20 rounded-full bg-accent/10 animate-ping" />
                 </div>
-                <p className="text-muted-foreground mb-4">Interactive map</p>
+                <p className="text-muted-foreground mb-6 text-lg">Interactive map coming soon</p>
                 <a
                   href="https://maps.google.com/?q=Diplomatic+Area+Manama+Bahrain"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 hover:scale-[1.02]"
                 >
-                  <MapPin className="w-4 h-4" />
+                  <MapPin className="w-5 h-5" />
                   View on Google Maps
+                  <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
             </div>
+
+            {/* Decorative corner elements */}
+            <div className="absolute top-4 left-4 w-12 h-12 border-l-2 border-t-2 border-accent/30 rounded-tl-lg" />
+            <div className="absolute top-4 right-4 w-12 h-12 border-r-2 border-t-2 border-accent/30 rounded-tr-lg" />
+            <div className="absolute bottom-4 left-4 w-12 h-12 border-l-2 border-b-2 border-accent/30 rounded-bl-lg" />
+            <div className="absolute bottom-4 right-4 w-12 h-12 border-r-2 border-b-2 border-accent/30 rounded-br-lg" />
           </motion.div>
 
           {/* Location Details */}
@@ -76,12 +105,13 @@ export function CoworkingLocation() {
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-6"
           >
-            {/* Address Card */}
-            <div className="bg-background rounded-2xl border border-border p-8 mb-6">
+            {/* Address Card with Glass Effect */}
+            <div className="bg-background rounded-2xl border border-border p-8 shadow-xl card-glow">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-accent" />
+                <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-7 h-7 text-accent" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-primary mb-2">Keylink Coworking Space</h3>
@@ -94,33 +124,47 @@ export function CoworkingLocation() {
               </div>
 
               <div className="border-t border-border pt-6">
-                <h4 className="font-medium text-primary mb-4">Nearby Landmarks</h4>
+                <h4 className="font-semibold text-primary mb-4">Nearby Landmarks</h4>
                 <div className="space-y-3">
                   {nearbyPlaces.map((place, index) => {
                     const Icon = place.icon;
                     return (
-                      <div key={index} className="flex items-center justify-between">
+                      <motion.div 
+                        key={index} 
+                        className="flex items-center justify-between p-3 rounded-xl hover:bg-secondary/50 transition-colors group"
+                        whileHover={{ x: 4 }}
+                      >
                         <div className="flex items-center gap-3">
-                          <Icon className="w-4 h-4 text-accent" />
+                          <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                            <Icon className="w-4 h-4 text-accent" />
+                          </div>
                           <span className="text-muted-foreground">{place.name}</span>
                         </div>
-                        <span className="text-sm text-muted-foreground">{place.distance}</span>
-                      </div>
+                        <span className="text-sm text-accent font-medium">{place.distance}</span>
+                      </motion.div>
                     );
                   })}
                 </div>
               </div>
             </div>
 
-            {/* Transport Info */}
-            <div className="bg-secondary/50 rounded-2xl border border-border p-6">
-              <h4 className="font-semibold text-primary mb-3">Getting Here</h4>
-              <p className="text-muted-foreground leading-relaxed">
-                Our coworking space is easily accessible by car with ample parking available. 
-                The location is well-connected to major highways and just 15 minutes from 
-                Bahrain International Airport. Public transportation options and taxi 
-                services are readily available in the area.
-              </p>
+            {/* Transport Info Card */}
+            <div className="bg-[hsl(var(--navy))] rounded-2xl p-6 text-white overflow-hidden relative">
+              {/* Decorative orb */}
+              <div className="absolute top-0 right-0 w-32 h-32 floating-orb floating-orb-gold opacity-30" />
+              
+              <div className="relative z-10">
+                <h4 className="font-semibold mb-3 flex items-center gap-2">
+                  <Car className="w-5 h-5 text-[hsl(var(--gold))]" />
+                  Getting Here
+                </h4>
+                <p className="text-white/70 leading-relaxed">
+                  Our coworking space is easily accessible by car with ample parking available. 
+                  The location is well-connected to major highways and just 15 minutes from 
+                  Bahrain International Airport. Public transportation options and taxi 
+                  services are readily available in the area.
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>

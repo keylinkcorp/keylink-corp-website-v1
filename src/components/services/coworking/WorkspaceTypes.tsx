@@ -11,42 +11,42 @@ const workspaces = [
   {
     id: "hot-desk",
     title: "Hot Desk / Day Pass",
-    description: "Perfect for freelancers and remote workers who need occasional access to a professional workspace in Bahrain. Drop in any time and work from any available desk.",
+    description: "Perfect for freelancers and remote workers who need occasional access to a professional workspace.",
     price: "From BHD 15/day",
     features: ["High-speed WiFi", "Free coffee & tea", "Meeting room credits", "Printing access"],
     icon: Laptop,
     image: hotDeskImg,
-    size: "large",
+    gridClass: "md:col-span-2 md:row-span-2",
   },
   {
     id: "dedicated-desk",
     title: "Dedicated Desk",
-    description: "Your own permanent desk in our shared workspace. Keep your belongings secure and enjoy consistent neighbors for collaboration.",
+    description: "Your own permanent desk in our shared workspace with secure storage.",
     price: "From BHD 99/month",
     features: ["Personal storage", "24/7 access", "Mail handling", "Business address"],
     icon: Users,
     image: loungeImg,
-    size: "small",
+    gridClass: "md:col-span-1 md:row-span-1",
   },
   {
     id: "private-office",
     title: "Private Office",
-    description: "Fully furnished private office spaces for teams of 2-20. Customizable layouts with your branding and complete privacy.",
+    description: "Fully furnished private office spaces for teams of 2-20.",
     price: "From BHD 299/month",
-    features: ["Lockable space", "Custom branding", "Meeting rooms included", "Reception services"],
+    features: ["Lockable space", "Custom branding", "Meeting rooms included"],
     icon: Building2,
     image: privateOfficeImg,
-    size: "small",
+    gridClass: "md:col-span-1 md:row-span-1",
   },
   {
     id: "meeting-room",
     title: "Meeting Rooms",
-    description: "Professional meeting rooms equipped with presentation technology. Book by the hour for client meetings, interviews, or team sessions.",
+    description: "Professional meeting rooms equipped with presentation technology.",
     price: "From BHD 25/hour",
-    features: ["AV equipment", "Video conferencing", "Whiteboards", "Catering available"],
+    features: ["AV equipment", "Video conferencing", "Catering available"],
     icon: Clock,
     image: meetingRoomImg,
-    size: "large",
+    gridClass: "md:col-span-2 md:row-span-1",
   },
 ];
 
@@ -59,8 +59,13 @@ const staggerContainer = {
 };
 
 const staggerItem = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { duration: 0.7 } 
+  },
 };
 
 export function WorkspaceTypes() {
@@ -68,16 +73,23 @@ export function WorkspaceTypes() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 bg-secondary/30 overflow-hidden">
-      {/* Background Pattern */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
+      {/* Background with gradient mesh */}
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
+      
+      {/* Floating Orbs */}
+      <div className="absolute top-20 left-[5%] w-72 h-72 floating-orb floating-orb-gold animate-float opacity-30" />
+      <div className="absolute bottom-20 right-[10%] w-56 h-56 floating-orb floating-orb-navy animate-float-slow opacity-40" />
+
+      {/* Pattern */}
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: `linear-gradient(to right, hsl(var(--border) / 0.5) 1px, transparent 1px),
-                            linear-gradient(to bottom, hsl(var(--border) / 0.5) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-          maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%)",
+          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+          backgroundSize: "48px 48px",
+          maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%)",
+          opacity: 0.5,
         }}
       />
 
@@ -104,58 +116,69 @@ export function WorkspaceTypes() {
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 gap-6"
+          className="grid md:grid-cols-3 gap-5 md:gap-6"
         >
           {workspaces.map((workspace) => {
             const Icon = workspace.icon;
+            const isLarge = workspace.gridClass.includes("col-span-2") && workspace.gridClass.includes("row-span-2");
+            
             return (
               <motion.div
                 key={workspace.id}
                 variants={staggerItem}
-                className={`group relative overflow-hidden rounded-2xl border border-border bg-background ${
-                  workspace.size === "large" ? "md:row-span-1" : ""
-                }`}
+                className={`group relative overflow-hidden rounded-2xl cursor-pointer card-glow ${workspace.gridClass}`}
               >
-                {/* Image */}
-                <div className="relative h-56 overflow-hidden">
+                {/* Background Image */}
+                <div className="absolute inset-0">
                   <img
                     src={workspace.image}
                     alt={workspace.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                  
-                  {/* Price Badge */}
-                  <div className="absolute top-4 right-4 px-4 py-2 rounded-full bg-accent text-accent-foreground text-sm font-semibold shadow-lg">
+                </div>
+                
+                {/* Multi-layer Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--navy))] via-[hsl(var(--navy)/0.5)] to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--gold)/0.1)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Glass Price Badge */}
+                <div className="absolute top-4 right-4 z-10">
+                  <div className="glass-card px-4 py-2 text-[hsl(var(--gold))] text-sm font-bold">
                     {workspace.price}
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-accent" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-primary">{workspace.title}</h3>
+                <div className={`relative z-10 h-full flex flex-col justify-end p-6 ${isLarge ? 'md:p-8' : ''}`}>
+                  {/* Icon */}
+                  <div className="w-12 h-12 rounded-xl bg-[hsl(var(--gold)/0.2)] backdrop-blur-sm flex items-center justify-center mb-4 group-hover:bg-[hsl(var(--gold)/0.3)] transition-colors">
+                    <Icon className="w-6 h-6 text-[hsl(var(--gold))]" />
                   </div>
 
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                  <h3 className={`font-bold text-white mb-2 ${isLarge ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
+                    {workspace.title}
+                  </h3>
+
+                  <p className={`text-white/70 mb-4 leading-relaxed ${isLarge ? '' : 'text-sm line-clamp-2'}`}>
                     {workspace.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {workspace.features.map((feature, index) => (
+                  {/* Features (visible on larger cards or hover) */}
+                  <div className={`flex flex-wrap gap-2 mb-5 ${isLarge ? '' : 'opacity-0 group-hover:opacity-100 transition-opacity'}`}>
+                    {workspace.features.slice(0, isLarge ? 4 : 2).map((feature, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 rounded-full bg-secondary text-sm text-muted-foreground"
+                        className="glass-card px-3 py-1 text-xs text-white/80"
                       >
                         {feature}
                       </span>
                     ))}
                   </div>
 
-                  <Button variant="outline" className="w-full group/btn">
+                  <Button 
+                    variant="outline" 
+                    className="w-full md:w-auto border-white/30 text-white hover:bg-white/10 hover:border-white/50 group/btn"
+                  >
                     Learn More
                     <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
                   </Button>

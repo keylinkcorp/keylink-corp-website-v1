@@ -39,13 +39,18 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.12 },
   },
 };
 
 const staggerItem = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { duration: 0.6 } 
+  },
 };
 
 export function CoworkingWhyChoose() {
@@ -53,8 +58,15 @@ export function CoworkingWhyChoose() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 bg-secondary/30 overflow-hidden">
-      {/* Background Pattern */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
+      {/* Background Gradient Mesh */}
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary/40 via-background to-secondary/30" />
+      
+      {/* Floating Orbs */}
+      <div className="absolute top-32 left-[5%] w-72 h-72 floating-orb floating-orb-gold animate-float opacity-25" />
+      <div className="absolute bottom-20 right-[8%] w-56 h-56 floating-orb floating-orb-navy animate-float-slow opacity-30" />
+
+      {/* Pattern */}
       <div
         className="absolute inset-0"
         style={{
@@ -62,7 +74,9 @@ export function CoworkingWhyChoose() {
             linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
             linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
+          backgroundSize: "48px 48px",
+          maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
         }}
       />
 
@@ -89,7 +103,7 @@ export function CoworkingWhyChoose() {
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7"
         >
           {advantages.map((advantage, index) => {
             const Icon = advantage.icon;
@@ -97,18 +111,24 @@ export function CoworkingWhyChoose() {
               <motion.div
                 key={index}
                 variants={staggerItem}
-                className="group relative p-8 rounded-2xl bg-background border border-border hover:border-accent/50 hover:shadow-xl transition-all duration-300"
+                whileHover={{ y: -8 }}
+                className="group relative p-8 rounded-2xl bg-background border border-border hover:border-accent/50 hover:shadow-2xl transition-all duration-300 card-glow overflow-hidden"
               >
-                {/* Hexagon Icon Container */}
-                <div className="relative mb-6">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center group-hover:from-accent/30 group-hover:to-accent/10 transition-all duration-300">
-                    <Icon className="w-8 h-8 text-accent" />
-                  </div>
-                  {/* Decorative element */}
-                  <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-accent/20 group-hover:bg-accent/40 transition-colors" />
+                {/* Decorative corner element */}
+                <div className="absolute top-0 right-0 w-24 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-4 right-4 w-16 h-16 rounded-full bg-gradient-to-br from-accent/10 to-transparent" />
                 </div>
 
-                <h3 className="text-xl font-semibold text-primary mb-3">
+                {/* Hexagon-style Icon Container */}
+                <div className="relative mb-6">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 via-accent/10 to-transparent flex items-center justify-center group-hover:from-accent/30 group-hover:via-accent/15 transition-all duration-300 rotate-3 group-hover:rotate-0">
+                    <Icon className="w-8 h-8 text-accent transition-transform group-hover:scale-110 duration-300" />
+                  </div>
+                  {/* Decorative dot */}
+                  <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-accent/30 group-hover:bg-accent/50 transition-colors group-hover:scale-125 duration-300" />
+                </div>
+
+                <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-accent transition-colors">
                   {advantage.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -116,7 +136,7 @@ export function CoworkingWhyChoose() {
                 </p>
 
                 {/* Bottom accent line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-2xl" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.div>
             );
           })}
