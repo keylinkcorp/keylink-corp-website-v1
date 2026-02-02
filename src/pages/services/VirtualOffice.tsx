@@ -59,7 +59,7 @@ const virtualOfficeFAQs = [
   },
   {
     question: "Can I upgrade from virtual office to coworking or private office?",
-    answer: "Yes! Many of our virtual office clients eventually upgrade to hot desks, dedicated desks, or private offices as their business grows. We offer seamless transitions with no penalties, and you can maintain your business address continuity throughout."
+    answer: "Yes! Many of our virtual office clients eventually upgrade to hot desks, dedicated desks, or private offices as their business grows. We offer seamless transitions with no penalties, and you can maintain your business address continuity throughout. Explore our coworking space options at /services/coworking-space."
   },
   {
     question: "What address will appear on my CR and business documents?",
