@@ -1,44 +1,60 @@
-export const businessIncubatorsSchema = {
+export const incubatorSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "ProfessionalService",
-      "@id": "https://keylinkcorp.com/services/business-incubators#service",
-      "name": "Business Incubator & Accelerator Services Bahrain",
-      "description": "Expert guidance for startup incubator and accelerator applications in Bahrain. End-to-end support from company formation to Tamkeen, FinTech Bay, and C5 Accelerate program acceptance.",
-      "provider": {
-        "@type": "LocalBusiness",
-        "name": "Keylink Corp",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Manama",
-          "addressCountry": "BH"
-        },
-        "telephone": "+973 1700 0000",
-        "email": "info@keylinkcorp.com"
+      "@type": "LocalBusiness",
+      "@id": "https://keylinkcorp.com/#business",
+      "name": "Keylink Corp - Business Incubator Services Bahrain",
+      "description": "Expert guidance for business incubator and startup accelerator applications in Bahrain. End-to-end support from company formation to Tamkeen, FinTech Bay, and C5 Accelerate program acceptance. 85% first-application success rate for foreign entrepreneurs.",
+      "url": "https://keylinkcorp.com/services/business-incubators",
+      "telephone": "+973 1700 0000",
+      "email": "incubators@keylinkcorp.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Sanabis Exhibition Tower",
+        "addressLocality": "Manama",
+        "addressCountry": "BH"
       },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "26.2235",
+        "longitude": "50.5876"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "priceRange": "BHD 150 - BHD 1,200",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Bahrain"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://keylinkcorp.com/services/business-incubators#service",
+      "name": "Business Incubator & Startup Accelerator Services Bahrain",
+      "description": "Complete startup incubator placement services in Bahrain including Tamkeen grant applications, FinTech Bay accelerator programs, and C5 Accelerate. Company formation, application preparation, interview coaching, and post-acceptance support for foreign entrepreneurs and local founders.",
+      "provider": {
+        "@id": "https://keylinkcorp.com/#business"
+      },
+      "serviceType": "Business Incubator & Accelerator Consulting",
       "areaServed": {
         "@type": "Country",
         "name": "Bahrain"
       },
-      "serviceType": "Incubator & Accelerator Services",
-      "offers": {
-        "@type": "AggregateOffer",
-        "lowPrice": "150",
-        "highPrice": "1200",
-        "priceCurrency": "BHD",
-        "offerCount": 3
-      },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Incubator Services",
+        "name": "Incubator Services Packages",
         "itemListElement": [
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
               "name": "Application Review",
-              "description": "Program eligibility assessment and documentation review for founders with existing companies"
+              "description": "Program eligibility assessment and documentation review for founders with existing Bahrain companies"
             },
             "price": "150",
             "priceCurrency": "BHD"
@@ -48,7 +64,7 @@ export const businessIncubatorsSchema = {
             "itemOffered": {
               "@type": "Service",
               "name": "Complete Package",
-              "description": "Full end-to-end support from company formation through incubator acceptance"
+              "description": "Full end-to-end support from company formation through incubator acceptance with interview coaching and 3 months post-acceptance support"
             },
             "price": "750",
             "priceCurrency": "BHD"
@@ -58,7 +74,7 @@ export const businessIncubatorsSchema = {
             "itemOffered": {
               "@type": "Service",
               "name": "Multi-Program Strategy",
-              "description": "Strategic applications to 2-3 programs with investor pitch preparation"
+              "description": "Strategic applications to 2-3 incubator programs with investor pitch preparation and 6 months ongoing support"
             },
             "price": "1200",
             "priceCurrency": "BHD"
@@ -68,6 +84,7 @@ export const businessIncubatorsSchema = {
     },
     {
       "@type": "FAQPage",
+      "@id": "https://keylinkcorp.com/services/business-incubators#faq",
       "mainEntity": [
         {
           "@type": "Question",
@@ -169,6 +186,7 @@ export const businessIncubatorsSchema = {
     },
     {
       "@type": "BreadcrumbList",
+      "@id": "https://keylinkcorp.com/services/business-incubators#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -192,3 +210,7 @@ export const businessIncubatorsSchema = {
     }
   ]
 };
+
+export function generateIncubatorSchema() {
+  return incubatorSchema;
+}
