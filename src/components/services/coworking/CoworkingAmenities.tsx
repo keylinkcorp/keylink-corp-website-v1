@@ -54,20 +54,20 @@ export function CoworkingAmenities() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-background">
-      {/* Enhanced Background */}
+      {/* Enhanced Background - Softer */}
       <div className="absolute inset-0">
         {/* Warm gradient from top */}
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--gold) / 0.08) 0%, transparent 60%)`,
+            backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--gold) / 0.06) 0%, transparent 60%)`,
           }}
         />
         {/* Subtle secondary gradient from bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 via-transparent to-transparent" />
-        {/* Dot pattern with fade mask */}
+        <div className="absolute inset-0 bg-gradient-to-t from-secondary/15 via-transparent to-transparent" />
+        {/* Dot pattern with fade mask - Reduced opacity */}
         <div
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
             backgroundSize: "40px 40px",
@@ -87,10 +87,10 @@ export function CoworkingAmenities() {
         >
           <span className="section-badge">All Included</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            Premium Amenities & Services
+            Premium Coworking Amenities & Services
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to work productively and connect with others
+            Everything you need to work productively in our Bahrain coworking space
           </p>
         </motion.div>
 
@@ -108,7 +108,7 @@ export function CoworkingAmenities() {
                 key={index}
                 variants={staggerItem}
                 whileHover={{ scale: 1.03, y: -5 }}
-                className="group bg-background rounded-xl border border-border p-6 transition-all duration-300 hover:border-accent/30 hover:shadow-lg"
+                className="group bg-background rounded-xl border border-border p-6 transition-all duration-300 hover:border-accent/30 hover:shadow-md"
               >
                 {/* Icon */}
                 <div className="relative w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">

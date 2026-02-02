@@ -36,10 +36,10 @@ export function CoworkingComparison() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background with Pattern Overlay */}
+      {/* Background with Pattern Overlay - Softer */}
       <div className="absolute inset-0 -z-10 bg-[#F8F8F8]">
         <div 
-          className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"
+          className="absolute h-full w-full bg-[radial-gradient(#f0f0f0_1px,transparent_1px)] [background-size:20px_20px]"
           style={{
             maskImage: 'radial-gradient(ellipse 80% 50% at 50% 50%, #000 60%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse 80% 50% at 50% 50%, #000 60%, transparent 100%)',
@@ -48,18 +48,19 @@ export function CoworkingComparison() {
       </div>
 
       <div className="container relative z-10 mx-auto px-4">
-        {/* Header */}
+        {/* Header - SEO Enhanced */}
         <div
           className={`text-center mb-14 transition-all duration-700 ${
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
           }`}
         >
-          <span className="section-badge">Why Choose Coworking</span>
+          <span className="section-badge">Smart Workspace Choice</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            Coworking vs Traditional Office in Bahrain
+            Coworking vs Traditional Office Space in Bahrain
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            See why hundreds of businesses in Bahrain are switching from traditional office leases to flexible coworking spaces.
+            See why hundreds of Bahrain startups and remote teams are switching from 
+            expensive office leases to flexible coworking memberships.
           </p>
         </div>
 
@@ -108,7 +109,7 @@ export function CoworkingComparison() {
 
           {/* Coworking Space Card - Highlighted */}
           <div
-            className={`relative p-6 lg:p-8 rounded-xl bg-white border-2 border-accent/30 shadow-xl md:-mt-4 md:mb-4 transition-all duration-500 ${
+            className={`relative p-6 lg:p-8 rounded-xl bg-white border-2 border-accent/30 shadow-lg md:-mt-4 md:mb-4 transition-all duration-500 ${
               isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
             }`}
             style={{ transitionDelay: "200ms" }}

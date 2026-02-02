@@ -19,11 +19,11 @@ export function CoworkingLogos() {
 
   return (
     <section ref={ref} className="relative py-12 md:py-16 overflow-hidden bg-[#FAFAFA] border-y border-border/50">
-      {/* Clean subtle background */}
+      {/* Clean subtle background - Softer */}
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 100% 80% at 50% 50%, hsl(var(--gold) / 0.03) 0%, transparent 60%)`,
+          backgroundImage: `radial-gradient(ellipse 100% 80% at 50% 50%, hsl(var(--gold) / 0.02) 0%, transparent 60%)`,
         }}
       />
 
@@ -41,8 +41,8 @@ export function CoworkingLogos() {
         {/* Logo Ticker */}
         <div className="relative overflow-hidden">
           {/* Gradient fades */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10" />
           
           {/* Scrolling container */}
           <motion.div

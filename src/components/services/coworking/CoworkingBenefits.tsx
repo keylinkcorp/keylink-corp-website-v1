@@ -8,31 +8,31 @@ const benefits = [
   {
     icon: Zap,
     title: "Flexible Credit System",
-    description: "Buy credits and use them whenever you need. No expiry, maximum flexibility.",
+    description: "Buy credits and use them whenever you need. No expiry, maximum flexibility for your coworking membership.",
     size: "small",
   },
   {
     icon: Users,
     title: "Instant Access",
-    description: "Sign up today and start working tomorrow. Quick onboarding, no paperwork.",
+    description: "Sign up today and start working tomorrow. Quick onboarding, no paperwork required.",
     size: "small",
   },
   {
     title: "Networking That Ignites Opportunities",
-    description: "Connect with entrepreneurs, freelancers, and business leaders who can help grow your network.",
+    description: "Connect with entrepreneurs, freelancers, and business leaders in Bahrain who can help grow your network.",
     image: hotDeskImg,
     size: "large",
   },
   {
     icon: Coffee,
     title: "Free Coffee & High-Speed WiFi",
-    description: "Fuel your productivity with unlimited premium coffee and gigabit internet.",
+    description: "Fuel your productivity with unlimited premium coffee and gigabit internet in our coworking space.",
     size: "small",
   },
   {
     icon: X,
     title: "Cancel Anytime",
-    description: "No long-term commitments. Upgrade, downgrade, or cancel with 30 days notice.",
+    description: "No long-term commitments. Upgrade, downgrade, or cancel your membership with 30 days notice.",
     size: "small",
   },
   {
@@ -62,21 +62,21 @@ export function CoworkingBenefits() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-white">
-      {/* Dot Grid with Ellipse Fade */}
+      {/* Dot Grid with Ellipse Fade - Softer */}
       <div className="absolute inset-0">
         <div 
-          className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]"
+          className="absolute h-full w-full bg-[radial-gradient(#f0f0f0_1px,transparent_1px)] [background-size:20px_20px]"
           style={{
-            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%)',
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 100%)',
           }}
         />
       </div>
-      {/* Gold accents */}
+      {/* Gold accents - Softer */}
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 40% 30% at 20% 30%, hsl(var(--gold) / 0.05) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(ellipse 40% 30% at 20% 30%, hsl(var(--gold) / 0.04) 0%, transparent 50%)`,
         }}
       />
 
@@ -93,7 +93,7 @@ export function CoworkingBenefits() {
             Work Smarter, Not Harder
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Our coworking membership removes friction so you can focus on what matters most
+            Our coworking membership in Bahrain removes friction so you can focus on what matters most
           </p>
         </motion.div>
 
@@ -111,7 +111,7 @@ export function CoworkingBenefits() {
               whileHover={{ y: -5 }}
               className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
                 benefit.size === "large" ? "md:col-span-1" : ""
-              } ${benefit.image ? "min-h-[300px]" : "bg-background border border-border p-8 hover:border-accent/30 hover:shadow-lg"}`}
+              } ${benefit.image ? "min-h-[300px]" : "bg-background border border-border p-8 hover:border-accent/30 hover:shadow-md"}`}
             >
               {benefit.image ? (
                 <>

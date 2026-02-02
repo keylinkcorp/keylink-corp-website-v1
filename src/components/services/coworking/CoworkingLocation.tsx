@@ -16,26 +16,26 @@ export function CoworkingLocation() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[#F8F8F8]">
-      {/* Grid Lines Pattern */}
+      {/* Grid Lines Pattern - Softer, larger spacing */}
       <div className="absolute inset-0">
         <div 
-          className="absolute inset-0 bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] bg-[size:5rem_5rem]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,#ebebeb_1px,transparent_1px),linear-gradient(to_bottom,#ebebeb_1px,transparent_1px)] bg-[size:6rem_6rem]"
           style={{
             maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 50%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 50%, transparent 100%)',
           }}
         />
       </div>
-      {/* Gold accent */}
+      {/* Gold accent - Softer */}
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(ellipse 40% 40% at 80% 40%, hsl(var(--gold) / 0.05) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(ellipse 40% 40% at 80% 40%, hsl(var(--gold) / 0.04) 0%, transparent 50%)`,
         }}
       />
 
       <div className="container relative z-10 mx-auto px-4">
-        {/* Header */}
+        {/* Header - SEO Enhanced */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -44,11 +44,12 @@ export function CoworkingLocation() {
         >
           <span className="section-badge">Our Location</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            Strategically Located in Sanabis
+            Coworking Space Location in Sanabis, Bahrain
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Our coworking space is situated in Sanabis Exhibition Tower, 
-            offering easy access to major shopping destinations and business centers
+            Our premium shared office space is situated in Sanabis Exhibition Tower, 
+            offering convenient access to Bahrain's major shopping destinations, business centers, 
+            and transportation links.
           </p>
         </motion.div>
 
@@ -86,7 +87,7 @@ export function CoworkingLocation() {
                   href="https://maps.google.com/?q=Sanabis+Exhibition+Tower+Bahrain"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-all shadow-md shadow-accent/15 hover:scale-[1.02]"
                 >
                   <MapPin className="w-5 h-5" />
                   View on Google Maps
@@ -110,7 +111,7 @@ export function CoworkingLocation() {
             className="space-y-6"
           >
             {/* Address Card */}
-            <div className="bg-background rounded-2xl border border-border p-8 shadow-lg">
+            <div className="bg-background rounded-2xl border border-border p-8 shadow-md">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-7 h-7 text-accent" />
@@ -149,7 +150,7 @@ export function CoworkingLocation() {
               </div>
             </div>
 
-            {/* Transport Info Card */}
+            {/* Transport Info Card - SEO Enhanced */}
             <div className="bg-primary rounded-2xl p-6 text-primary-foreground overflow-hidden relative">
               <div className="relative z-10">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
@@ -157,9 +158,11 @@ export function CoworkingLocation() {
                   Getting Here
                 </h4>
                 <p className="text-primary-foreground/70 leading-relaxed">
-                  Our coworking space is easily accessible by car with free parking available. 
-                  Located near Seef Mall and City Centre Bahrain, the location is well-connected 
-                  to major highways and just 20 minutes from Bahrain International Airport.
+                  Our coworking space in Sanabis is easily accessible by car with complimentary 
+                  parking available for members. Located near Seef Mall and City Centre Bahrain, 
+                  we're well-connected to major highways and just 20 minutes from Bahrain 
+                  International Airport. Public transportation and ride-sharing services provide 
+                  convenient access from across Manama and surrounding areas.
                 </p>
               </div>
             </div>

@@ -15,12 +15,12 @@ const filters = [
 ];
 
 const galleryImages = [
-  { id: 1, src: heroImg, alt: "Open coworking area with natural light", category: "workspaces", title: "Open Workspace" },
+  { id: 1, src: heroImg, alt: "Open coworking area with natural light in Bahrain", category: "workspaces", title: "Open Workspace" },
   { id: 2, src: meetingRoomImg, alt: "Executive meeting room with presentation equipment", category: "meeting", title: "Executive Boardroom" },
-  { id: 3, src: hotDeskImg, alt: "Hot desk area for flexible working", category: "workspaces", title: "Hot Desk Area" },
-  { id: 4, src: privateOfficeImg, alt: "Private office suite for teams", category: "workspaces", title: "Private Office" },
+  { id: 3, src: hotDeskImg, alt: "Hot desk area for flexible working in Sanabis", category: "workspaces", title: "Hot Desk Area" },
+  { id: 4, src: privateOfficeImg, alt: "Private office suite for teams in Bahrain", category: "workspaces", title: "Private Office" },
   { id: 5, src: loungeImg, alt: "Member lounge and kitchen area", category: "facilities", title: "Member Lounge" },
-  { id: 6, src: receptionImg, alt: "Professional reception area", category: "facilities", title: "Reception" },
+  { id: 6, src: receptionImg, alt: "Professional reception area at Keylink coworking", category: "facilities", title: "Reception" },
 ];
 
 export function CoworkingGallery() {
@@ -34,10 +34,10 @@ export function CoworkingGallery() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[#FAFAFA]">
-      {/* Subtle radial gradient */}
+      {/* Subtle radial gradient - Softer */}
       <div className="absolute inset-0">
         <div 
-          className="absolute inset-0 bg-[radial-gradient(100%_60%_at_50%_0%,rgba(199,167,99,0.04)_0,rgba(199,167,99,0)_60%)]"
+          className="absolute inset-0 bg-[radial-gradient(100%_60%_at_50%_0%,rgba(199,167,99,0.03)_0,rgba(199,167,99,0)_60%)]"
         />
       </div>
 
@@ -51,10 +51,10 @@ export function CoworkingGallery() {
         >
           <span className="section-badge">Gallery</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            Explore Our Spaces
+            Explore Our Coworking Spaces in Bahrain
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Take a virtual tour of our premium coworking facilities
+            Take a virtual tour of our premium coworking facilities in Sanabis
           </p>
         </motion.div>
 
@@ -71,7 +71,7 @@ export function CoworkingGallery() {
               onClick={() => setActiveFilter(filter.id)}
               className={`relative px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden ${
                 activeFilter === filter.id
-                  ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20"
+                  ? "bg-accent text-accent-foreground shadow-md shadow-accent/15"
                   : "bg-background border border-border text-muted-foreground hover:text-primary hover:border-accent/50"
               }`}
             >
@@ -94,7 +94,7 @@ export function CoworkingGallery() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className={`group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer border border-border shadow-sm hover:shadow-lg transition-shadow ${
+                className={`group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer border border-border shadow-sm hover:shadow-md transition-shadow ${
                   index === 0 ? 'md:row-span-2 md:aspect-auto md:h-full' : ''
                 }`}
               >
@@ -138,7 +138,7 @@ export function CoworkingGallery() {
                 </svg>
               </div>
               <h3 className="font-bold text-primary text-lg mb-2">Take a Virtual Tour</h3>
-              <p className="text-sm text-muted-foreground">Explore our spaces from anywhere</p>
+              <p className="text-sm text-muted-foreground">Explore our coworking spaces from anywhere</p>
             </div>
           </motion.div>
         </motion.div>

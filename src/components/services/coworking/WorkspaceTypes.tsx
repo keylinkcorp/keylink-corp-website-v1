@@ -23,7 +23,7 @@ const workspaces: Workspace[] = [
     id: "coworking",
     category: "FLEXIBLE WORKSPACES",
     title: "Coworking",
-    description: "Work from our premium coworking space in Sanabis with a single membership.",
+    description: "Work from our premium coworking space in Sanabis with a single membership. Perfect for freelancers, startups, and remote workers in Bahrain.",
     features: [
       "Daily, weekly or monthly plans",
       "WiFi, coffee, plugs & flexible seating",
@@ -38,7 +38,7 @@ const workspaces: Workspace[] = [
     id: "meeting-room",
     category: "ON-DEMAND",
     title: "Meeting Rooms",
-    description: "Book private rooms instantly for calls, workshops or team discussions.",
+    description: "Book private meeting rooms in Bahrain instantly for calls, workshops or team discussions.",
     cta: "Browse meeting rooms",
     icon: Video,
     image: meetingRoomImg,
@@ -48,7 +48,7 @@ const workspaces: Workspace[] = [
     id: "private-office",
     category: "SERVICED OFFICES",
     title: "Private Offices",
-    description: "Move your team into a ready-to-use, serviced workspace.",
+    description: "Move your team into a ready-to-use, serviced private office in Bahrain.",
     cta: "Talk to advisor",
     icon: Building2,
     image: privateOfficeImg,
@@ -58,7 +58,7 @@ const workspaces: Workspace[] = [
     id: "virtual-office",
     category: "REMOTE SOLUTIONS",
     title: "Virtual Office",
-    description: "Business address & mail handling for remote teams.",
+    description: "Business address & mail handling for remote teams in Bahrain.",
     cta: "View packages",
     icon: Globe,
     image: loungeImg,
@@ -94,10 +94,10 @@ export function WorkspaceTypes() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[#FAFAFA]">
-      {/* Radial Gradient Background */}
+      {/* Radial Gradient Background - Softer */}
       <div className="absolute inset-0">
         <div 
-          className="absolute inset-0 bg-[radial-gradient(100%_50%_at_50%_0%,rgba(199,167,99,0.06)_0,rgba(199,167,99,0)_50%)]"
+          className="absolute inset-0 bg-[radial-gradient(100%_50%_at_50%_0%,rgba(199,167,99,0.04)_0,rgba(199,167,99,0)_50%)]"
         />
       </div>
 
@@ -111,10 +111,10 @@ export function WorkspaceTypes() {
         >
           <span className="section-badge">Workspace Options</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            From desks to full-floor offices
+            From Hot Desks to Private Offices
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground">
-            A workspace for every need
+            A flexible workspace solution for every need in Bahrain
           </p>
         </motion.div>
 
@@ -131,19 +131,19 @@ export function WorkspaceTypes() {
               variants={staggerItem}
               className="group cursor-pointer md:row-span-2"
             >
-              <div className="relative h-full min-h-[500px] md:min-h-[600px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-2xl hover:border-accent/30">
+              <div className="relative h-full min-h-[500px] md:min-h-[600px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-lg hover:border-accent/30">
                 {/* Image */}
                 <div className="relative h-[55%] overflow-hidden">
                   <img
                     src={featuredWorkspace.image}
-                    alt={featuredWorkspace.title}
+                    alt={`${featuredWorkspace.title} - Coworking space in Bahrain`}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   
                   {/* Floating Icon Badge */}
-                  <div className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-accent flex items-center justify-center shadow-lg">
+                  <div className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-accent flex items-center justify-center shadow-md">
                     <featuredWorkspace.icon className="w-6 h-6 text-accent-foreground" />
                   </div>
                 </div>
@@ -196,19 +196,19 @@ export function WorkspaceTypes() {
               variants={staggerItem}
               className="group cursor-pointer"
             >
-              <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-2xl hover:border-accent/30">
+              <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-lg hover:border-accent/30">
                 {/* Image */}
                 <div className="relative h-[50%] overflow-hidden">
                   <img
                     src={mediumWorkspace.image}
-                    alt={mediumWorkspace.title}
+                    alt={`${mediumWorkspace.title} - Meeting room hire in Bahrain`}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   
                   {/* Floating Icon Badge */}
-                  <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-lg">
+                  <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-md">
                     <mediumWorkspace.icon className="w-5 h-5 text-accent-foreground" />
                   </div>
                 </div>
@@ -255,19 +255,19 @@ export function WorkspaceTypes() {
                   key={workspace.id}
                   className="group cursor-pointer"
                 >
-                  <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-2xl hover:border-accent/30">
+                  <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-lg hover:border-accent/30">
                     {/* Image */}
                     <div className="relative h-[45%] overflow-hidden">
                       <img
                         src={workspace.image}
-                        alt={workspace.title}
+                        alt={`${workspace.title} - ${workspace.category.toLowerCase()} in Bahrain`}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       {/* Gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                       
                       {/* Floating Icon Badge */}
-                      <div className="absolute top-3 left-3 w-9 h-9 rounded-lg bg-accent flex items-center justify-center shadow-lg">
+                      <div className="absolute top-3 left-3 w-9 h-9 rounded-lg bg-accent flex items-center justify-center shadow-md">
                         <Icon className="w-4 h-4 text-accent-foreground" />
                       </div>
                     </div>
