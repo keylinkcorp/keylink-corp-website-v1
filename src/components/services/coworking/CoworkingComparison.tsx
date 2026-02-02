@@ -4,7 +4,6 @@ import { Check, X, Sparkles, Building2, TrendingUp, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const features = [
-  { name: "Monthly Cost", traditional: "800+ BD", coworking: "From 60 BD", wfh: "Free" },
   { name: "CR Address", traditional: true, coworking: true, wfh: false },
   { name: "No Long-term Lease", traditional: false, coworking: true, wfh: true },
   { name: "Meeting Rooms", traditional: true, coworking: true, wfh: false },
