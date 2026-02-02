@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { PiggyBank, Zap, Award, Home, Users, TrendingUp } from "lucide-react";
+import virtualMeetingImage from "@/assets/virtual-office/virtual-meeting.jpg";
 
 const benefits = [
   {
@@ -82,18 +83,60 @@ export function VirtualOfficeBenefits() {
           </p>
         </motion.div>
 
-        {/* Benefits Bento Grid */}
+        {/* Benefits Bento Grid with Image */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
         >
-          {benefits.map((benefit, index) => {
+          {/* First 4 benefit cards */}
+          {benefits.slice(0, 4).map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <motion.div
                 key={index}
+                variants={staggerItem}
+                whileHover={{ y: -4 }}
+                className="group p-6 md:p-8 rounded-2xl bg-background border border-border hover:border-accent/30 hover:shadow-md transition-all duration-300"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors">
+                  <Icon className="w-7 h-7 text-accent group-hover:scale-110 transition-transform" />
+                </div>
+                <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-accent transition-colors">
+                  {benefit.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {benefit.description}
+                </p>
+              </motion.div>
+            );
+          })}
+
+          {/* Lifestyle Image Card */}
+          <motion.div
+            variants={staggerItem}
+            className="relative rounded-2xl overflow-hidden group lg:row-span-1"
+          >
+            <img 
+              src={virtualMeetingImage} 
+              alt="Remote entrepreneur using virtual office in Bahrain"
+              className="w-full h-full min-h-[280px] object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/30 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <h3 className="text-xl font-semibold text-primary-foreground mb-1">Work From Anywhere</h3>
+              <p className="text-primary-foreground/80 text-sm">Your professional Bahrain presence, wherever you are</p>
+            </div>
+          </motion.div>
+
+          {/* Last 2 benefit cards */}
+          {benefits.slice(4).map((benefit, index) => {
+            const Icon = benefit.icon;
+            return (
+              <motion.div
+                key={index + 4}
                 variants={staggerItem}
                 whileHover={{ y: -4 }}
                 className="group p-6 md:p-8 rounded-2xl bg-background border border-border hover:border-accent/30 hover:shadow-md transition-all duration-300"
