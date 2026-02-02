@@ -1,39 +1,63 @@
 
-# Remove Program Types Section from Business Incubators Page
+# Convert Comparison Section from Table to Cards Format
 
-## What Will Be Removed
-The "Bahrain's Top Incubator & Accelerator Programs" bento grid section showing:
-- Tamkeen Startup Support (featured gold card)
-- FinTech Bay Accelerator
-- C5 Accelerate
-- Startup Bahrain
+## Current State
+The comparison section uses a 3-column table format showing "Direct Application" vs "With Keylink" across 8 factors.
 
-## Changes Required
+## New Design: Two Side-by-Side Cards
 
-### File: `src/pages/services/BusinessIncubators.tsx`
-Remove the `<ProgramTypes />` component from the page and remove its import.
+### Layout
+Two large cards side by side:
+1. **Left Card (Muted/Negative)**: "Direct Application" - shows the downsides
+2. **Right Card (Accent/Positive)**: "With Keylink" - shows the benefits
 
-**Before:**
-```tsx
-import {
-  IncubatorHero,
-  IncubatorLogos,
-  IncubatorExplainer,
-  ProgramTypes,  // Remove this import
-  ...
-} from "@/components/services/incubator";
+Each card will list all 8 comparison points with appropriate icons (X for direct, Check for Keylink).
+
+### File to Modify
+`src/components/services/incubator/IncubatorComparison.tsx`
+
+### New Structure
+```text
+[Section Header]
+  - Badge: "The Keylink Advantage"
+  - H2: "Why Use Keylink vs. Applying Directly?"
+
+[Two Cards Grid - md:grid-cols-2]
+  
+  [Left Card - bg-muted/50, border-destructive/20]
+    - Header: "Direct Application" with X icon
+    - Subtitle: "Going it alone"
+    - List of 8 items with X icons and muted text:
+      - Company Formation: Handle separately
+      - Application Review: One attempt
+      - Program Access: Public inbox
+      - Interview Prep: Figure it out
+      - Timeline: 3-4 months typical
+      - Acceptance Rate: ~53% first attempt
+      - Post-Acceptance: On your own
+      - Cost: Free (+ time)
+
+  [Right Card - bg-accent/10, border-accent, shadow-lg]
+    - Header: "With Keylink" with Check icon
+    - Subtitle: "Expert guidance"
+    - List of 8 items with Check icons and accent styling:
+      - Company Formation: Included & optimized
+      - Application Review: Unlimited revisions
+      - Program Access: Direct relationships
+      - Interview Prep: Structured coaching
+      - Timeline: 6-8 weeks average
+      - Acceptance Rate: 85% first attempt
+      - Post-Acceptance: 3 months support
+      - Cost: BHD 150-1,200
+
+[Quote Box - unchanged]
+  - Dark bg with quote text
 ```
 
-**Remove this section from the JSX:**
-```tsx
-{/* Program Types Bento Grid */}
-<ProgramTypes />
-```
+### Visual Styling
+- Left card: Muted background, subtle red/destructive accents
+- Right card: Gold accent background, elevated with shadow, border-accent
+- Each list item has the factor as bold label, value below
+- Hover effects on cards
+- Stagger animations on scroll
 
-### Optional: Delete Component File
-The `src/components/services/incubator/ProgramTypes.tsx` file can be deleted since it won't be used anymore.
-
-Update the barrel export in `src/components/services/incubator/index.ts` to remove the ProgramTypes export.
-
-## Result
-The page will flow directly from the "Understanding Startup Incubators & Accelerators in Bahrain" explainer section to the "What You Get From Bahrain Incubator Programs" benefits grid.
