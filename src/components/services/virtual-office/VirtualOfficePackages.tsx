@@ -1,21 +1,30 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { MapPin, Phone, Mail, Users, Building2, Clock, Sparkles } from "lucide-react";
+import { MapPin, Phone, Building2, Users, Sparkles } from "lucide-react";
+import essentialImg from "@/assets/virtual-office/essential-address.jpg";
+import businessPlusImg from "@/assets/virtual-office/business-plus.jpg";
+import executiveImg from "@/assets/virtual-office/executive-suite.jpg";
+import meetingImg from "@/assets/virtual-office/meeting-add-on.jpg";
 
-const packages = [
-  {
-    id: "essential",
-    title: "Essential Address",
-    description: "Business address for CR registration",
-    icon: MapPin,
-    features: ["Sanabis business address", "CR registration use", "Mail handling & storage", "Building directory listing"],
-    size: "small",
-  },
+interface Package {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  features: string[];
+  cta: string;
+  icon: typeof MapPin;
+  image: string;
+  size: "featured" | "medium" | "small";
+  featured?: boolean;
+}
+
+const packages: Package[] = [
   {
     id: "business-plus",
+    category: "MOST POPULAR",
     title: "Business Plus",
-    description: "Complete virtual office solution",
-    icon: Phone,
+    description: "Complete virtual office solution with dedicated phone line, live call answering, and meeting room access. Perfect for growing businesses in Bahrain.",
     features: [
       "Everything in Essential",
       "Dedicated business phone line",
@@ -23,14 +32,21 @@ const packages = [
       "Mail scanning & forwarding",
       "4 hours meeting room/month",
     ],
-    size: "large",
+    cta: "Get Started",
+    icon: Phone,
+    image: businessPlusImg,
+    size: "featured",
     featured: true,
   },
   {
     id: "executive",
+    category: "PREMIUM",
     title: "Executive Suite",
-    description: "Premium business presence",
+    description: "Premium business presence with unlimited call answering and dedicated receptionist services.",
+    cta: "Talk to Advisor",
     icon: Building2,
+    image: executiveImg,
+    size: "medium",
     features: [
       "Everything in Business Plus",
       "Unlimited call answering",
@@ -38,15 +54,28 @@ const packages = [
       "10 hours meeting room/month",
       "Dedicated receptionist",
     ],
-    size: "medium",
+  },
+  {
+    id: "essential",
+    category: "STARTER",
+    title: "Essential Address",
+    description: "Professional business address for CR registration in Bahrain.",
+    cta: "View Package",
+    icon: MapPin,
+    image: essentialImg,
+    size: "small",
+    features: ["Sanabis business address", "CR registration use", "Mail handling & storage", "Building directory listing"],
   },
   {
     id: "meeting-room",
-    title: "Meeting Room Add-On",
-    description: "On-demand meeting space",
+    category: "ADD-ON",
+    title: "Meeting Room",
+    description: "On-demand meeting space with video conferencing setup.",
+    cta: "Book Now",
     icon: Users,
-    features: ["Hourly meeting room booking", "Video conferencing setup", "Catering options available"],
+    image: meetingImg,
     size: "small",
+    features: ["Hourly meeting room booking", "Video conferencing setup", "Catering options available"],
   },
 ];
 
@@ -59,34 +88,31 @@ const staggerContainer = {
 };
 
 const staggerItem = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { duration: 0.5 } 
+  },
 };
 
 export function VirtualOfficePackages() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const featuredPackage = packages.find(p => p.size === "featured");
+  const mediumPackage = packages.find(p => p.size === "medium");
+  const smallPackages = packages.filter(p => p.size === "small");
+
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[#FAFAFA]">
-      {/* Radial gold gradient */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `radial-gradient(ellipse 60% 40% at 50% 0%, hsl(var(--gold) / 0.04) 0%, transparent 50%)`,
-        }}
-      />
-      
-      {/* Dot pattern */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "24px 24px",
-          maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 50%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 50%, transparent 100%)",
-        }}
-      />
+      {/* Radial Gradient Background */}
+      <div className="absolute inset-0">
+        <div 
+          className="absolute inset-0 bg-[radial-gradient(100%_50%_at_50%_0%,rgba(199,167,99,0.04)_0,rgba(199,167,99,0)_50%)]"
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
@@ -106,74 +132,199 @@ export function VirtualOfficePackages() {
           </p>
         </motion.div>
 
-        {/* Bento Grid */}
+        {/* Bento Grid Layout */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6"
         >
-          {packages.map((pkg) => {
-            const Icon = pkg.icon;
-            return (
-              <motion.div
-                key={pkg.id}
-                variants={staggerItem}
-                whileHover={{ y: -8 }}
-                className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
-                  pkg.featured
-                    ? "lg:col-span-2 lg:row-span-1 bg-primary text-primary-foreground shadow-lg"
-                    : "bg-background border border-border hover:border-accent/30 hover:shadow-md"
-                }`}
-              >
-                {/* Featured Badge */}
-                {pkg.featured && (
+          {/* Featured Card - Spans 2 rows on desktop */}
+          {featuredPackage && (
+            <motion.div
+              variants={staggerItem}
+              className="group cursor-pointer md:row-span-2"
+            >
+              <div className="relative h-full min-h-[500px] md:min-h-[600px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-lg hover:border-accent/30">
+                {/* Image */}
+                <div className="relative h-[55%] overflow-hidden">
+                  <img
+                    src={featuredPackage.image}
+                    alt={`${featuredPackage.title} - Virtual office package in Bahrain`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  
+                  {/* Floating Icon Badge */}
+                  <div className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-accent flex items-center justify-center shadow-md">
+                    <featuredPackage.icon className="w-6 h-6 text-accent-foreground" />
+                  </div>
+
+                  {/* Featured Badge */}
                   <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold">
                     <Sparkles className="w-3 h-3" />
                     Most Popular
                   </div>
-                )}
+                </div>
 
+                {/* Content */}
                 <div className="p-6 md:p-8">
-                  {/* Icon */}
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-5 ${
-                    pkg.featured ? "bg-accent/20" : "bg-accent/10 group-hover:bg-accent/20"
-                  } transition-colors`}>
-                    <Icon className={`w-7 h-7 ${pkg.featured ? "text-accent" : "text-accent"}`} />
-                  </div>
-
-                  {/* Title & Description */}
-                  <h3 className={`text-xl font-bold mb-2 ${pkg.featured ? "" : "text-primary"}`}>
-                    {pkg.title}
+                  {/* Category */}
+                  <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+                    {featuredPackage.category}
+                  </span>
+                  
+                  {/* Title */}
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary mt-2 mb-3 group-hover:text-accent transition-colors">
+                    {featuredPackage.title}
                   </h3>
-                  <p className={`text-sm mb-5 ${pkg.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-                    {pkg.description}
+                  
+                  {/* Description */}
+                  <p className="text-muted-foreground mb-4">
+                    {featuredPackage.description}
                   </p>
-
+                  
                   {/* Features */}
-                  <ul className="space-y-2">
-                    {pkg.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                          pkg.featured ? "bg-accent/30" : "bg-accent/10"
-                        }`}>
-                          <div className={`w-1.5 h-1.5 rounded-full ${pkg.featured ? "bg-accent" : "bg-accent"}`} />
-                        </div>
-                        <span className={`text-sm ${pkg.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                          {feature}
-                        </span>
+                  <ul className="space-y-2 mb-6">
+                    {featuredPackage.features.map((feature, index) => (
+                      <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                        {feature}
                       </li>
                     ))}
                   </ul>
+                  
+                  {/* CTA Button */}
+                  <a
+                    href="#pricing"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-accent" />
+                    {featuredPackage.cta}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Medium Card - Executive Suite */}
+          {mediumPackage && (
+            <motion.div
+              variants={staggerItem}
+              className="group cursor-pointer"
+            >
+              <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-lg hover:border-accent/30">
+                {/* Image */}
+                <div className="relative h-[50%] overflow-hidden">
+                  <img
+                    src={mediumPackage.image}
+                    alt={`${mediumPackage.title} - Premium virtual office in Bahrain`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  
+                  {/* Floating Icon Badge */}
+                  <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-md">
+                    <mediumPackage.icon className="w-5 h-5 text-accent-foreground" />
+                  </div>
                 </div>
 
-                {/* Bottom accent line */}
-                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                  pkg.featured ? "opacity-100" : ""
-                }`} />
-              </motion.div>
-            );
-          })}
+                {/* Content */}
+                <div className="p-5 md:p-6">
+                  {/* Category */}
+                  <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+                    {mediumPackage.category}
+                  </span>
+                  
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-primary mt-1 mb-2 group-hover:text-accent transition-colors">
+                    {mediumPackage.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {mediumPackage.description}
+                  </p>
+                  
+                  {/* CTA Button */}
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-colors"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                    {mediumPackage.cta}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Small Cards Row */}
+          <motion.div
+            variants={staggerItem}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6"
+          >
+            {smallPackages.map((pkg) => {
+              const Icon = pkg.icon;
+              
+              return (
+                <div
+                  key={pkg.id}
+                  className="group cursor-pointer"
+                >
+                  <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden border border-border bg-background transition-all duration-300 hover:shadow-lg hover:border-accent/30">
+                    {/* Image */}
+                    <div className="relative h-[45%] overflow-hidden">
+                      <img
+                        src={pkg.image}
+                        alt={`${pkg.title} - ${pkg.category.toLowerCase()} virtual office in Bahrain`}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      
+                      {/* Floating Icon Badge */}
+                      <div className="absolute top-3 left-3 w-9 h-9 rounded-lg bg-accent flex items-center justify-center shadow-md">
+                        <Icon className="w-4 h-4 text-accent-foreground" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4 md:p-5">
+                      {/* Category */}
+                      <span className="text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
+                        {pkg.category}
+                      </span>
+                      
+                      {/* Title */}
+                      <h3 className="text-lg font-bold text-primary mt-1 mb-2 group-hover:text-accent transition-colors">
+                        {pkg.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        {pkg.description}
+                      </p>
+                      
+                      {/* CTA Button */}
+                      <a
+                        href="#pricing"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-xs font-medium hover:bg-primary/90 transition-colors"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                        {pkg.cta}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
         </motion.div>
       </div>
     </section>
