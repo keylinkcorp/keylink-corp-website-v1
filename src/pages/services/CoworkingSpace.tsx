@@ -3,11 +3,14 @@ import { Layout } from "@/components/layout/Layout";
 import {
   CoworkingHero,
   CoworkingTrustBar,
+  CoworkingLogos,
   CoworkingExplainer,
   WorkspaceTypes,
   CoworkingAmenities,
+  CoworkingComparison,
   CoworkingWhyChoose,
   CoworkingPricing,
+  CoworkingTestimonials,
   CoworkingGallery,
   CoworkingBenefits,
   CoworkingContact,
@@ -120,12 +123,14 @@ export default function CoworkingSpace() {
   return (
     <Layout>
       <CoworkingHero />
-      <CoworkingTrustBar />
+      <CoworkingLogos />
       <CoworkingExplainer />
       <WorkspaceTypes />
       <CoworkingAmenities />
+      <CoworkingComparison />
       <CoworkingWhyChoose />
       <CoworkingPricing />
+      <CoworkingTestimonials />
       <CoworkingGallery />
       <CoworkingBenefits />
       <CoworkingContact />

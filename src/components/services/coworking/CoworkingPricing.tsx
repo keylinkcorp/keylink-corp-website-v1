@@ -111,6 +111,18 @@ export function CoworkingPricing() {
       </div>
 
       <div className="container relative z-10 mx-auto px-4">
+        {/* Floating Savings Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 hidden md:block"
+        >
+          <div className="px-6 py-2 rounded-full bg-accent text-accent-foreground font-bold text-sm shadow-lg shadow-accent/30 animate-float-subtle">
+            💰 Save up to 60% vs traditional offices
+          </div>
+        </motion.div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
