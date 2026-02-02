@@ -1,124 +1,30 @@
 import { useEffect } from "react";
-import { 
-  Rocket, 
-  Target, 
-  Users, 
-  Globe,
-  Building2,
-  Handshake,
-  CheckCircle2,
-  TrendingUp
-} from "lucide-react";
+import { Helmet } from "react-helmet";
 
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { ServiceHero } from "@/components/services/shared/ServiceHero";
-import { ServiceTrustBar } from "@/components/services/shared/ServiceTrustBar";
-import { ServiceWhyChoose } from "@/components/services/shared/ServiceWhyChoose";
-import { ServicePricing } from "@/components/services/shared/ServicePricing";
+import { Layout } from "@/components/layout/Layout";
 import { ServiceFAQ } from "@/components/services/shared/ServiceFAQ";
 import { ServiceCTA } from "@/components/services/shared/ServiceCTA";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { BackToTop } from "@/components/BackToTop";
 
 import {
-  IncubatorProblemAgitation,
-  IncubatorLandscape,
-  ProgramComparisonTable,
-  IncubatorJourneyTimeline,
-  IncubatorAudienceSegments,
-  EligibilityChecker
+  IncubatorHero,
+  IncubatorLogos,
+  IncubatorExplainer,
+  ProgramTypes,
+  IncubatorBenefits,
+  IncubatorProcess,
+  IncubatorComparison,
+  IncubatorTestimonials,
+  EligibilityChecker,
+  IncubatorPricing,
+  IncubatorContact,
+  IncubatorLocation
 } from "@/components/services/incubator";
 
-import { businessIncubatorsSchema } from "@/lib/schema/businessIncubatorsSchema";
-import incubatorTeamImage from "@/assets/incubator-team-meeting.jpg";
+import { incubatorSchema } from "@/lib/schema/incubatorSchema";
 
-// Hero features
-const heroFeatures = [
-  { icon: Rocket, text: "End-to-End Support" },
-  { icon: Target, text: "85%+ Acceptance Rate" },
-  { icon: Users, text: "3 Partner Programs" },
-  { icon: Globe, text: "Foreign Founder Friendly" }
-];
-
-// Trust bar stats
-const trustStats = [
-  { icon: Rocket, value: 50, suffix: "+", label: "Startups Placed Into Partner Programs" },
-  { icon: Target, value: 85, suffix: "%", label: "First Application Acceptance Rate" },
-  { icon: Users, value: 3, suffix: "", label: "Active Program Partnerships" },
-  { icon: Building2, value: 8, suffix: "+", label: "Years Experience in Bahrain" }
-];
-
-// Why Choose differentiators
-const differentiators = [
-  {
-    icon: TrendingUp,
-    title: "End-to-End Integration",
-    description: "Most consultants help with applications. We handle company formation, licensing, AND incubator placement — so nothing falls through the cracks."
-  },
-  {
-    icon: Handshake,
-    title: "Direct Program Relationships",
-    description: "We work directly with Tamkeen, FinTech Bay, and C5. Your application goes through established channels, not the public inbox."
-  },
-  {
-    icon: CheckCircle2,
-    title: "85% First-Submission Acceptance",
-    description: "Our pre-application review catches issues before they become rejections. You apply once, correctly."
-  },
-  {
-    icon: Globe,
-    title: "Foreign Founder Specialists",
-    description: "We've helped 50+ international entrepreneurs establish and get accepted into Bahrain programs — remotely."
-  }
-];
-
-// Pricing tiers
-const pricingTiers = [
-  {
-    name: "Application Review",
-    price: "BHD 150",
-    description: "For founders who already have a company registered",
-    features: [
-      "Program eligibility assessment",
-      "Application documentation review",
-      "One round of feedback",
-      "Email support"
-    ],
-    ctaText: "Get Started",
-    ctaHref: "/free-consultation"
-  },
-  {
-    name: "Complete Package",
-    price: "BHD 750",
-    description: "Company formation through incubator acceptance",
-    features: [
-      "Company registration included",
-      "Full application preparation",
-      "Direct program submission",
-      "Interview coaching",
-      "Resubmission if needed",
-      "3 months post-acceptance support"
-    ],
-    popular: true,
-    ctaText: "Most Popular",
-    ctaHref: "/free-consultation"
-  },
-  {
-    name: "Multi-Program Strategy",
-    price: "BHD 1,200",
-    description: "Apply to 2-3 programs strategically",
-    features: [
-      "Everything in Complete Package",
-      "Sequential program applications",
-      "Investor pitch preparation",
-      "6 months ongoing support",
-      "Priority WhatsApp access"
-    ],
-    ctaText: "Go Premium",
-    ctaHref: "/free-consultation"
-  }
-];
-
-// FAQ items
+// FAQ items for SEO
 const faqItems = [
   {
     question: "What is the difference between an incubator and an accelerator in Bahrain?",
@@ -176,89 +82,92 @@ export default function BusinessIncubators() {
   }, []);
 
   return (
-    <>
-
-      <Header />
-
-      <main>
-        {/* Hero Section */}
-        <ServiceHero
-          badge="Startup Growth Partner"
-          title="Launch Your Startup in Bahrain's Thriving"
-          highlight="Incubator Ecosystem"
-          subtitle="From business registration to program acceptance. We guide foreign entrepreneurs and first-time founders through Tamkeen, FinTech Bay, and C5 Accelerate — so you can focus on building, not paperwork."
-          features={heroFeatures}
-          primaryCTA={{ text: "Start Free Consultation", href: "/free-consultation" }}
-          secondaryCTA={{ text: "Call Us Now", href: "tel:+97317000000" }}
-          priceFrom="BHD 150"
-          priceLabel="Starting from"
+    <Layout>
+      <Helmet>
+        <title>Business Incubator Bahrain | Startup Accelerator Services | Tamkeen & FinTech Bay</title>
+        <meta 
+          name="description" 
+          content="Expert guidance for business incubator and startup accelerator applications in Bahrain. End-to-end support from company formation to Tamkeen, FinTech Bay, and C5 Accelerate program acceptance. 85% first-application success rate for foreign entrepreneurs."
         />
-
-        {/* Trust Bar */}
-        <ServiceTrustBar stats={trustStats} />
-
-        {/* Problem Agitation */}
-        <IncubatorProblemAgitation />
-
-        {/* Ecosystem Overview */}
-        <IncubatorLandscape />
-
-        {/* Comparison Table */}
-        <ProgramComparisonTable />
-
-        {/* Journey Timeline */}
-        <IncubatorJourneyTimeline />
-
-        {/* Audience Segments */}
-        <IncubatorAudienceSegments />
-
-        {/* Why Choose Keylink */}
-        <ServiceWhyChoose
-          badge="Why Keylink"
-          title="The Only Partner That Starts Where Others Skip"
-          subtitle="Most consultants help with applications. We handle company formation, licensing, AND incubator placement — so nothing falls through the cracks."
-          differentiators={differentiators}
-          imageSrc={incubatorTeamImage}
-          imageAlt="Diverse entrepreneurs collaborating in modern Bahrain co-working space"
-          floatingStatValue="50+"
-          floatingStatLabel="Startups Placed"
+        <meta 
+          name="keywords" 
+          content="business incubator bahrain, startup accelerator bahrain, tamkeen startup program, fintech bay bahrain, c5 accelerate, startup funding bahrain, foreign entrepreneur bahrain, bahrain startup ecosystem"
         />
+        <link rel="canonical" href="https://keylinkcorp.com/services/business-incubators" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Business Incubator Bahrain | Startup Accelerator Services" />
+        <meta property="og:description" content="Launch your startup in Bahrain's thriving incubator ecosystem. Expert guidance for Tamkeen, FinTech Bay, and C5 Accelerate applications." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://keylinkcorp.com/services/business-incubators" />
+        
+        {/* Schema.org JSON-LD */}
+        <script type="application/ld+json">
+          {JSON.stringify(incubatorSchema)}
+        </script>
+      </Helmet>
 
-        {/* Eligibility Checker */}
-        <EligibilityChecker />
+      {/* Hero Section */}
+      <IncubatorHero />
 
-        {/* Pricing */}
-        <ServicePricing
-          badge="Transparent Pricing"
-          title="Investment That Pays Back Through Acceptance"
-          subtitle="Choose the package that matches your current stage and goals."
-          tiers={pricingTiers}
-        />
+      {/* Partner Logos */}
+      <IncubatorLogos />
 
-        {/* FAQ */}
-        <ServiceFAQ
-          badge="Common Questions"
-          title="Everything You Need to Know About Bahrain Incubators"
-          subtitle="Answers to the questions founders ask most."
-          faqs={faqItems}
-        />
+      {/* SEO Explainer */}
+      <IncubatorExplainer />
 
-        {/* Final CTA */}
-        <ServiceCTA
-          badge="Ready to Launch?"
-          title="Your Startup Journey Starts with a Single Conversation"
-          subtitle="Book a free 15-minute WhatsApp consultation. We'll assess your eligibility, recommend the right program, and outline your fastest path to acceptance."
-          primaryCTA={{ text: "Start WhatsApp Consultation", href: "https://wa.me/97317000000" }}
-          secondaryCTA={{ text: "Call +973 1700 0000", href: "tel:+97317000000" }}
-          features={[
-            "Free eligibility assessment",
-            "No commitment required",
-            "Response within 2 hours"
-          ]}
-        />
-      </main>
+      {/* Program Types Bento Grid */}
+      <ProgramTypes />
 
-      <Footer />
-    </>
+      {/* Benefits Grid */}
+      <IncubatorBenefits />
+
+      {/* Process Timeline */}
+      <IncubatorProcess />
+
+      {/* Comparison Section */}
+      <IncubatorComparison />
+
+      {/* Testimonials */}
+      <IncubatorTestimonials />
+
+      {/* Eligibility Checker */}
+      <EligibilityChecker />
+
+      {/* Pricing */}
+      <IncubatorPricing />
+
+      {/* FAQ */}
+      <ServiceFAQ
+        badge="Common Questions"
+        title="Everything You Need to Know About Bahrain Incubators"
+        subtitle="Answers to the questions founders ask most."
+        faqs={faqItems}
+      />
+
+      {/* Contact Form */}
+      <IncubatorContact />
+
+      {/* Location */}
+      <IncubatorLocation />
+
+      {/* Final CTA */}
+      <ServiceCTA
+        badge="Ready to Launch?"
+        title="Your Startup Journey Starts with a Single Conversation"
+        subtitle="Book a free 15-minute WhatsApp consultation. We'll assess your eligibility, recommend the right program, and outline your fastest path to acceptance."
+        primaryCTA={{ text: "Start WhatsApp Consultation", href: "https://wa.me/97317000000" }}
+        secondaryCTA={{ text: "Call +973 1700 0000", href: "tel:+97317000000" }}
+        features={[
+          "Free eligibility assessment",
+          "No commitment required",
+          "Response within 2 hours"
+        ]}
+      />
+
+      {/* Floating Elements */}
+      <FloatingWhatsApp />
+      <BackToTop />
+    </Layout>
   );
 }

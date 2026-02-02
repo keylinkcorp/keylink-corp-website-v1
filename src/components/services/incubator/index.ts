@@ -1,6 +1,12 @@
-export { IncubatorProblemAgitation } from './IncubatorProblemAgitation';
-export { IncubatorLandscape } from './IncubatorLandscape';
-export { ProgramComparisonTable } from './ProgramComparisonTable';
-export { IncubatorJourneyTimeline } from './IncubatorJourneyTimeline';
-export { IncubatorAudienceSegments } from './IncubatorAudienceSegments';
+export { IncubatorHero } from './IncubatorHero';
+export { IncubatorLogos } from './IncubatorLogos';
+export { IncubatorExplainer } from './IncubatorExplainer';
+export { ProgramTypes } from './ProgramTypes';
+export { IncubatorBenefits } from './IncubatorBenefits';
+export { IncubatorProcess } from './IncubatorProcess';
+export { IncubatorComparison } from './IncubatorComparison';
+export { IncubatorTestimonials } from './IncubatorTestimonials';
 export { EligibilityChecker } from './EligibilityChecker';
+export { IncubatorPricing } from './IncubatorPricing';
+export { IncubatorContact } from './IncubatorContact';
+export { IncubatorLocation } from './IncubatorLocation';
