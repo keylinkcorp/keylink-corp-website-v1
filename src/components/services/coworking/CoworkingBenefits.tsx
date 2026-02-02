@@ -61,26 +61,32 @@ export function CoworkingBenefits() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-secondary/20">
-      {/* Pattern */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
-
-      {/* Gradient */}
-      <div
-        className="absolute inset-0 opacity-50"
-        style={{
-          backgroundImage: `
-            radial-gradient(ellipse 60% 40% at 30% 20%, hsl(var(--gold) / 0.08) 0%, transparent 50%),
-            radial-gradient(ellipse 50% 50% at 70% 80%, hsl(var(--gold) / 0.05) 0%, transparent 50%)
-          `,
-        }}
-      />
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
+      {/* Enhanced Background */}
+      <div className="absolute inset-0">
+        {/* Warm gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-secondary/30 via-background to-secondary/20" />
+        {/* Gold accents */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(ellipse 50% 40% at 20% 30%, hsl(var(--gold) / 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 50% at 80% 70%, hsl(var(--gold) / 0.05) 0%, transparent 50%)
+            `,
+          }}
+        />
+        {/* Dot pattern */}
+        <div
+          className="absolute inset-0 opacity-25"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+            maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
+          }}
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
@@ -91,11 +97,11 @@ export function CoworkingBenefits() {
           className="text-center mb-14"
         >
           <span className="section-badge">Member Benefits</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-            Work Smarter, <span className="text-accent">Not Harder</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
+            Work Smarter, Not Harder
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Our coworking membership is designed to remove friction and help you focus on what matters most.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Our coworking membership removes friction so you can focus on what matters most
           </p>
         </motion.div>
 

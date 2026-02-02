@@ -5,7 +5,7 @@ import { Zap, Shield, Globe, TrendingUp, Clock, Sparkles } from "lucide-react";
 const benefits = [
   { icon: Zap, text: "Instant access to professional workspaces" },
   { icon: Shield, text: "All-inclusive pricing with no hidden fees" },
-  { icon: Globe, text: "Professional business address in Manama" },
+  { icon: Globe, text: "Professional business address in Sanabis" },
   { icon: TrendingUp, text: "Networking opportunities with entrepreneurs" },
   { icon: Clock, text: "Flexible hours including 24/7 access options" },
 ];
@@ -13,7 +13,7 @@ const benefits = [
 const facts = [
   { label: "Starting From", value: "BHD 15/day" },
   { label: "Contract Length", value: "No commitment" },
-  { label: "Locations", value: "Prime Manama" },
+  { label: "Location", value: "Sanabis Tower" },
   { label: "Amenities", value: "12+ included" },
 ];
 
@@ -36,17 +36,28 @@ export function CoworkingExplainer() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/20 to-background" />
-
-      {/* Pattern */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "48px 48px",
-        }}
-      />
+      {/* Enhanced Background */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/20 to-background" />
+        {/* Gold accent */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(ellipse 60% 50% at 70% 30%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
+          }}
+        />
+        {/* Dot pattern */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+            backgroundSize: "48px 48px",
+            maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
+          }}
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -60,9 +71,8 @@ export function CoworkingExplainer() {
               <span className="section-badge">What is Coworking?</span>
             </motion.div>
 
-            <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-bold mb-6">
-              Flexible Workspace Solutions for{" "}
-              <span className="text-accent">Modern Professionals</span>
+            <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-primary">
+              Flexible Workspace Solutions for Modern Professionals
             </motion.h2>
 
             <motion.div variants={staggerItem} className="space-y-4 text-lg text-muted-foreground leading-relaxed">
@@ -73,7 +83,7 @@ export function CoworkingExplainer() {
                 coworking offers the flexibility to scale your workspace as your business grows.
               </p>
               <p>
-                At Keylink Corp's coworking spaces in Manama, you'll find everything from 
+                At Keylink Corp's coworking spaces in Sanabis, you'll find everything from 
                 hot desks for daily use to dedicated desks and private offices for teams. 
                 Our serviced office solutions include high-speed internet, meeting room access, 
                 mail handling, and a prestigious business address—all with flexible membership terms.

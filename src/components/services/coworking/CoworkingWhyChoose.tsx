@@ -5,8 +5,8 @@ import { MapPin, Users, Briefcase, Network, TrendingUp, CalendarCheck } from "lu
 const advantages = [
   {
     icon: MapPin,
-    title: "Prime Manama Location",
-    description: "Strategically located in Bahrain's financial district with easy access to major business hubs, government offices, and transportation links.",
+    title: "Prime Sanabis Location",
+    description: "Strategically located in Sanabis Exhibition Tower with easy access to major shopping centers, business hubs, and transportation links.",
   },
   {
     icon: Users,
@@ -59,22 +59,28 @@ export function CoworkingWhyChoose() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/40 via-background to-secondary/30" />
-
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: "48px 48px",
-          maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
-        }}
-      />
+      {/* Enhanced Background */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-secondary/30 via-background to-secondary/20" />
+        {/* Gold accent gradient */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(ellipse 60% 40% at 80% 20%, hsl(var(--gold) / 0.1) 0%, transparent 50%)`,
+          }}
+        />
+        {/* Dot pattern with fade */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+            maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
+          }}
+        />
+      </div>
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
@@ -85,12 +91,11 @@ export function CoworkingWhyChoose() {
           className="text-center mb-14"
         >
           <span className="section-badge">Why Choose Us</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            The Keylink <span className="text-accent">Advantage</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
+            The Keylink Advantage
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            With over 10 years of experience in Bahrain's business services sector, 
-            we understand what professionals need to succeed.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Over 10 years of experience in Bahrain's business services sector
           </p>
         </motion.div>
 
