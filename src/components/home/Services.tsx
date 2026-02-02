@@ -8,6 +8,7 @@ import {
   Plane, 
   Briefcase, 
   MapPin,
+  Users,
   ArrowRight 
 } from "lucide-react";
 
@@ -47,6 +48,12 @@ const services = [
     title: "Workspace Solutions",
     description: "Professional business addresses and flexible workspace options to suit your needs.",
     href: "/services/virtual-office",
+  },
+  {
+    icon: Users,
+    title: "Coworking Space",
+    description: "Premium flexible workspaces in Manama with hot desks, private offices & meeting rooms. Join our thriving community.",
+    href: "/services/coworking-space",
   },
 ];
 
