@@ -93,25 +93,11 @@ export function WorkspaceTypes() {
   const smallWorkspaces = workspaces.filter(w => w.size === "small");
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-background">
-      {/* Enhanced Background */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[#FAFAFA]">
+      {/* Radial Gradient Background */}
       <div className="absolute inset-0">
-        {/* Gold radial gradient */}
         <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
-          }}
-        />
-        {/* Dot pattern with fade */}
-        <div
-          className="absolute inset-0 opacity-25"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-            maskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
-          }}
+          className="absolute inset-0 bg-[radial-gradient(100%_50%_at_50%_0%,rgba(199,167,99,0.06)_0,rgba(199,167,99,0)_50%)]"
         />
       </div>
 

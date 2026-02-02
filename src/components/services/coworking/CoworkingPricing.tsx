@@ -83,32 +83,20 @@ export function CoworkingPricing() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} id="pricing" className="relative py-20 md:py-28 overflow-hidden">
-      {/* Enhanced Background */}
+    <section ref={ref} id="pricing" className="relative py-20 md:py-28 overflow-hidden bg-[#F8F8F8]">
+      {/* Large Grid Lines Pattern */}
       <div className="absolute inset-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
-        {/* Gold accents */}
         <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              radial-gradient(ellipse 60% 40% at 50% 0%, hsl(var(--gold) / 0.08) 0%, transparent 50%),
-              radial-gradient(ellipse 50% 50% at 20% 100%, hsl(var(--gold) / 0.05) 0%, transparent 50%)
-            `,
-          }}
-        />
-        {/* Dot pattern */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-            maskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
-          }}
+          className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]"
         />
       </div>
+      {/* Gold accent from top */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(ellipse 70% 40% at 50% 0%, hsl(var(--gold) / 0.08) 0%, transparent 50%)`,
+        }}
+      />
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Floating Savings Badge */}

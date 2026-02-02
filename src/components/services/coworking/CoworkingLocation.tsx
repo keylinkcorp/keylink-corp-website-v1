@@ -15,29 +15,24 @@ export function CoworkingLocation() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Enhanced Background */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[#F8F8F8]">
+      {/* Grid Lines Pattern */}
       <div className="absolute inset-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 via-background to-secondary/30" />
-        {/* Gold accent */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] bg-[size:5rem_5rem]"
           style={{
-            backgroundImage: `radial-gradient(ellipse 50% 50% at 80% 50%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
-          }}
-        />
-        {/* Dot pattern */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-            maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 50%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, #000 50%, transparent 100%)',
           }}
         />
       </div>
+      {/* Gold accent */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(ellipse 40% 40% at 80% 40%, hsl(var(--gold) / 0.05) 0%, transparent 50%)`,
+        }}
+      />
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}

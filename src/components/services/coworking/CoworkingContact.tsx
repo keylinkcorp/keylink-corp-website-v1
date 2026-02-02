@@ -35,16 +35,21 @@ export function CoworkingContact() {
 
   return (
     <section ref={ref} id="contact" className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/30 to-background" />
-
-      {/* Pattern */}
-      <div
+      {/* Modern Grid Lines Background */}
+      <div className="absolute inset-0 bg-[#F8F8F8]">
+        <div 
+          className="absolute inset-0 bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] bg-[size:4rem_4rem]"
+          style={{
+            maskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, #000 40%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, #000 40%, transparent 100%)',
+          }}
+        />
+      </div>
+      {/* Gold accent */}
+      <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-          backgroundSize: "48px 48px",
-          opacity: 0.4,
+          backgroundImage: `radial-gradient(ellipse 60% 40% at 30% 20%, hsl(var(--gold) / 0.06) 0%, transparent 50%)`,
         }}
       />
 
