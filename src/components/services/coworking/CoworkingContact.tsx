@@ -38,10 +38,6 @@ export function CoworkingContact() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/30 to-background" />
 
-      {/* Floating Orbs */}
-      <div className="absolute top-20 left-[5%] w-64 h-64 floating-orb floating-orb-gold animate-float opacity-25" />
-      <div className="absolute bottom-32 right-[20%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-30" />
-
       {/* Pattern */}
       <div
         className="absolute inset-0"
@@ -238,58 +234,54 @@ export function CoworkingContact() {
             </form>
           </motion.div>
 
-          {/* Right Column - Contact Info (Dark Glass Panel) */}
+          {/* Right Column - Contact Info (Dark Panel for contrast) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative bg-[hsl(var(--navy))] rounded-2xl p-8 md:p-10 text-white overflow-hidden"
+            className="relative bg-primary rounded-2xl p-8 md:p-10 text-primary-foreground overflow-hidden"
           >
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-40 h-40 floating-orb floating-orb-gold opacity-30" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 floating-orb floating-orb-gold opacity-20" />
-
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--gold)/0.15)] border border-[hsl(var(--gold)/0.2)] mb-6">
-                <Sparkles className="w-4 h-4 text-[hsl(var(--gold))]" />
-                <span className="text-sm font-medium text-[hsl(var(--gold))]">Contact Us</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 border border-accent/30 mb-6">
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium text-accent">Contact Us</span>
               </div>
 
               <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
-              <p className="text-white/70 mb-8">
+              <p className="text-primary-foreground/70 mb-8">
                 Prefer to reach out directly? Our team is available to answer your questions 
                 and help you find the perfect workspace.
               </p>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[hsl(var(--gold)/0.2)] transition-colors">
-                    <Phone className="w-5 h-5 text-[hsl(var(--gold))]" />
+                  <div className="w-12 h-12 rounded-xl bg-primary-foreground/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                    <Phone className="w-5 h-5 text-accent" />
                   </div>
                   <div>
                     <h4 className="font-medium mb-1">Phone</h4>
-                    <p className="text-white/70">+973 1700 0000</p>
-                    <p className="text-white/70">+973 3300 0000</p>
+                    <p className="text-primary-foreground/70">+973 1700 0000</p>
+                    <p className="text-primary-foreground/70">+973 3300 0000</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[hsl(var(--gold)/0.2)] transition-colors">
-                    <Mail className="w-5 h-5 text-[hsl(var(--gold))]" />
+                  <div className="w-12 h-12 rounded-xl bg-primary-foreground/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                    <Mail className="w-5 h-5 text-accent" />
                   </div>
                   <div>
                     <h4 className="font-medium mb-1">Email</h4>
-                    <p className="text-white/70">coworking@keylinkcorp.com</p>
+                    <p className="text-primary-foreground/70">coworking@keylinkcorp.com</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[hsl(var(--gold)/0.2)] transition-colors">
-                    <MapPin className="w-5 h-5 text-[hsl(var(--gold))]" />
+                  <div className="w-12 h-12 rounded-xl bg-primary-foreground/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                    <MapPin className="w-5 h-5 text-accent" />
                   </div>
                   <div>
                     <h4 className="font-medium mb-1">Location</h4>
-                    <p className="text-white/70">
+                    <p className="text-primary-foreground/70">
                       Diplomatic Area, Building 247<br />
                       Road 1705, Block 317<br />
                       Manama, Kingdom of Bahrain
@@ -299,12 +291,12 @@ export function CoworkingContact() {
               </div>
 
               {/* Business Hours */}
-              <div className="mt-10 pt-8 border-t border-white/10">
+              <div className="mt-10 pt-8 border-t border-primary-foreground/10">
                 <h4 className="font-medium mb-4">Business Hours</h4>
-                <div className="space-y-2 text-white/70">
+                <div className="space-y-2 text-primary-foreground/70">
                   <p>Sunday - Thursday: 8:00 AM - 8:00 PM</p>
                   <p>Friday - Saturday: 9:00 AM - 5:00 PM</p>
-                  <p className="text-[hsl(var(--gold))] font-medium">24/7 access for members</p>
+                  <p className="text-accent font-medium">24/7 access for members</p>
                 </div>
               </div>
             </div>

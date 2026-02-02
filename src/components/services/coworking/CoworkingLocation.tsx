@@ -19,10 +19,6 @@ export function CoworkingLocation() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
 
-      {/* Floating Orbs */}
-      <div className="absolute top-32 right-[10%] w-56 h-56 floating-orb floating-orb-gold animate-float opacity-25" />
-      <div className="absolute bottom-20 left-[5%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-30" />
-
       {/* Pattern */}
       <div
         className="absolute inset-0 opacity-30"
@@ -51,14 +47,14 @@ export function CoworkingLocation() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-start">
-          {/* Map Placeholder with Glass Effect */}
+          {/* Map Placeholder */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
             className="relative rounded-2xl overflow-hidden border border-border bg-secondary/50 h-[450px] group"
           >
-            {/* Simulated map background pattern */}
+            {/* Grid pattern */}
             <div
               className="absolute inset-0 opacity-30"
               style={{
@@ -107,8 +103,8 @@ export function CoworkingLocation() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
-            {/* Address Card with Glass Effect */}
-            <div className="bg-background rounded-2xl border border-border p-8 shadow-xl card-glow">
+            {/* Address Card */}
+            <div className="bg-background rounded-2xl border border-border p-8 shadow-lg">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-7 h-7 text-accent" />
@@ -148,17 +144,14 @@ export function CoworkingLocation() {
               </div>
             </div>
 
-            {/* Transport Info Card */}
-            <div className="bg-[hsl(var(--navy))] rounded-2xl p-6 text-white overflow-hidden relative">
-              {/* Decorative orb */}
-              <div className="absolute top-0 right-0 w-32 h-32 floating-orb floating-orb-gold opacity-30" />
-              
+            {/* Transport Info Card (Navy for variety) */}
+            <div className="bg-primary rounded-2xl p-6 text-primary-foreground overflow-hidden relative">
               <div className="relative z-10">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
-                  <Car className="w-5 h-5 text-[hsl(var(--gold))]" />
+                  <Car className="w-5 h-5 text-accent" />
                   Getting Here
                 </h4>
-                <p className="text-white/70 leading-relaxed">
+                <p className="text-primary-foreground/70 leading-relaxed">
                   Our coworking space is easily accessible by car with ample parking available. 
                   The location is well-connected to major highways and just 15 minutes from 
                   Bahrain International Airport. Public transportation options and taxi 

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Zap, Users, Coffee, Wifi, X, Sparkles } from "lucide-react";
+import { Zap, Users, Coffee, X, Sparkles } from "lucide-react";
 import hotDeskImg from "@/assets/coworking/hot-desk.jpg";
 import loungeImg from "@/assets/coworking/lounge-kitchen.jpg";
 
@@ -61,27 +61,23 @@ export function CoworkingBenefits() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[hsl(var(--navy))]">
-      {/* Floating Orbs */}
-      <div className="absolute top-20 left-[15%] w-72 h-72 floating-orb floating-orb-gold animate-float opacity-20" />
-      <div className="absolute bottom-32 right-[10%] w-56 h-56 floating-orb floating-orb-gold animate-float-slow opacity-15" />
-
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-secondary/20">
       {/* Pattern */}
       <div
-        className="absolute inset-0 opacity-15"
+        className="absolute inset-0 opacity-40"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(199, 167, 99, 0.4) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
           backgroundSize: "40px 40px",
         }}
       />
 
-      {/* Gradient Mesh */}
+      {/* Gradient */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-50"
         style={{
           backgroundImage: `
-            radial-gradient(ellipse 60% 40% at 30% 20%, hsl(var(--gold) / 0.1) 0%, transparent 50%),
-            radial-gradient(ellipse 50% 50% at 70% 80%, hsl(var(--gold) / 0.08) 0%, transparent 50%)
+            radial-gradient(ellipse 60% 40% at 30% 20%, hsl(var(--gold) / 0.08) 0%, transparent 50%),
+            radial-gradient(ellipse 50% 50% at 70% 80%, hsl(var(--gold) / 0.05) 0%, transparent 50%)
           `,
         }}
       />
@@ -94,13 +90,11 @@ export function CoworkingBenefits() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[hsl(var(--gold)/0.15)] text-[hsl(var(--gold))] text-sm font-medium mb-4 border border-[hsl(var(--gold)/0.2)]">
-            Member Benefits
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            Work Smarter, <span className="text-[hsl(var(--gold))]">Not Harder</span>
+          <span className="section-badge">Member Benefits</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+            Work Smarter, <span className="text-accent">Not Harder</span>
           </h2>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Our coworking membership is designed to remove friction and help you focus on what matters most.
           </p>
         </motion.div>
@@ -119,7 +113,7 @@ export function CoworkingBenefits() {
               whileHover={{ y: -5 }}
               className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
                 benefit.size === "large" ? "md:col-span-1" : ""
-              } ${benefit.image ? "min-h-[300px]" : "glass-card p-8"}`}
+              } ${benefit.image ? "min-h-[300px]" : "bg-background border border-border p-8 hover:border-accent/30 hover:shadow-lg"}`}
             >
               {benefit.image ? (
                 <>
@@ -130,14 +124,14 @@ export function CoworkingBenefits() {
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   
-                  {/* Multi-layer Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--navy))] via-[hsl(var(--navy)/0.6)] to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--gold)/0.15)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-8">
-                    <div className="glass-card p-1 inline-block mb-3">
-                      <Sparkles className="w-5 h-5 text-[hsl(var(--gold))]" />
+                    <div className="bg-accent/20 backdrop-blur-sm p-1.5 inline-block rounded-lg mb-3">
+                      <Sparkles className="w-5 h-5 text-accent" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
                       {benefit.title}
@@ -149,24 +143,20 @@ export function CoworkingBenefits() {
                 </>
               ) : (
                 <>
-                  {/* Icon with glow */}
+                  {/* Icon */}
                   {benefit.icon && (
-                    <div className="relative w-14 h-14 rounded-xl bg-[hsl(var(--gold)/0.15)] flex items-center justify-center mb-5 group-hover:bg-[hsl(var(--gold)/0.25)] transition-all duration-300">
-                      <div className="absolute inset-0 rounded-xl bg-[hsl(var(--gold)/0.2)] blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <benefit.icon className="w-7 h-7 text-[hsl(var(--gold))] relative z-10 transition-transform group-hover:scale-110 duration-300" />
+                    <div className="relative w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-all duration-300">
+                      <benefit.icon className="w-7 h-7 text-accent relative z-10 transition-transform group-hover:scale-110 duration-300" />
                     </div>
                   )}
                   
                   {/* Content */}
-                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[hsl(var(--gold))] transition-colors">
+                  <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-accent transition-colors">
                     {benefit.title}
                   </h3>
-                  <p className="text-white/60 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {benefit.description}
                   </p>
-
-                  {/* Shimmer */}
-                  <div className="shimmer opacity-0 group-hover:opacity-100 transition-opacity" />
                 </>
               )}
             </motion.div>

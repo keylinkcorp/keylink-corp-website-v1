@@ -74,12 +74,8 @@ export function WorkspaceTypes() {
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background with gradient mesh */}
+      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
-      
-      {/* Floating Orbs */}
-      <div className="absolute top-20 left-[5%] w-72 h-72 floating-orb floating-orb-gold animate-float opacity-30" />
-      <div className="absolute bottom-20 right-[10%] w-56 h-56 floating-orb floating-orb-navy animate-float-slow opacity-40" />
 
       {/* Pattern */}
       <div
@@ -126,7 +122,7 @@ export function WorkspaceTypes() {
               <motion.div
                 key={workspace.id}
                 variants={staggerItem}
-                className={`group relative overflow-hidden rounded-2xl cursor-pointer card-glow ${workspace.gridClass}`}
+                className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-border shadow-sm hover:shadow-xl transition-shadow ${workspace.gridClass}`}
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
@@ -137,13 +133,13 @@ export function WorkspaceTypes() {
                   />
                 </div>
                 
-                {/* Multi-layer Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--navy))] via-[hsl(var(--navy)/0.5)] to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--gold)/0.1)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Glass Price Badge */}
+                {/* Price Badge */}
                 <div className="absolute top-4 right-4 z-10">
-                  <div className="glass-card px-4 py-2 text-[hsl(var(--gold))] text-sm font-bold">
+                  <div className="bg-accent text-accent-foreground px-4 py-2 rounded-xl text-sm font-bold shadow-lg">
                     {workspace.price}
                   </div>
                 </div>
@@ -151,8 +147,8 @@ export function WorkspaceTypes() {
                 {/* Content */}
                 <div className={`relative z-10 h-full flex flex-col justify-end p-6 ${isLarge ? 'md:p-8' : ''}`}>
                   {/* Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-[hsl(var(--gold)/0.2)] backdrop-blur-sm flex items-center justify-center mb-4 group-hover:bg-[hsl(var(--gold)/0.3)] transition-colors">
-                    <Icon className="w-6 h-6 text-[hsl(var(--gold))]" />
+                  <div className="w-12 h-12 rounded-xl bg-accent/20 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors">
+                    <Icon className="w-6 h-6 text-accent" />
                   </div>
 
                   <h3 className={`font-bold text-white mb-2 ${isLarge ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
@@ -163,12 +159,12 @@ export function WorkspaceTypes() {
                     {workspace.description}
                   </p>
 
-                  {/* Features (visible on larger cards or hover) */}
+                  {/* Features */}
                   <div className={`flex flex-wrap gap-2 mb-5 ${isLarge ? '' : 'opacity-0 group-hover:opacity-100 transition-opacity'}`}>
                     {workspace.features.slice(0, isLarge ? 4 : 2).map((feature, index) => (
                       <span
                         key={index}
-                        className="glass-card px-3 py-1 text-xs text-white/80"
+                        className="bg-white/10 backdrop-blur-sm border border-white/20 px-3 py-1 rounded-lg text-xs text-white/80"
                       >
                         {feature}
                       </span>

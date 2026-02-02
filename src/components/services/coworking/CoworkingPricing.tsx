@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Check, Star, ArrowRight, Sparkles } from "lucide-react";
+import { Check, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const pricingPlans = [
@@ -87,10 +87,6 @@ export function CoworkingPricing() {
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
 
-      {/* Floating Orbs */}
-      <div className="absolute top-20 left-[10%] w-64 h-64 floating-orb floating-orb-gold animate-float opacity-25" />
-      <div className="absolute bottom-32 right-[15%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-30" />
-
       {/* Pattern */}
       <div
         className="absolute inset-0 opacity-30"
@@ -132,13 +128,13 @@ export function CoworkingPricing() {
               whileHover={{ y: plan.popular ? -8 : -5 }}
               className={`relative rounded-2xl overflow-hidden transition-all duration-300 ${
                 plan.popular
-                  ? "bg-[hsl(var(--navy))] shadow-2xl scale-105 z-10"
-                  : "bg-background border border-border hover:border-accent/30 hover:shadow-xl card-glow"
+                  ? "bg-primary shadow-2xl scale-105 z-10"
+                  : "bg-background border border-border hover:border-accent/30 hover:shadow-xl"
               }`}
             >
               {/* Popular Badge */}
               {plan.popular && (
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-[hsl(var(--gold))] via-[hsl(var(--gold-light))] to-[hsl(var(--gold))] text-[hsl(var(--navy))] px-4 py-2 text-sm font-bold flex items-center justify-center gap-2">
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-accent via-accent to-accent text-accent-foreground px-4 py-2 text-sm font-bold flex items-center justify-center gap-2">
                   <Sparkles className="w-4 h-4" />
                   Most Popular
                   <Sparkles className="w-4 h-4" />
@@ -148,10 +144,10 @@ export function CoworkingPricing() {
               <div className={`p-8 ${plan.popular ? 'pt-14' : ''}`}>
                 {/* Plan Name & Description */}
                 <div className="mb-6">
-                  <h3 className={`text-xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-primary'}`}>
+                  <h3 className={`text-xl font-bold mb-2 ${plan.popular ? 'text-primary-foreground' : 'text-primary'}`}>
                     {plan.name}
                   </h3>
-                  <p className={`text-sm ${plan.popular ? 'text-white/70' : 'text-muted-foreground'}`}>
+                  <p className={`text-sm ${plan.popular ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>
                     {plan.description}
                   </p>
                 </div>
@@ -159,11 +155,11 @@ export function CoworkingPricing() {
                 {/* Price */}
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className={`text-sm ${plan.popular ? 'text-white/60' : 'text-muted-foreground'}`}>BHD</span>
-                    <span className={`text-5xl font-bold ${plan.popular ? 'text-[hsl(var(--gold))]' : 'text-primary'}`}>
+                    <span className={`text-sm ${plan.popular ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>BHD</span>
+                    <span className={`text-5xl font-bold ${plan.popular ? 'text-accent' : 'text-primary'}`}>
                       {plan.price}
                     </span>
-                    <span className={plan.popular ? 'text-white/60' : 'text-muted-foreground'}>/{plan.period}</span>
+                    <span className={plan.popular ? 'text-primary-foreground/60' : 'text-muted-foreground'}>/{plan.period}</span>
                   </div>
                 </div>
 
@@ -172,11 +168,11 @@ export function CoworkingPricing() {
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                        plan.popular ? 'bg-[hsl(var(--gold)/0.2)]' : 'bg-accent/10'
+                        plan.popular ? 'bg-accent/20' : 'bg-accent/10'
                       }`}>
-                        <Check className={`w-3 h-3 ${plan.popular ? 'text-[hsl(var(--gold))]' : 'text-accent'}`} />
+                        <Check className={`w-3 h-3 ${plan.popular ? 'text-accent' : 'text-accent'}`} />
                       </div>
-                      <span className={`text-sm ${plan.popular ? 'text-white/80' : 'text-muted-foreground'}`}>
+                      <span className={`text-sm ${plan.popular ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
                         {feature}
                       </span>
                     </li>
@@ -187,7 +183,7 @@ export function CoworkingPricing() {
                 <Button
                   className={`w-full ${
                     plan.popular
-                      ? "bg-[hsl(var(--gold))] hover:bg-[hsl(var(--gold-dark))] text-[hsl(var(--navy))] shadow-lg shadow-[hsl(var(--gold)/0.3)]"
+                      ? "bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg shadow-accent/30"
                       : "bg-primary hover:bg-primary/90"
                   }`}
                   size="lg"
@@ -196,9 +192,6 @@ export function CoworkingPricing() {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
-
-              {/* Shimmer for popular */}
-              {plan.popular && <div className="shimmer" />}
             </motion.div>
           ))}
         </motion.div>

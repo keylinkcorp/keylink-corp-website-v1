@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { CheckCircle2, Zap, Shield, Globe, TrendingUp, Clock, Sparkles } from "lucide-react";
+import { Zap, Shield, Globe, TrendingUp, Clock, Sparkles } from "lucide-react";
 
 const benefits = [
   { icon: Zap, text: "Instant access to professional workspaces" },
@@ -38,10 +38,6 @@ export function CoworkingExplainer() {
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/20 to-background" />
-
-      {/* Floating Orbs */}
-      <div className="absolute top-20 right-[15%] w-64 h-64 floating-orb floating-orb-gold animate-float opacity-25" />
-      <div className="absolute bottom-32 left-[10%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-30" />
 
       {/* Pattern */}
       <div
@@ -90,21 +86,17 @@ export function CoworkingExplainer() {
             </motion.div>
           </motion.div>
 
-          {/* Benefits Panel with Glass Effect */}
+          {/* Benefits Panel (Navy for contrast) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative bg-[hsl(var(--navy))] rounded-2xl p-8 md:p-10 text-white overflow-hidden"
+            className="relative bg-primary rounded-2xl p-8 md:p-10 text-primary-foreground overflow-hidden"
           >
-            {/* Decorative orbs */}
-            <div className="absolute top-0 right-0 w-48 h-48 floating-orb floating-orb-gold opacity-30" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 floating-orb floating-orb-gold opacity-20" />
-
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--gold)/0.15)] border border-[hsl(var(--gold)/0.2)] mb-6">
-                <Sparkles className="w-4 h-4 text-[hsl(var(--gold))]" />
-                <span className="text-sm font-medium text-[hsl(var(--gold))]">Key Benefits</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 border border-accent/30 mb-6">
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium text-accent">Key Benefits</span>
               </div>
 
               <h3 className="text-xl font-semibold mb-6">
@@ -120,10 +112,10 @@ export function CoworkingExplainer() {
                       className="flex items-start gap-3 group"
                       whileHover={{ x: 4 }}
                     >
-                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[hsl(var(--gold)/0.15)] flex items-center justify-center mt-0.5 group-hover:bg-[hsl(var(--gold)/0.25)] transition-colors">
-                        <Icon className="w-5 h-5 text-[hsl(var(--gold))]" />
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center mt-0.5 group-hover:bg-accent/30 transition-colors">
+                        <Icon className="w-5 h-5 text-accent" />
                       </div>
-                      <span className="text-white/80 pt-2">{benefit.text}</span>
+                      <span className="text-primary-foreground/80 pt-2">{benefit.text}</span>
                     </motion.li>
                   );
                 })}
@@ -134,11 +126,11 @@ export function CoworkingExplainer() {
                 {facts.map((fact, index) => (
                   <motion.div
                     key={index}
-                    className="glass-card p-4"
+                    className="bg-primary-foreground/10 rounded-xl p-4"
                     whileHover={{ scale: 1.02 }}
                   >
-                    <div className="text-xs text-white/50 mb-1">{fact.label}</div>
-                    <div className="text-lg font-bold text-[hsl(var(--gold))]">{fact.value}</div>
+                    <div className="text-xs text-primary-foreground/50 mb-1">{fact.label}</div>
+                    <div className="text-lg font-bold text-accent">{fact.value}</div>
                   </motion.div>
                 ))}
               </div>
