@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { MapPin, Train, Car, Building, Landmark, Coffee, ExternalLink } from "lucide-react";
+import { MapPin, Car, Building, Landmark, Coffee, ShoppingBag, ExternalLink } from "lucide-react";
 
 const nearbyPlaces = [
-  { icon: Building, name: "Bahrain Financial Harbour", distance: "5 min walk" },
-  { icon: Landmark, name: "Central Bank of Bahrain", distance: "3 min walk" },
-  { icon: Train, name: "Exhibition Avenue", distance: "7 min walk" },
-  { icon: Car, name: "Free street parking", distance: "Available" },
+  { icon: Building, name: "Bahrain Exhibition Centre", distance: "2 min walk" },
+  { icon: ShoppingBag, name: "Seef Mall", distance: "5 min drive" },
+  { icon: Landmark, name: "City Centre Bahrain", distance: "7 min drive" },
+  { icon: Car, name: "Free parking", distance: "Available" },
   { icon: Coffee, name: "Restaurants & cafes", distance: "Within building" },
 ];
 
@@ -38,11 +38,11 @@ export function CoworkingLocation() {
         >
           <span className="section-badge">Our Location</span>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Strategically Located in <span className="text-accent">Manama</span>
+            Strategically Located in <span className="text-accent">Sanabis</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Our coworking space is situated in Bahrain's premier business district, 
-            offering easy access to major financial institutions and government offices.
+            Our coworking space is situated in Sanabis Exhibition Tower, 
+            offering easy access to major shopping destinations and business centers.
           </p>
         </motion.div>
 
@@ -77,7 +77,7 @@ export function CoworkingLocation() {
                 </div>
                 <p className="text-muted-foreground mb-6 text-lg">Interactive map coming soon</p>
                 <a
-                  href="https://maps.google.com/?q=Diplomatic+Area+Manama+Bahrain"
+                  href="https://maps.google.com/?q=Sanabis+Exhibition+Tower+Bahrain"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 hover:scale-[1.02]"
@@ -112,9 +112,8 @@ export function CoworkingLocation() {
                 <div>
                   <h3 className="text-xl font-semibold text-primary mb-2">Keylink Coworking Space</h3>
                   <p className="text-muted-foreground">
-                    Diplomatic Area, Building 247<br />
-                    Road 1705, Block 317<br />
-                    Manama, Kingdom of Bahrain
+                    Sanabis Exhibition Tower<br />
+                    Sanabis, Kingdom of Bahrain
                   </p>
                 </div>
               </div>
@@ -144,7 +143,7 @@ export function CoworkingLocation() {
               </div>
             </div>
 
-            {/* Transport Info Card (Navy for variety) */}
+            {/* Transport Info Card */}
             <div className="bg-primary rounded-2xl p-6 text-primary-foreground overflow-hidden relative">
               <div className="relative z-10">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
@@ -152,10 +151,9 @@ export function CoworkingLocation() {
                   Getting Here
                 </h4>
                 <p className="text-primary-foreground/70 leading-relaxed">
-                  Our coworking space is easily accessible by car with ample parking available. 
-                  The location is well-connected to major highways and just 15 minutes from 
-                  Bahrain International Airport. Public transportation options and taxi 
-                  services are readily available in the area.
+                  Our coworking space is easily accessible by car with free parking available. 
+                  Located near Seef Mall and City Centre Bahrain, the location is well-connected 
+                  to major highways and just 20 minutes from Bahrain International Airport.
                 </p>
               </div>
             </div>

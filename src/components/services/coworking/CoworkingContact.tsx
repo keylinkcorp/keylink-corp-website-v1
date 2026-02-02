@@ -282,9 +282,8 @@ export function CoworkingContact() {
                   <div>
                     <h4 className="font-medium mb-1">Location</h4>
                     <p className="text-primary-foreground/70">
-                      Diplomatic Area, Building 247<br />
-                      Road 1705, Block 317<br />
-                      Manama, Kingdom of Bahrain
+                      Sanabis Exhibition Tower<br />
+                      Sanabis, Kingdom of Bahrain
                     </p>
                   </div>
                 </div>
