@@ -24,16 +24,26 @@ const trustIndicators = [
 
 export function CoworkingHero() {
   return (
-    <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-[hsl(var(--navy))]">
-      {/* Navy Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--navy))] via-[hsl(var(--navy-light)/0.95)] to-[hsl(var(--navy))]" />
+    <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-background">
+      {/* Gold Radial Gradient Background */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `
+            radial-gradient(ellipse 80% 50% at 70% 20%, hsl(var(--gold) / 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 20% 80%, hsl(var(--gold) / 0.1) 0%, transparent 50%)
+          `,
+        }}
+      />
 
       {/* Dot Pattern Overlay */}
       <div
-        className="absolute inset-0 opacity-15"
+        className="absolute inset-0 opacity-40"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(199, 167, 99, 0.4) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
           backgroundSize: "32px 32px",
+          maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%)",
         }}
       />
 
@@ -43,20 +53,20 @@ export function CoworkingHero() {
           <div className="space-y-8">
             {/* Badge */}
             <div>
-              <span className="glass-card inline-flex items-center gap-2 px-5 py-2.5 text-white text-sm font-medium">
-                <Sparkles className="w-4 h-4 text-[hsl(var(--gold))]" />
+              <span className="section-badge inline-flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
                 Premium Coworking Space
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary leading-[1.1]">
               Find Your Perfect{" "}
-              <span className="text-[hsl(var(--gold))]">Flexible Workspace</span> in Manama
+              <span className="text-accent">Flexible Workspace</span> in Manama
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-xl">
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl">
               Hot desks, private offices & meeting rooms with high-speed WiFi, 
               business address, and networking opportunities. Flexible memberships 
               starting from BHD 15/day.
@@ -66,7 +76,7 @@ export function CoworkingHero() {
             <div className="flex flex-wrap gap-4">
               <Button 
                 size="lg" 
-                className="h-14 px-8 rounded-2xl bg-[hsl(var(--gold))] hover:bg-[hsl(var(--gold-dark))] text-[hsl(var(--navy))] font-semibold shadow-lg shadow-[hsl(var(--gold)/0.3)] transition-all hover:scale-[1.02]"
+                className="h-14 px-8 rounded-2xl bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg shadow-accent/20 transition-all hover:scale-[1.02]"
               >
                 Book a Free Tour
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -74,7 +84,7 @@ export function CoworkingHero() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="h-14 px-8 rounded-2xl border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 backdrop-blur-sm"
+                className="h-14 px-8 rounded-2xl border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40"
               >
                 View Pricing
               </Button>
@@ -86,7 +96,7 @@ export function CoworkingHero() {
             {workspaceImages.map((workspace) => (
               <div
                 key={workspace.id}
-                className="group relative aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer"
+                className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-border shadow-lg cursor-pointer"
               >
                 {/* Image */}
                 <img
@@ -96,20 +106,20 @@ export function CoworkingHero() {
                 />
                 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--navy)/0.85)] via-[hsl(var(--navy)/0.2)] to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
                 
                 {/* Gold Accent on Hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gold)/0.15)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {/* Title Badge */}
                 <div className="absolute bottom-3 left-3 right-3">
-                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[hsl(var(--gold))] text-[hsl(var(--navy))] text-sm font-semibold shadow-lg">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-accent text-accent-foreground text-sm font-semibold shadow-lg">
                     {workspace.title}
                   </span>
                 </div>
                 
                 {/* Decorative Border on Hover */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-[hsl(var(--gold)/0)] group-hover:border-[hsl(var(--gold)/0.5)] transition-all duration-300" />
+                <div className="absolute inset-0 rounded-2xl border-2 border-accent/0 group-hover:border-accent/50 transition-all duration-300" />
               </div>
             ))}
           </div>
@@ -123,17 +133,19 @@ export function CoworkingHero() {
               return (
                 <div
                   key={index}
-                  className="glass-card px-5 py-5 text-center group hover:bg-white/10 transition-all duration-300"
+                  className="bg-background rounded-xl border border-border px-5 py-5 text-center group hover:border-accent/30 hover:shadow-lg transition-all duration-300"
                 >
-                  <Icon className="w-6 h-6 text-[hsl(var(--gold))] mx-auto mb-2 group-hover:scale-110 transition-transform" />
-                  <div className="text-2xl md:text-3xl font-bold text-[hsl(var(--gold))]">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-accent/20 transition-colors">
+                    <Icon className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
+                  </div>
+                  <div className="text-2xl md:text-3xl font-bold text-primary">
                     <AnimatedCounter 
                       value={indicator.value} 
                       suffix={indicator.suffix}
                       duration={2}
                     />
                   </div>
-                  <div className="text-sm text-white/70 mt-1">{indicator.label}</div>
+                  <div className="text-sm text-muted-foreground mt-1">{indicator.label}</div>
                 </div>
               );
             })}

@@ -37,10 +37,6 @@ export function CoworkingGallery() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
 
-      {/* Floating Orbs */}
-      <div className="absolute top-20 right-[10%] w-64 h-64 floating-orb floating-orb-gold animate-float opacity-20" />
-      <div className="absolute bottom-32 left-[5%] w-48 h-48 floating-orb floating-orb-navy animate-float-slow opacity-25" />
-
       {/* Pattern */}
       <div
         className="absolute inset-0"
@@ -68,7 +64,7 @@ export function CoworkingGallery() {
           </p>
         </motion.div>
 
-        {/* Glass Filter Tabs */}
+        {/* Filter Tabs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -82,22 +78,15 @@ export function CoworkingGallery() {
               className={`relative px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden ${
                 activeFilter === filter.id
                   ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20"
-                  : "bg-background/80 backdrop-blur-sm text-muted-foreground hover:text-primary border border-border hover:border-accent/50"
+                  : "bg-background border border-border text-muted-foreground hover:text-primary hover:border-accent/50"
               }`}
             >
               {filter.label}
-              {/* Underline animation */}
-              {activeFilter === filter.id && (
-                <motion.div
-                  layoutId="activeFilter"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-foreground/50"
-                />
-              )}
             </button>
           ))}
         </motion.div>
 
-        {/* Gallery Grid with Masonry-style */}
+        {/* Gallery Grid */}
         <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
@@ -111,7 +100,7 @@ export function CoworkingGallery() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className={`group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer card-glow ${
+                className={`group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer border border-border shadow-sm hover:shadow-lg transition-shadow ${
                   index === 0 ? 'md:row-span-2 md:aspect-auto md:h-full' : ''
                 }`}
               >
@@ -121,13 +110,13 @@ export function CoworkingGallery() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 
-                {/* Multi-layer Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--navy))] via-[hsl(var(--navy)/0.3)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--gold)/0.1)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 {/* Title Reveal */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <div className="glass-card-light px-4 py-3 inline-block">
+                  <div className="bg-background/90 backdrop-blur-sm border border-border rounded-xl px-4 py-3 inline-block">
                     <h3 className="font-semibold text-primary text-lg">{image.title}</h3>
                     <p className="text-muted-foreground text-sm">{image.alt}</p>
                   </div>
