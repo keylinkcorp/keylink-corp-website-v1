@@ -1,76 +1,42 @@
 import { useRef } from "react";
 import { useInView } from "framer-motion";
-import { Check, X, Sparkles, Building2, Landmark } from "lucide-react";
+import { Check, X, Sparkles, Building2, TrendingUp, Home } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const comparisonData = [
-  {
-    feature: "Monthly Cost",
-    coworking: "From BHD 15/day",
-    traditional: "BHD 800+/month minimum",
-  },
-  {
-    feature: "Commitment",
-    coworking: "No long-term contracts",
-    traditional: "1-3 year lease required",
-  },
-  {
-    feature: "Setup Time",
-    coworking: "Start working tomorrow",
-    traditional: "Weeks of setup & furnishing",
-  },
-  {
-    feature: "Utilities & Internet",
-    coworking: "All included",
-    traditional: "Separate bills & contracts",
-  },
-  {
-    feature: "Maintenance & Cleaning",
-    coworking: "Fully managed",
-    traditional: "Your responsibility",
-  },
-  {
-    feature: "Networking",
-    coworking: "Built-in community",
-    traditional: "Isolated environment",
-  },
-  {
-    feature: "Scalability",
-    coworking: "Scale up/down anytime",
-    traditional: "Locked into fixed size",
-  },
-  {
-    feature: "Meeting Rooms",
-    coworking: "On-demand booking",
-    traditional: "Must build or rent separately",
-  },
+const features = [
+  { name: "Monthly Cost", traditional: "800+ BD", coworking: "From 60 BD", wfh: "Free" },
+  { name: "CR Address", traditional: true, coworking: true, wfh: false },
+  { name: "No Long-term Lease", traditional: false, coworking: true, wfh: true },
+  { name: "Meeting Rooms", traditional: true, coworking: true, wfh: false },
+  { name: "Networking", traditional: false, coworking: true, wfh: false },
+  { name: "Business WiFi", traditional: true, coworking: true, wfh: false },
+  { name: "24/7 Access", traditional: true, coworking: true, wfh: true },
+  { name: "Reception", traditional: true, coworking: true, wfh: false },
+  { name: "Flexible Scaling", traditional: false, coworking: true, wfh: false },
+  { name: "All-Inclusive", traditional: false, coworking: true, wfh: true },
 ];
+
+function FeatureCheck({ value }: { value: boolean | string }) {
+  if (typeof value === "string") {
+    return <span className="font-semibold text-primary">{value}</span>;
+  }
+  return value ? (
+    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+      <Check className="w-3 h-3 text-green-600" />
+    </div>
+  ) : (
+    <div className="w-5 h-5 rounded-full bg-red-50 flex items-center justify-center">
+      <X className="w-3 h-3 text-red-400" />
+    </div>
+  );
+}
 
 export function CoworkingComparison() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/20" />
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(ellipse 70% 50% at 50% 0%, hsl(var(--gold) / 0.08) 0%, transparent 50%)`,
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-25"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-            maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)",
-          }}
-        />
-      </div>
-
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-background">
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
         <div
@@ -78,103 +44,146 @@ export function CoworkingComparison() {
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
           }`}
         >
-          <span className="section-badge">Smart Choice</span>
+          <span className="section-badge">Why Choose Coworking</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-primary">
-            Why Choose Coworking?
+            Coworking vs Traditional Office in Bahrain
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            See the difference at a glance
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            See why hundreds of businesses in Bahrain are switching from traditional office leases to flexible coworking spaces.
           </p>
         </div>
 
-        {/* Two Column Cards */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {/* Three Column Cards */}
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-6 max-w-6xl mx-auto">
           
-          {/* Keylink Card - Highlighted */}
+          {/* Traditional Office Card */}
           <div
-            className={`relative p-6 md:p-8 rounded-2xl bg-background border-2 border-accent/30 shadow-xl overflow-hidden transition-all duration-700 delay-100 hover:-translate-y-1 ${
+            className={`p-6 lg:p-8 rounded-2xl bg-secondary/30 border border-border transition-all duration-700 delay-100 ${
               isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
             }`}
           >
-            {/* Decorative gradient */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent pointer-events-none" />
-            
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-accent" />
-              </div>
-              <div>
-                <h3 className="font-bold text-lg text-primary">Keylink Coworking</h3>
-                <span className="text-sm text-accent font-medium">Recommended</span>
+            {/* Icon */}
+            <div className="flex justify-center mb-5">
+              <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center">
+                <Building2 className="w-7 h-7 text-muted-foreground" />
               </div>
             </div>
             
+            {/* Title */}
+            <div className="text-center mb-6">
+              <h3 className="font-bold text-xl text-primary">Traditional Office</h3>
+              <p className="text-sm text-muted-foreground">Conventional workspace rental</p>
+            </div>
+
+            {/* Price */}
+            <div className="text-center mb-8 pb-6 border-b border-border">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-bold text-primary">800+</span>
+                <span className="text-lg text-muted-foreground">BD/month</span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">+ utilities, maintenance, setup</p>
+            </div>
+            
             {/* Feature List */}
-            <div className="space-y-5">
-              {comparisonData.map((item, index) => (
-                <div 
-                  key={item.feature} 
-                  className="flex items-start gap-3"
-                  style={{
-                    transitionDelay: `${150 + index * 50}ms`,
-                  }}
-                >
-                  <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Check className="w-4 h-4 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-primary">{item.coworking}</p>
-                    <p className="text-sm text-muted-foreground">{item.feature}</p>
-                  </div>
+            <div className="space-y-4">
+              {features.map((feature) => (
+                <div key={feature.name} className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">{feature.name}</span>
+                  <FeatureCheck value={feature.traditional} />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Traditional Card - Muted */}
+          {/* Coworking Space Card - Highlighted */}
           <div
-            className={`p-6 md:p-8 rounded-2xl bg-secondary/40 border border-border transition-all duration-700 delay-200 ${
+            className={`relative p-6 lg:p-8 rounded-2xl bg-gradient-to-b from-accent/20 via-accent/10 to-accent/5 border-2 border-accent/40 shadow-lg transition-all duration-700 delay-200 ${
               isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
             }`}
           >
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-8 opacity-70">
-              <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
-                <Landmark className="w-6 h-6 text-muted-foreground" />
+            {/* Best Value Badge */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold shadow-md">
+                <Sparkles className="w-4 h-4" />
+                Best Value
               </div>
-              <h3 className="font-semibold text-lg text-muted-foreground">Traditional Office</h3>
+            </div>
+
+            {/* Icon */}
+            <div className="flex justify-center mb-5 mt-2">
+              <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center">
+                <TrendingUp className="w-7 h-7 text-accent" />
+              </div>
+            </div>
+            
+            {/* Title */}
+            <div className="text-center mb-6">
+              <h3 className="font-bold text-xl text-primary">Coworking Space</h3>
+              <p className="text-sm text-muted-foreground">Flexible professional workspace</p>
+            </div>
+
+            {/* Price */}
+            <div className="text-center mb-8 pb-6 border-b border-accent/20">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-bold text-accent">60</span>
+                <span className="text-lg text-muted-foreground">BD/month</span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">All-inclusive, no hidden fees</p>
             </div>
             
             {/* Feature List */}
-            <div className="space-y-5">
-              {comparisonData.map((item) => (
-                <div key={item.feature} className="flex items-start gap-3 opacity-70">
-                  <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <X className="w-4 h-4 text-red-500" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-muted-foreground">{item.traditional}</p>
-                    <p className="text-sm text-muted-foreground/70">{item.feature}</p>
-                  </div>
+            <div className="space-y-4">
+              {features.map((feature) => (
+                <div key={feature.name} className="flex items-center justify-between">
+                  <span className="text-sm text-primary font-medium">{feature.name}</span>
+                  <FeatureCheck value={feature.coworking} />
                 </div>
               ))}
             </div>
-          </div>
-        </div>
 
-        {/* Savings Callout */}
-        <div
-          className={`mt-8 p-6 rounded-2xl bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 border border-accent/30 text-center max-w-5xl mx-auto transition-all duration-700 delay-300 ${
-            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-          }`}
-        >
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Sparkles className="w-6 h-6 text-accent" />
-            <p className="text-lg md:text-xl font-bold text-primary">
-              Save up to <span className="text-accent">BHD 6,000/year</span> vs traditional office leases
-            </p>
-            <Sparkles className="w-6 h-6 text-accent" />
+            {/* CTA Button */}
+            <Button className="w-full mt-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
+              Get Started Today
+            </Button>
+          </div>
+
+          {/* Work From Home Card */}
+          <div
+            className={`p-6 lg:p-8 rounded-2xl bg-secondary/30 border border-border transition-all duration-700 delay-300 ${
+              isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            {/* Icon */}
+            <div className="flex justify-center mb-5">
+              <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center">
+                <Home className="w-7 h-7 text-muted-foreground" />
+              </div>
+            </div>
+            
+            {/* Title */}
+            <div className="text-center mb-6">
+              <h3 className="font-bold text-xl text-primary">Work From Home</h3>
+              <p className="text-sm text-muted-foreground">Remote home office</p>
+            </div>
+
+            {/* Price */}
+            <div className="text-center mb-8 pb-6 border-b border-border">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-bold text-primary">Free</span>
+                <span className="text-lg text-muted-foreground">/month</span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">But limited professionalism</p>
+            </div>
+            
+            {/* Feature List */}
+            <div className="space-y-4">
+              {features.map((feature) => (
+                <div key={feature.name} className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">{feature.name}</span>
+                  <FeatureCheck value={feature.wfh} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
