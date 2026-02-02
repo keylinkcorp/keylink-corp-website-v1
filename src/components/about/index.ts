@@ -1,0 +1,10 @@
+export { AboutHero } from "./AboutHero";
+export { AboutStory } from "./AboutStory";
+export { AboutMission } from "./AboutMission";
+export { AboutTeam } from "./AboutTeam";
+export { AboutValues } from "./AboutValues";
+export { AboutAchievements } from "./AboutAchievements";
+export { AboutCredentials } from "./AboutCredentials";
+export { AboutTestimonials } from "./AboutTestimonials";
+export { AboutOffice } from "./AboutOffice";
+export { AboutCTA } from "./AboutCTA";
