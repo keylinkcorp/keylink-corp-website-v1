@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Zap, Shield, Globe, TrendingUp, Clock, Sparkles } from "lucide-react";
+import professionalReception from "@/assets/virtual-office/professional-reception.jpg";
 
 const benefits = [
   { icon: Zap, text: "Instant professional business presence" },
@@ -106,6 +107,17 @@ export function VirtualOfficeExplainer() {
             className="relative bg-primary rounded-2xl p-8 md:p-10 text-primary-foreground overflow-hidden"
           >
             <div className="relative z-10">
+              {/* Reception Image */}
+              <div className="relative rounded-xl overflow-hidden mb-6 group">
+                <img 
+                  src={professionalReception} 
+                  alt="Professional virtual office reception in Bahrain"
+                  className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
+              </div>
+
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 border border-accent/30 mb-6">
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span className="text-sm font-medium text-accent">Key Benefits</span>

@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import clientHandshake from "@/assets/virtual-office/client-handshake.jpg";
 
 const testimonials = [
   {
@@ -84,6 +85,28 @@ export function VirtualOfficeTestimonials() {
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Join over 1,000 businesses who trust Keylink for their virtual office needs in Bahrain
           </p>
+        </motion.div>
+
+        {/* Hero Banner Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative rounded-2xl overflow-hidden mb-12 max-w-4xl mx-auto group"
+        >
+          <img 
+            src={clientHandshake} 
+            alt="Business professionals meeting at Keylink virtual office Bahrain"
+            className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-primary/30 to-primary/60" />
+          <div className="absolute inset-0 flex items-center justify-center text-center">
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-2">Trusted by 1,000+ Businesses</h3>
+              <p className="text-primary-foreground/80">From startups to global enterprises across Bahrain</p>
+            </div>
+          </div>
         </motion.div>
 
         {/* Testimonial Cards */}

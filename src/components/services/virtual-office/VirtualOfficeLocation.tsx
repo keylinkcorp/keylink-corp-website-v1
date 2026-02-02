@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { MapPin, Clock, Car, Plane } from "lucide-react";
+import { MapPin, Clock, Car, ExternalLink } from "lucide-react";
+import sanabisTower from "@/assets/virtual-office/sanabis-tower-exterior.jpg";
 
 const nearbyLandmarks = [
   { name: "Seef Mall", distance: "5 min drive" },
@@ -45,23 +46,34 @@ export function VirtualOfficeLocation() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
-          {/* Map Placeholder */}
+          {/* Building Exterior Image */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative rounded-2xl overflow-hidden border border-border shadow-md h-[400px]"
+            className="relative rounded-2xl overflow-hidden border border-border shadow-md h-[400px] group"
           >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.2!2d50.5876!3d26.2235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDEzJzI0LjYiTiA1MMKwMzUnMTUuNCJF!5e0!3m2!1sen!2sbh!4v1600000000000!5m2!1sen!2sbh"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
+            <img 
+              src={sanabisTower} 
+              alt="Sanabis Exhibition Tower - Virtual Office in Bahrain"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Keylink Virtual Office Location - Sanabis Exhibition Tower, Bahrain"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/20 to-transparent" />
+            
+            {/* View on Maps Button Overlay */}
+            <div className="absolute bottom-6 left-6 right-6">
+              <a 
+                href="https://maps.google.com/?q=Sanabis+Exhibition+Tower+Bahrain"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 bg-background/95 backdrop-blur-sm rounded-xl text-primary font-medium shadow-lg hover:bg-background transition-colors"
+              >
+                <MapPin className="w-5 h-5 text-accent" />
+                <span>View on Google Maps</span>
+                <ExternalLink className="w-4 h-4 ml-1 opacity-60" />
+              </a>
+            </div>
           </motion.div>
 
           {/* Location Details */}
