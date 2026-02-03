@@ -1,65 +1,56 @@
 
-# Contact Us Page
+# Free Consultation Page with Calendly Integration
 
 ## Overview
-Create a comprehensive Contact Us page for Keylink Corp that provides multiple ways to reach the company, displays office location with an interactive map, and includes a multi-step contact form. The design will follow the established visual patterns using mask-based background patterns, framer-motion animations, and the navy/gold color scheme.
+Create a dedicated Free Consultation booking page that integrates the Calendly inline widget for scheduling Google Meet consultations. This page will serve as the destination for all "Free Consultation" CTAs throughout the site.
 
 ---
 
-## Page Sections
+## Page Structure
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  CONTACT HERO                                                                │
+│  CONSULTATION HERO                                                           │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │  Badge: "Get in Touch"                                                │  │
-│  │  H1: "We're Here to Help You Succeed"                                │  │
-│  │  Subtitle: Contact description                                        │  │
-│  │  Quick Stats: [Response Time] [Languages] [Availability]            │  │
+│  │  Badge: "Book Your Free Session"                                      │  │
+│  │  H1: "Let's Discuss Your Business Goals"                             │  │
+│  │  Subtitle: What to expect from the consultation                       │  │
+│  │  Trust: Response time, No obligations, Expert guidance                │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  CONTACT METHODS (Bento Grid)                                                │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐           │
-│  │   Phone     │ │   WhatsApp  │ │    Email    │ │  Visit Us   │           │
-│  │   📞        │ │     💬      │ │     ✉️      │ │     📍      │           │
-│  │ Click call  │ │  Quick chat │ │   Send msg  │ │ Directions  │           │
-│  └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘           │
+│  CALENDLY BOOKING SECTION                                                    │
+│  ┌──────────────────────────────────┐  ┌─────────────────────────────────┐  │
+│  │                                   │  │  What You'll Get               │  │
+│  │    CALENDLY INLINE WIDGET        │  │  ─────────────────────────      │  │
+│  │    (Google Meet Booking)          │  │  ✓ Business structure advice   │  │
+│  │                                   │  │  ✓ Cost breakdown              │  │
+│  │    600px height                   │  │  ✓ Timeline estimate           │  │
+│  │    Full-width on mobile           │  │  ✓ Document checklist          │  │
+│  │                                   │  │  ✓ Q&A with expert             │  │
+│  │                                   │  │  ─────────────────────────      │  │
+│  │                                   │  │  Contact Details               │  │
+│  │                                   │  │  Phone, Email, WhatsApp        │  │
+│  └──────────────────────────────────┘  └─────────────────────────────────┘  │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  CONTACT FORM + INFO PANEL                                                   │
-│  ┌────────────────────────────────────┐  ┌────────────────────────────────┐ │
-│  │  Multi-Step Contact Form           │  │  Dark Info Panel               │ │
-│  │  Step 1: Service Interest          │  │  ─────────────────────         │ │
-│  │  Step 2: Your Details              │  │  Contact Details               │ │
-│  │  Step 3: Message                   │  │  • Phone numbers               │ │
-│  │                                     │  │  • Email addresses             │ │
-│  │  [Back] [Submit Inquiry]           │  │  • Office address              │ │
-│  │                                     │  │  ─────────────────────         │ │
-│  │                                     │  │  Business Hours                │ │
-│  │                                     │  │  Sun-Thu: 8AM-5PM              │ │
-│  └────────────────────────────────────┘  └────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  OFFICE LOCATION + MAP                                                       │
-│  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │  Full-width office exterior image with gradient overlay               │  │
-│  │  Animated map pin                                                      │  │
-│  │  "Our Location" headline + description                                 │  │
-│  │  [Get Directions Button]                                              │  │
-│  └───────────────────────────────────────────────────────────────────────┘  │
-│  ┌─────────────────────────────────────────────────────────────────────┐    │
-│  │  Embedded Google Map (interactive)                                    │    │
-│  └─────────────────────────────────────────────────────────────────────┘    │
+│  WHAT TO EXPECT (Process Steps)                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │  1. Book    │  │ 2. Prepare  │  │ 3. Meet     │  │ 4. Start    │        │
+│  │  Schedule   │  │ We research │  │ Google Meet │  │ Get quote   │        │
+│  │  your slot  │  │ your needs  │  │ 30-min call │  │ & begin     │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘        │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  FAQ SECTION                                                                 │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │  Common questions about contacting Keylink                            │  │
-│  │  • How fast is your response time?                                    │  │
-│  │  • What languages do you support?                                     │  │
-│  │  • Can I book a consultation online?                                  │  │
+│  │  Consultation-specific questions                                       │  │
+│  │  • Is the consultation really free?                                   │  │
+│  │  • How long is the session?                                           │  │
+│  │  • What should I prepare?                                             │  │
+│  │  • Can I reschedule?                                                  │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  CTA SECTION                                                                 │
+│  ALTERNATIVE CONTACT CTA                                                     │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │  "Ready to Start?" + CTA Buttons                                      │  │
+│  │  "Prefer to talk now?" + WhatsApp & Phone buttons                     │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -70,13 +61,13 @@ Create a comprehensive Contact Us page for Keylink Corp that provides multiple w
 
 | File | Description |
 |------|-------------|
-| `src/pages/Contact.tsx` | Main contact page with SEO meta tags and schema |
-| `src/components/contact/index.ts` | Barrel export for all contact components |
-| `src/components/contact/ContactHero.tsx` | Hero section with title, badge, quick stats |
-| `src/components/contact/ContactMethods.tsx` | Bento grid of contact options (phone, WhatsApp, email, visit) |
-| `src/components/contact/ContactForm.tsx` | Multi-step contact form with validation |
-| `src/components/contact/ContactLocation.tsx` | Office location with map and directions |
-| `src/components/contact/ContactFAQ.tsx` | Contact-specific FAQ accordion |
+| `src/pages/FreeConsultation.tsx` | Main page with SEO meta tags and Calendly script |
+| `src/components/consultation/index.ts` | Barrel export for all consultation components |
+| `src/components/consultation/ConsultationHero.tsx` | Hero with badge, headline, trust indicators |
+| `src/components/consultation/CalendlyBooking.tsx` | Calendly widget + info panel layout |
+| `src/components/consultation/ConsultationProcess.tsx` | 4-step process timeline |
+| `src/components/consultation/ConsultationFAQ.tsx` | FAQ accordion |
+| `src/components/consultation/ConsultationCTA.tsx` | Alternative contact options |
 
 ---
 
@@ -84,115 +75,105 @@ Create a comprehensive Contact Us page for Keylink Corp that provides multiple w
 
 Add to `src/App.tsx`:
 ```tsx
-import Contact from "./pages/Contact";
+import FreeConsultation from "./pages/FreeConsultation";
 // ...
-<Route path="/contact" element={<Contact />} />
+<Route path="/free-consultation" element={<FreeConsultation />} />
 ```
 
 ---
 
-## Technical Details
+## Technical Implementation
 
-### ContactHero.tsx
-- Dashed Top Fade Grid pattern (matching AboutHero)
-- Badge: "Get in Touch"
-- H1: "We're Here to Help You Succeed"
-- Subtitle explaining contact options
-- Quick stats row: Response Time (<1hr), Languages (4), Availability (Sun-Thu)
-- Floating orbs for decoration
+### Calendly Integration
+
+The Calendly widget requires loading an external script. In React, this will be handled using `useEffect`:
+
+```tsx
+// CalendlyBooking.tsx
+useEffect(() => {
+  const script = document.createElement("script");
+  script.src = "https://assets.calendly.com/assets/external/widget.js";
+  script.async = true;
+  document.body.appendChild(script);
+  
+  return () => {
+    document.body.removeChild(script);
+  };
+}, []);
+
+// Widget container
+<div 
+  className="calendly-inline-widget" 
+  data-url="https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1"
+  style={{ minWidth: "320px", height: "700px" }}
+/>
+```
+
+### ConsultationHero.tsx
+- Dashed Top Fade Grid pattern (matching other pages)
+- Badge: "Book Your Free Session"
+- H1: "Let's Discuss Your Business Goals"
+- Subtitle explaining the consultation value
+- Trust pills: Free consultation, No obligations, Expert guidance
 - Framer-motion staggered animations
 
-### ContactMethods.tsx
-- Bento-style grid with 4 contact cards
-- Each card: Icon + Title + Description + Action button
-- Phone: Click-to-call functionality
-- WhatsApp: Direct WhatsApp link (wa.me)
-- Email: mailto link
-- Visit: Opens Google Maps directions
-- Hover effects with subtle lift and border accent
+### CalendlyBooking.tsx
+- Two-column layout: Calendly widget (left) + Info panel (right)
+- Info panel contains:
+  - What you'll learn/get from the call
+  - Alternative contact methods (phone, email, WhatsApp)
+  - Business hours
+- Mobile: Stacked layout with widget on top
 
-### ContactForm.tsx
-- 3-step form with progress indicator
-- Step 1: Service interest (checkboxes - Company Formation, PRO Services, etc.)
-- Step 2: Personal details (Name, Email, Phone, Company)
-- Step 3: Message and preferred contact method
-- Zod validation for all fields
-- Toast notification on successful submission
-- Dark info panel beside form with contact details and hours
+### ConsultationProcess.tsx
+- 4-step horizontal timeline with icons
+- Steps: Book → Prepare → Meet → Start
+- Animated connecting lines
+- Scroll-triggered animations
 
-### ContactLocation.tsx
-- Full-width office exterior image with gradient overlay
-- Animated floating map pin
-- Office address and landmark information
-- "Get Directions" button
-- Embedded Google Maps iframe (Sanabis Exhibition Tower location)
-- Gallery thumbnails of office
+### ConsultationFAQ.tsx
+- Accordion pattern (matching existing FAQ components)
+- Questions:
+  - Is the consultation really free?
+  - How long is the consultation?
+  - What should I prepare before the call?
+  - Can I reschedule my appointment?
+  - What happens after the consultation?
 
-### ContactFAQ.tsx
-- Uses existing ServiceFAQ component pattern
-- Contact-specific questions:
-  - Response time expectations
-  - Language support
-  - Consultation booking process
-  - Office visit requirements
-  - After-hours support
+### ConsultationCTA.tsx
+- Alternative contact section for users who prefer immediate contact
+- WhatsApp and Phone CTAs
+- "Prefer to talk now?" headline
 
 ---
 
 ## SEO Implementation
 
 ### Meta Tags
-- Title: "Contact Us | Keylink Corp - Business Setup Experts in Bahrain"
-- Description: "Get in touch with Keylink Corp for expert business setup services in Bahrain. Call +973 1700 8888, WhatsApp, email, or visit our Sanabis office. Response within 1 hour."
+- Title: "Free Business Consultation | Keylink Corp - Book Your Session"
+- Description: "Schedule a free 30-minute consultation with Keylink Corp's business setup experts. Discuss your goals, get a cost estimate, and learn about company formation in Bahrain."
 
 ### JSON-LD Schema
-- ContactPage schema
-- LocalBusiness schema with contact info
+- WebPage schema with consultation offer
 - Organization schema
+- FAQPage schema for the FAQ section
 
 ---
 
-## Contact Information (Consistent with existing data)
+## Design Tokens (Matching Brand)
 
-| Type | Value |
-|------|-------|
-| Phone | +973 1700 8888 |
-| WhatsApp | +973 1700 8888 |
-| Email | info@keylinkcorp.com |
-| Address | Sanabis Exhibition Tower, Office 601, Manama, Kingdom of Bahrain |
-| Hours | Sun-Thu: 8:00 AM - 5:00 PM |
-| Languages | English, Arabic, Hindi, Urdu |
-
----
-
-## Form Field Validation (Zod)
-
-```text
-name: Required, 2-100 characters
-email: Required, valid email format
-phone: Required, valid phone pattern
-company: Optional, max 100 characters
-services: At least one service selected
-message: Optional, max 1000 characters
-contactMethod: Required (phone/email/whatsapp)
-```
-
----
-
-## Animations
-
-- Hero: Staggered reveal for badge, title, subtitle, stats
-- Contact methods: Cards animate in with stagger effect
-- Form: Step transitions with slide animation
-- Location: Parallax effect on office image, bouncing map pin
-- FAQ: Accordion open/close animations
+- Primary: #002C4D (Dark Navy)
+- Accent: #C7A763 (Gold)
+- Background patterns: Dashed grid with mask fade
+- Buttons: Primary navy, Gold accent for main CTA
+- Cards: White with subtle border, hover elevation
 
 ---
 
 ## Mobile Responsiveness
 
-- Hero: Single column, reduced padding
-- Contact methods: 2x2 grid on tablet, stacked on mobile
-- Form: Full width, stacked layout
-- Map: Full width, reduced height
-- Touch-friendly button sizes (min 44px)
+- Hero: Centered text, reduced padding
+- Calendly widget: Full width, 600px height
+- Info panel: Stacked below widget
+- Process steps: 2x2 grid on tablet, vertical on mobile
+- Touch-friendly targets (min 44px)
