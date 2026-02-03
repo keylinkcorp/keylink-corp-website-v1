@@ -103,46 +103,46 @@ export default function CompanyFormation() {
   return (
     <>
       <Layout>
-        {/* Hero with 2026 freshness */}
+        {/* Hero */}
         <FormationHero />
         
-        {/* Trust indicators */}
+        {/* Trust Bar */}
         <FormationTrustBar />
-        
-        {/* NEW: Company Types Comparison Table */}
-        <CompanyTypesTable />
         
         {/* Cost Calculator */}
         <FormationCostCalculator />
         
-        {/* NEW: Tax Benefits */}
-        <TaxBenefitsSection />
-        
-        {/* Why Choose */}
+        {/* Why Choose Us */}
         <WhyChooseKeylink />
         
-        {/* Formation Process */}
+        {/* Process */}
         <FormationProcessDetailed />
         
-        {/* NEW: Business Activities Directory */}
-        <BusinessActivitiesDirectory />
-        
-        {/* Requirements */}
-        <RequirementsChecklist />
-        
-        {/* NEW: Tamkeen Government Support */}
-        <TamkeenSupportSection />
+        {/* Company Types */}
+        <CompanyTypesTable />
         
         {/* Pricing */}
         <PricingPackages />
         
-        {/* Banking */}
+        {/* Bank Account */}
         <BankAccountOpening />
         
-        {/* NEW: Free Zones Guide */}
+        {/* Activities */}
+        <BusinessActivitiesDirectory />
+        
+        {/* Tax Benefits */}
+        <TaxBenefitsSection />
+        
+        {/* Government Support */}
+        <TamkeenSupportSection />
+        
+        {/* Industrial Zones */}
         <FreeZonesGuide />
         
-        {/* NEW: Regulatory Updates 2025-2026 */}
+        {/* Requirements */}
+        <RequirementsChecklist />
+        
+        {/* Regulatory Updates */}
         <RegulatoryUpdates />
         
         {/* Testimonials */}
@@ -151,7 +151,7 @@ export default function CompanyFormation() {
         {/* Related Services */}
         <RelatedServices />
         
-        {/* Expanded FAQ */}
+        {/* FAQ */}
         <FormationFAQ />
         
         {/* Final CTA */}
