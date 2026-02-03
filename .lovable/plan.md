@@ -1,140 +1,87 @@
 
+## Section Restructure: Company Formation Page
 
-## Minimal Redesign: Industrial Zones & Business Parks
-
-Transform this information-dense section into a clean, typography-driven layout that Google still loves.
-
----
-
-### Current State (Too Heavy)
-
-The section currently contains:
-- Comparison table with 5 columns
-- 4 large zone cards with 8+ data points each
-- Background grid pattern
-- CTA info box
-- Multiple icons, badges, and nested sections
-
-**Total lines of code:** ~340 lines
+Reorganize the page sections to follow a more logical user journey flow based on your requested order.
 
 ---
 
-### Proposed Minimal Design
+### Current Order
 
-#### Visual Concept
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-│              "Strategic Business Locations"                  │
-│              Short one-line subtitle                         │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
-│   │    BIW      │  │    BLZ      │  │    BIIP     │         │
-│   │ Logistics   │  │ E-commerce  │  │Manufacturing│         │
-│   │ From BHD 2  │  │ From BHD 3  │  │From BHD 1.5 │         │
-│   └─────────────┘  └─────────────┘  └─────────────┘         │
-│                                                              │
-│                    ┌─────────────┐                          │
-│                    │   Sitra     │                          │
-│                    │Heavy Industry│                         │
-│                    │ From BHD 1  │                          │
-│                    └─────────────┘                          │
-│                                                              │
-│   ─────────────────────────────────────────────────────     │
-│        "Land from BHD 1/sqm • Get location advice →"        │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
+| # | Section | Component |
+|---|---------|-----------|
+| 1 | Hero | FormationHero |
+| 2 | Trust Bar | FormationTrustBar |
+| 3 | Company Types | CompanyTypesTable |
+| 4 | Cost Calculator | FormationCostCalculator |
+| 5 | Tax Benefits | TaxBenefitsSection |
+| 6 | Why Choose Us | WhyChooseKeylink |
+| 7 | Process | FormationProcessDetailed |
+| 8 | Activities | BusinessActivitiesDirectory |
+| 9 | Requirements | RequirementsChecklist |
+| 10 | Government Support | TamkeenSupportSection |
+| 11 | Pricing | PricingPackages |
+| 12 | Bank Account | BankAccountOpening |
+| 13 | Industrial Zones | FreeZonesGuide |
+| 14 | Regulatory Updates | RegulatoryUpdates |
+| 15 | Testimonials | FormationTestimonials |
+| 16 | Related Services | RelatedServices |
+| 17 | FAQ | FormationFAQ |
+| 18 | CTA | FormationCTA |
 
 ---
 
-### Key Changes
+### New Order (Your Requested Flow)
 
-| Area | Current | New Minimal |
-|------|---------|-------------|
-| **Table** | 5-column comparison table | Remove entirely |
-| **Zone Cards** | 4 cards with 8+ data points | 4 simple cards: name + focus + price only |
-| **Card Content** | Location, distances, utilities, highlights, incentives, success stories | Just: Zone name, focus sector, starting price |
-| **Background** | Grid pattern | Clean white |
-| **CTA** | Large info box with button | Single inline link |
-| **Icons** | Multiple icons per card | One icon per card |
+| # | Section | Component |
+|---|---------|-----------|
+| 1 | Hero | FormationHero |
+| 2 | Trust Bar | FormationTrustBar |
+| 3 | **Cost Calculator** | FormationCostCalculator |
+| 4 | **Why Choose Us** | WhyChooseKeylink |
+| 5 | **Process** | FormationProcessDetailed |
+| 6 | **Company Types** | CompanyTypesTable |
+| 7 | **Pricing** | PricingPackages |
+| 8 | **Bank Account** | BankAccountOpening |
+| 9 | **Activities** | BusinessActivitiesDirectory |
+| 10 | **Tax Benefits** | TaxBenefitsSection |
+| 11 | **Government Support** | TamkeenSupportSection |
+| 12 | **Industrial Zones** | FreeZonesGuide |
+| 13 | Requirements | RequirementsChecklist |
+| 14 | Regulatory Updates | RegulatoryUpdates |
+| 15 | Testimonials | FormationTestimonials |
+| 16 | Related Services | RelatedServices |
+| 17 | FAQ | FormationFAQ |
+| 18 | CTA | FormationCTA |
 
 ---
 
-### What We Keep (For SEO)
+### Logic Behind New Flow
 
-- Section heading hierarchy (h2, h3)
-- Zone names (important keywords)
-- Focus sectors (searchable terms)
-- Price range (featured snippet bait)
-- Link to consultation
+The new order follows a natural user decision journey:
 
-### What We Remove
-
-- Comparison table
-- Detailed highlights lists
-- Success stories
-- Infrastructure details
-- Distance metrics
-- Utility specifications
-- Badge components
-- Background pattern
-- Large CTA box
+1. **Calculator** → "What will it cost me?" (hooks interest)
+2. **Why Us** → "Why should I choose Keylink?" (builds trust)
+3. **Process** → "How does it work?" (reduces friction)
+4. **Types** → "What type of company do I need?" (education)
+5. **Pricing** → "What are my package options?" (decision point)
+6. **Bank Account** → "What about banking?" (common question)
+7. **Activities** → "What business can I do?" (explore options)
+8. **Tax** → "What are the tax benefits?" (reinforces value)
+9. **Government Support** → "Any additional incentives?" (bonus)
+10. **Zones** → "Where can I operate?" (location choice)
 
 ---
 
 ### Implementation
 
-**File:** `src/components/services/formation/FreeZonesGuide.tsx`
+**File to modify:** `src/pages/services/CompanyFormation.tsx`
 
-**New Structure:**
-
-1. **Simplified Header**
-   - Section label: "Strategic Locations"
-   - Headline: "Strategic Business Locations"
-   - One-line subtitle with key value prop
-
-2. **Simple Zone Cards (4 cards, 2x2 grid)**
-   - Icon + Zone name
-   - Focus sector (one line)
-   - Starting price
-   - No borders, minimal styling
-
-3. **Inline Footer**
-   - "Land from BHD 1/sqm/month"
-   - Link to consultation
+Simply reorder the component JSX in the return statement - no component changes needed, just rearranging the section order from lines 106-158.
 
 ---
 
-### Visual Style
+### Notes
 
-- Clean white background (no patterns)
-- Typography-driven design
-- Generous whitespace
-- Subtle hover states
-- Primary color for zone names
-- Muted text for secondary info
-- Gold accent for prices
-
----
-
-### Code Reduction
-
-- From ~340 lines to ~100 lines
-- Remove comparison table entirely
-- Simplify zone data structure
-- Remove unused imports (Badge, Check, Ruler, Zap, etc.)
-
----
-
-### SEO Considerations
-
-The minimal version maintains:
-- Proper h2 heading with target keywords
-- Zone names for local SEO
-- Price information for featured snippets
-- Semantic HTML structure
-- Internal linking to consultation page
-
+- Hero and Trust Bar stay at top (critical for first impression)
+- Requirements, Regulatory Updates, Testimonials, Related Services, FAQ, and CTA stay at bottom (supporting content)
+- The main 10 sections in the middle are reordered per your request
