@@ -1,8 +1,21 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Linkedin, Quote, ChevronDown, ChevronUp } from "lucide-react";
-import { TiltCard } from "@/components/ui/TiltCard";
+import { Linkedin, Quote, ChevronDown, ChevronUp, ArrowRight, Facebook, Instagram } from "lucide-react";
+
+// Wave pattern SVG for card backgrounds
+const wavePattern = encodeURIComponent(`
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="none">
+    <path d="M0,40 Q50,30 100,40 T200,40" stroke="#e5e5e5" stroke-width="0.8" fill="none" />
+    <path d="M0,60 Q50,50 100,60 T200,60" stroke="#e5e5e5" stroke-width="0.8" fill="none" />
+    <path d="M0,80 Q50,70 100,80 T200,80" stroke="#e5e5e5" stroke-width="0.8" fill="none" />
+    <path d="M0,100 Q50,90 100,100 T200,100" stroke="#e5e5e5" stroke-width="0.8" fill="none" />
+    <path d="M0,120 Q50,110 100,120 T200,120" stroke="#e5e5e5" stroke-width="0.8" fill="none" />
+    <path d="M0,140 Q50,130 100,140 T200,140" stroke="#e5e5e5" stroke-width="0.8" fill="none" />
+    <path d="M0,160 Q50,150 100,160 T200,160" stroke="#e5e5e5" stroke-width="0.8" fill="none" />
+    <path d="M0,180 Q50,170 100,180 T200,180" stroke="#e5e5e5" stroke-width="0.8" fill="none" />
+  </svg>
+`);
 
 // Real team data from Key Link Bahrain
 const teamMembers = [
@@ -20,7 +33,6 @@ const teamMembers = [
     role: "HR & Accounting Manager",
     image: "https://keylinkbh.com/wp-content/uploads/2025/09/Mishal-Profile-scaled.webp",
     bio: "HR strategies & financial operations expert",
-    wide: true,
   },
   {
     name: "Rayhan Chowdury",
@@ -51,7 +63,6 @@ const teamMembers = [
     role: "Financial Consultant",
     image: "https://keylinkbh.com/wp-content/uploads/2025/09/Maimuna-Profile-scaled.webp",
     bio: "Banking relations, KYC & AML compliance",
-    wide: true,
   },
   {
     name: "Muntaha Khan",
@@ -77,16 +88,15 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 },
+    transition: { staggerChildren: 0.1 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: { duration: 0.5 },
   },
 };
@@ -111,7 +121,7 @@ export function AboutTeam() {
         <motion.div
           className="absolute top-0 right-0 w-[600px] h-[600px]"
           style={{
-            background: "radial-gradient(circle, rgba(199, 167, 99, 0.1) 0%, transparent 60%)",
+            background: "radial-gradient(circle, hsl(var(--accent) / 0.1) 0%, transparent 60%)",
           }}
           animate={{
             scale: [1, 1.2, 1],
@@ -122,7 +132,7 @@ export function AboutTeam() {
         <motion.div
           className="absolute bottom-0 left-0 w-[500px] h-[500px]"
           style={{
-            background: "radial-gradient(circle, rgba(0, 44, 77, 0.08) 0%, transparent 60%)",
+            background: "radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 60%)",
           }}
           animate={{
             scale: [1.2, 1, 1.2],
@@ -157,7 +167,7 @@ export function AboutTeam() {
           </p>
         </motion.div>
 
-        {/* Featured Founder Card - Horizontal Layout with Particles */}
+        {/* Featured Founder Card - Horizontal Layout */}
         {featuredMember && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -170,7 +180,7 @@ export function AboutTeam() {
               <motion.div
                 className="absolute inset-0"
                 style={{
-                  background: "linear-gradient(135deg, rgba(199, 167, 99, 0.1) 0%, transparent 50%, rgba(199, 167, 99, 0.05) 100%)",
+                  background: "linear-gradient(135deg, hsl(var(--accent) / 0.1) 0%, transparent 50%, hsl(var(--accent) / 0.05) 100%)",
                 }}
                 animate={{
                   backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
@@ -185,7 +195,7 @@ export function AboutTeam() {
               <div 
                 className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                 style={{
-                  boxShadow: "inset 0 0 60px rgba(199, 167, 99, 0.15), 0 0 40px rgba(199, 167, 99, 0.2)"
+                  boxShadow: "inset 0 0 60px hsl(var(--accent) / 0.15), 0 0 40px hsl(var(--accent) / 0.2)"
                 }}
               />
               
@@ -249,64 +259,67 @@ export function AboutTeam() {
           </motion.div>
         )}
 
-        {/* Masonry-Style Team Grid */}
+        {/* Modern Clean Team Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 md:grid-cols-4 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {displayedMembers.map((member, index) => (
+          {displayedMembers.map((member) => (
             <motion.div
               key={member.name}
               variants={itemVariants}
-              className={`group relative ${member.wide ? "md:col-span-2" : ""}`}
+              className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-border"
             >
-              <TiltCard tiltAmount={10} glareEnabled>
-                <div className={`relative rounded-2xl overflow-hidden ${member.wide ? "aspect-[2/1]" : "aspect-square"}`}>
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+              {/* Image Container with Wave Pattern Background */}
+              <div 
+                className="relative h-72 overflow-hidden"
+                style={{
+                  backgroundColor: 'hsl(var(--muted))',
+                  backgroundImage: `url("data:image/svg+xml,${wavePattern}")`,
+                  backgroundSize: '100% 100%',
+                  backgroundPosition: 'center',
+                }}
+              >
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
+                />
+                
+                {/* Subtle bottom gradient for image blending */}
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-card to-transparent" />
+              </div>
+              
+              {/* Content Below Image */}
+              <div className="p-5">
+                <h4 className="font-bold text-foreground text-lg mb-1">{member.name}</h4>
+                <p className="text-muted-foreground text-sm mb-4">{member.role}</p>
+                
+                {/* Footer Row */}
+                <div className="flex items-center justify-between">
+                  <a 
+                    href="#" 
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-accent transition-colors group/link"
+                  >
+                    Learn more 
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                  </a>
                   
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
-                  
-                  {/* Role badge floating */}
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-accent/90 rounded-full text-primary text-xs font-semibold">
-                    {member.role.split(" ")[0]}
+                  <div className="flex gap-3">
+                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                      <Facebook className="w-4 h-4" />
+                    </a>
+                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                      <Instagram className="w-4 h-4" />
+                    </a>
+                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                      <Linkedin className="w-4 h-4" />
+                    </a>
                   </div>
-                  
-                  {/* Content overlay */}
-                  <div className="absolute inset-0 p-5 flex flex-col justify-end">
-                    <motion.div
-                      initial={{ y: 10, opacity: 0 }}
-                      whileInView={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.1 }}
-                    >
-                      <h4 className="font-bold text-white text-lg">{member.name}</h4>
-                      <p className="text-white/70 text-sm">{member.role}</p>
-                    </motion.div>
-                    
-                    {/* Reveal on hover */}
-                    <div className="mt-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                      <p className="text-white/80 text-sm mb-3">{member.bio}</p>
-                      <a href="#" className="text-accent hover:text-accent/80">
-                        <Linkedin className="w-5 h-5" />
-                      </a>
-                    </div>
-                  </div>
-                  
-                  {/* Border glow on hover */}
-                  <div 
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{
-                      boxShadow: "inset 0 0 0 2px rgba(199, 167, 99, 0.5)"
-                    }}
-                  />
                 </div>
-              </TiltCard>
+              </div>
             </motion.div>
           ))}
 
@@ -314,17 +327,16 @@ export function AboutTeam() {
           {!showAll && otherMembers.length > 6 && (
             <motion.div
               variants={itemVariants}
-              className="group relative"
             >
               <button
                 onClick={() => setShowAll(true)}
-                className="w-full h-full aspect-square rounded-2xl bg-muted border-2 border-dashed border-accent/30 flex flex-col items-center justify-center gap-3 hover:bg-accent/5 hover:border-accent/50 transition-all duration-300"
+                className="w-full h-full min-h-[380px] rounded-2xl bg-muted/50 border-2 border-dashed border-accent/30 flex flex-col items-center justify-center gap-4 hover:bg-accent/5 hover:border-accent/50 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center">
                   <ChevronDown className="w-6 h-6 text-accent" />
                 </div>
-                <span className="text-primary font-medium">View All Team</span>
-                <span className="text-muted-foreground text-sm">+{otherMembers.length - 6} more</span>
+                <span className="text-foreground font-semibold text-lg">View All Team</span>
+                <span className="text-muted-foreground text-sm">+{otherMembers.length - 6} more members</span>
               </button>
             </motion.div>
           )}
@@ -335,11 +347,11 @@ export function AboutTeam() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center mt-8"
+            className="text-center mt-10"
           >
             <button
               onClick={() => setShowAll(false)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-muted rounded-full text-primary font-medium hover:bg-accent/10 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-muted rounded-full text-foreground font-medium hover:bg-accent/10 transition-colors"
             >
               <ChevronUp className="w-5 h-5" />
               Show Less
