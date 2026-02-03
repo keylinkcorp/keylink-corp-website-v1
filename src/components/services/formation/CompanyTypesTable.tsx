@@ -13,14 +13,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
 const companyTypes = [
@@ -111,18 +103,20 @@ const companyTypes = [
   },
 ];
 
-const comparisonFeatures = [
-  { key: "minShareholders", label: "Min. Shareholders" },
-  { key: "minCapital", label: "Min. Capital" },
-  { key: "foreignOwnership", label: "Foreign Ownership" },
-  { key: "canHireStaff", label: "Can Hire Staff", type: "boolean" },
-  { key: "visaQuota", label: "Visa Quota" },
-  { key: "tradingAllowed", label: "Trading Allowed", type: "boolean" },
-  { key: "timeline", label: "Timeline" },
-  { key: "annualAudit", label: "Annual Audit Required", type: "boolean" },
-  { key: "bestFor", label: "Best For" },
-  { key: "startingPrice", label: "Starting Price" },
-];
+function FeatureItem({ enabled, label }: { enabled: boolean; label: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      {enabled ? (
+        <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+      ) : (
+        <X className="w-4 h-4 text-muted-foreground/40 flex-shrink-0" />
+      )}
+      <span className={`text-sm ${enabled ? 'text-foreground' : 'text-muted-foreground/60'}`}>
+        {label}
+      </span>
+    </div>
+  );
+}
 
 export function CompanyTypesTable() {
   const ref = useRef<HTMLElement>(null);
@@ -162,145 +156,91 @@ export function CompanyTypesTable() {
           </motion.p>
         </motion.div>
 
-        {/* Desktop Table View */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="hidden lg:block"
-        >
-          <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-primary/5">
-                    <TableHead className="font-semibold text-primary w-[180px] sticky left-0 bg-primary/5 z-10">
-                      Feature
-                    </TableHead>
-                    {companyTypes.map((type) => (
-                      <TableHead 
-                        key={type.id} 
-                        className={`text-center min-w-[140px] ${type.recommended ? 'bg-accent/10' : ''}`}
-                      >
-                        <div className="flex flex-col items-center gap-2 py-2">
-                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${type.recommended ? 'bg-accent/20' : 'bg-primary/10'}`}>
-                            <type.icon className={`w-5 h-5 ${type.recommended ? 'text-accent' : 'text-primary'}`} />
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className={`font-bold ${type.recommended ? 'text-accent' : 'text-primary'}`}>
-                              {type.name}
-                            </span>
-                            {type.recommended && (
-                              <Badge className="bg-accent text-primary text-[10px] px-1.5 py-0">
-                                <Star className="w-3 h-3 mr-0.5 fill-current" />
-                                Popular
-                              </Badge>
-                            )}
-                          </div>
-                          <span className="text-xs text-muted-foreground">{type.fullName}</span>
-                        </div>
-                      </TableHead>
-                    ))}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {comparisonFeatures.map((feature, index) => (
-                    <TableRow key={feature.key} className={index % 2 === 0 ? 'bg-muted/30' : ''}>
-                      <TableCell className="font-medium text-primary sticky left-0 bg-inherit z-10 border-r">
-                        {feature.label}
-                      </TableCell>
-                      {companyTypes.map((type) => {
-                        const value = type[feature.key as keyof typeof type];
-                        return (
-                          <TableCell 
-                            key={type.id} 
-                            className={`text-center ${type.recommended ? 'bg-accent/5' : ''}`}
-                          >
-                            {feature.type === 'boolean' ? (
-                              value ? (
-                                <Check className="w-5 h-5 text-green-600 mx-auto" />
-                              ) : (
-                                <X className="w-5 h-5 text-muted-foreground/50 mx-auto" />
-                              )
-                            ) : (
-                              <span className={`text-sm ${feature.key === 'startingPrice' ? 'font-semibold text-accent' : 'text-foreground'}`}>
-                                {String(value)}
-                              </span>
-                            )}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Mobile Card View */}
+        {/* Cards Grid */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="lg:hidden grid gap-6"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
         >
           {companyTypes.map((type) => (
             <motion.div
               key={type.id}
               variants={staggerItem}
-              className={`bg-white rounded-xl border p-6 ${type.recommended ? 'border-accent shadow-md' : 'border-border'}`}
+              className={`bg-white rounded-2xl p-6 border transition-all duration-300 hover:shadow-lg relative ${
+                type.recommended 
+                  ? 'border-2 border-accent/50 shadow-md hover:shadow-xl' 
+                  : 'border-border/50 hover:border-accent/30'
+              }`}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${type.recommended ? 'bg-accent/20' : 'bg-primary/10'}`}>
+              {/* Popular Badge Accent */}
+              {type.recommended && (
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent/60 via-accent to-accent/60 rounded-t-2xl" />
+              )}
+
+              {/* Header */}
+              <div className="flex items-start gap-4 mb-5">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                  type.recommended ? 'bg-accent/15' : 'bg-primary/8'
+                }`}>
                   <type.icon className={`w-6 h-6 ${type.recommended ? 'text-accent' : 'text-primary'}`} />
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-bold text-primary">{type.name}</h3>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-bold text-lg text-primary">{type.name}</h3>
                     {type.recommended && (
-                      <Badge className="bg-accent text-primary text-[10px]">Popular</Badge>
+                      <Badge className="bg-accent/15 text-accent border-0 text-[11px] px-2 py-0.5">
+                        <Star className="w-3 h-3 mr-1 fill-current" />
+                        Popular
+                      </Badge>
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground">{type.fullName}</p>
                 </div>
               </div>
-              
-              <div className="space-y-3 mb-4">
-                <div className="flex justify-between text-sm">
+
+              {/* Best For */}
+              <div className="mb-5 pb-5 border-b border-border/50">
+                <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Best for</p>
+                <p className="text-sm font-medium text-primary">{type.bestFor}</p>
+              </div>
+
+              {/* Specifications */}
+              <div className="space-y-3 mb-5 pb-5 border-b border-border/50">
+                <div className="flex justify-between items-center text-sm">
                   <span className="text-muted-foreground">Min. Capital</span>
                   <span className="font-medium text-primary">{type.minCapital}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between items-center text-sm">
                   <span className="text-muted-foreground">Shareholders</span>
                   <span className="font-medium text-primary">{type.minShareholders}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between items-center text-sm">
                   <span className="text-muted-foreground">Timeline</span>
                   <span className="font-medium text-primary">{type.timeline}</span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Trading</span>
-                  <span className="font-medium">
-                    {type.tradingAllowed ? (
-                      <Check className="w-4 h-4 text-green-600 inline" />
-                    ) : (
-                      <X className="w-4 h-4 text-muted-foreground inline" />
-                    )}
-                  </span>
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-muted-foreground">Visa Quota</span>
+                  <span className="font-medium text-primary">{type.visaQuota}</span>
+                </div>
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-muted-foreground">Foreign Ownership</span>
+                  <span className="font-medium text-accent">{type.foreignOwnership}</span>
                 </div>
               </div>
-              
-              <div className="pt-4 border-t border-border">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="text-xs text-muted-foreground">Best for</p>
-                    <p className="text-sm font-medium text-primary">{type.bestFor}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-muted-foreground">From</p>
-                    <p className="text-lg font-bold text-accent">{type.startingPrice}</p>
-                  </div>
+
+              {/* Features */}
+              <div className="space-y-2 mb-6">
+                <FeatureItem enabled={type.tradingAllowed} label="Trading Allowed" />
+                <FeatureItem enabled={type.canHireStaff} label="Can Hire Staff" />
+                <FeatureItem enabled={type.annualAudit} label="Annual Audit Required" />
+              </div>
+
+              {/* Price */}
+              <div className="pt-4 border-t border-border/50">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-xs text-muted-foreground">From</span>
+                  <span className="text-2xl font-bold text-accent">{type.startingPrice}</span>
                 </div>
               </div>
             </motion.div>
