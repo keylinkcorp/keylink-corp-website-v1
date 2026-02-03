@@ -1,189 +1,162 @@
 
 
-## Card-Based Comparison Redesign: SPC vs WLL
+## Two-Column Layout Redesign: Bank Account Update Section
 
-Transform the current tab-based comparison layout into a side-by-side card design that allows users to easily compare both company types at a glance.
+Transform the current single-column alert-style layout into a modern split-layout design with accordion content on the left and a professional image on the right.
 
 ---
 
 ### Current State
 
-The section currently uses:
-- Tab selector to toggle between SPC and WLL views
-- Single comparison table showing both values
-- Side CTA panel in a 3-column grid
+The section currently has:
+- Full-width dark navy card
+- Centered content with header, description, 3-column requirements grid
+- Timeline info at the bottom
 
-**Issue:** Users must mentally compare values; switching tabs breaks flow
+**Issue:** All content stacked vertically, no visual imagery, can feel text-heavy
 
 ---
 
-### Proposed Card Design
-
-#### Visual Concept
+### Proposed Design
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                           HEADER (centered)                              │
-│         "SPC vs WLL: Which is Right for You?"                           │
-│                   Subtitle text                                          │
-├─────────────────────────────────┬───────────────────────────────────────┤
-│                                 │                                        │
-│   ┌─────────────────────────┐   │   ┌─────────────────────────────┐     │
-│   │    RECOMMENDED badge    │   │   │                              │     │
-│   │         👤              │   │   │         👥                   │     │
-│   │  Single Person Company  │   │   │    WLL (Partnership)        │     │
-│   │                         │   │   │                              │     │
-│   │  "Perfect for solo..."  │   │   │  "Ideal for businesses..."  │     │
-│   │                         │   │   │                              │     │
-│   │  ─────────────────────  │   │   │  ─────────────────────────  │     │
-│   │                         │   │   │                              │     │
-│   │  Shareholders    1 only │   │   │  Shareholders       2-50    │     │
-│   │  Min Capital    BHD 50  │   │   │  Min Capital    BHD 20,000  │     │
-│   │  Processing    3-14 days│   │   │  Processing       5-7 days  │     │
-│   │  Control    Full owner  │   │   │  Control    Shared decision │     │
-│   │  Best For  Solo entrep. │   │   │  Best For     Partnerships  │     │
-│   │  Conversion  → WLL      │   │   │  Conversion         N/A     │     │
-│   │                         │   │   │                              │     │
-│   │  ─────────────────────  │   │   │  ─────────────────────────  │     │
-│   │                         │   │   │                              │     │
-│   │  [Start Your SPC →]     │   │   │  [Get WLL Quote →]          │     │
-│   │                         │   │   │                              │     │
-│   └─────────────────────────┘   │   └─────────────────────────────┘     │
-│                                 │                                        │
-└─────────────────────────────────┴───────────────────────────────────────┘
 │                                                                          │
-│                    Still not sure? Get free consultation                 │
+│  ┌─────────────────────────────┬───────────────────────────────────────┐ │
+│  │                             │                                       │ │
+│  │  June 2024 Update Badge     │      ┌───────────────────────────┐   │ │
+│  │                             │      │                           │   │ │
+│  │  Mandatory Bank Account     │      │    PROFESSIONAL IMAGE     │   │ │
+│  │  Requirement                │      │    (bank meeting scene)   │   │ │
+│  │                             │      │                           │   │ │
+│  │  Brief description text     │      │    Floating badge:        │   │ │
+│  │                             │      │    "Required Since 2024"  │   │ │
+│  │  ─────────────────────────  │      │                           │   │ │
+│  │                             │      └───────────────────────────┘   │ │
+│  │  ▼ Key Requirements         │                                       │ │
+│  │    • Bank account before CR │                                       │ │
+│  │    • BHD 50 minimum capital │                                       │ │
+│  │    • Keylink assists        │                                       │ │
+│  │                             │                                       │ │
+│  │  ▼ Timeline Impact          │                                       │ │
+│  │    3-5 business days added  │                                       │ │
+│  │                             │                                       │ │
+│  │  ▼ How We Help              │                                       │ │
+│  │    Bank selection support   │                                       │ │
+│  │                             │                                       │ │
+│  └─────────────────────────────┴───────────────────────────────────────┘ │
 │                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
 ### Key Changes
 
-| Area | Current | New Card Design |
-|------|---------|-----------------|
-| **Layout** | Tabs + table + side CTA | Two side-by-side cards |
-| **Comparison** | Single table with both columns | Each card has its own feature list |
-| **Tabs** | Toggle between SPC/WLL | Removed (both visible simultaneously) |
-| **CTA** | Single CTA in side panel | Each card has its own CTA button |
-| **Badge** | "Recommended" in tab | Floating badge on SPC card |
-| **Visual** | Flat table rows | Cards with borders, icons per feature |
+| Area | Current | New Design |
+|------|---------|------------|
+| **Layout** | Single column centered | Two-column split (50/50) |
+| **Content** | Requirements in 3-col grid | Accordion with expandable sections |
+| **Image** | None | Professional bank meeting image with floating badge |
+| **Information** | All visible at once | Organized in collapsible accordion items |
+| **Visual Depth** | Flat card | Image adds visual interest and credibility |
 
 ---
 
-### Card Structure
+### Left Column: Accordion Content
 
-Each comparison card will contain:
+**Header (always visible)**
+- Badge: "June 2024 Update"
+- H3: "Mandatory Bank Account Requirement"
+- Brief intro paragraph
 
-1. **Header Section**
-   - Icon (User for SPC, Users for WLL)
-   - Company type name
-   - Short description
-   - "Recommended" badge (SPC only)
+**Accordion Items:**
 
-2. **Key Highlight Stats (featured)**
-   - Minimum Capital (prominent)
-   - Processing Time (prominent)
+1. **Key Requirements** (default open)
+   - Bank account must be opened before final CR issuance
+   - Minimum capital (BHD 50 for SPC) deposited and confirmed
+   - Account required for all company types
 
-3. **Feature List**
-   - 6 comparison attributes with icons
-   - Clean two-column layout (label + value)
-   - Checkmarks for benefits
+2. **Timeline Impact**
+   - Adds 3-5 business days to registration
+   - Process can run parallel to other approvals
 
-4. **CTA Button**
-   - Primary button for SPC
-   - Secondary/outline button for WLL
-
----
-
-### Data Structure Update
-
-```typescript
-const cardData = [
-  {
-    id: "spc",
-    icon: User,
-    name: "Single Person Company",
-    description: "Perfect for solo entrepreneurs who want full control",
-    recommended: true,
-    highlights: {
-      capital: "BHD 50",
-      timeline: "3-14 Days"
-    },
-    features: [
-      { label: "Shareholders", value: "1 only" },
-      { label: "Control", value: "Full owner control" },
-      { label: "Best For", value: "Solo entrepreneurs" },
-      { label: "Conversion", value: "Can upgrade to WLL" },
-    ],
-    cta: { text: "Start Your SPC", href: "/free-consultation", primary: true }
-  },
-  {
-    id: "wll",
-    icon: Users,
-    name: "WLL (Partnership)",
-    description: "Ideal for businesses with multiple shareholders",
-    recommended: false,
-    highlights: {
-      capital: "BHD 20,000",
-      timeline: "5-7 Days"
-    },
-    features: [...],
-    cta: { text: "Get WLL Quote", href: "/free-consultation", primary: false }
-  }
-];
-```
+3. **How Keylink Helps**
+   - Bank selection guidance
+   - Account opening assistance
+   - Document preparation support
 
 ---
 
-### Visual Styling
+### Right Column: Image with Badge
 
-**SPC Card (Recommended)**
-- Border: 2px solid gold
-- Background: White with subtle gold gradient at top
-- "Recommended" badge: Gold background, navy text
-- CTA: Primary gold button
-
-**WLL Card (Standard)**
-- Border: 1px solid border color
-- Background: White
-- No badge
-- CTA: Outline/secondary button
-
-**Both Cards**
+**Image Specifications:**
+- Professional bank/business meeting scene
 - Rounded corners: `rounded-2xl`
-- Hover effect: Shadow elevation + border color change
-- Icon backgrounds: Colored circles with type-specific colors
-- Feature rows: Alternating subtle backgrounds
+- Shadow: `shadow-xl`
+- Height: Match left column content
 
----
-
-### Bottom CTA Section
-
-After the cards, add a subtle consultation prompt:
-
-```text
-┌─────────────────────────────────────────────────────────────────┐
-│  💡 Not sure which structure is right for you?                   │
-│     [Get Free Consultation →]                                    │
-└─────────────────────────────────────────────────────────────────┘
-```
+**Floating Badge:**
+- Position: Bottom-left corner
+- Text: "Required Since June 2024"
+- Style: Gold background with navy text
+- Subtle shadow for depth
 
 ---
 
 ### Technical Implementation
 
-**File:** `src/components/services/spc/SPCvsWLLComparison.tsx`
+**File:** `src/components/services/spc/SPCBankAccountUpdate.tsx`
 
 **Changes:**
-1. Replace `comparisonData` array with `cardData` structure containing all info per card
-2. Remove tab selector component and `activeType` state
-3. Create two-column grid layout for cards
-4. Each card renders independently with its own features
-5. Add bottom CTA section for consultation
-6. Add hover animations and transitions
-7. Remove side panel (integrated into cards)
+
+1. **Imports**
+   - Add `Accordion, AccordionContent, AccordionItem, AccordionTrigger` from `@/components/ui/accordion`
+   - Add `ChevronDown, Clock, HelpCircle` icons
+
+2. **Data Structure**
+   - Create `accordionData` array with sections:
+     ```typescript
+     const accordionData = [
+       {
+         id: "requirements",
+         title: "Key Requirements",
+         icon: CheckCircle2,
+         content: [
+           "Bank account must be opened before final CR issuance",
+           "Minimum capital (BHD 50 for SPC) deposited and confirmed",
+           "Keylink assists with bank selection and account opening"
+         ]
+       },
+       {
+         id: "timeline",
+         title: "Timeline Impact",
+         icon: Clock,
+         content: ["Adds 3-5 business days to registration timeline", ...]
+       },
+       {
+         id: "help",
+         title: "How We Help",
+         icon: HelpCircle,
+         content: ["Bank selection guidance", "Account opening support", ...]
+       }
+     ];
+     ```
+
+3. **Layout Structure**
+   - Main container: `grid lg:grid-cols-2 gap-8 lg:gap-12`
+   - Left column: Header + Accordion
+   - Right column: Image with overlay badge
+
+4. **Image Asset**
+   - Use/generate professional bank meeting image
+   - Alt text: "Corporate bank account opening consultation in Bahrain"
+
+5. **Accordion Styling**
+   - Trigger: White text with gold icon
+   - Content: White/80 text with bullet points
+   - Border: `border-white/10`
+   - Background on hover: `bg-white/5`
 
 ---
 
@@ -191,17 +164,35 @@ After the cards, add a subtle consultation prompt:
 
 | Breakpoint | Layout |
 |------------|--------|
-| Desktop (lg+) | 2 cards side-by-side, equal width |
-| Tablet (md) | 2 cards side-by-side, slightly smaller |
-| Mobile | Cards stacked vertically, SPC first |
+| Desktop (lg+) | Two columns side-by-side |
+| Tablet/Mobile | Stacked - content first, then image |
+
+---
+
+### Visual Styling Details
+
+**Dark Container (kept from current)**
+- Background: `bg-gradient-to-br from-primary via-primary to-primary/90`
+- Rounded corners: `rounded-3xl`
+- Decorative blur elements
+
+**Left Column**
+- Header with badge and title
+- Accordion with custom styling for dark theme
+- Default first item open
+
+**Right Column**
+- Image container with `aspect-[4/3]` or similar
+- Floating badge with absolute positioning
+- Subtle animation on scroll into view
 
 ---
 
 ### Benefits
 
-1. **Instant Comparison** - Both options visible without clicking
-2. **Clear Visual Hierarchy** - SPC stands out as recommended
-3. **Individual CTAs** - Each path has its own action
-4. **Modern Aesthetic** - Card design matches rest of site
-5. **Better Mobile UX** - No tabs to navigate on small screens
+1. **Visual Balance** - Image adds credibility and breaks up text
+2. **Better Information Architecture** - Accordion organizes content logically
+3. **Reduced Cognitive Load** - Users can expand what interests them
+4. **Modern Aesthetic** - Matches split-layout pattern used elsewhere
+5. **Mobile Friendly** - Content stacks naturally on small screens
 
