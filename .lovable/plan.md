@@ -1,174 +1,207 @@
 
 
-## Add SPC (Single Person Company) as Separate Company Type
+## Card-Based Comparison Redesign: SPC vs WLL
 
-Add SPC as an explicit fourth company type option in the cost calculator with its own dedicated wizard flow tailored for solo entrepreneurs.
-
----
-
-### Why SPC Deserves Its Own Flow
-
-| Aspect | Currently (Hidden in WLL) | With Dedicated SPC Flow |
-|--------|---------------------------|------------------------|
-| **Visibility** | User must know to select "Solo Owner" in WLL | Immediately visible as distinct option |
-| **Messaging** | Generic WLL language | Tailored for solo entrepreneurs |
-| **Steps** | 7 steps (includes partnership questions) | 5 steps (streamlined) |
-| **Pricing** | Same as WLL | Slightly lower base (BHD 750) |
-| **Timeline** | WLL timeline (5-7 days) | Faster (3-5 days) |
+Transform the current tab-based comparison layout into a side-by-side card design that allows users to easily compare both company types at a glance.
 
 ---
 
-### Implementation Overview
+### Current State
 
-#### 1. Add SPC to Company Types Array
+The section currently uses:
+- Tab selector to toggle between SPC and WLL views
+- Single comparison table showing both values
+- Side CTA panel in a 3-column grid
 
-```typescript
-{
-  id: "spc",
-  name: "SPC",
-  description: "Single Person Company",
-  subtitle: "Perfect for solo entrepreneurs",
-  basePrice: 750,
-  govFees: 150,
-  timeline: "3-5 days",
-  icon: User  // Single person icon
-}
-```
-
-**Card Position:** Second option (after WLL, before Branch)
+**Issue:** Users must mentally compare values; switching tabs breaks flow
 
 ---
 
-#### 2. SPC-Specific Wizard Flow
+### Proposed Card Design
 
-| Step | Question | Options |
-|------|----------|---------|
-| 1 | Company Type | Select SPC |
-| 2 | Owner Nationality | Bahraini / GCC / Foreign |
-| 3 | Business Activity | Same 8 activities as WLL |
-| 4 | Office Type | Same 4 office options |
-| 5 | Additional Services | SPC-specific services |
-
-**Removed from WLL flow:**
-- Ownership Structure step (always solo)
-- Visa Requirements merged with Office Type (SPC has limited visa quota)
-
----
-
-#### 3. SPC-Specific Pricing
-
-| Item | Cost |
-|------|------|
-| SPC Formation Service | BHD 750 |
-| Government Fees | BHD 150 |
-| Foreign Owner (if applicable) | +BHD 50 |
-| Regulated Activity (if applicable) | +BHD 100-500 |
-| Office (annual) | BHD 300-1,200 |
-| Additional Services | Variable |
-
----
-
-#### 4. SPC-Specific Additional Services
-
-```typescript
-spc: [
-  { id: "bank", name: "Bank Account Support", price: 150 },
-  { id: "pro", name: "PRO Services (1 Year)", price: 500 },
-  { id: "accounting", name: "Accounting Setup", price: 250 },
-  { id: "investor-visa", name: "Investor Visa Processing", price: 350 },
-]
-```
-
----
-
-#### 5. Code Changes Summary
-
-**File:** `src/components/services/formation/FormationCostCalculator.tsx`
-
-| Area | Change |
-|------|--------|
-| **Imports** | Add `User` icon from lucide-react |
-| **companyTypes array** | Add SPC as second option (lines 35-66) |
-| **additionalServicesByType** | Add `spc` key with services (lines 151-170) |
-| **getSteps()** | Add SPC case returning 5 steps (lines 211-243) |
-| **calculateTotal()** | Add SPC calculation logic (lines 249-378) |
-| **canProceed()** | Add SPC step validation (lines 380-417) |
-| **renderStepContent()** | Add SPC-specific step renders (lines 510-1090) |
-
----
-
-#### 6. New State Variables
-
-No new state needed - SPC reuses existing state:
-- `ownerNationality` - reused from WLL
-- `businessActivity` - reused from WLL  
-- `officeType` - reused from WLL
-- `selectedServices` - reused
-
----
-
-### Visual: Company Type Selection (After)
+#### Visual Concept
 
 ```text
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Choose Company Type                               │
-├───────────┬───────────┬───────────┬───────────────────────────────────┤
-│           │           │           │                                   │
-│   WLL     │   SPC     │  Branch   │   Holding                        │
-│  Building │   User    │  Globe    │   Landmark                       │
-│           │           │           │                                   │
-│  Limited  │  Single   │ Extension │   Asset &                        │
-│  Liability│  Person   │ of foreign│   subsidiary                     │
-│  Company  │  Company  │ company   │   management                     │
-│           │           │           │                                   │
-│  from     │  from     │  from     │   from                           │
-│  BHD 850  │  BHD 750  │  BHD 1200 │   BHD 2000                       │
-│  5-7 days │  3-5 days │  7-10 days│   10-15 days                     │
-└───────────┴───────────┴───────────┴───────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           HEADER (centered)                              │
+│         "SPC vs WLL: Which is Right for You?"                           │
+│                   Subtitle text                                          │
+├─────────────────────────────────┬───────────────────────────────────────┤
+│                                 │                                        │
+│   ┌─────────────────────────┐   │   ┌─────────────────────────────┐     │
+│   │    RECOMMENDED badge    │   │   │                              │     │
+│   │         👤              │   │   │         👥                   │     │
+│   │  Single Person Company  │   │   │    WLL (Partnership)        │     │
+│   │                         │   │   │                              │     │
+│   │  "Perfect for solo..."  │   │   │  "Ideal for businesses..."  │     │
+│   │                         │   │   │                              │     │
+│   │  ─────────────────────  │   │   │  ─────────────────────────  │     │
+│   │                         │   │   │                              │     │
+│   │  Shareholders    1 only │   │   │  Shareholders       2-50    │     │
+│   │  Min Capital    BHD 50  │   │   │  Min Capital    BHD 20,000  │     │
+│   │  Processing    3-14 days│   │   │  Processing       5-7 days  │     │
+│   │  Control    Full owner  │   │   │  Control    Shared decision │     │
+│   │  Best For  Solo entrep. │   │   │  Best For     Partnerships  │     │
+│   │  Conversion  → WLL      │   │   │  Conversion         N/A     │     │
+│   │                         │   │   │                              │     │
+│   │  ─────────────────────  │   │   │  ─────────────────────────  │     │
+│   │                         │   │   │                              │     │
+│   │  [Start Your SPC →]     │   │   │  [Get WLL Quote →]          │     │
+│   │                         │   │   │                              │     │
+│   └─────────────────────────┘   │   └─────────────────────────────┘     │
+│                                 │                                        │
+└─────────────────────────────────┴───────────────────────────────────────┘
+│                                                                          │
+│                    Still not sure? Get free consultation                 │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-### SPC Flow Steps Detail
+### Key Changes
 
-**Step 2: Owner Nationality**
-- Same options as WLL (Bahraini, GCC, Foreign)
-- Foreign adds +BHD 50 security approval fee
-
-**Step 3: Business Activity**
-- Same 8 activities as WLL
-- Same regulated activity fees
-- Shows "Regulated" badge and warning notes
-
-**Step 4: Office Type**
-- Same 4 options (Virtual, Serviced, Small, Standard)
-- Note: SPC has max 1 investor visa quota (shown as info)
-
-**Step 5: Additional Services**
-- SPC-specific service list
-- Includes investor visa option prominently
+| Area | Current | New Card Design |
+|------|---------|-----------------|
+| **Layout** | Tabs + table + side CTA | Two side-by-side cards |
+| **Comparison** | Single table with both columns | Each card has its own feature list |
+| **Tabs** | Toggle between SPC/WLL | Removed (both visible simultaneously) |
+| **CTA** | Single CTA in side panel | Each card has its own CTA button |
+| **Badge** | "Recommended" in tab | Floating badge on SPC card |
+| **Visual** | Flat table rows | Cards with borders, icons per feature |
 
 ---
 
-### Benefits of This Approach
+### Card Structure
 
-1. **User Experience** - Solo entrepreneurs immediately see SPC option
-2. **Shorter Flow** - 5 steps instead of 7 (no partnership/visa complexity)
-3. **Clear Pricing** - Lower base price visible upfront
-4. **Faster Timeline** - 3-5 days highlighted
-5. **Reuses Code** - Shares options with WLL, minimal duplication
-6. **SEO Value** - "SPC" and "Single Person Company" terms now explicit
+Each comparison card will contain:
+
+1. **Header Section**
+   - Icon (User for SPC, Users for WLL)
+   - Company type name
+   - Short description
+   - "Recommended" badge (SPC only)
+
+2. **Key Highlight Stats (featured)**
+   - Minimum Capital (prominent)
+   - Processing Time (prominent)
+
+3. **Feature List**
+   - 6 comparison attributes with icons
+   - Clean two-column layout (label + value)
+   - Checkmarks for benefits
+
+4. **CTA Button**
+   - Primary button for SPC
+   - Secondary/outline button for WLL
 
 ---
 
-### Estimated Line Changes
+### Data Structure Update
 
-- New company type: ~10 lines
-- Additional services: ~6 lines
-- getSteps() case: ~8 lines
-- calculateTotal() case: ~35 lines
-- canProceed() case: ~8 lines
-- renderStepContent() SPC steps: ~120 lines
+```typescript
+const cardData = [
+  {
+    id: "spc",
+    icon: User,
+    name: "Single Person Company",
+    description: "Perfect for solo entrepreneurs who want full control",
+    recommended: true,
+    highlights: {
+      capital: "BHD 50",
+      timeline: "3-14 Days"
+    },
+    features: [
+      { label: "Shareholders", value: "1 only" },
+      { label: "Control", value: "Full owner control" },
+      { label: "Best For", value: "Solo entrepreneurs" },
+      { label: "Conversion", value: "Can upgrade to WLL" },
+    ],
+    cta: { text: "Start Your SPC", href: "/free-consultation", primary: true }
+  },
+  {
+    id: "wll",
+    icon: Users,
+    name: "WLL (Partnership)",
+    description: "Ideal for businesses with multiple shareholders",
+    recommended: false,
+    highlights: {
+      capital: "BHD 20,000",
+      timeline: "5-7 Days"
+    },
+    features: [...],
+    cta: { text: "Get WLL Quote", href: "/free-consultation", primary: false }
+  }
+];
+```
 
-**Total:** ~190 new lines of code
+---
+
+### Visual Styling
+
+**SPC Card (Recommended)**
+- Border: 2px solid gold
+- Background: White with subtle gold gradient at top
+- "Recommended" badge: Gold background, navy text
+- CTA: Primary gold button
+
+**WLL Card (Standard)**
+- Border: 1px solid border color
+- Background: White
+- No badge
+- CTA: Outline/secondary button
+
+**Both Cards**
+- Rounded corners: `rounded-2xl`
+- Hover effect: Shadow elevation + border color change
+- Icon backgrounds: Colored circles with type-specific colors
+- Feature rows: Alternating subtle backgrounds
+
+---
+
+### Bottom CTA Section
+
+After the cards, add a subtle consultation prompt:
+
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│  💡 Not sure which structure is right for you?                   │
+│     [Get Free Consultation →]                                    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Technical Implementation
+
+**File:** `src/components/services/spc/SPCvsWLLComparison.tsx`
+
+**Changes:**
+1. Replace `comparisonData` array with `cardData` structure containing all info per card
+2. Remove tab selector component and `activeType` state
+3. Create two-column grid layout for cards
+4. Each card renders independently with its own features
+5. Add bottom CTA section for consultation
+6. Add hover animations and transitions
+7. Remove side panel (integrated into cards)
+
+---
+
+### Responsive Behavior
+
+| Breakpoint | Layout |
+|------------|--------|
+| Desktop (lg+) | 2 cards side-by-side, equal width |
+| Tablet (md) | 2 cards side-by-side, slightly smaller |
+| Mobile | Cards stacked vertically, SPC first |
+
+---
+
+### Benefits
+
+1. **Instant Comparison** - Both options visible without clicking
+2. **Clear Visual Hierarchy** - SPC stands out as recommended
+3. **Individual CTAs** - Each path has its own action
+4. **Modern Aesthetic** - Card design matches rest of site
+5. **Better Mobile UX** - No tabs to navigate on small screens
 
