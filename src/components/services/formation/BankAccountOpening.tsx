@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Building2 } from "lucide-react";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { Button } from "@/components/ui/button";
+import bankConsultationImage from "@/assets/bank-consultation-meeting.jpg";
 
 const stats = [
   { value: 2, suffix: "-3", label: "Weeks", sublabel: "Average Timeline" },
@@ -10,11 +12,11 @@ const stats = [
   { value: 95, suffix: "%", label: "Approval Rate", sublabel: "For Our Clients" },
 ];
 
-const bankNames = [
-  "National Bank of Bahrain",
-  "Bank of Bahrain & Kuwait", 
-  "Ahli United Bank",
-  "Standard Chartered"
+const banks = [
+  { abbr: "NBB", name: "National Bank of Bahrain" },
+  { abbr: "BBK", name: "Bank of Bahrain & Kuwait" },
+  { abbr: "AUB", name: "Ahli United Bank" },
+  { abbr: "SC", name: "Standard Chartered" },
 ];
 
 export function BankAccountOpening() {
@@ -31,9 +33,12 @@ export function BankAccountOpening() {
     <section
       ref={ref}
       aria-labelledby="bank-account-heading"
-      className="py-24 lg:py-32 bg-white"
+      className="py-24 lg:py-32 relative overflow-hidden"
     >
-      <div className="container max-w-4xl">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_40%,transparent_100%)]" />
+
+      <div className="container max-w-6xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,64 +60,94 @@ export function BankAccountOpening() {
           </p>
         </motion.div>
 
-        {/* Stats Row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-gold mb-1">
-                {stat.prefix}
-                <AnimatedCounter value={stat.value} duration={1.5} />
-                {stat.suffix}
+        {/* Two Column Split */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
+          {/* Left: Image */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="relative"
+          >
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src={bankConsultationImage}
+                alt="Professional business consultation meeting at a Bahrain bank"
+                className="w-full h-auto object-cover aspect-[4/3]"
+                loading="lazy"
+              />
+              {/* Floating Badge */}
+              <div className="absolute bottom-4 left-4 bg-primary/95 backdrop-blur-sm text-primary-foreground px-4 py-2 rounded-lg shadow-lg">
+                <div className="flex items-center gap-2">
+                  <Building2 className="h-4 w-4 text-gold" />
+                  <span className="text-sm font-semibold">4 Major Banks</span>
+                </div>
               </div>
-              <div className="text-sm font-medium text-primary">{stat.label}</div>
-              <div className="text-xs text-muted-foreground">{stat.sublabel}</div>
             </div>
-          ))}
-        </motion.div>
+          </motion.div>
 
-        {/* Divider */}
-        <div className="border-t border-border mb-12" />
+          {/* Right: Stats + CTA */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-8"
+          >
+            {/* 2x2 Stats Grid */}
+            <div className="grid grid-cols-2 gap-6">
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="bg-card border border-border rounded-xl p-5 text-center hover:border-gold/50 transition-colors"
+                >
+                  <div className="text-2xl md:text-3xl font-bold text-gold mb-1">
+                    {stat.prefix}
+                    <AnimatedCounter value={stat.value} duration={1.5} />
+                    {stat.suffix}
+                  </div>
+                  <div className="text-sm font-medium text-primary">{stat.label}</div>
+                  <div className="text-xs text-muted-foreground">{stat.sublabel}</div>
+                </div>
+              ))}
+            </div>
 
-        {/* Bank Names */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center mb-12"
-        >
-          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">
-            Partner Banks
-          </p>
-          <p className="text-lg text-primary font-medium">
-            {bankNames.join(" • ")}
-          </p>
-        </motion.div>
+            {/* Description + CTA */}
+            <div className="space-y-4">
+              <p className="text-muted-foreground">
+                We handle bank introductions and documentation preparation, ensuring a smooth account opening process for your business.
+              </p>
+              <Button
+                onClick={handleContact}
+                className="group"
+                size="lg"
+              >
+                Get bank introduction
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          </motion.div>
+        </div>
 
-        {/* Divider */}
-        <div className="border-t border-border mb-12" />
-
-        {/* Inline CTA */}
+        {/* Bank Partners Row */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center"
         >
-          <p className="text-muted-foreground mb-4">
-            We handle bank introductions and documentation
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider text-center mb-6">
+            Partner Banks
           </p>
-          <button
-            onClick={handleContact}
-            className="inline-flex items-center gap-2 text-primary font-medium hover:text-gold transition-colors group"
-          >
-            Get bank introduction
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {banks.map((bank) => (
+              <div
+                key={bank.abbr}
+                className="bg-card border border-border rounded-lg p-4 text-center hover:border-gold/50 hover:shadow-md transition-all"
+              >
+                <div className="text-lg font-bold text-primary mb-1">{bank.abbr}</div>
+                <div className="text-xs text-muted-foreground leading-tight">{bank.name}</div>
+              </div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
