@@ -24,14 +24,20 @@ export function FormationHero() {
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Content */}
           <div className="max-w-xl">
-            {/* Trust badge */}
+            {/* Trust badge with 2026 freshness */}
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gold/10 rounded-full mb-8"
+              className="flex flex-wrap items-center gap-3 mb-8"
             >
-              <span className="text-sm font-medium text-gold">Bahrain's #1 Company Formation Partner</span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-gold/10 rounded-full">
+                <span className="text-sm font-medium text-gold">Bahrain's #1 Company Formation Partner</span>
+              </span>
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 rounded-full">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-xs font-medium text-green-700">Updated for 2026</span>
+              </span>
             </motion.div>
 
             {/* Main headline */}

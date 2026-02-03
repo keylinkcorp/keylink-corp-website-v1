@@ -78,12 +78,13 @@ export const companyFormationSchema = {
       "@type": "WebPage",
       "@id": "https://keylinkcorp.com/services/company-formation/#webpage",
       "url": "https://keylinkcorp.com/services/company-formation",
-      "name": "Company Formation in Bahrain - Register Your Business in 3-7 Days | Keylink Corp",
-      "description": "Register your company in Bahrain with 100% foreign ownership. Expert WLL, SPC, and branch office formation from BHD 750. MOIC registration, commercial licensing, and LMRA compliance included.",
+      "name": "Company Formation in Bahrain 2026 | Register Your Business in 3-7 Days | Keylink Corp",
+      "description": "Register your company in Bahrain with 100% foreign ownership from BHD 750. Expert WLL, SPC, and branch office formation in 3-7 days. MOIC registration, commercial licensing, and LMRA compliance included.",
       "isPartOf": { "@id": "https://keylinkcorp.com/#website" },
       "about": { "@id": "https://keylinkcorp.com/services/company-formation/#service" },
       "breadcrumb": { "@id": "https://keylinkcorp.com/services/company-formation/#breadcrumb" },
       "inLanguage": "en",
+      "dateModified": "2026-02-03",
       "potentialAction": {
         "@type": "ReadAction",
         "target": "https://keylinkcorp.com/services/company-formation"
@@ -112,7 +113,7 @@ export const companyFormationSchema = {
             "price": "750",
             "priceCurrency": "BHD",
             "availability": "https://schema.org/InStock",
-            "priceValidUntil": "2025-12-31"
+            "priceValidUntil": "2026-12-31"
           },
           {
             "@type": "Offer",
@@ -121,7 +122,7 @@ export const companyFormationSchema = {
             "price": "1200",
             "priceCurrency": "BHD",
             "availability": "https://schema.org/InStock",
-            "priceValidUntil": "2025-12-31"
+            "priceValidUntil": "2026-12-31"
           },
           {
             "@type": "Offer",
@@ -130,10 +131,107 @@ export const companyFormationSchema = {
             "price": "1800",
             "priceCurrency": "BHD",
             "availability": "https://schema.org/InStock",
-            "priceValidUntil": "2025-12-31"
+            "priceValidUntil": "2026-12-31"
           }
         ]
       }
+    },
+    // NEW: HowTo Schema for formation process
+    {
+      "@type": "HowTo",
+      "@id": "https://keylinkcorp.com/services/company-formation/#howto",
+      "name": "How to Register a Company in Bahrain",
+      "description": "Step-by-step guide to company formation in Bahrain with 100% foreign ownership",
+      "totalTime": "P7D",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "BHD",
+        "value": "750"
+      },
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Initial Registration",
+          "text": "Submit security approval request to MOIC, register company name, prepare capital deposit, and submit shareholder documentation."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Location & Approvals",
+          "text": "Register business address, obtain sector-specific approvals if required, notarize documents, and open corporate bank account."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Final Compliance",
+          "text": "Complete LMRA registration, process work visas for employees, and obtain national ID cards."
+        }
+      ]
+    },
+    // NEW: Product Schema with aggregated reviews
+    {
+      "@type": "Product",
+      "@id": "https://keylinkcorp.com/services/company-formation/#product",
+      "name": "Bahrain Company Formation Service",
+      "description": "Professional company registration in Bahrain with 100% foreign ownership. Includes MOIC registration, commercial license, and LMRA compliance.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Keylink Corp"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "750",
+        "highPrice": "2500",
+        "priceCurrency": "BHD",
+        "offerCount": 3
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "500",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    // NEW: ItemList for business activities
+    {
+      "@type": "ItemList",
+      "@id": "https://keylinkcorp.com/services/company-formation/#activities",
+      "name": "Permitted Business Activities in Bahrain",
+      "description": "List of business activities available for company registration in Bahrain",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "General Trading",
+          "description": "Import and export of goods, wholesale and retail trade"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Management Consulting",
+          "description": "Business strategy, operations, and management advisory services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "IT Services",
+          "description": "Software development, IT consulting, and digital solutions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "E-commerce",
+          "description": "Online retail, digital marketplaces, and electronic commerce"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Healthcare Services",
+          "description": "Medical clinics and healthcare facilities (requires NHRA approval)"
+        }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -197,10 +295,26 @@ export const companyFormationSchema = {
         },
         {
           "@type": "Question",
-          "name": "Do I need a local sponsor or partner to start a business in Bahrain?",
+          "name": "What are the tax benefits of forming a company in Bahrain?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For most commercial activities in Bahrain, no local sponsor is required. 100% foreign ownership is permitted since 2017. However, certain regulated activities such as legal services, auditing, and some healthcare services may require a Bahraini partner or specialized professional licenses."
+            "text": "Bahrain offers significant tax advantages: 0% corporate income tax on most business activities, 0% personal income tax, 10% VAT (with BHD 37,500 registration threshold), double taxation treaties with 50+ countries, and free profit repatriation with no currency restrictions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Tamkeen and how can it help my business?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tamkeen is Bahrain's Labour Fund that provides support to businesses including up to 50% wage subsidy for Bahraini employees for 3 years, 80% coverage on training programs, and various business development grants. New companies can significantly reduce operating costs through these programs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Bahrain Golden Visa and how do I qualify?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Bahrain Golden Visa is a 10-year residency program for investors and skilled professionals. Qualification criteria include: real estate investment of BHD 200,000+, qualifying business investment creating jobs, or exceptional talent in specific fields. Company owners with qualifying investments may be eligible."
           }
         },
         {
@@ -217,22 +331,6 @@ export const companyFormationSchema = {
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Annual compliance requirements include: Commercial Registration (CR) renewal with MOIC, commercial license renewal, audit requirements for WLL companies, LMRA fees for employees (BHD 10/month per worker), and municipal fees. Our compliance packages handle all these requirements automatically."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I open a corporate bank account in Bahrain?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Keylink assists with corporate bank account opening at all major Bahrain banks including NBB, BBK, Ahli United Bank, and international banks like HSBC and Standard Chartered. Required documents include company registration papers, shareholder passports, and a business plan. The process typically takes 2-3 weeks."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the step-by-step company formation process in Bahrain?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Company formation in Bahrain has three phases: (1) Initial Registration - MOIC security approval, company name registration, capital deposit, and partner documentation; (2) Location & Approvals - business address registration, sector-specific approvals, document notarization, and bank account opening; (3) Final Compliance - LMRA registration, work visa processing, and national ID cards for employees."
           }
         }
       ]

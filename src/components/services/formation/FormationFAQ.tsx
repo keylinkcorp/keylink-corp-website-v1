@@ -96,6 +96,31 @@ const faqs = [
     question: "What happens if my company formation application is rejected?",
     answer: "Rejections are rare when working with experienced consultants. Common rejection reasons include: restricted business activities, incomplete documentation, or name conflicts. If rejection occurs, we identify the issue, prepare corrections, and resubmit at no additional charge. Our 100% success rate means we've never had a final rejection.",
   },
+  // NEW SEO-optimized FAQs for 2025-2026
+  {
+    question: "What are the tax benefits of forming a company in Bahrain?",
+    answer: "Bahrain offers significant tax advantages: 0% corporate income tax on most business activities, 0% personal income tax, 10% VAT (with BHD 37,500 registration threshold), double taxation treaties with 50+ countries including UK, France, and China, and free profit repatriation with no currency restrictions. This makes Bahrain one of the most tax-efficient jurisdictions in the GCC.",
+  },
+  {
+    question: "What is Tamkeen and how can it help my new business?",
+    answer: "Tamkeen is Bahrain's Labour Fund that provides substantial support to businesses. Key programs include: up to 50% wage subsidy for Bahraini employees for up to 3 years, 80% coverage on employee training and professional development, business expansion loans, and startup support programs. New companies can significantly reduce operating costs through these government incentives.",
+  },
+  {
+    question: "What business activities are most popular for foreign investors in Bahrain?",
+    answer: "Popular activities for foreign investors include: general trading and import/export, management and IT consulting, e-commerce and digital services, fintech (Bahrain is a regional fintech hub), food and beverage trading, and professional services. Most commercial activities allow 100% foreign ownership. Regulated sectors like healthcare, finance, and education require additional approvals.",
+  },
+  {
+    question: "What are the latest 2025-2026 regulatory changes for company formation in Bahrain?",
+    answer: "Recent updates include: enhanced SIJILAT 2.0 digital platform for faster processing, expanded remote company formation options, new business activities added including blockchain and AI consulting, updated flexible work visa schemes through LMRA, and improved processing times across government departments. We stay current with all regulatory changes to ensure smooth company registration.",
+  },
+  {
+    question: "Can I register a fintech company in Bahrain?",
+    answer: "Yes, Bahrain is the GCC's leading fintech hub. The Central Bank of Bahrain (CBB) offers a regulatory sandbox for testing innovative financial products. Fintech companies can register as WLL or SPC structures, with specific licensing requirements based on activities (payments, lending, crowdfunding, etc.). We have experience registering numerous fintech startups with CBB compliance.",
+  },
+  {
+    question: "What is the SIJILAT system and how does it work?",
+    answer: "SIJILAT is Bahrain's integrated electronic business licensing system managed by MOIC. It enables online submission of company registration applications, commercial license renewals, and business amendments. The system has reduced processing times significantly and allows for paperless transactions. We use SIJILAT to file all applications on your behalf for faster processing.",
+  },
 ];
 
 export function FormationFAQ() {
