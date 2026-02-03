@@ -1,471 +1,256 @@
 
-# Advanced SEO Content Gap Analysis & Page Optimization
 
-## Executive Summary
+# BusinessActivitiesDirectory Redesign
 
-This plan provides a comprehensive SEO analysis of the Company Formation page, identifying high-priority content gaps based on competitor research, and proposing optimizations to achieve #1 ranking for "Company Formation in Bahrain."
-
----
-
-## Phase 1: Current Page Audit
-
-### Current Content Inventory
-
-| Section | Component | Est. Words | Content Type |
-|---------|-----------|-----------|--------------|
-| Hero | FormationHero | ~150 | Text + Image + CTAs |
-| Trust Bar | FormationTrustBar | ~30 | Stats display |
-| Calculator | FormationCostCalculator | ~800 | Interactive tool |
-| Why Choose | WhyChooseKeylink | ~200 | Benefits grid |
-| Process | FormationProcessDetailed | ~600 | 3-phase accordion |
-| Requirements | RequirementsChecklist | ~200 | Document checklist |
-| Pricing | PricingPackages | ~250 | 3-tier pricing cards |
-| Banking | BankAccountOpening | ~200 | Bank comparison + CTA |
-| Testimonials | FormationTestimonials | ~150 | Social proof |
-| Related | RelatedServices | ~100 | Service links |
-| FAQ | FormationFAQ | ~1,500 | 18 questions |
-| CTA | FormationCTA | ~50 | Final conversion |
-
-**Current Total: ~4,230 words** (Strong foundation)
-
-### Current SEO Elements
-- Title: "Company Formation in Bahrain - Register Business in 3-7 Days | From BHD 750 | Keylink Corp" (77 chars - slightly long)
-- Meta: 247 chars (too long, should be ~155)
-- JSON-LD: Organization, LocalBusiness, WebPage, Service, FAQPage, BreadcrumbList (comprehensive)
-- H1: "Company Formation in Bahrain - Start in 3-7 Days"
+## Overview
+Redesign the Business Activities Directory section from a searchable 3-column grid to a simpler, cleaner two-column layout with accordion-based content on the left and a relevant image on the right.
 
 ---
 
-## Phase 2: Competitive Content Gap Analysis
-
-### Competitor Benchmark (Top 15 Analysis)
-
-Based on research of top-ranking competitors (setupinbahrain.com, sovereigngroup.com, businesssetup.com, bahrainedb.com, etc.):
-
-| Content Element | Competitor Frequency | Our Status | Priority |
-|-----------------|---------------------|------------|----------|
-| Business Activities Directory | 12/15 | Missing | HIGH |
-| Free Zones/Industrial Areas Guide | 10/15 | Missing | HIGH |
-| 2024/2025 Regulation Updates | 11/15 | Missing | HIGH |
-| Tamkeen Support/Grants Section | 9/15 | Missing | HIGH |
-| Comparison Table (Company Types) | 14/15 | Present but minimal | HIGH |
-| Cost Breakdown Calculator | 8/15 | Present | Complete |
-| Step-by-Step Visual Timeline | 13/15 | Present | Complete |
-| Bank Account Guide | 10/15 | Present | Complete |
-| Visa Quota Information | 11/15 | Partial | MEDIUM |
-| Tax Environment Section | 10/15 | Missing | HIGH |
-| Free Trade Agreements Benefits | 7/15 | Missing | MEDIUM |
-| Golden Visa Details | 8/15 | Partial in FAQ | MEDIUM |
-| Industry-Specific Guides | 6/15 | Missing | MEDIUM |
-| Video Explainer | 5/15 | Missing | LOW |
-| Downloadable Checklist | 6/15 | Missing | MEDIUM |
-| Case Studies/Success Stories | 9/15 | Partial (testimonials) | MEDIUM |
-| Arabic Content Toggle | 4/15 | Missing | LOW |
-
----
-
-## Phase 3: HIGH-PRIORITY Content Additions
-
-### 1. Business Activities Directory Section
-**Priority: HIGH | Est. Words: 400-500**
-
-Missing content that 12/15 competitors include. Creates major SEO value through long-tail keyword coverage.
+## Current vs New Design
 
 ```text
-Section: "Permitted Business Activities in Bahrain"
-├── Commercial Activities (Trading, Import/Export)
-├── Consulting & Professional Services
-├── Technology & IT Services
-├── Manufacturing & Industrial
-├── Food & Beverage
-├── Healthcare & Medical (Regulated)
-├── Financial Services (CBB Regulated)
-├── Education & Training
-├── Tourism & Hospitality
-└── E-commerce & Digital Services
+CURRENT DESIGN (Complex/Searchable):
+┌──────────────────────────────────────────────────────────────────────────┐
+│                    [Search Bar]                                          │
+│        [All Activities] [Commercial] [Professional] [Regulated]         │
+├──────────────────────────────────────────────────────────────────────────┤
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐                               │
+│  │ Card 1   │  │ Card 2   │  │ Card 3   │                               │
+│  └──────────┘  └──────────┘  └──────────┘                               │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐                               │
+│  │ Card 4   │  │ Card 5   │  │ Card 6   │                               │
+│  └──────────┘  └──────────┘  └──────────┘                               │
+│  ... (22+ cards)                                                         │
+└──────────────────────────────────────────────────────────────────────────┘
 
-Features:
-- Searchable activity grid
-- Regulation status badges (Regulated/Open)
-- Required approvals per activity
-- Link to SIJILAT activity search
-```
 
-### 2. Company Types Comparison Table (Enhanced)
-**Priority: HIGH | Est. Words: 350-400**
-
-Current `CompanyTypesComparison.tsx` exists but not in main page. Enhance with:
-
-```text
-Full Comparison Matrix:
-| Feature | SPC | WLL | Branch | Holding | Rep Office |
-|---------|-----|-----|--------|---------|------------|
-| Min Shareholders | 1 | 2-50 | N/A | 1+ | N/A |
-| Min Capital | BHD 50 | BHD 20,000 | Parent | BHD 250,000 | None |
-| Foreign Ownership | 100% | 100% | 100% | 100% | 100% |
-| Can Hire Staff | Yes | Yes | Yes | Limited | No |
-| Visa Quota | Based on office | Based on office | Based on office | Limited | 2 max |
-| Trading Allowed | Yes | Yes | Yes | No | No |
-| Timeline | 3-5 days | 5-7 days | 7-10 days | 7-10 days | 5-7 days |
-| Annual Audit | No | Yes | Yes | Yes | No |
-| Best For | Solo entrepreneurs | SMEs & partnerships | International expansion | Investment vehicles | Market research |
-```
-
-### 3. Tax & Financial Environment Section
-**Priority: HIGH | Est. Words: 300-350**
-
-Critical missing content - 10/15 competitors cover this extensively.
-
-```text
-Section: "Tax Benefits of Company Formation in Bahrain"
-├── 0% Corporate Income Tax (most sectors)
-├── 0% Personal Income Tax
-├── 10% VAT (introduced 2022)
-├── Double Taxation Treaties (50+ countries)
-├── Free Repatriation of Profits
-├── No Currency Restrictions
-└── OECD Minimum Tax (2024 updates for multinationals)
-
-Include:
-- Comparison with UAE, Saudi Arabia, Qatar
-- VAT registration thresholds (BHD 37,500)
-- Tax-free sectors list
-```
-
-### 4. Tamkeen & Government Support Section
-**Priority: HIGH | Est. Words: 250-300**
-
-Major differentiator for Bahrain market - 9/15 competitors mention Tamkeen programs.
-
-```text
-Section: "Government Support Programs for New Businesses"
-├── Tamkeen Wage Subsidy (up to 50% for 3 years)
-├── Tamkeen Training Support
-├── Startup Bahrain Programs
-├── Export Bahrain Assistance
-├── SME Development Fund
-└── Golden Visa Investor Program
-
-Include:
-- Eligibility criteria
-- Application process
-- Potential savings calculator
-```
-
-### 5. 2025/2026 Regulatory Updates Section
-**Priority: HIGH | Est. Words: 200-250**
-
-Freshness signal for Google - most competitors reference current year updates.
-
-```text
-Section: "Latest 2025-2026 Bahrain Business Regulations"
-├── Commercial Companies Law Amendments
-├── LMRA Fee Updates
-├── New Business Activities Added
-├── Digital Licensing Improvements (SIJILAT 2.0)
-├── Remote Company Formation Options
-└── Flexible Work Visa Schemes
-
-Include:
-- Last updated: [Current Date]
-- Source links to MOIC/LMRA
+NEW DESIGN (Simple Two-Column):
+┌──────────────────────────────────────────────────────────────────────────┐
+│           Permitted Business Activities in Bahrain                       │
+│     Explore activities available for company registration                │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  ACCORDION (Left 50%)           │  IMAGE (Right 50%)                    │
+│  ┌─────────────────────────────┐ │  ┌──────────────────────────────────┐│
+│  │ ▼ Commercial Activities     │ │  │                                  ││
+│  │   • General Trading         │ │  │   [Professional Business         ││
+│  │   • Import/Export           │ │  │    Environment Image]            ││
+│  │   • E-commerce              │ │  │                                  ││
+│  │   • Food & Beverage         │ │  │   Shows diverse business         ││
+│  │   • Electronics Trading     │ │  │   activities / office setting    ││
+│  └─────────────────────────────┘ │  │                                  ││
+│  ┌─────────────────────────────┐ │  │  ┌───────────────────────────┐   ││
+│  │ ▶ Professional Services     │ │  │  │ Floating Card:            │   ││
+│  └─────────────────────────────┘ │  │  │ 50+ Activities             │   ││
+│  ┌─────────────────────────────┐ │  │  │ Available for Registration │   ││
+│  │ ▶ Regulated Activities      │ │  │  └───────────────────────────┘   ││
+│  │   (Requires Approvals)      │ │  │                                  ││
+│  └─────────────────────────────┘ │  └──────────────────────────────────┘│
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│  [SIJILAT Link for complete official list]                               │
+└──────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Phase 4: MEDIUM-PRIORITY Enhancements
+## Technical Implementation
 
-### 6. Visa Quota & Immigration Details (Enhanced)
-**Est. Words: 200-250**
+### File to Modify
+`src/components/services/formation/BusinessActivitiesDirectory.tsx`
 
-Expand current FAQ content into dedicated section:
-- Visa quota calculation by office size
-- Golden Visa eligibility (BHD 500,000+ investment)
-- Flexi-permit options
-- Family visa considerations
+### Changes Summary
 
-### 7. Free Zones & Industrial Areas
-**Est. Words: 200-250**
+1. **Remove**: Search bar, category filter buttons, searchable grid layout
+2. **Keep**: Business activities data, section header, SIJILAT link
+3. **Add**: Two-column layout with accordion (left) + image (right)
 
-```text
-Section: "Strategic Locations in Bahrain"
-├── Bahrain Investment Wharf
-├── Bahrain Logistics Zone
-├── Bahrain International Investment Park (BIIP)
-├── Hidd Industrial Area
-└── Sitra Industrial Area
+### Accordion Structure
 
-Include:
-- Benefits of each zone
-- Sector focus
-- Available incentives
-```
+Group the existing 22 activities into 3 accordion categories:
 
-### 8. Industry-Specific Formation Guides
-**Est. Words: 300-400**
+| Category | Activities Count | Visual Indicator |
+|----------|-----------------|------------------|
+| Commercial Activities | 7 | Green badge |
+| Professional Services | 7 | Blue badge |
+| Regulated Activities | 8 | Orange badge with "Requires Approvals" note |
 
-Create sub-sections or tabs for:
-- Fintech Company Formation
-- Healthcare Business Setup
-- Trading Company Registration
-- Consulting Firm Formation
-- Restaurant/F&B Setup
+### Activity Data Grouping
 
-### 9. Downloadable Resources
-**Non-word content**
+**Commercial Activities (7):**
+- General Trading
+- Import/Export
+- E-commerce
+- Food & Beverage Trading
+- Construction Materials
+- Electronics Trading
+- Automobile Trading
 
-- PDF: "Complete Company Formation Checklist"
-- PDF: "Required Documents List"
-- Link to lead capture for these assets
+**Professional Services (7):**
+- Management Consulting
+- IT Services
+- Marketing & Advertising
+- HR Consulting
+- Training & Education
+- Translation Services
+- Design Services
 
----
-
-## Phase 5: SEO Technical Optimizations
-
-### Meta Tags Optimization
-
-**Current Title (77 chars):**
-```
-Company Formation in Bahrain - Register Business in 3-7 Days | From BHD 750 | Keylink Corp
-```
-
-**Optimized Title (59 chars):**
-```
-Company Formation in Bahrain 2025 | From BHD 750 - Keylink
-```
-
-**Current Meta Description (247 chars - too long):**
-```
-Start your business in Bahrain with 100% foreign ownership. Register WLL, SPC, or branch office in 3-7 days from BHD 750. Expert MOIC registration, commercial licensing & LMRA support. Free consultation.
-```
-
-**Optimized Meta Description (155 chars):**
-```
-Register your company in Bahrain with 100% foreign ownership from BHD 750. WLL, SPC & branch formation in 3-7 days. Free consultation. MOIC certified.
-```
-
-### Semantic Keyword Integration
-
-**Primary Keywords (Target Density 0.8-1.2%):**
-- Company formation in Bahrain
-- Register company in Bahrain
-- Business setup Bahrain
-- Bahrain company registration
-
-**LSI Keywords to Add (30+ variations):**
-- WLL company Bahrain
-- SPC registration Bahrain
-- Branch office Bahrain
-- Commercial registration Bahrain
-- MOIC registration
-- SIJILAT Bahrain
-- Foreign ownership Bahrain
-- Bahrain business license
-- Trade license Bahrain
-- LMRA work permit
-- Bahrain investment
-- GCC business hub
-- Tax-free company Bahrain
-- Virtual office Bahrain
-- Corporate bank account Bahrain
-- Tamkeen support
-- Golden Visa Bahrain
-- Holding company Bahrain
-- Bahrain startup
-- Business incubator Bahrain
-
-### Schema Markup Enhancements
-
-Add to existing schema:
-1. **HowTo Schema** - For formation process steps
-2. **Product Schema** - For pricing packages with ratings
-3. **VideoObject** - If explainer video added
-4. **ItemList** - For business activities directory
+**Regulated Activities (8):**
+- Healthcare Services (NHRA, MOH)
+- Financial Services (CBB)
+- Pharmaceuticals (NHRA)
+- Food Manufacturing (Municipality)
+- Travel & Tourism (Tourism Authority)
+- Education Institute (MOE)
+- Real Estate Brokerage (RERA)
+- Legal Services (Bar Association)
 
 ---
 
-## Phase 6: Implementation Plan
+## Component Structure
 
-### Files to Create
+```tsx
+<section className="py-28 lg:py-36 bg-white relative overflow-hidden">
+  {/* Background Pattern - Grid Lines (keep existing) */}
+  
+  <div className="container relative">
+    {/* Section Header (simplified) */}
+    <div className="text-center max-w-3xl mx-auto mb-12">
+      <p className="text-sm text-accent uppercase">Business Activities</p>
+      <h2>Permitted Business Activities in Bahrain</h2>
+      <p>Subtitle text...</p>
+    </div>
 
-| File | Purpose |
-|------|---------|
-| `BusinessActivitiesDirectory.tsx` | Searchable activities grid |
-| `CompanyTypesTable.tsx` | Enhanced comparison table |
-| `TaxBenefitsSection.tsx` | Tax environment content |
-| `TamkeenSupportSection.tsx` | Government programs |
-| `RegulatoryUpdates.tsx` | Current year updates |
-| `FreeZonesGuide.tsx` | Industrial areas guide |
-| `IndustryGuides.tsx` | Sector-specific tabs |
+    {/* Two Column Layout */}
+    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+      
+      {/* Left: Accordion */}
+      <div>
+        <Accordion type="single" collapsible defaultValue="commercial">
+          <AccordionItem value="commercial">
+            <AccordionTrigger>
+              <Icon /> Commercial Activities <Badge>7</Badge>
+            </AccordionTrigger>
+            <AccordionContent>
+              <ul>
+                {commercialActivities.map(...)}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="professional">
+            ...
+          </AccordionItem>
+          
+          <AccordionItem value="regulated">
+            ...
+          </AccordionItem>
+        </Accordion>
+        
+        {/* Legend */}
+        <div className="mt-6 p-4 bg-muted/30 rounded-xl">
+          <p>100% foreign ownership available for most activities</p>
+        </div>
+      </div>
 
-### Files to Modify
+      {/* Right: Image */}
+      <div className="relative hidden lg:block">
+        <img 
+          src="/placeholder.svg" 
+          alt="Business activities in Bahrain"
+          className="rounded-2xl shadow-lg"
+        />
+        
+        {/* Floating stat card */}
+        <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-lg border">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center">
+              <Briefcase className="w-7 h-7 text-accent" />
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-primary">50+</p>
+              <p className="text-sm text-muted-foreground">Activities Available</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-| File | Changes |
-|------|---------|
-| `CompanyFormation.tsx` | Add new sections, update meta tags |
-| `FormationHero.tsx` | Add 2025/2026 freshness badge |
-| `FormationFAQ.tsx` | Add 5-8 new SEO-optimized questions |
-| `companyFormationSchema.ts` | Add HowTo, Product schemas |
-
-### New Section Order (Optimized for SEO & Conversion)
-
-```text
-1.  FormationHero (with 2025/2026 badge)
-2.  FormationTrustBar
-3.  CompanyTypesTable (NEW - enhanced comparison)
-4.  FormationCostCalculator
-5.  TaxBenefitsSection (NEW)
-6.  WhyChooseKeylink
-7.  FormationProcessDetailed
-8.  BusinessActivitiesDirectory (NEW)
-9.  RequirementsChecklist
-10. TamkeenSupportSection (NEW)
-11. PricingPackages
-12. BankAccountOpening
-13. FreeZonesGuide (NEW)
-14. RegulatoryUpdates (NEW)
-15. FormationTestimonials
-16. RelatedServices
-17. FormationFAQ (expanded)
-18. FormationCTA
-```
-
-### Estimated Content Additions
-
-| New Section | Est. Words |
-|-------------|-----------|
-| Business Activities | 450 |
-| Company Types Table | 350 |
-| Tax Benefits | 300 |
-| Tamkeen Support | 250 |
-| Regulatory Updates | 200 |
-| Free Zones Guide | 200 |
-| Additional FAQs | 300 |
-| **Total New Content** | **~2,050** |
-
-**New Total Word Count: ~6,280 words** (Competitor average: 3,500-4,500)
-
----
-
-## Phase 7: Technical Implementation Details
-
-### BusinessActivitiesDirectory.tsx
-
-```text
-Features:
-- Grid of 50+ business activities with icons
-- Filter by category (Commercial, Professional, Regulated)
-- Search functionality
-- Regulation status badges
-- "Regulated" activities show required approvals
-- Click-to-expand for details
-- Link to SIJILAT for official verification
-
-Design: Bento-style cards, gold accent borders, 
-matching existing pattern backgrounds
-```
-
-### CompanyTypesTable.tsx
-
-```text
-Features:
-- Full comparison matrix (5 company types)
-- Sticky header on scroll
-- Mobile-responsive (horizontal scroll or accordion)
-- Highlight recommended option
-- "Best For" use-case labels
-- Quick-select links to relevant pricing
-
-Design: Clean table with alternating row colors,
-gold highlight on hover, primary header row
-```
-
-### TaxBenefitsSection.tsx
-
-```text
-Features:
-- Key tax benefits as large stat cards
-- GCC comparison mini-table
-- VAT information callout
-- "Last Updated" timestamp for freshness
-- Link to NBR for official rates
-
-Design: Two-column layout with stat cards left,
-comparison table right, white background with 
-dot grid pattern
-```
-
-### TamkeenSupportSection.tsx
-
-```text
-Features:
-- Program cards with eligibility badges
-- Potential savings calculator
-- "Check Eligibility" CTA
-- Government logo/certification badge
-- Application process accordion
-
-Design: Promotional card style with gold accent,
-trust badges, CTA prominent
-```
-
-### RegulatoryUpdates.tsx
-
-```text
-Features:
-- Timeline of recent updates
-- "Last Updated" prominent
-- Source links to official sites
-- Subscribe for updates CTA
-- Brief description per update
-
-Design: Vertical timeline with date badges,
-minimal design, freshness emphasis
+    {/* SIJILAT Link (keep existing) */}
+    <div className="text-center mt-12">
+      <a href="https://www.sijilat.bh">SIJILAT - Official Registry</a>
+    </div>
+  </div>
+</section>
 ```
 
 ---
 
-## Expected SEO Impact
+## Accordion Item Design
 
-### Ranking Factors Addressed
+Each accordion trigger will include:
+- Category icon (left)
+- Category name (center)
+- Activity count badge (right)
+- Chevron indicator (far right)
 
-| Factor | Current | After Implementation |
-|--------|---------|---------------------|
-| Content Depth | Good | Excellent |
-| Keyword Coverage | 60% | 95% |
-| Semantic Richness | Moderate | High |
-| Freshness Signals | Weak | Strong |
-| Schema Breadth | Good | Excellent |
-| User Engagement | Good | Excellent |
-| Mobile UX | Good | Good |
-| Page Load | Good | Monitor |
+Each accordion content will show:
+- List of activities with small icons
+- For regulated activities: additional approval requirement badges
 
-### Target Outcomes
+```text
+┌──────────────────────────────────────────────────────────────────┐
+│ 🛒 Commercial Activities                        [7 activities] ▼ │
+├──────────────────────────────────────────────────────────────────┤
+│  ✓ General Trading                                               │
+│    Import and export of goods, wholesale and retail trade        │
+│  ✓ Import/Export                                                 │
+│    International trade and customs clearance services            │
+│  ✓ E-commerce                                                    │
+│    Online retail, digital marketplaces, electronic commerce      │
+│  ... (remaining items)                                           │
+└──────────────────────────────────────────────────────────────────┘
 
-- **Ranking Goal**: Top 3 for "Company Formation in Bahrain"
-- **Featured Snippet**: Target FAQ and HowTo sections
-- **Long-tail Coverage**: 50+ related keyword rankings
-- **CTR Improvement**: 15-25% with optimized meta
-- **Time on Page**: +40% with interactive elements
+For Regulated Activities (with approval badges):
+┌──────────────────────────────────────────────────────────────────┐
+│ ⚠ Regulated Activities                          [8 activities] ▼ │
+├──────────────────────────────────────────────────────────────────┤
+│  Healthcare Services                                             │
+│  Medical clinics, healthcare facilities                          │
+│  [NHRA Approval] [Ministry of Health License]                    │
+│                                                                  │
+│  Financial Services                                              │
+│  Banking, investment, insurance services                         │
+│  [CBB License] [Capital Requirements]                            │
+└──────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Implementation Priority
+## Animation Strategy
 
-### Phase 1 (Week 1) - HIGH PRIORITY
-1. CompanyTypesTable enhancement
-2. TaxBenefitsSection
-3. Meta tag optimization
-4. Schema enhancements
+- Section header: Staggered reveal (keep existing)
+- Accordion: Fade-in with slight upward motion
+- Image: Slide in from right with fade
+- Floating card: Delayed reveal from bottom
 
-### Phase 2 (Week 2) - HIGH PRIORITY
-5. BusinessActivitiesDirectory
-6. TamkeenSupportSection
-7. RegulatoryUpdates
-8. Additional FAQs
+---
 
-### Phase 3 (Week 3) - MEDIUM PRIORITY
-9. FreeZonesGuide
-10. IndustryGuides
-11. Downloadable resources
-12. Internal linking optimization
+## Mobile Responsiveness
+
+- On mobile/tablet (< lg): Image hidden, accordion takes full width
+- Accordion remains fully functional on all devices
+- Touch-friendly accordion triggers (min 44px height)
+
+---
+
+## Benefits of New Design
+
+1. **Cleaner UX**: No search/filter complexity
+2. **Better Scannability**: Grouped by category for quick reference
+3. **Visual Appeal**: Two-column layout with professional image
+4. **Reduced Cognitive Load**: Users see categories first, then drill down
+5. **Consistent Pattern**: Matches other service page layouts
+6. **SEO Preserved**: All activity names and descriptions remain in DOM
+
