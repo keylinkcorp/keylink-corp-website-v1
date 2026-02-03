@@ -80,36 +80,6 @@ export function AboutValues() {
         />
       </div>
 
-      {/* Sticky Progress Indicator */}
-      <div className="hidden lg:block fixed left-8 top-1/2 -translate-y-1/2 z-50">
-        <div className="relative">
-          {/* Track */}
-          <div className="w-0.5 h-32 bg-border/30 rounded-full">
-            <motion.div
-              className="w-full bg-accent rounded-full origin-top"
-              style={{ 
-                scaleY: scrollYProgress,
-              }}
-            />
-          </div>
-          
-          {/* Dots */}
-          {values.map((_, index) => (
-            <motion.div
-              key={index}
-              className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-accent"
-              style={{
-                top: `${(index / (values.length - 1)) * 100}%`,
-                opacity: useTransform(
-                  scrollYProgress,
-                  [index / values.length - 0.1, index / values.length + 0.1],
-                  [0.3, 1]
-                ),
-              }}
-            />
-          ))}
-        </div>
-      </div>
 
       <div className="container px-4 relative z-10 py-20 md:py-28">
         {/* Header */}
