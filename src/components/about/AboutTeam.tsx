@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Linkedin, Quote, ChevronDown, ChevronUp, ArrowRight, Facebook, Instagram } from "lucide-react";
+import { Linkedin, Quote, ChevronDown, ChevronUp } from "lucide-react";
 
 // Wave pattern SVG for card backgrounds
 const wavePattern = encodeURIComponent(`
@@ -274,7 +274,7 @@ export function AboutTeam() {
             >
               {/* Image Container with Wave Pattern Background */}
               <div 
-                className="relative h-72 overflow-hidden"
+                className="relative aspect-[4/5] overflow-hidden"
                 style={{
                   backgroundColor: 'hsl(var(--muted))',
                   backgroundImage: `url("data:image/svg+xml,${wavePattern}")`,
@@ -295,30 +295,7 @@ export function AboutTeam() {
               {/* Content Below Image */}
               <div className="p-5">
                 <h4 className="font-bold text-foreground text-lg mb-1">{member.name}</h4>
-                <p className="text-muted-foreground text-sm mb-4">{member.role}</p>
-                
-                {/* Footer Row */}
-                <div className="flex items-center justify-between">
-                  <a 
-                    href="#" 
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-accent transition-colors group/link"
-                  >
-                    Learn more 
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
-                  </a>
-                  
-                  <div className="flex gap-3">
-                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                      <Facebook className="w-4 h-4" />
-                    </a>
-                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                      <Instagram className="w-4 h-4" />
-                    </a>
-                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                      <Linkedin className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
+                <p className="text-muted-foreground text-sm">{member.role}</p>
               </div>
             </motion.div>
           ))}
