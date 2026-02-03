@@ -11,6 +11,7 @@ import {
   Building2, 
   Briefcase, 
   Users, 
+  User,
   ChevronRight,
   ChevronLeft,
   Send,
@@ -19,7 +20,8 @@ import {
   Landmark,
   FileText,
   Clock,
-  AlertCircle
+  AlertCircle,
+  Info
 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
@@ -31,7 +33,7 @@ const leadFormSchema = z.object({
   phone: z.string().optional()
 });
 
-// ===== COMPANY TYPES (Updated - SPC merged into WLL) =====
+// ===== COMPANY TYPES =====
 const companyTypes = [
   { 
     id: "wll", 
@@ -42,6 +44,16 @@ const companyTypes = [
     govFees: 200,
     timeline: "5-7 days",
     icon: Building2
+  },
+  { 
+    id: "spc", 
+    name: "SPC", 
+    description: "Single Person Company",
+    subtitle: "Perfect for solo entrepreneurs",
+    basePrice: 750,
+    govFees: 150,
+    timeline: "3-5 days",
+    icon: User
   },
   { 
     id: "branch", 
@@ -155,6 +167,12 @@ const additionalServicesByType: Record<string, { id: string; name: string; price
     { id: "accounting", name: "Accounting Setup", price: 300 },
     { id: "lmra", name: "LMRA Registration", price: 100 },
   ],
+  spc: [
+    { id: "bank", name: "Bank Account Support", price: 150 },
+    { id: "pro", name: "PRO Services (1 Year)", price: 500 },
+    { id: "accounting", name: "Accounting Setup", price: 250 },
+    { id: "investor-visa", name: "Investor Visa Processing", price: 350 },
+  ],
   branch: [
     { id: "bank", name: "Bank Account Support", price: 150 },
     { id: "pro", name: "PRO Services (1 Year)", price: 600 },
@@ -217,6 +235,14 @@ export function FormationCostCalculator() {
           "Owner Nationality",
           "Business Activity",
           "Visa Requirements",
+          "Office Type",
+          "Additional Services"
+        ];
+      case "spc":
+        return [
+          "Company Type",
+          "Owner Nationality",
+          "Business Activity",
           "Office Type",
           "Additional Services"
         ];
@@ -290,6 +316,36 @@ export function FormationCostCalculator() {
       if (visa && visa.total > 0) {
         total += visa.total;
         breakdown.push({ label: visa.label, amount: visa.total });
+      }
+    }
+    
+    else if (companyType === "spc") {
+      // Base service fee
+      total += 750;
+      breakdown.push({ label: "SPC Formation Service", amount: 750 });
+      
+      // Government fees
+      total += 150;
+      breakdown.push({ label: "Government Fees (CR, License)", amount: 150 });
+      
+      // Foreign security approval
+      if (ownerNationality === "foreign") {
+        total += 50;
+        breakdown.push({ label: "Security Approval (Foreign)", amount: 50 });
+      }
+      
+      // Regulated activity fees
+      const activity = businessActivities.find(a => a.id === businessActivity);
+      if (activity?.regulated) {
+        total += activity.fee;
+        breakdown.push({ label: `${activity.name} License`, amount: activity.fee });
+      }
+      
+      // Office
+      const office = officeTypes.find(o => o.id === officeType);
+      if (office) {
+        total += office.price;
+        breakdown.push({ label: `${office.name} (1 Year)`, amount: office.price });
       }
     }
     
@@ -388,6 +444,16 @@ export function FormationCostCalculator() {
         case 5: return visaPackage !== null;
         case 6: return officeType !== null;
         case 7: return true; // Additional services optional
+        default: return false;
+      }
+    }
+    
+    if (companyType === "spc") {
+      switch (step) {
+        case 2: return ownerNationality !== null;
+        case 3: return businessActivity !== null;
+        case 4: return officeType !== null;
+        case 5: return true; // Additional services optional
         default: return false;
       }
     }
@@ -520,7 +586,7 @@ export function FormationCostCalculator() {
             Select the type of company you want to register in Bahrain
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {companyTypes.map((type) => (
               <motion.div
                 key={type.id}
@@ -766,6 +832,154 @@ export function FormationCostCalculator() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // SPC Flow (Streamlined 5-step flow for solo entrepreneurs)
+    if (companyType === "spc") {
+      if (step === 2) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Owner Nationality
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              What is your nationality as the sole owner?
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {ownerNationalities.map((nationality) => (
+                <motion.div
+                  key={nationality.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setOwnerNationality(nationality.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    ownerNationality === nationality.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Globe className={cn(
+                    "h-8 w-8 mb-3",
+                    ownerNationality === nationality.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary">{nationality.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{nationality.description}</p>
+                  <p className="text-gold font-semibold">
+                    {nationality.fee > 0 ? `+BHD ${nationality.fee}` : "No extra fee"}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      
+      if (step === 3) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Business Activity
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              What will be your primary business activity?
+            </p>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {businessActivities.map((activity) => (
+                <motion.div
+                  key={activity.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setBusinessActivity(activity.id)}
+                  className={cn(
+                    "p-5 rounded-2xl border-2 cursor-pointer transition-all relative",
+                    businessActivity === activity.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  {activity.regulated && (
+                    <span className="absolute top-2 right-2 text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">
+                      Regulated
+                    </span>
+                  )}
+                  <activity.icon className={cn(
+                    "h-6 w-6 mb-2",
+                    businessActivity === activity.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-semibold text-primary text-sm">{activity.name}</h4>
+                  {activity.fee > 0 && (
+                    <p className="text-gold font-semibold text-sm mt-1">+BHD {activity.fee}</p>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+            
+            {businessActivity && businessActivities.find(a => a.id === businessActivity)?.note && (
+              <div className="mt-4 p-4 bg-amber-50 rounded-xl border border-amber-200 flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5" />
+                <p className="text-sm text-amber-800">
+                  {businessActivities.find(a => a.id === businessActivity)?.note}
+                </p>
+              </div>
+            )}
+          </div>
+        );
+      }
+      
+      if (step === 4) {
+        return (
+          <div>
+            <h3 className="text-2xl font-bold text-primary mb-2">
+              Office Type
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              Choose your office solution in Bahrain
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {officeTypes.map((office) => (
+                <motion.div
+                  key={office.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setOfficeType(office.id)}
+                  className={cn(
+                    "p-6 rounded-2xl border-2 cursor-pointer transition-all",
+                    officeType === office.id
+                      ? "border-gold bg-gold/5 shadow-lg"
+                      : "border-border hover:border-gold/40"
+                  )}
+                >
+                  <Building2 className={cn(
+                    "h-8 w-8 mb-3",
+                    officeType === office.id ? "text-gold" : "text-muted-foreground"
+                  )} />
+                  <h4 className="font-bold text-primary text-lg">{office.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-2">{office.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gold font-bold">BHD {office.price}/yr</span>
+                    <span className="text-xs text-muted-foreground">
+                      Visa quota: {office.visaQuota}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* SPC-specific visa quota info */}
+            <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-200 flex items-start gap-3">
+              <Info className="h-5 w-5 text-blue-600 mt-0.5" />
+              <p className="text-sm text-blue-800">
+                <strong>SPC Visa Quota:</strong> As a Single Person Company, you can sponsor up to 1 investor visa for yourself. 
+                Additional work visas depend on your office type selection.
+              </p>
             </div>
           </div>
         );
