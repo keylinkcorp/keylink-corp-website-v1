@@ -1,144 +1,142 @@
 
 
-## Minimal Redesign: Bank Account Opening Section
+## Modern Redesign: Bank Account Opening Section
 
-Transform this information-heavy section into a clean, minimal layout that maintains SEO value while reducing visual clutter.
-
----
-
-### Current State (Too Heavy)
-
-The section currently contains:
-- **3 account type cards** with icons, descriptions, and feature lists
-- **4 digital banking feature cards** in a grid
-- **4 bank cards** with 8+ data points each (timeline, deposit, currencies, etc.)
-- **3-step timeline** with visual connector
-- **6-item documents list**
-- **CTA box** with 3 features
-
-**Total lines of code:** ~384 lines
+Transform the current minimal layout into a visually compelling split-layout design with images while maintaining SEO value.
 
 ---
 
-### Proposed Minimal Design
+### Current State
+
+The section has:
+- Centered header
+- 4-stat horizontal row
+- Bank names as text
+- Inline CTA link
+
+**Issue:** Clean but visually flat — no images, no visual hierarchy difference
+
+---
+
+### Proposed Modern Design
 
 #### Visual Concept
 
 ```text
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-│           "Corporate Bank Account Opening"                   │
-│              Short one-line subtitle                         │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│   ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐        │
-│   │  2-3    │  │ BHD 500 │  │   4     │  │  95%    │        │
-│   │ Weeks   │  │Min Deposit│ │ Banks  │  │ Approval│        │
-│   └─────────┘  └─────────┘  └─────────┘  └─────────┘        │
-│                                                              │
-│   ─────────────────────────────────────────────────────     │
-│                                                              │
-│   NBB • BBK • Ahli United • Standard Chartered              │
-│                                                              │
-│   ─────────────────────────────────────────────────────     │
-│                                                              │
-│   "We handle bank introductions • Get connected →"          │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           HEADER (centered)                              │
+│            "Corporate Bank Account Opening"                              │
+│                   One-line subtitle                                      │
+├────────────────────────────────┬────────────────────────────────────────┤
+│                                │                                         │
+│      ┌────────────────────┐    │   ┌─────────┐  ┌─────────┐             │
+│      │                    │    │   │  2-3    │  │ BHD 500 │             │
+│      │   PROFESSIONAL     │    │   │ Weeks   │  │Min Dep  │             │
+│      │   IMAGE            │    │   └─────────┘  └─────────┘             │
+│      │   (consultation)   │    │                                         │
+│      │                    │    │   ┌─────────┐  ┌─────────┐             │
+│      │   Floating badge:  │    │   │   4     │  │  95%    │             │
+│      │   "Major Banks"    │    │   │ Banks   │  │ Approval│             │
+│      └────────────────────┘    │   └─────────┘  └─────────┘             │
+│                                │                                         │
+│                                │   "We handle introductions..."         │
+│                                │   [Get bank introduction →]            │
+│                                │                                         │
+├────────────────────────────────┴────────────────────────────────────────┤
+│                                                                          │
+│   ┌──────┐  ┌──────┐  ┌──────┐  ┌──────┐                                │
+│   │ NBB  │  │ BBK  │  │ AUB  │  │ SC   │   Partner Banks                │
+│   │ logo │  │ logo │  │ logo │  │ logo │   (as text badges)             │
+│   └──────┘  └──────┘  └──────┘  └──────┘                                │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-### Key Changes
+### Layout Changes
 
-| Area | Current | New Minimal |
-|------|---------|-------------|
-| **Account Types** | 3 cards with icons, descriptions, features | Remove entirely |
-| **Digital Features** | 4-item grid in colored box | Remove entirely |
-| **Bank Cards** | 4 detailed cards | Single line listing bank names only |
-| **Timeline** | 3-step visual timeline | Remove (covered by "2-3 Weeks" stat) |
-| **Documents** | 6-item checklist | Remove (move to FAQ or consultation) |
-| **CTA** | Large box with features | Single inline link |
-| **Stats** | None | 4 key stats (timeline, deposit, banks, approval) |
-
----
-
-### What We Keep (For SEO)
-
-- Section heading with target keywords ("Corporate Bank Account", "Bahrain")
-- Bank names (important for local SEO and credibility)
-- Timeline information (2-3 weeks - featured snippet potential)
-- Minimum deposit (price information)
-- Link to consultation
-
-### What We Remove
-
-- Account types cards (generic info)
-- Digital banking features (expected for all banks)
-- Detailed bank comparison cards
-- Visual timeline steps
-- Documents checklist
-- Large CTA box
+| Area | Current | New Modern |
+|------|---------|------------|
+| **Layout** | Single column centered | Two-column split (image + content) |
+| **Image** | None | Professional consultation image with floating badge |
+| **Stats** | Horizontal row | 2x2 compact grid on right side |
+| **Bank Names** | Text line with bullets | Styled badges/cards in bottom row |
+| **CTA** | Inline text link | Prominent button below stats |
+| **Background** | Plain white | Subtle grid pattern fade |
 
 ---
 
-### Implementation
+### Implementation Details
 
 **File:** `src/components/services/formation/BankAccountOpening.tsx`
 
-**New Structure:**
+#### 1. Add Image Import
+Use existing asset: `bank-consultation-meeting.jpg`
 
-1. **Simplified Header**
-   - Section label: "Post-Formation Banking"
-   - Headline: "Corporate Bank Account Opening"
-   - One-line subtitle
+#### 2. New Structure
 
-2. **4 Key Stats (horizontal row)**
-   - 2-3 Weeks (average timeline)
-   - BHD 500 (minimum deposit)
-   - 4 Banks (partner network)
-   - 95% (approval rate)
+**Header (centered, full width)**
+- Section badge: "Post-Formation Banking"
+- H2: "Corporate Bank Account Opening"
+- Subtitle (one line)
 
-3. **Bank Names (single line)**
-   - Clean horizontal list: NBB, BBK, Ahli United, Standard Chartered
-   - No cards, no details
+**Two-Column Split**
+- **Left (50%):** Professional image with rounded corners and shadow
+  - Floating badge overlay: "4 Major Banks"
+- **Right (50%):** 
+  - 2x2 stats grid (cleaner than 4-column)
+  - Brief description text
+  - CTA button (not just link)
 
-4. **Inline CTA**
-   - "We handle bank introductions and documentation"
-   - "Get bank introduction →" link
+**Bank Logos Row (full width)**
+- 4 bank name badges in a horizontal row
+- Clean white cards with subtle borders
+- Bank abbreviations + full names
 
----
-
-### Visual Style
-
-- Clean white background (no patterns)
-- Typography-driven design
-- Large bold numbers for stats
-- Generous whitespace
-- Primary color for headings
-- Gold accent for numbers
-- Muted text for labels
+#### 3. Styling Updates
+- Add subtle grid background pattern (consistent with other sections)
+- Image with `rounded-2xl` and `shadow-xl`
+- Floating badge with gold accent
+- Stats with larger numbers, gold color
+- CTA as proper button (primary style)
 
 ---
 
-### Code Reduction
+### SEO Preserved
 
-- From ~384 lines to ~100 lines
-- Remove all bank detail cards
-- Remove account types section
-- Remove digital features section
-- Remove timeline visual
-- Remove documents list
-- Simplify data structure
-
----
-
-### SEO Considerations
-
-The minimal version maintains:
-- Proper h2 heading with "corporate bank account" keywords
-- Bank names for credibility and local SEO
+- H2 heading with "Corporate Bank Account Opening"
+- Bank names visible as text (not just images)
 - Timeline and deposit info for featured snippets
-- Semantic HTML structure
-- Internal linking to consultation
+- Alt text on image for accessibility
+
+---
+
+### Code Structure
+
+```
+BankAccountOpening
+├── Section with grid pattern background
+├── Container
+│   ├── Header (centered)
+│   │   ├── Badge: "Post-Formation Banking"
+│   │   ├── H2: "Corporate Bank Account Opening"
+│   │   └── Subtitle
+│   ├── Two-Column Grid
+│   │   ├── Left: Image with floating badge
+│   │   └── Right: Stats grid + CTA button
+│   └── Bank Partners Row
+│       └── 4 bank name cards
+```
+
+---
+
+### Visual Improvements
+
+1. **Professional Image** — Adds credibility and visual interest
+2. **Floating Badge** — Modern overlay technique
+3. **2x2 Stats Grid** — More balanced than 4-column on mobile
+4. **Bank Cards** — Cleaner than bullet-separated text
+5. **Background Pattern** — Consistent with site design system
+6. **Proper CTA Button** — More prominent call-to-action
 
