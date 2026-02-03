@@ -1,102 +1,198 @@
 
 
-# Update About Team Section with Real Team Data
+# Modern Team Card Redesign
 
 ## Overview
-Replace the placeholder team member data in the AboutTeam component with the real team information scraped from keylinkbh.com, including actual profile images, names, roles, and bios.
+Redesign the team cards to match the reference design - clean, modern cards with full portrait images (not cropped), subtle background patterns, and content positioned below the image instead of overlaid.
 
 ---
 
-## Scraped Team Data
-
-### Group Photo
-- **URL**: `https://berqwp-cdn.sfo3.cdn.digitaloceanspaces.com/cache/keylinkbh.com/wp-content/uploads/2025/09/All-Team-Profile-Picture-final.webp`
-
-### Team Members (10 people)
-
-| Name | Role | Image | Languages | Bio |
-|------|------|-------|-----------|-----|
-| **Hussain Derazi** | Managing Director | `...Hussain-Derazi-Profile-scaled.jpg` | English, Arabic | Business leader, strategic planning, guides consulting services |
-| **Mishal Atif** | HR & Accounting Manager | `...Mishal-Profile-scaled.webp` | Hindi, English, Arabic | HR strategies, financial reporting, compliance |
-| **Rayhan Chowdury** | Digital Marketing & Design | `...Rayhan-Chowdury-Profile-scaled.webp` | Bangla, Hindi, English, Arabic | Digital marketing, UI/UX, SEO specialist |
-| **Suhaira Sharif** | Customer Services | `...Suhaira-scaled.jpg` | English, Arabic | LMRA registration, work permit guidance |
-| **Sadia Khan** | Customer Services | `...Sadia-Profile-scaled.webp` | Hindi, English | LMRA work permit documentation |
-| **Mohammed Noufal** | Customer Services | `...Noufal-Profile-scaled.webp` | Hindi, English, Arabic | Sales & client relations |
-| **Maimoona Zahir** | Financial Consultant | `...Maimuna-Profile-scaled.webp` | Hindi, English | Banking relations, KYC, AML compliance |
-| **Muntaha Khan** | Business Development | `...Montaha-Profile-scaled.webp` | Hindi, English | Company formation, MOIC compliance |
-| **Mosammat Aisha** | Customer Services | `...Aysha-Profile.jpg` | Bangla, Hindi, English | LMRA verification, documentation |
-| **Balach Abdul Qadir** | VAT Compliance Manager | `...Bilach-Profile-scaled.jpg` | Hindi, English, Arabic | VAT compliance, 150+ clients |
+## Current Issues
+- Images use `aspect-square` with `object-cover` causing cropping
+- Heavy gradient overlays obscure team member photos
+- Content is overlaid on top of images, making it hard to see faces
+- Cards feel cluttered with the masonry approach
+- TiltCard + overlays create a busy visual effect
 
 ---
 
-## Implementation Plan
-
-### File to Modify
-`src/components/about/AboutTeam.tsx`
-
-### Changes
-
-1. **Replace `teamMembers` Array**
-   - Update with real names, roles, and image URLs
-   - Hussain Derazi becomes the featured founder
-   - Add appropriate `wide` flags for visual variety
-   - Include real bios from scraped content
-
-2. **Update Featured Member Data**
-   - Name: Hussain Derazi
-   - Role: Managing Director
-   - Quote: Based on his leadership philosophy
-   - Stats: Adjusted to reflect Key Link (10+ Years, 500+ Clients, 10+ Team)
-
-3. **Team Grid Layout**
-   - 9 team members in grid (excluding featured)
-   - 2 wide cards for variety (Mishal Atif, Maimoona Zahir)
-   - Others remain square
-
----
-
-## New Data Structure
+## New Design (Based on Reference)
 
 ```text
-const teamMembers = [
-  {
-    name: "Hussain Derazi",
-    role: "Managing Director",
-    image: "https://keylinkbh.com/wp-content/uploads/2024/07/Hussain-Derazi-Profile-scaled.jpg",
-    bio: "Strategic business leader, 10+ years consulting",
-    featured: true,
-    quote: "Every business deserves a chance to thrive. We make that happen.",
-    stats: { clients: "500+", experience: "10+ Years", team: "10+" },
-  },
-  {
-    name: "Mishal Atif",
-    role: "HR & Accounting Manager",
-    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Mishal-Profile-scaled.webp",
-    bio: "HR strategies & financial operations expert",
-    wide: true,
-  },
-  {
-    name: "Rayhan Chowdury",
-    role: "Digital Marketing & Design",
-    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Rayhan-Chowdury-Profile-scaled.webp",
-    bio: "UI/UX, SEO & web development specialist",
-  },
-  ... (7 more members)
-]
+┌─────────────────────────────────────────────────────────────────────┐
+│  CLEAN TEAM GRID (3 columns desktop, 2 tablet, 1 mobile)           │
+│                                                                      │
+│  ┌────────────────────┐  ┌────────────────────┐  ┌─────────────────┐│
+│  │ ╭──────────────────╮│  │ ╭──────────────────╮│  │ ╭───────────────╮│
+│  │ │  Light Gray Bg   ││  │ │  Light Gray Bg   ││  │ │  Light Gray Bg││
+│  │ │   + Line Pattern ││  │ │   + Line Pattern ││  │ │  + Line Pattern│
+│  │ │                  ││  │ │                  ││  │ │               ││
+│  │ │   [FULL PHOTO]   ││  │ │   [FULL PHOTO]   ││  │ │ [FULL PHOTO]  ││
+│  │ │   Upper body     ││  │ │   Upper body     ││  │ │  Upper body   ││
+│  │ │   visible        ││  │ │   visible        ││  │ │   visible     ││
+│  │ │                  ││  │ │                  ││  │ │               ││
+│  │ ╰──────────────────╯│  │ ╰──────────────────╯│  │ ╰───────────────╯│
+│  │                      │  │                      │  │                 │
+│  │ Hussain Derazi      │  │ Mishal Atif          │  │ Rayhan Chowdury │
+│  │ Managing Director   │  │ HR & Accounting Mgr  │  │ Digital & Design│
+│  │                      │  │                      │  │                 │
+│  │ Learn more →   📘 📷│  │ Learn more →   📘 📷│  │ Learn more → 📘📷│
+│  └────────────────────┘  └────────────────────┘  └─────────────────┘│
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Visual Considerations
+## Key Changes
 
-- All images are high-quality professional photos from their CDN
-- Mix of `.jpg` and `.webp` formats (both supported)
-- Wide cards for key managers (HR, Finance) to emphasize importance
-- Featured card for Managing Director with full stats display
+### 1. Card Structure
+- **Remove TiltCard** - simpler, cleaner feel
+- **White/light card background** with rounded corners
+- **Image container** with light gray background + decorative line pattern
+- **Content section** below image (not overlaid)
+
+### 2. Image Display
+- **`object-contain`** instead of `object-cover` - shows full person
+- **Aspect ratio `aspect-[4/5]`** for portrait photos
+- **No heavy gradient overlays** - subtle bottom fade only if needed
+- **Light background fills gaps** around the actual photo
+
+### 3. Image Container Background Pattern
+Matching the reference - subtle curved/wave lines pattern:
+```css
+background-color: #F8F8F8;
+background-image: url("data:image/svg+xml,...curved lines pattern...");
+```
+
+### 4. Content Layout
+- **Name**: Bold, left-aligned, dark text
+- **Role**: Muted text, smaller size
+- **Bottom row**: "Learn more →" link + Social icons (Facebook, Instagram)
+- **Hover**: Subtle lift + shadow
+
+### 5. Grid Layout
+- **3 columns** on desktop (not 4)
+- **2 columns** on tablet
+- **1 column** on mobile
+- **Uniform card sizes** (no wide cards)
+- **Consistent gaps**
 
 ---
 
-## No New Dependencies Required
+## Technical Implementation
 
-The existing AboutTeam component structure supports all the changes - only the data array needs updating.
+### New Card Structure
+```tsx
+<motion.div
+  variants={itemVariants}
+  className="group bg-white rounded-2xl overflow-hidden shadow-sm 
+             hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+>
+  {/* Image Container with Pattern Background */}
+  <div 
+    className="relative h-72 overflow-hidden"
+    style={{
+      backgroundColor: '#F8F8F8',
+      backgroundImage: `url("data:image/svg+xml,${wavePattern}")`,
+      backgroundSize: 'cover',
+    }}
+  >
+    <img
+      src={member.image}
+      alt={member.name}
+      className="w-full h-full object-contain object-bottom"
+    />
+  </div>
+  
+  {/* Content Below Image */}
+  <div className="p-5">
+    <h4 className="font-bold text-primary text-lg">{member.name}</h4>
+    <p className="text-muted-foreground text-sm mb-4">{member.role}</p>
+    
+    {/* Footer Row */}
+    <div className="flex items-center justify-between">
+      <a 
+        href="#" 
+        className="inline-flex items-center gap-1 text-sm font-medium 
+                   text-primary hover:text-accent transition-colors"
+      >
+        Learn more <ArrowRight className="w-4 h-4" />
+      </a>
+      
+      <div className="flex gap-2">
+        <a href="#" className="text-primary hover:text-accent">
+          <Facebook className="w-5 h-5" />
+        </a>
+        <a href="#" className="text-primary hover:text-accent">
+          <Instagram className="w-5 h-5" />
+        </a>
+      </div>
+    </div>
+  </div>
+</motion.div>
+```
+
+### SVG Wave Pattern for Background
+```javascript
+const wavePattern = encodeURIComponent(`
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <path d="M0,80 Q50,70 100,80 T200,80" stroke="#e5e5e5" 
+          stroke-width="0.5" fill="none" />
+    <path d="M0,100 Q50,90 100,100 T200,100" stroke="#e5e5e5" 
+          stroke-width="0.5" fill="none" />
+    <path d="M0,120 Q50,110 100,120 T200,120" stroke="#e5e5e5" 
+          stroke-width="0.5" fill="none" />
+    ... more curved lines
+  </svg>
+`);
+```
+
+---
+
+## Featured Member Card (Hussain Derazi)
+
+Keep the featured founder card at top but update the team grid below to use the new clean design. The featured card can remain as-is since it serves a different purpose (highlighting leadership).
+
+---
+
+## Grid Changes
+
+### Before
+```tsx
+<div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+  {/* Masonry with wide cards */}
+```
+
+### After
+```tsx
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {/* Uniform clean cards */}
+```
+
+---
+
+## Files to Modify
+
+| File | Changes |
+|------|---------|
+| `src/components/about/AboutTeam.tsx` | Complete redesign of team member cards in the grid |
+
+---
+
+## Icon Additions
+Add these icons from lucide-react:
+- `ArrowRight` - for "Learn more" link
+- `Facebook` - social icon (or use placeholder)
+- `Instagram` - social icon
+
+---
+
+## Visual Result
+
+Clean, professional team cards that:
+- Show full team member photos without cropping
+- Have subtle decorative wave patterns in background
+- Display name, role, and action links cleanly below
+- Feel modern and premium without being busy
+- Match the reference design aesthetic
 
