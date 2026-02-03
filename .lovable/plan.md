@@ -1,56 +1,59 @@
 
 
-# BusinessActivitiesDirectory Redesign
+# CompanyTypesTable Redesign: From Table to Minimal Cards
 
 ## Overview
-Redesign the Business Activities Directory section from a searchable 3-column grid to a simpler, cleaner two-column layout with accordion-based content on the left and a relevant image on the right.
+Redesign the Company Types comparison section from a traditional table layout to a modern, minimal card-based design. The new design will maintain all SEO-valuable content while providing a cleaner, more visually appealing experience.
 
 ---
 
 ## Current vs New Design
 
 ```text
-CURRENT DESIGN (Complex/Searchable):
-┌──────────────────────────────────────────────────────────────────────────┐
-│                    [Search Bar]                                          │
-│        [All Activities] [Commercial] [Professional] [Regulated]         │
-├──────────────────────────────────────────────────────────────────────────┤
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐                               │
-│  │ Card 1   │  │ Card 2   │  │ Card 3   │                               │
-│  └──────────┘  └──────────┘  └──────────┘                               │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐                               │
-│  │ Card 4   │  │ Card 5   │  │ Card 6   │                               │
-│  └──────────┘  └──────────┘  └──────────┘                               │
-│  ... (22+ cards)                                                         │
-└──────────────────────────────────────────────────────────────────────────┘
+CURRENT DESIGN (Complex Table):
+┌────────────────────────────────────────────────────────────────────────────┐
+│  ┌─────────────────────────────────────────────────────────────────────┐  │
+│  │ Feature │  SPC  │  WLL  │ Branch │ Holding │ Rep Office │           │  │
+│  ├─────────────────────────────────────────────────────────────────────┤  │
+│  │ Min. Shareholders │ 1 │ 2-50 │ N/A │ 1+ │ N/A │                      │  │
+│  │ Min. Capital │ BHD 50 │ BHD 20,000 │ Parent │ BHD 250,000 │ None │   │  │
+│  │ ... (10 rows of data) ...                                           │  │
+│  └─────────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────────┘
 
 
-NEW DESIGN (Simple Two-Column):
-┌──────────────────────────────────────────────────────────────────────────┐
-│           Permitted Business Activities in Bahrain                       │
-│     Explore activities available for company registration                │
-├──────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
-│  ACCORDION (Left 50%)           │  IMAGE (Right 50%)                    │
-│  ┌─────────────────────────────┐ │  ┌──────────────────────────────────┐│
-│  │ ▼ Commercial Activities     │ │  │                                  ││
-│  │   • General Trading         │ │  │   [Professional Business         ││
-│  │   • Import/Export           │ │  │    Environment Image]            ││
-│  │   • E-commerce              │ │  │                                  ││
-│  │   • Food & Beverage         │ │  │   Shows diverse business         ││
-│  │   • Electronics Trading     │ │  │   activities / office setting    ││
-│  └─────────────────────────────┘ │  │                                  ││
-│  ┌─────────────────────────────┐ │  │  ┌───────────────────────────┐   ││
-│  │ ▶ Professional Services     │ │  │  │ Floating Card:            │   ││
-│  └─────────────────────────────┘ │  │  │ 50+ Activities             │   ││
-│  ┌─────────────────────────────┐ │  │  │ Available for Registration │   ││
-│  │ ▶ Regulated Activities      │ │  │  └───────────────────────────┘   ││
-│  │   (Requires Approvals)      │ │  │                                  ││
-│  └─────────────────────────────┘ │  └──────────────────────────────────┘│
-│                                                                          │
-├──────────────────────────────────────────────────────────────────────────┤
-│  [SIJILAT Link for complete official list]                               │
-└──────────────────────────────────────────────────────────────────────────┘
+NEW DESIGN (Minimal Cards):
+┌────────────────────────────────────────────────────────────────────────────┐
+│           Choose Your Business Structure                                    │
+│     All structures allow 100% foreign ownership                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐ │
+│  │ [Icon] SPC          │  │ [Icon] WLL ⭐Popular│  │ [Icon] Branch       │ │
+│  │ Single Person Co.   │  │ Limited Liability   │  │ Foreign Company     │ │
+│  │                     │  │                     │  │                     │ │
+│  │ Best for:           │  │ Best for:           │  │ Best for:           │ │
+│  │ Solo entrepreneurs  │  │ SMEs & partnerships │  │ Int'l expansion     │ │
+│  │                     │  │                     │  │                     │ │
+│  │ ─────────────────── │  │ ─────────────────── │  │ ─────────────────── │ │
+│  │ Capital: BHD 50     │  │ Capital: BHD 20K    │  │ Capital: Parent     │ │
+│  │ Shareholders: 1     │  │ Shareholders: 2-50  │  │ Shareholders: N/A   │ │
+│  │ Timeline: 3-5 days  │  │ Timeline: 5-7 days  │  │ Timeline: 7-10 days │ │
+│  │ ✓ Trading Allowed   │  │ ✓ Trading Allowed   │  │ ✓ Trading Allowed   │ │
+│  │ ✓ Can Hire Staff    │  │ ✓ Can Hire Staff    │  │ ✓ Can Hire Staff    │ │
+│  │ ─────────────────── │  │ ─────────────────── │  │ ─────────────────── │ │
+│  │ From BHD 750        │  │ From BHD 1,200      │  │ From BHD 1,500      │ │
+│  └─────────────────────┘  └─────────────────────┘  └─────────────────────┘ │
+│                                                                            │
+│  ┌─────────────────────────────────────┐  ┌─────────────────────────────┐  │
+│  │ [Icon] Holding                      │  │ [Icon] Rep Office           │  │
+│  │ Bahrain Holding Company             │  │ Representative Office       │  │
+│  │ ...                                 │  │ ...                         │  │
+│  └─────────────────────────────────────┘  └─────────────────────────────┘  │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│          [Not sure? Get Free Expert Advice]                                │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -58,199 +61,146 @@ NEW DESIGN (Simple Two-Column):
 ## Technical Implementation
 
 ### File to Modify
-`src/components/services/formation/BusinessActivitiesDirectory.tsx`
+`src/components/services/formation/CompanyTypesTable.tsx`
 
 ### Changes Summary
 
-1. **Remove**: Search bar, category filter buttons, searchable grid layout
-2. **Keep**: Business activities data, section header, SIJILAT link
-3. **Add**: Two-column layout with accordion (left) + image (right)
-
-### Accordion Structure
-
-Group the existing 22 activities into 3 accordion categories:
-
-| Category | Activities Count | Visual Indicator |
-|----------|-----------------|------------------|
-| Commercial Activities | 7 | Green badge |
-| Professional Services | 7 | Blue badge |
-| Regulated Activities | 8 | Orange badge with "Requires Approvals" note |
-
-### Activity Data Grouping
-
-**Commercial Activities (7):**
-- General Trading
-- Import/Export
-- E-commerce
-- Food & Beverage Trading
-- Construction Materials
-- Electronics Trading
-- Automobile Trading
-
-**Professional Services (7):**
-- Management Consulting
-- IT Services
-- Marketing & Advertising
-- HR Consulting
-- Training & Education
-- Translation Services
-- Design Services
-
-**Regulated Activities (8):**
-- Healthcare Services (NHRA, MOH)
-- Financial Services (CBB)
-- Pharmaceuticals (NHRA)
-- Food Manufacturing (Municipality)
-- Travel & Tourism (Tourism Authority)
-- Education Institute (MOE)
-- Real Estate Brokerage (RERA)
-- Legal Services (Bar Association)
+1. **Remove**: Table component, TableHeader, TableBody, TableRow, TableCell imports
+2. **Keep**: All company types data (SEO important), icons, animations, CTA section
+3. **Add**: Card-based grid layout with all comparison data embedded in cards
 
 ---
 
-## Component Structure
+## Card Design Specification
 
-```tsx
-<section className="py-28 lg:py-36 bg-white relative overflow-hidden">
-  {/* Background Pattern - Grid Lines (keep existing) */}
-  
-  <div className="container relative">
-    {/* Section Header (simplified) */}
-    <div className="text-center max-w-3xl mx-auto mb-12">
-      <p className="text-sm text-accent uppercase">Business Activities</p>
-      <h2>Permitted Business Activities in Bahrain</h2>
-      <p>Subtitle text...</p>
-    </div>
+Each card will include:
 
-    {/* Two Column Layout */}
-    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
-      
-      {/* Left: Accordion */}
-      <div>
-        <Accordion type="single" collapsible defaultValue="commercial">
-          <AccordionItem value="commercial">
-            <AccordionTrigger>
-              <Icon /> Commercial Activities <Badge>7</Badge>
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                {commercialActivities.map(...)}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-          
-          <AccordionItem value="professional">
-            ...
-          </AccordionItem>
-          
-          <AccordionItem value="regulated">
-            ...
-          </AccordionItem>
-        </Accordion>
-        
-        {/* Legend */}
-        <div className="mt-6 p-4 bg-muted/30 rounded-xl">
-          <p>100% foreign ownership available for most activities</p>
-        </div>
-      </div>
+| Element | Design Details |
+|---------|---------------|
+| Header | Icon + Name + Full Name + Popular badge (if applicable) |
+| Best For | Prominent positioning with label |
+| Key Specs | Capital, Shareholders, Timeline in clean list format |
+| Features | Boolean features with checkmarks/X icons |
+| Price | Gold accent color, prominent at bottom |
 
-      {/* Right: Image */}
-      <div className="relative hidden lg:block">
-        <img 
-          src="/placeholder.svg" 
-          alt="Business activities in Bahrain"
-          className="rounded-2xl shadow-lg"
-        />
-        
-        {/* Floating stat card */}
-        <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-lg border">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center">
-              <Briefcase className="w-7 h-7 text-accent" />
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-primary">50+</p>
-              <p className="text-sm text-muted-foreground">Activities Available</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* SIJILAT Link (keep existing) */}
-    <div className="text-center mt-12">
-      <a href="https://www.sijilat.bh">SIJILAT - Official Registry</a>
-    </div>
-  </div>
-</section>
-```
-
----
-
-## Accordion Item Design
-
-Each accordion trigger will include:
-- Category icon (left)
-- Category name (center)
-- Activity count badge (right)
-- Chevron indicator (far right)
-
-Each accordion content will show:
-- List of activities with small icons
-- For regulated activities: additional approval requirement badges
+### Card Structure
 
 ```text
-┌──────────────────────────────────────────────────────────────────┐
-│ 🛒 Commercial Activities                        [7 activities] ▼ │
-├──────────────────────────────────────────────────────────────────┤
-│  ✓ General Trading                                               │
-│    Import and export of goods, wholesale and retail trade        │
-│  ✓ Import/Export                                                 │
-│    International trade and customs clearance services            │
-│  ✓ E-commerce                                                    │
-│    Online retail, digital marketplaces, electronic commerce      │
-│  ... (remaining items)                                           │
-└──────────────────────────────────────────────────────────────────┘
-
-For Regulated Activities (with approval badges):
-┌──────────────────────────────────────────────────────────────────┐
-│ ⚠ Regulated Activities                          [8 activities] ▼ │
-├──────────────────────────────────────────────────────────────────┤
-│  Healthcare Services                                             │
-│  Medical clinics, healthcare facilities                          │
-│  [NHRA Approval] [Ministry of Health License]                    │
-│                                                                  │
-│  Financial Services                                              │
-│  Banking, investment, insurance services                         │
-│  [CBB License] [Capital Requirements]                            │
-└──────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────┐
+│  ┌─────┐                                            │
+│  │Icon │  SPC                        [⭐ Popular]   │
+│  └─────┘  Single Person Company                     │
+│                                                     │
+│  Best for                                           │
+│  Solo entrepreneurs                                 │
+│                                                     │
+│  ───────────────────────────────────────────────    │
+│                                                     │
+│  Min. Capital          BHD 50                       │
+│  Shareholders          1                            │
+│  Timeline              3-5 days                     │
+│  Visa Quota            Based on office              │
+│  Foreign Ownership     100%                         │
+│                                                     │
+│  ───────────────────────────────────────────────    │
+│                                                     │
+│  ✓ Trading Allowed                                  │
+│  ✓ Can Hire Staff                                   │
+│  ✗ Annual Audit Required                            │
+│                                                     │
+│  ───────────────────────────────────────────────    │
+│                                                     │
+│  From BHD 750                                       │
+└─────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Grid Layout
+
+- **Desktop (lg+)**: 3 columns for first 3 cards, 2 columns centered for last 2
+- **Tablet (md)**: 2 columns
+- **Mobile**: 1 column full width
+
+```tsx
+<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+  {/* First 5 cards in responsive grid */}
+</div>
+```
+
+---
+
+## Card Styling
+
+```tsx
+// Default card
+className="bg-white rounded-2xl p-6 border border-border/50 
+           hover:shadow-lg hover:border-accent/30 transition-all duration-300"
+
+// Popular (WLL) card - highlighted
+className="bg-white rounded-2xl p-6 border-2 border-accent/50 
+           shadow-lg hover:shadow-xl transition-all duration-300 
+           relative overflow-hidden"
+// With subtle gold gradient accent at top
+```
+
+---
+
+## Feature Display
+
+Boolean features displayed as inline list with icons:
+
+```tsx
+<div className="space-y-2">
+  <div className="flex items-center gap-2">
+    {tradingAllowed ? 
+      <Check className="w-4 h-4 text-green-600" /> : 
+      <X className="w-4 h-4 text-muted-foreground/50" />
+    }
+    <span className="text-sm">Trading Allowed</span>
+  </div>
+  // ... more features
+</div>
+```
+
+---
+
+## SEO Preservation
+
+All content remains in the DOM for SEO:
+- Company type names (H3 headings)
+- Full names and descriptions
+- All specification values
+- Pricing information
+- "Best For" use cases
+
+The card format actually improves content hierarchy for search engines compared to tables.
 
 ---
 
 ## Animation Strategy
 
-- Section header: Staggered reveal (keep existing)
-- Accordion: Fade-in with slight upward motion
-- Image: Slide in from right with fade
-- Floating card: Delayed reveal from bottom
+- Section header: Staggered fade-in (keep existing)
+- Cards: Staggered reveal with `staggerContainer` and `staggerItem`
+- Hover: Subtle lift with shadow increase
 
 ---
 
-## Mobile Responsiveness
+## Mobile Optimization
 
-- On mobile/tablet (< lg): Image hidden, accordion takes full width
-- Accordion remains fully functional on all devices
-- Touch-friendly accordion triggers (min 44px height)
+- Single column layout
+- Larger touch targets
+- Clear visual hierarchy
+- No horizontal scrolling needed (unlike table)
 
 ---
 
-## Benefits of New Design
+## Benefits of Card Design
 
-1. **Cleaner UX**: No search/filter complexity
-2. **Better Scannability**: Grouped by category for quick reference
-3. **Visual Appeal**: Two-column layout with professional image
-4. **Reduced Cognitive Load**: Users see categories first, then drill down
-5. **Consistent Pattern**: Matches other service page layouts
-6. **SEO Preserved**: All activity names and descriptions remain in DOM
+1. **Better UX**: Easier to scan and compare at a glance
+2. **Mobile-First**: No horizontal scroll, works beautifully on all devices
+3. **Visual Hierarchy**: Clear structure with icons and sections
+4. **SEO Maintained**: All content remains indexable
+5. **Modern Aesthetic**: Matches the rest of the site's minimal design
+6. **Reduced Cognitive Load**: Information grouped logically per card
 
