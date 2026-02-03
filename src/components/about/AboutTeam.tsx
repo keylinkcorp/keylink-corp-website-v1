@@ -4,60 +4,72 @@ import { Badge } from "@/components/ui/badge";
 import { Linkedin, Quote, ChevronDown, ChevronUp } from "lucide-react";
 import { TiltCard } from "@/components/ui/TiltCard";
 
-// Team member data with placeholder images
+// Real team data from Key Link Bahrain
 const teamMembers = [
   {
-    name: "Ahmed Al-Khalifa",
-    role: "CEO & Founder",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    bio: "20+ years in Bahrain business consulting",
+    name: "Hussain Derazi",
+    role: "Managing Director",
+    image: "https://keylinkbh.com/wp-content/uploads/2024/07/Hussain-Derazi-Profile-scaled.jpg",
+    bio: "Strategic business leader with 10+ years in consulting",
     featured: true,
     quote: "Every business deserves a chance to thrive. We make that happen.",
-    stats: { clients: "500+", experience: "20 Years", team: "40+" },
+    stats: { clients: "500+", experience: "10+ Years", team: "10+" },
   },
   {
-    name: "Fatima Hassan",
-    role: "Director of Operations",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-    bio: "Expert in regulatory compliance",
+    name: "Mishal Atif",
+    role: "HR & Accounting Manager",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Mishal-Profile-scaled.webp",
+    bio: "HR strategies & financial operations expert",
     wide: true,
   },
   {
-    name: "Mohammed Ali",
-    role: "Head of Legal Services",
-    image: "https://randomuser.me/api/portraits/men/45.jpg",
-    bio: "Former MOIC advisor",
+    name: "Rayhan Chowdury",
+    role: "Digital Marketing & Design",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Rayhan-Chowdury-Profile-scaled.webp",
+    bio: "UI/UX, SEO & web development specialist",
   },
   {
-    name: "Sara Ibrahim",
-    role: "Client Relations Manager",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-    bio: "Fluent in 4 languages",
+    name: "Suhaira Sharif",
+    role: "Customer Services",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Suhaira-scaled.jpg",
+    bio: "LMRA registration & work permit guidance",
   },
   {
-    name: "Khalid Rahman",
-    role: "Senior PRO Consultant",
-    image: "https://randomuser.me/api/portraits/men/52.jpg",
-    bio: "10+ years PRO experience",
+    name: "Sadia Khan",
+    role: "Customer Services",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Sadia-Profile-scaled.webp",
+    bio: "LMRA work permit documentation expert",
+  },
+  {
+    name: "Mohammed Noufal",
+    role: "Customer Services",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Noufal-Profile-scaled.webp",
+    bio: "Sales & client relations specialist",
+  },
+  {
+    name: "Maimoona Zahir",
+    role: "Financial Consultant",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Maimuna-Profile-scaled.webp",
+    bio: "Banking relations, KYC & AML compliance",
     wide: true,
   },
   {
-    name: "Noura Abdulrahman",
-    role: "Finance Manager",
-    image: "https://randomuser.me/api/portraits/women/52.jpg",
-    bio: "CPA certified accountant",
-  },
-  {
-    name: "Hassan Jameel",
-    role: "Visa & Immigration Lead",
-    image: "https://randomuser.me/api/portraits/men/28.jpg",
-    bio: "LMRA specialist",
-  },
-  {
-    name: "Maryam Al-Dosari",
+    name: "Muntaha Khan",
     role: "Business Development",
-    image: "https://randomuser.me/api/portraits/women/33.jpg",
-    bio: "Growing client partnerships",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Montaha-Profile-scaled.webp",
+    bio: "Company formation & MOIC compliance",
+  },
+  {
+    name: "Mosammat Aisha",
+    role: "Customer Services",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Aysha-Profile.jpg",
+    bio: "LMRA verification & documentation",
+  },
+  {
+    name: "Balach Abdul Qadir",
+    role: "VAT Compliance Manager",
+    image: "https://keylinkbh.com/wp-content/uploads/2025/09/Bilach-Profile-scaled.jpg",
+    bio: "VAT compliance specialist, 150+ clients served",
   },
 ];
 
@@ -199,7 +211,7 @@ export function AboutTeam() {
                 {/* Content */}
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <Badge className="w-fit mb-4 bg-accent/20 text-accent border-accent/30">
-                    Founder & CEO
+                    Managing Director
                   </Badge>
                   <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
                     {featuredMember.name}
