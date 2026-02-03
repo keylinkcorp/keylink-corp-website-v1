@@ -31,6 +31,7 @@ import {
   Landmark,
   Phone
 } from "lucide-react";
+import liquidationConsultationImage from "@/assets/company-liquidation-consultation.jpg";
 
 // Why Choose Keylink differentiators
 const whyChooseItems = [
@@ -205,6 +206,8 @@ export default function CompanyLiquidation() {
         title="Why Choose Keylink for Liquidation?"
         subtitle="350+ successful company closures with zero liability cases"
         differentiators={whyChooseItems}
+        imageSrc={liquidationConsultationImage}
+        imageAlt="Professional company liquidation consultation in Bahrain"
         floatingStatValue="350+"
         floatingStatLabel="Successful Closures"
       />
