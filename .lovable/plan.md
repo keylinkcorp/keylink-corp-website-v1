@@ -1,43 +1,49 @@
 
 
-## Minimal Modern Redesign: Tax Benefits Section
+## Minimal Redesign: Industrial Zones & Business Parks
 
-Transform the current Tax Benefits section into a cleaner, more minimal layout while maintaining SEO value and visual impact.
+Transform this information-dense section into a clean, typography-driven layout that Google still loves.
 
 ---
 
-### Current State
+### Current State (Too Heavy)
 
-The section currently has:
-- 4 tax benefit cards in a grid
-- Full GCC comparison table (5 rows)
-- Detailed VAT information card with 3 stats + exemptions list
-- CTA button + last updated text
+The section currently contains:
+- Comparison table with 5 columns
+- 4 large zone cards with 8+ data points each
+- Background grid pattern
+- CTA info box
+- Multiple icons, badges, and nested sections
 
-This is **information-dense** but feels heavy visually.
+**Total lines of code:** ~340 lines
 
 ---
 
 ### Proposed Minimal Design
 
-#### Layout Concept
+#### Visual Concept
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
-│                    HEADER (Simplified)                       │
-│          "Tax-Free Business Environment"                     │
+│                         HEADER                               │
+│              "Strategic Business Locations"                  │
 │              Short one-line subtitle                         │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
-│   ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐        │
-│   │   0%    │  │   0%    │  │   50+   │  │  100%   │        │
-│   │Corporate│  │Personal │  │  DTT    │  │ Profit  │        │
-│   │  Tax    │  │ Income  │  │Countries│  │Repatriate│       │
-│   └─────────┘  └─────────┘  └─────────┘  └─────────┘        │
+│   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
+│   │    BIW      │  │    BLZ      │  │    BIIP     │         │
+│   │ Logistics   │  │ E-commerce  │  │Manufacturing│         │
+│   │ From BHD 2  │  │ From BHD 3  │  │From BHD 1.5 │         │
+│   └─────────────┘  └─────────────┘  └─────────────┘         │
+│                                                              │
+│                    ┌─────────────┐                          │
+│                    │   Sitra     │                          │
+│                    │Heavy Industry│                         │
+│                    │ From BHD 1  │                          │
+│                    └─────────────┘                          │
 │                                                              │
 │   ─────────────────────────────────────────────────────     │
-│                                                              │
-│   "10% VAT (above BHD 37,500)"  •  "NBR Info →"             │
+│        "Land from BHD 1/sqm • Get location advice →"        │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -48,61 +54,87 @@ This is **information-dense** but feels heavy visually.
 
 | Area | Current | New Minimal |
 |------|---------|-------------|
-| **Cards** | 4 cards with icons, descriptions, borders | 4 stat blocks - just number + label, no cards |
-| **GCC Table** | Full 5-row comparison table | Remove entirely (move to FAQ or separate page) |
-| **VAT Section** | 3-column stats + exemptions list | Single inline text with external link |
-| **Background** | Dot pattern with muted/30 | Clean white or very subtle gradient |
-| **CTA** | Button with text | Remove (handled by other sections) |
+| **Table** | 5-column comparison table | Remove entirely |
+| **Zone Cards** | 4 cards with 8+ data points | 4 simple cards: name + focus + price only |
+| **Card Content** | Location, distances, utilities, highlights, incentives, success stories | Just: Zone name, focus sector, starting price |
+| **Background** | Grid pattern | Clean white |
+| **CTA** | Large info box with button | Single inline link |
+| **Icons** | Multiple icons per card | One icon per card |
 
 ---
 
-### Implementation Details
+### What We Keep (For SEO)
 
-**File to modify:** `src/components/services/formation/TaxBenefitsSection.tsx`
+- Section heading hierarchy (h2, h3)
+- Zone names (important keywords)
+- Focus sectors (searchable terms)
+- Price range (featured snippet bait)
+- Link to consultation
 
-**Structure:**
+### What We Remove
+
+- Comparison table
+- Detailed highlights lists
+- Success stories
+- Infrastructure details
+- Distance metrics
+- Utility specifications
+- Badge components
+- Background pattern
+- Large CTA box
+
+---
+
+### Implementation
+
+**File:** `src/components/services/formation/FreeZonesGuide.tsx`
+
+**New Structure:**
 
 1. **Simplified Header**
-   - Keep section label (for SEO)
-   - Shorter headline: "Tax-Free Business Environment"
-   - One-line subtitle
+   - Section label: "Strategic Locations"
+   - Headline: "Strategic Business Locations"
+   - One-line subtitle with key value prop
 
-2. **Stat Row (horizontal)**
-   - 4 large stats in a clean horizontal row
-   - Large bold number + small label below
-   - No icons, no borders, no background cards
-   - Subtle separator lines or spacing
+2. **Simple Zone Cards (4 cards, 2x2 grid)**
+   - Icon + Zone name
+   - Focus sector (one line)
+   - Starting price
+   - No borders, minimal styling
 
-3. **VAT Note (inline)**
-   - Single line: "10% VAT applies above BHD 37,500 threshold"
-   - NBR external link inline
-
-4. **Remove:**
-   - GCC comparison table
-   - Detailed VAT card
-   - VAT exemptions chips
-   - Quarterly filing info
-   - CTA button
-   - Last updated text
+3. **Inline Footer**
+   - "Land from BHD 1/sqm/month"
+   - Link to consultation
 
 ---
 
 ### Visual Style
 
-- **Typography-driven**: Big numbers, minimal decoration
-- **Whitespace**: Generous padding, clean separation
-- **Colors**: Primary for numbers, muted-foreground for labels
-- **Animation**: Subtle fade-in, counter animation for stats
+- Clean white background (no patterns)
+- Typography-driven design
+- Generous whitespace
+- Subtle hover states
+- Primary color for zone names
+- Muted text for secondary info
+- Gold accent for prices
 
 ---
 
-### Technical Details
+### Code Reduction
 
-The implementation will:
-- Remove ~100 lines of code (table, VAT card, CTA)
-- Simplify the JSX structure significantly
-- Use CSS flexbox for horizontal stat layout
-- Keep motion animations but simplify them
-- Maintain semantic HTML for SEO (h2, aria labels)
-- Reduce component complexity for faster rendering
+- From ~340 lines to ~100 lines
+- Remove comparison table entirely
+- Simplify zone data structure
+- Remove unused imports (Badge, Check, Ruler, Zap, etc.)
+
+---
+
+### SEO Considerations
+
+The minimal version maintains:
+- Proper h2 heading with target keywords
+- Zone names for local SEO
+- Price information for featured snippets
+- Semantic HTML structure
+- Internal linking to consultation page
 
