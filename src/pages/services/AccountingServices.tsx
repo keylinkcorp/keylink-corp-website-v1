@@ -27,6 +27,7 @@ import teamImage from "@/assets/accounting-team-collaboration.jpg";
 import caseImage from "@/assets/accounting-success-client.jpg";
 import techImage from "@/assets/accounting-cloud-dashboard.jpg";
 import vatImage from "@/assets/accounting-vat-documents.jpg";
+import solutionImage from "@/assets/accounting-solution-team.jpg";
 
 const trustBarStats = [
   { icon: Building2, value: 300, suffix: "+", label: "Clients Served" },
@@ -102,7 +103,7 @@ export default function AccountingServices() {
         <ServiceTrustBar stats={trustBarStats} />
         
         {/* Block 7: Solution */}
-        <AccountingSolution />
+        <AccountingSolution solutionImage={solutionImage} />
         
         {/* Block 8: In-House vs Outsource Comparison */}
         <InHouseVsOutsource />
