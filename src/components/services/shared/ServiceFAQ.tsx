@@ -96,7 +96,7 @@ export function ServiceFAQ({
                   value={`left-${index}`}
                   className="bg-white rounded-xl border border-border px-6 shadow-sm"
                 >
-                  <AccordionTrigger className="text-left font-semibold text-base py-5 hover:no-underline">
+                  <AccordionTrigger className="text-left font-semibold text-sm py-5 hover:no-underline">
                     <div className="flex items-start gap-3">
                       <HelpCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                       <span>{faq.question}</span>
@@ -119,7 +119,7 @@ export function ServiceFAQ({
                   value={`right-${index}`}
                   className="bg-white rounded-xl border border-border px-6 shadow-sm"
                 >
-                  <AccordionTrigger className="text-left font-semibold text-base py-5 hover:no-underline">
+                  <AccordionTrigger className="text-left font-semibold text-sm py-5 hover:no-underline">
                     <div className="flex items-start gap-3">
                       <HelpCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                       <span>{faq.question}</span>

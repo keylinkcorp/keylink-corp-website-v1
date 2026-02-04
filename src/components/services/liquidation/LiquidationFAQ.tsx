@@ -121,7 +121,7 @@ export function LiquidationFAQ() {
                   value={`item-${index}`}
                   className="bg-white rounded-2xl border-2 border-border px-6 data-[state=open]:border-accent/40 transition-colors"
                 >
-                  <AccordionTrigger className="text-left text-lg font-semibold text-primary py-6 hover:no-underline">
+                  <AccordionTrigger className="text-left text-sm font-semibold text-primary py-6 hover:no-underline">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
