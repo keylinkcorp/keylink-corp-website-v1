@@ -119,7 +119,7 @@ export function IncubatorProcess() {
                       {step.duration}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-primary-foreground">{step.title}</h3>
                   <p className="text-primary-foreground/70 leading-relaxed">
                     {step.description}
                   </p>
