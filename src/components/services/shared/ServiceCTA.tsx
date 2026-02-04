@@ -33,15 +33,9 @@ export function ServiceCTA({
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-primary">
-      {/* Background Pattern */}
+      {/* Background Pattern - Simple Dotted */}
       <div 
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `
-            radial-gradient(circle at 20% 30%, hsl(var(--gold)) 0%, transparent 30%),
-            radial-gradient(circle at 80% 70%, hsl(var(--gold)) 0%, transparent 30%)
-          `
-        }}
+        className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:20px_20px]"
       />
 
       <div className="container relative z-10 mx-auto px-4">
