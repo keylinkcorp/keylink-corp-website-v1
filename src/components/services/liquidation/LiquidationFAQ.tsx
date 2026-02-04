@@ -104,7 +104,7 @@ export function LiquidationFAQ() {
               <HelpCircle className="w-4 h-4" />
               Common Questions
             </span>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 tracking-tight">
+            <h2 className="text-xl md:text-2xl font-bold mb-6 tracking-tight">
               Frequently Asked <span className="text-accent">Questions</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
