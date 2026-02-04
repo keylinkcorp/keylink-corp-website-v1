@@ -32,10 +32,10 @@ export function ServiceCTA({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-primary">
-      {/* Background Pattern - Simple Dotted */}
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-white">
+      {/* Background Pattern - Simple Dotted (Light Mode) */}
       <div 
-        className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:20px_20px]"
+        className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]"
       />
 
       <div className="container relative z-10 mx-auto px-4">
@@ -47,7 +47,7 @@ export function ServiceCTA({
         >
           {/* Badge */}
           <motion.div variants={staggerItem} className="mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-accent text-sm font-medium">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-accent text-sm font-medium">
               <Sparkles className="w-4 h-4" />
               {badge}
             </span>
@@ -56,7 +56,7 @@ export function ServiceCTA({
           {/* Title */}
           <motion.h2 
             variants={staggerItem}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6"
           >
             {title}
           </motion.h2>
@@ -64,7 +64,7 @@ export function ServiceCTA({
           {/* Subtitle */}
           <motion.p 
             variants={staggerItem}
-            className="text-lg md:text-xl text-white/70 mb-8 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           >
             {subtitle}
           </motion.p>
@@ -78,7 +78,7 @@ export function ServiceCTA({
               {features.map((feature, index) => (
                 <span
                   key={index}
-                  className="px-4 py-2 bg-white/10 rounded-full text-white text-sm"
+                  className="px-4 py-2 bg-primary/10 rounded-full text-primary text-sm"
                 >
                   ✓ {feature}
                 </span>
@@ -102,7 +102,7 @@ export function ServiceCTA({
                 asChild 
                 variant="outline" 
                 size="lg" 
-                className="text-base px-8 py-6 border-white/30 text-white hover:bg-white/10 hover:text-white"
+                className="text-base px-8 py-6 border-primary/30 text-primary hover:bg-primary/10 hover:text-primary"
               >
                 <a href={secondaryCTA.href}>
                   <Phone className="w-5 h-5" />
