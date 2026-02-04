@@ -131,7 +131,7 @@ export function WLLFAQ() {
                   value={`faq-${index}`}
                   className="bg-white rounded-xl border border-border px-6 shadow-sm"
                 >
-                  <AccordionTrigger className="text-left font-semibold hover:no-underline py-5 text-sm md:text-base">
+                  <AccordionTrigger className="text-left font-semibold hover:no-underline py-5 text-sm">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-5 text-sm">
@@ -149,7 +149,7 @@ export function WLLFAQ() {
                   value={`faq-right-${index}`}
                   className="bg-white rounded-xl border border-border px-6 shadow-sm"
                 >
-                  <AccordionTrigger className="text-left font-semibold hover:no-underline py-5 text-sm md:text-base">
+                  <AccordionTrigger className="text-left font-semibold hover:no-underline py-5 text-sm">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-5 text-sm">

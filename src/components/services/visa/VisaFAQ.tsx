@@ -72,7 +72,7 @@ export function VisaFAQ() {
         onClick={() => setOpenIndex(openIndex === globalIndex ? null : globalIndex)}
         className="w-full py-5 flex items-start justify-between gap-4 text-left hover:bg-secondary/30 px-4 -mx-4 rounded-lg transition-colors"
       >
-        <span className="font-medium text-foreground leading-relaxed pr-4">
+        <span className="font-medium text-foreground leading-relaxed pr-4 text-sm">
           {faq.question}
         </span>
         <ChevronDown 

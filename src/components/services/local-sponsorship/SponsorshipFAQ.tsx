@@ -124,7 +124,7 @@ export function SponsorshipFAQ() {
                   value={`left-${index}`}
                   className="bg-white rounded-xl border border-border shadow-sm px-6 data-[state=open]:border-accent/30"
                 >
-                  <AccordionTrigger className="text-left text-foreground font-semibold hover:no-underline py-5">
+                  <AccordionTrigger className="text-left text-foreground font-semibold hover:no-underline py-5 text-sm">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-5">
@@ -142,7 +142,7 @@ export function SponsorshipFAQ() {
                   value={`right-${index}`}
                   className="bg-white rounded-xl border border-border shadow-sm px-6 data-[state=open]:border-accent/30"
                 >
-                  <AccordionTrigger className="text-left text-foreground font-semibold hover:no-underline py-5">
+                  <AccordionTrigger className="text-left text-foreground font-semibold hover:no-underline py-5 text-sm">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-5">

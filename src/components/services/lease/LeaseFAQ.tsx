@@ -146,7 +146,7 @@ export function LeaseFAQ() {
                   value={`left-${index}`}
                   className="bg-white rounded-xl border-2 border-border data-[state=open]:border-accent data-[state=open]:shadow-md overflow-hidden"
                 >
-                  <AccordionTrigger className="px-6 py-4 text-left hover:no-underline hover:bg-secondary/40 font-semibold text-primary">
+                  <AccordionTrigger className="px-6 py-4 text-left hover:no-underline hover:bg-secondary/40 font-semibold text-primary text-sm">
                     {item.question}
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4 text-muted-foreground border-t border-border/50">
@@ -168,7 +168,7 @@ export function LeaseFAQ() {
                   value={`right-${index}`}
                   className="bg-white rounded-xl border-2 border-border data-[state=open]:border-accent data-[state=open]:shadow-md overflow-hidden"
                 >
-                  <AccordionTrigger className="px-6 py-4 text-left hover:no-underline hover:bg-secondary/40 font-semibold text-primary">
+                  <AccordionTrigger className="px-6 py-4 text-left hover:no-underline hover:bg-secondary/40 font-semibold text-primary text-sm">
                     {item.question}
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4 text-muted-foreground border-t border-border/50">

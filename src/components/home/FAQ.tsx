@@ -128,7 +128,7 @@ export function FAQ() {
                     value={`item-${index}`}
                     className="bg-white rounded-xl border border-border px-6 data-[state=open]:border-gold/40 data-[state=open]:shadow-sm data-[state=open]:border-l-4 data-[state=open]:border-l-gold transition-all duration-300"
                   >
-                    <AccordionTrigger className="text-left font-semibold text-primary hover:text-gold hover:no-underline py-6 gap-4">
+                    <AccordionTrigger className="text-left font-semibold text-primary hover:text-gold hover:no-underline py-6 gap-4 text-sm">
                       <span className="text-left">{faq.question}</span>
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground pb-6 leading-[1.8]">

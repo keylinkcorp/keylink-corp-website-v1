@@ -211,7 +211,7 @@ export function FormationFAQ() {
                     className="bg-white rounded-xl border border-border px-6 data-[state=open]:border-accent/40 data-[state=open]:shadow-md data-[state=open]:border-l-4 data-[state=open]:border-l-accent transition-all duration-300"
                   >
                     <AccordionTrigger className="text-left font-semibold text-primary hover:text-accent hover:no-underline py-5 gap-4">
-                      <span className="text-left text-[15px]">{faq.question}</span>
+                      <span className="text-left text-sm">{faq.question}</span>
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground pb-5 leading-[1.8] text-[15px]">
                       {faq.answer}
@@ -237,7 +237,7 @@ export function FormationFAQ() {
                     className="bg-white rounded-xl border border-border px-6 data-[state=open]:border-accent/40 data-[state=open]:shadow-md data-[state=open]:border-l-4 data-[state=open]:border-l-accent transition-all duration-300"
                   >
                     <AccordionTrigger className="text-left font-semibold text-primary hover:text-accent hover:no-underline py-5 gap-4">
-                      <span className="text-left text-[15px]">{faq.question}</span>
+                      <span className="text-left text-sm">{faq.question}</span>
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground pb-5 leading-[1.8] text-[15px]">
                       {faq.answer}
