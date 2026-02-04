@@ -107,7 +107,7 @@ export function SPCFAQ() {
               Common Questions
             </span>
           </motion.div>
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+          <motion.h2 variants={staggerItem} className="text-2xl md:text-3xl font-bold mb-6 tracking-tight">
             SPC <span className="text-gold">FAQ</span>
           </motion.h2>
           <motion.p variants={staggerItem} className="text-xl text-muted-foreground max-w-2xl mx-auto">

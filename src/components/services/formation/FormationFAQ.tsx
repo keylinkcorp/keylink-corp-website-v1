@@ -176,7 +176,7 @@ export function FormationFAQ() {
           </motion.div>
           <motion.h2 
             variants={staggerItem}
-            className="text-[36px] md:text-[44px] lg:text-[52px] font-bold text-primary mb-6 tracking-tight leading-[1.15]"
+            className="text-2xl md:text-3xl font-bold text-primary mb-6 tracking-tight leading-[1.15]"
           >
             Frequently Asked Questions
           </motion.h2>

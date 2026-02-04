@@ -96,7 +96,7 @@ export function ContactFAQ() {
               <HelpCircle className="w-4 h-4" />
               Common Questions
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight">
               Frequently Asked <span className="text-accent">Questions</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

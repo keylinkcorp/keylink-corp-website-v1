@@ -71,7 +71,7 @@ export function ServiceFAQ({
           <motion.div variants={staggerItem}>
             <span className="section-badge">{badge}</span>
           </motion.div>
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2 variants={staggerItem} className="text-2xl md:text-3xl font-bold mb-4">
             {title}
           </motion.h2>
           {subtitle && (
