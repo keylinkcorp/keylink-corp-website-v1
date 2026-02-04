@@ -1,74 +1,117 @@
 
 
-## Plan: Reduce FAQ Question Text Font Size
+## Plan: Enhance "Why Do Some Business Activities Require a Local Sponsor?" Section
 
 ### Summary
-Reduce the font size of the FAQ accordion question text (the clickable question like "What is local sponsorship in Bahrain?") across all FAQ components for a more refined appearance.
+Redesign the OwnershipRequirement section with a minimal, modern aesthetic while condensing the content for better scannability.
 
-### Current vs New Size
+### Current Issues
+- Too many separate cards and visual elements
+- Content is spread across multiple sub-sections
+- Multiple heading styles create visual noise
+- Investor concerns section uses alarming red styling
 
-| Component | Current Question Size | New Question Size |
-|-----------|----------------------|-------------------|
-| SponsorshipFAQ | default (~16px) | `text-sm` (~14px) |
-| BranchFAQ | default (~16px) | `text-sm` (~14px) |
-| SPCFAQ | `text-base` (~16px) | `text-sm` (~14px) |
-| WLLFAQ | `text-sm md:text-base` | `text-sm` (~14px) |
-| VisaFAQ | varies | `text-sm` (~14px) |
-| FormationFAQ | `text-[15px]` | `text-sm` (~14px) |
-| LiquidationFAQ | `text-lg` (~18px) | `text-sm` (~14px) |
-| LeaseFAQ | default (~16px) | `text-sm` (~14px) |
-| ConsultationFAQ | varies | `text-sm` (~14px) |
-| ContactFAQ | `text-lg` (~18px) | `text-sm` (~14px) |
-| Home FAQ | default (~16px) | `text-sm` (~14px) |
-| ServiceFAQ (shared) | `text-base` (~16px) | `text-sm` (~14px) |
-
-### Visual Change
+### Proposed Design
 
 ```text
-Before:
-┌────────────────────────────────────────────────┐
-│ What is local sponsorship in Bahrain?      ▼  │  <-- ~16-18px
-└────────────────────────────────────────────────┘
-
-After:
-┌────────────────────────────────────────────────┐
-│ What is local sponsorship in Bahrain?      ▼  │  <-- ~14px (smaller)
-└────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│              Understanding Bahrain's Ownership Laws             │
+│                                                                 │
+│    Why Do Some Business Activities Require a Local Sponsor?    │
+│                                                                 │
+│   Brief intro paragraph (2-3 lines max)                         │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   ┌──────────────────┐  ┌──────────────────┐                   │
+│   │ RESTRICTED       │  │ THE SOLUTION     │                   │
+│   │ ACTIVITIES       │  │                  │                   │
+│   │                  │  │                  │                   │
+│   │ • Real estate    │  │ Proper legal     │                   │
+│   │ • Trading        │  │ structuring      │                   │
+│   │ • Manpower       │  │ ensures full     │                   │
+│   │ • Professional   │  │ control while    │                   │
+│   │ • Media          │  │ accessing these  │                   │
+│   │                  │  │ sectors.         │                   │
+│   └──────────────────┘  └──────────────────┘                   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-### Files to Update (12 files)
+### Key Design Changes
 
-| File | AccordionTrigger Change |
-|------|-------------------------|
-| `src/components/services/shared/ServiceFAQ.tsx` | Add `text-sm` class |
-| `src/components/services/local-sponsorship/SponsorshipFAQ.tsx` | Add `text-sm` class |
-| `src/components/services/branch/BranchFAQ.tsx` | Add `text-sm` class |
-| `src/components/services/spc/SPCFAQ.tsx` | Change `text-base` to `text-sm` |
-| `src/components/services/wll/WLLFAQ.tsx` | Change `text-sm md:text-base` to `text-sm` |
-| `src/components/services/visa/VisaFAQ.tsx` | Add `text-sm` class |
-| `src/components/services/formation/FormationFAQ.tsx` | Change `text-[15px]` to `text-sm` |
-| `src/components/services/liquidation/LiquidationFAQ.tsx` | Change `text-lg` to `text-sm` |
-| `src/components/services/lease/LeaseFAQ.tsx` | Add `text-sm` class |
-| `src/components/consultation/ConsultationFAQ.tsx` | Add `text-sm` class |
-| `src/components/contact/ContactFAQ.tsx` | Change `text-lg` to `text-sm` |
-| `src/components/home/FAQ.tsx` | Add `text-sm` class |
+| Element | Current | New |
+|---------|---------|-----|
+| Layout | 4 separate sub-sections | 2-column split layout |
+| Restricted Activities | Individual cards with icons | Simple bullet list with subtle icons |
+| Investor Concerns | Red-styled warning cards | Remove entirely (addressed in later sections) |
+| The Right Approach | Separate box at bottom | Integrated into right column |
+| Typography | Multiple heading sizes | Simplified hierarchy |
+| Whitespace | Moderate | Generous (minimal aesthetic) |
 
-### Technical Change Example
+### Content Consolidation
+
+**Before (4 sub-sections):**
+1. Introduction paragraph
+2. Restricted Activities (5 cards)
+3. The Challenge for Foreign Investors (3 concern cards + 2 paragraphs)
+4. The Right Approach (1 box)
+
+**After (2 columns):**
+1. Left: Restricted Activities (clean list)
+2. Right: The Solution (concise value proposition)
+
+### Technical Changes
+
+**File:** `src/components/services/local-sponsorship/OwnershipRequirement.tsx`
+
+1. **Remove:** Investor concerns section entirely (these points are covered in LegalProtectionFramework)
+2. **Simplify:** Restricted activities from card grid to inline list
+3. **Add:** Two-column layout with left showing activities, right showing solution
+4. **Update:** Typography to smaller, more refined scale
+5. **Reduce:** Overall vertical padding for tighter section
+
+### New Component Structure
 
 ```tsx
-// Before (SponsorshipFAQ)
-<AccordionTrigger className="text-left text-foreground font-semibold hover:no-underline py-5">
-  {faq.question}
-</AccordionTrigger>
+// Simplified data
+const restrictedActivities = [
+  "Real estate brokerage and property management",
+  "Certain import/export trading activities",
+  "Manpower supply and recruitment agencies",
+  "Specific professional services",
+  "Media and advertising activities"
+];
 
-// After
-<AccordionTrigger className="text-left text-foreground font-semibold hover:no-underline py-5 text-sm">
-  {faq.question}
-</AccordionTrigger>
+// Two-column layout
+<div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+  {/* Left: Restricted Activities */}
+  <div className="bg-white rounded-2xl border p-6">
+    <h3>Restricted Activities</h3>
+    <ul className="space-y-3">
+      {activities.map(...)}
+    </ul>
+  </div>
+  
+  {/* Right: The Solution */}
+  <div className="bg-accent/5 rounded-2xl border-accent/20 p-6">
+    <h3>The Solution</h3>
+    <p>Concise explanation...</p>
+  </div>
+</div>
 ```
 
+### Visual Refinements
+- Remove individual card icons (use simple bullet points)
+- Smaller section heading (`text-2xl md:text-3xl` instead of `text-3xl md:text-4xl`)
+- Tighter padding (`py-16 md:py-20` instead of `py-20 md:py-28`)
+- Consistent border styling between cards
+- Gold accent on solution card to draw attention
+
 ### Implementation Steps
-1. Update shared `ServiceFAQ.tsx` component (affects multiple service pages)
-2. Update all standalone FAQ components with `text-sm` for accordion questions
-3. Update home page and contact page FAQ components
+1. Update OwnershipRequirement.tsx with new two-column layout
+2. Remove investorConcerns data and related UI
+3. Simplify restrictedActivities to text-only array
+4. Apply refined typography and spacing
 
