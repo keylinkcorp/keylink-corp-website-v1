@@ -39,7 +39,7 @@ export function LeaseHero() {
               variants={heroHeadlineContainer}
               initial="hidden"
               animate="visible"
-              className="text-[44px] md:text-[52px] lg:text-[60px] font-bold tracking-tight leading-[1.1] mb-6"
+              className="text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold tracking-tight leading-[1.15] mb-6"
             >
               <motion.span variants={heroHeadlineLine} className="block text-primary">
                 Register Your Lease Contract
@@ -47,13 +47,13 @@ export function LeaseHero() {
               <motion.span variants={heroHeadlineLine} className="block text-primary">
                 in Bahrain
               </motion.span>
-              <motion.span variants={heroHeadlineLine} className="block text-accent relative inline-block">
-                Same-Day Processing — 100% Compliant
+              <motion.span variants={heroHeadlineLine} className="block text-accent relative">
+                <span className="inline">Same-Day Processing — 100% Compliant</span>
                 <motion.span 
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute -bottom-1 left-0 w-full h-2 bg-accent/20 rounded-full origin-left" 
+                  className="absolute -bottom-1 left-0 right-0 h-2 bg-accent/20 rounded-full origin-left" 
                 />
               </motion.span>
             </motion.h1>

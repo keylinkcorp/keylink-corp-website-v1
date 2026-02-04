@@ -52,7 +52,7 @@ export function PROHero() {
             {/* Headline */}
             <motion.h1 
               variants={staggerItem}
-              className="text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.15] mb-6"
+              className="text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold leading-[1.15] mb-6"
             >
               Skip the Queues.{" "}
               <span className="text-accent">We Handle Every Government Office.</span>

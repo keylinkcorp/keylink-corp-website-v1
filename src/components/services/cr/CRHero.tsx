@@ -80,7 +80,7 @@ export function CRHero() {
             {/* Headline - Larger with animated underline */}
             <motion.h1 
               variants={heroHeadlineLine}
-              className="text-4xl md:text-5xl lg:text-[3.75rem] font-bold leading-[1.1] mb-6 tracking-tight"
+              className="text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold leading-[1.15] mb-6 tracking-tight"
             >
               Commercial Registration in Bahrain{" "}
               <span className="relative inline-block text-accent">
@@ -89,7 +89,7 @@ export function CRHero() {
                   variants={underlineAnimation}
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
-                  className="absolute -bottom-1 left-0 w-full h-3 bg-accent/20 rounded-full origin-left -z-10"
+                  className="absolute -bottom-1 left-0 right-0 h-3 bg-accent/20 rounded-full origin-left -z-10"
                 />
               </span>
             </motion.h1>

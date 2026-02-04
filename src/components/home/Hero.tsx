@@ -44,7 +44,7 @@ export function Hero() {
               variants={heroHeadlineContainer}
               initial="hidden"
               animate="visible"
-              className="text-[56px] md:text-[68px] lg:text-[80px] font-bold tracking-tight leading-[1.05] mb-8"
+              className="text-[48px] md:text-[56px] lg:text-[68px] xl:text-[80px] font-bold tracking-tight leading-[1.1] mb-8"
             >
               <motion.span variants={heroHeadlineLine} className="block text-primary">
                 Plan.
@@ -52,13 +52,13 @@ export function Hero() {
               <motion.span variants={heroHeadlineLine} className="block text-primary">
                 Register.
               </motion.span>
-              <motion.span variants={heroHeadlineLine} className="block text-primary relative inline-block">
-                Grow.
+              <motion.span variants={heroHeadlineLine} className="block text-primary relative">
+                <span className="inline">Grow.</span>
                 <motion.span 
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute -bottom-1 left-0 w-full h-2 bg-gold/20 rounded-full origin-left" 
+                  className="absolute -bottom-1 left-0 right-0 h-2 bg-gold/20 rounded-full origin-left" 
                 />
               </motion.span>
             </motion.h1>
