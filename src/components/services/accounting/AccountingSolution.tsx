@@ -64,10 +64,10 @@ export function AccountingSolution({ solutionImage }: AccountingSolutionProps) {
                 <img
                   src={solutionImage}
                   alt="Keylink Corp accounting team collaboration"
-                  className="w-full h-auto object-cover aspect-video"
+                  className="w-full h-auto object-cover aspect-[3/4]"
                 />
               ) : (
-                <div className="w-full aspect-video bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                <div className="w-full aspect-[3/4] bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
                   <Target className="w-20 h-20 text-accent/30" />
                 </div>
               )}
