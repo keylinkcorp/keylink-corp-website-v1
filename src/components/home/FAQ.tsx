@@ -82,7 +82,7 @@ export function FAQ() {
                 FAQs
               </p>
             </div>
-            <h2 className="text-[44px] md:text-[52px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
+            <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6 tracking-tight leading-[1.15]">
               Got Questions?
             </h2>
             <p className="text-lg text-muted-foreground mb-10 leading-[1.8] max-w-md">
