@@ -81,6 +81,19 @@ export function VATDeepDive({ vatImage }: VATDeepDiveProps) {
             </p>
           </motion.div>
 
+          {/* Full Width Image */}
+          {vatImage && (
+            <motion.div variants={staggerItem} className="mb-12">
+              <div className="rounded-xl overflow-hidden shadow-md">
+                <img 
+                  src={vatImage} 
+                  alt="VAT registration documents in Bahrain"
+                  className="w-full h-[20vh] object-cover"
+                />
+              </div>
+            </motion.div>
+          )}
+
           {/* Two Column Layout */}
           <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
             {/* Key Facts */}
@@ -134,19 +147,6 @@ export function VATDeepDive({ vatImage }: VATDeepDiveProps) {
                   </div>
                 ))}
               </motion.div>
-
-              {/* Image placeholder */}
-              {vatImage && (
-                <motion.div variants={staggerItem} className="mt-6">
-                  <div className="rounded-xl overflow-hidden shadow-md">
-                    <img 
-                      src={vatImage} 
-                      alt="VAT registration documents in Bahrain"
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
-                </motion.div>
-              )}
             </motion.div>
           </div>
 
