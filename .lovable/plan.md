@@ -1,92 +1,77 @@
 
-
-## Plan: Enhance Document Clearance Services Grid
+## Plan: Update FAQ Component Headlines to Smaller Size
 
 ### Summary
-Add 4 missing document clearance service types from keylinkbh.com to the existing grid, update service descriptions with more detailed sub-services, and add relevant government ministry images for visual enhancement.
+Update the headline (h2) sizing across all FAQ components to be smaller and more consistent. Currently, headlines vary between `text-3xl md:text-4xl`, `text-3xl md:text-5xl`, and `text-[36px] md:text-[44px] lg:text-[52px]`. The new standardized size will be `text-2xl md:text-3xl` for a more refined, subtle appearance while keeping the same content.
 
-### Missing Services to Add
+### Files to Update
 
-| Service | Description | Sub-services |
-|---------|-------------|--------------|
-| Immigration Document Clearance | Entry visas, exit permits, residence visas | Visit Visa, Business Visa, Multiple Entry Visa, Family Visa, Grace Period, Passport Update |
-| Ministry of Commerce Clearance | Commercial registrations and trade licenses | Commercial Registrations, Trade Licenses, Trademark Registrations |
-| EWA Clearance | Electricity and Water Authority services | New Connections, Account Transfers, Bill Payments |
-| CPR Services | Central Population Registry services | New CPR Issue, Family CPR, CPR Renewal, Chip Update |
-| Traffic Document Clearance | Vehicle and driving documentation | Vehicle Registration, Driving Licenses, Traffic Fines |
-| Domestic LMRA Services | Household helper documentation | Domestic Work Permits (New/Renew/Cancel) |
+| File | Current Headline Size | New Headline Size |
+|------|----------------------|-------------------|
+| `src/components/services/shared/ServiceFAQ.tsx` | `text-3xl md:text-4xl` | `text-2xl md:text-3xl` |
+| `src/components/services/local-sponsorship/SponsorshipFAQ.tsx` | `text-3xl md:text-4xl` | `text-2xl md:text-3xl` |
+| `src/components/services/branch/BranchFAQ.tsx` | `text-3xl md:text-5xl` | `text-2xl md:text-3xl` |
+| `src/components/services/spc/SPCFAQ.tsx` | `text-3xl md:text-5xl` | `text-2xl md:text-3xl` |
+| `src/components/services/wll/WLLFAQ.tsx` | `text-3xl md:text-5xl` | `text-2xl md:text-3xl` |
+| `src/components/services/visa/VisaFAQ.tsx` | `text-3xl md:text-4xl` | `text-2xl md:text-3xl` |
+| `src/components/services/formation/FormationFAQ.tsx` | `text-[36px] md:text-[44px] lg:text-[52px]` | `text-2xl md:text-3xl` |
+| `src/components/services/liquidation/LiquidationFAQ.tsx` | `text-3xl md:text-5xl` | `text-2xl md:text-3xl` |
+| `src/components/services/lease/LeaseFAQ.tsx` | `text-3xl md:text-5xl` | `text-2xl md:text-3xl` |
+| `src/components/consultation/ConsultationFAQ.tsx` | `text-3xl md:text-4xl` | `text-2xl md:text-3xl` |
+| `src/components/contact/ContactFAQ.tsx` | `text-3xl md:text-4xl` | `text-2xl md:text-3xl` |
+| `src/components/home/FAQ.tsx` | `text-[44px] md:text-[52px]` | `text-2xl md:text-3xl` |
+| `src/components/services/cr-amendment/CRAmendmentFAQ.tsx` | Uses shared `ServiceFAQ` | Auto-updated via shared component |
 
-### Current Services to Enhance
-Update existing services with more specific sub-service examples from the source website:
-
-- **LMRA Clearance**: Add "New Work Permit", "Renew Work Permit", "Cancel Work Permit", "Visa Ceiling", "Change Occupation"
-- **Labor Clearance**: Add "Employment Contracts", "Salary Certificates", "End-of-Service Benefits"
-
-### Visual Design Changes
-
-1. **Add Images per Card**: Each service card will include a relevant image at the top (ministry logos or representative images)
-2. **Grid Layout**: Expand from 6 to 10-12 service cards in a responsive grid
-3. **Card Enhancement**: Add image container at top of each card with consistent aspect ratio
-
-### Implementation Steps
-
-1. **Generate/Source Images**
-   - Create professional government ministry-themed images for each service type
-   - Use consistent style with Bahrain government emblems
-
-2. **Update DocumentClearanceServicesGrid.tsx**
-   - Add new service objects with image, title, description, and examples
-   - Modify card component to include image at top
-   - Update grid to handle more items (3 columns on desktop, 2 on tablet, 1 on mobile)
-
-3. **Import Assets**
-   - Store images in `src/assets/document-clearance/` folder
-   - Import as ES6 modules for proper bundling
-
-### Technical Details
+### Visual Impact
 
 ```text
-File Changes:
-├── src/assets/document-clearance/
-│   ├── lmra-clearance.jpg
-│   ├── immigration-clearance.jpg
-│   ├── labor-clearance.jpg
-│   ├── commerce-clearance.jpg
-│   ├── ewa-clearance.jpg
-│   ├── cpr-services.jpg
-│   ├── traffic-clearance.jpg
-│   ├── municipality-clearance.jpg
-│   ├── domestic-lmra.jpg
-│   └── tax-clearance.jpg
-└── src/components/services/document-clearance/
-    └── DocumentClearanceServicesGrid.tsx (update)
+Before (varies by component):
+- Large: 36px-52px on desktop
+- Some inconsistent: 3xl-5xl range
+
+After (unified):
+- Small: ~24px (2xl) mobile, ~30px (3xl) desktop
+- Consistent across all FAQ sections
 ```
 
-### Updated Services Array Structure
+### Technical Changes
 
-```typescript
-const services = [
-  {
-    image: lmraClearanceImage,
-    icon: Users,
-    title: "LMRA Document Clearance",
-    description: "Work permits, residence permits, and labor cards from LMRA.",
-    examples: ["New Work Permit", "Renew Work Permit", "Cancel Work Permit", "Visa Ceiling"]
-  },
-  // ... additional services
-];
+For each file, the h2 element class will be updated:
+
+```tsx
+// Before (example from SponsorshipFAQ)
+<h2 className="text-3xl md:text-4xl font-bold mb-4">
+
+// After
+<h2 className="text-2xl md:text-3xl font-bold mb-4">
 ```
 
-### Card Component Enhancement
+The following attributes remain unchanged:
+- Font weight (`font-bold`)
+- Bottom margin (`mb-4` or `mb-6`)
+- Tracking adjustments where present
+- Text color classes
+- Any accent spans within headlines
 
-Each card will feature:
-- Top image section with ministry logo/themed image (aspect ratio 16:9)
-- Icon badge overlay
-- Title, description, and example tags
-- Hover effects with border accent
+### Pages Affected
+This change will impact FAQ sections on approximately 15+ service pages including:
+- Local Sponsorship
+- Company Formation (SPC, WLL, Branch)
+- Visa & Immigration
+- Liquidation
+- Lease Registration
+- CR Amendment
+- Accounting
+- PRO Services
+- Legal Consulting
+- Virtual Office
+- Coworking
+- Chamber of Commerce
+- Home page
+- Contact page
+- Consultation page
 
-### Responsive Behavior
-- Desktop (lg): 3 columns
-- Tablet (md): 2 columns  
-- Mobile: 1 column, stacked cards
-
+### Implementation Steps
+1. Update `ServiceFAQ.tsx` shared component (affects multiple pages automatically)
+2. Update all standalone FAQ components with custom headlines
+3. Ensure consistent `font-bold` and margin settings across all updates
