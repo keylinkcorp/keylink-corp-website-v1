@@ -1,6 +1,26 @@
 // FAQ data for Business Consulting page
 export const consultingFAQs = [
   {
+    question: "What services does Keylink provide as a business consultant in Bahrain?",
+    answer: "We offer 25+ specialized services including company formation (WLL, SPC, Branch), CR renewal and amendments, visa & immigration, PRO services, accounting & VAT, lease registration, and strategic advisory. We're your single point of contact for everything business-related in Bahrain."
+  },
+  {
+    question: "Can you handle everything from company formation to ongoing compliance?",
+    answer: "Absolutely. Our end-to-end model covers the entire business lifecycle — from initial formation and licensing to daily operations, annual renewals, and strategic growth. One team, one relationship, complete accountability."
+  },
+  {
+    question: "Do you offer visa services for employees?",
+    answer: "Yes. We handle all visa types including work visas, family visas, Golden Visa (10-year residency), visa renewals, and cancellations. Our LMRA coordination ensures fast processing and full compliance."
+  },
+  {
+    question: "Can you help with bank account opening?",
+    answer: "Bank account opening is included in our full-service packages. We prepare all documentation, coordinate with banking partners, and accompany you to meetings when required. Most accounts open within 2-3 weeks."
+  },
+  {
+    question: "What about accounting and VAT registration?",
+    answer: "We provide comprehensive financial services including bookkeeping, VAT registration and quarterly filing, NBR tax compliance, and audit support. Our accounting team ensures you're always compliant with Bahrain regulations."
+  },
+  {
     question: "What is business consultancy and why do I need it in Bahrain?",
     answer: "Business consultancy in Bahrain provides expert guidance for navigating local regulations, company formation, licensing, and ongoing compliance. A consultant eliminates the learning curve, prevents costly mistakes, and accelerates your time to market."
   },
@@ -47,10 +67,6 @@ export const consultingFAQs = [
   {
     question: "How is Keylink different from other business consultants?",
     answer: "Our end-to-end model means you work with one team for everything — no coordination gaps, no finger-pointing, no delays. We're accountable for your entire business journey, not just individual transactions."
-  },
-  {
-    question: "Do you help with bank account opening?",
-    answer: "Yes. Bank account opening is included in our full-service packages. We prepare all documentation and coordinate directly with banking partners to accelerate approval."
   },
   {
     question: "What industries do you specialize in?",
