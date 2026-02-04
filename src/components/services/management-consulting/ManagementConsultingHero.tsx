@@ -58,7 +58,7 @@ export function ManagementConsultingHero() {
             {/* Headline */}
             <motion.h1
               variants={staggerItem}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary leading-[1.1]"
+              className="text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold mb-6 text-primary leading-[1.15]"
             >
               Transform Your Bahrain Business Vision Into Operational Reality
             </motion.h1>

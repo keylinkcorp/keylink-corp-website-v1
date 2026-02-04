@@ -48,10 +48,10 @@ export function VisaServicesHero() {
             {/* Title */}
             <motion.h1 
               variants={staggerItem}
-              className="text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight leading-[1.2] mb-6"
+              className="text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold tracking-tight leading-[1.15] mb-6"
             >
               Professional <span className="text-accent">Visa Services</span> in Bahrain
-              <span className="block text-2xl md:text-3xl font-semibold text-muted-foreground mt-3">
+              <span className="block text-xl md:text-2xl lg:text-3xl font-semibold text-muted-foreground mt-3">
                 From Work Permits to Golden Residency
               </span>
             </motion.h1>
