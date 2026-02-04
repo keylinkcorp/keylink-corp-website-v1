@@ -2,20 +2,14 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { staggerContainer, staggerItem } from "@/lib/animations";
-import { Building2, Package, Users, Briefcase, Megaphone, HelpCircle, ShieldAlert, Lock } from "lucide-react";
+import { Circle, CheckCircle } from "lucide-react";
 
 const restrictedActivities = [
-  { icon: Building2, text: "Real estate brokerage and property management" },
-  { icon: Package, text: "Certain import/export trading activities" },
-  { icon: Users, text: "Manpower supply and recruitment agencies" },
-  { icon: Briefcase, text: "Specific professional services" },
-  { icon: Megaphone, text: "Media and advertising activities" }
-];
-
-const investorConcerns = [
-  { icon: HelpCircle, text: "How can I trust someone I don't know with majority ownership?" },
-  { icon: ShieldAlert, text: "What happens if my sponsor decides to take control?" },
-  { icon: Lock, text: "How do I protect my investment and daily operations?" }
+  "Real estate brokerage and property management",
+  "Certain import/export trading activities",
+  "Manpower supply and recruitment agencies",
+  "Specific professional services",
+  "Media and advertising activities"
 ];
 
 export function OwnershipRequirement() {
@@ -23,7 +17,7 @@ export function OwnershipRequirement() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 md:py-28 relative overflow-hidden">
+    <section ref={ref} className="py-16 md:py-20 relative overflow-hidden">
       {/* Background Pattern - Dot grid */}
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
 
@@ -34,75 +28,62 @@ export function OwnershipRequirement() {
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Header */}
-          <motion.div variants={staggerItem} className="text-center mb-12">
+          <motion.div variants={staggerItem} className="text-center mb-10 max-w-2xl mx-auto">
             <span className="section-badge">
               Understanding Bahrain's Ownership Laws
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
               Why Do Some Business Activities Require a Local Sponsor?
             </h2>
+            <p className="text-muted-foreground">
+              Bahrain allows 100% foreign ownership in most sectors since 2017. However, certain "restricted" activities require 51% Bahraini ownership.
+            </p>
           </motion.div>
 
-          {/* Main Content */}
-          <div className="max-w-4xl mx-auto">
-            {/* Introduction */}
-            <motion.div variants={staggerItem} className="mb-10">
-              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                Bahrain offers one of the most investor-friendly environments in the Gulf region. Since 2017, foreign investors can own 100% of their company in most business sectors. However, certain activities classified as "restricted" under Bahrain's commercial law require a minimum 51% Bahraini ownership stake.
-              </p>
-            </motion.div>
-
-            {/* Restricted Activities */}
-            <motion.div variants={staggerItem} className="mb-10">
-              <h3 className="text-xl font-semibold mb-4 text-primary">Restricted Activities Include:</h3>
-              <div className="grid sm:grid-cols-2 gap-4">
+          {/* Two Column Layout */}
+          <motion.div 
+            variants={staggerItem}
+            className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+          >
+            {/* Left: Restricted Activities */}
+            <div className="bg-white rounded-2xl border border-border p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-4 text-foreground">
+                Restricted Activities
+              </h3>
+              <ul className="space-y-3">
                 {restrictedActivities.map((activity, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-center gap-3 p-4 bg-white rounded-xl border border-border shadow-sm"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <activity.icon className="w-5 h-5 text-accent" />
-                    </div>
-                    <span className="text-foreground">{activity.text}</span>
-                  </div>
+                  <li key={index} className="flex items-start gap-3">
+                    <Circle className="w-1.5 h-1.5 text-accent fill-accent flex-shrink-0 mt-2" />
+                    <span className="text-sm text-muted-foreground">{activity}</span>
+                  </li>
                 ))}
-              </div>
-            </motion.div>
+              </ul>
+            </div>
 
-            {/* The Challenge */}
-            <motion.div variants={staggerItem} className="mb-10">
-              <h3 className="text-xl font-semibold mb-4 text-primary">The Challenge for Foreign Investors:</h3>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Without a local sponsor arrangement, foreign entrepreneurs cannot legally operate in these lucrative sectors. Many investors hesitate due to legitimate concerns:
+            {/* Right: The Solution */}
+            <div className="bg-accent/5 rounded-2xl border border-accent/20 p-6">
+              <h3 className="text-lg font-semibold mb-4 text-foreground">
+                The Solution
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Proper legal structuring allows you to access restricted sectors while maintaining complete control.
               </p>
-              <div className="space-y-4">
-                {investorConcerns.map((concern, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-start gap-3 p-4 bg-destructive/5 rounded-xl border border-destructive/20"
-                  >
-                    <concern.icon className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                    <span className="text-foreground">{concern.text}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-lg text-muted-foreground leading-relaxed mt-6">
-                These concerns are valid. Stories of sponsor disputes have made headlines across the GCC region. That's precisely why proper legal structuring matters more than finding just any local partner.
-              </p>
-            </motion.div>
-
-            {/* The Right Approach */}
-            <motion.div 
-              variants={staggerItem}
-              className="p-6 bg-accent/5 rounded-2xl border border-accent/20"
-            >
-              <h3 className="text-xl font-semibold mb-4 text-primary">The Right Approach:</h3>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                The solution isn't avoiding local sponsorship - it's structuring it correctly from the start. With proper legal frameworks, side agreements, and vetted partners, you can access restricted sectors while maintaining full operational control and profit entitlement.
-              </p>
-            </motion.div>
-          </div>
+              <ul className="space-y-2.5">
+                <li className="flex items-start gap-2.5">
+                  <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-foreground">Full operational control</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-foreground">100% profit entitlement</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-foreground">Legally protected investment</span>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
