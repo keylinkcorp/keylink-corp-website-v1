@@ -106,7 +106,7 @@ export function SponsorshipFAQ() {
             <span className="section-badge">
               FAQs
             </span>
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            <h2 className="text-xl md:text-2xl font-bold mb-4">
               Frequently Asked Questions About Local Sponsorship
             </h2>
           </motion.div>

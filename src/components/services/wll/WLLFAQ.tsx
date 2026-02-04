@@ -111,7 +111,7 @@ export function WLLFAQ() {
               Frequently Asked Questions
             </span>
           </motion.div>
-          <motion.h2 variants={staggerItem} className="text-2xl md:text-3xl font-bold mb-6 tracking-tight">
+          <motion.h2 variants={staggerItem} className="text-xl md:text-2xl font-bold mb-6 tracking-tight">
             WLL Company Formation <span className="text-gold">FAQ</span>
           </motion.h2>
         </motion.div>
