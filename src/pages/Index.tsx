@@ -35,6 +35,11 @@ export default function Index() {
   return (
     <>
       <Layout>
+        <div className="w-full border-b border-border bg-muted/40">
+          <div className="mx-auto max-w-7xl px-4 py-2 text-xs text-muted-foreground">
+            GitHub sync test: 2026-02-04
+          </div>
+        </div>
         <Hero />
         <TrustBar />
         <Services />
