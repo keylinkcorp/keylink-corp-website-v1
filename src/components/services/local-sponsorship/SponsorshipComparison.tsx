@@ -75,61 +75,60 @@ export function SponsorshipComparison() {
             </h2>
           </motion.div>
 
-          {/* Comparison Table */}
+          {/* Comparison Cards Grid */}
           <motion.div 
             variants={staggerItem}
-            className="max-w-4xl mx-auto"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-6xl mx-auto"
           >
-            {/* Table Header */}
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div className="font-semibold text-muted-foreground">Factor</div>
-              <div className="text-center">
-                <span className="inline-block px-4 py-2 bg-red-50 text-destructive rounded-lg font-semibold text-sm">
-                  DIY Approach
-                </span>
-              </div>
-              <div className="text-center">
-                <span className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-lg font-semibold text-sm">
-                  With Keylink
-                </span>
-              </div>
-            </div>
+            {comparisonRows.map((row, index) => (
+              <motion.div
+                key={index}
+                variants={staggerItem}
+                className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+              >
+                {/* Card Header - Factor Name */}
+                <div className="px-5 py-4 border-b border-border bg-secondary/30">
+                  <h3 className="font-semibold text-foreground text-sm">
+                    {row.factor}
+                  </h3>
+                </div>
 
-            {/* Table Rows */}
-            <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
-              {comparisonRows.map((row, index) => (
-                <div 
-                  key={index}
-                  className={`grid grid-cols-3 gap-4 px-6 py-5 ${
-                    index !== comparisonRows.length - 1 ? "border-b border-border" : ""
-                  }`}
-                >
-                  <div className="font-medium text-foreground">{row.factor}</div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-2">
-                      <X className="w-4 h-4 text-destructive" />
-                      <span className="text-muted-foreground text-sm">{row.diy}</span>
+                {/* Card Body - Comparison */}
+                <div className="p-5 space-y-4">
+                  {/* DIY Row */}
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-destructive/10 flex items-center justify-center mt-0.5">
+                      <X className="w-3 h-3 text-destructive" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-medium text-destructive/80 uppercase tracking-wide">DIY</span>
+                      <p className="text-sm text-muted-foreground leading-snug">{row.diy}</p>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-2">
-                      <Check className="w-4 h-4 text-accent" />
-                      <span className="text-foreground text-sm font-medium">{row.keylink}</span>
+
+                  {/* Keylink Row */}
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 text-accent" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-medium text-accent uppercase tracking-wide">Keylink</span>
+                      <p className="text-sm text-foreground font-medium leading-snug">{row.keylink}</p>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Bottom Line Box */}
           <motion.div 
             variants={staggerItem}
-            className="mt-10 max-w-3xl mx-auto"
+            className="mt-12 max-w-3xl mx-auto"
           >
             <div className="bg-accent/5 rounded-2xl p-6 border border-accent/20 text-center">
               <p className="text-lg text-foreground leading-relaxed">
-                The <span className="font-bold text-accent">BHD 600/year</span> investment in professional sponsorship arrangement costs less than a single hour of legal consultation if disputes arise later. More importantly, proper structuring prevents disputes from occurring in the first place.
+                The <span className="font-bold text-accent">BHD 600/year</span> investment in professional sponsorship arrangement costs less than a single hour of legal consultation if disputes arise later.
               </p>
             </div>
           </motion.div>
