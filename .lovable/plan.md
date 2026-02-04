@@ -1,165 +1,351 @@
 
 
-## Hero Section Headline Typography Improvement
+## Business Consultancy Page Enhancement
 
-Standardize and improve hero headline typography across all service pages to handle varying text lengths gracefully while maintaining visual consistency.
+Update the Business Consulting page to comprehensively showcase all services offered by Keylink Corp in Bahrain, positioning it as the central hub for their full service portfolio.
 
 ---
 
-### Problem Identified
+### Current State Analysis
 
-Current hero sections have inconsistent headline styling:
+The current Business Consulting page covers services at a high level in 4 categories:
+1. Company Formation & Setup
+2. Strategic Business Advisory  
+3. Government Liaison (PRO)
+4. Ongoing Operations Support
+
+However, Keylink offers **25+ specialized services** across the site that are not fully represented on this page.
+
+---
+
+### Complete Services Inventory
+
+Based on all service pages, here is the full list of services to showcase:
+
+**Company Formation & Structuring:**
+- WLL Company Formation (partnership)
+- Single Person Company (SPC)
+- Branch Office Registration
+- Commercial Registration (CR)
+- Business License Acquisition
+- MOA Drafting
+
+**Registration & Compliance:**
+- CR Renewal (annual)
+- CR Amendment (changes)
+- Lease Contract Registration
+- Chamber of Commerce Services
+
+**Government & PRO Services:**
+- PRO Services (15+ ministries)
+- Document Clearance (Tax, LMRA, Police, SIO)
+- Certificate Attestation (MOFA, Embassy, Apostille)
+
+**Visa & Immigration:**
+- Work Visas
+- Family Visas
+- Golden Visa (10-year)
+- Visa Cancellation
+
+**Financial & Tax:**
+- Accounting & Bookkeeping
+- VAT Registration & Filing
+- Tax Compliance (NBR)
+- Corporate Tax Advisory
+
+**Corporate Banking:**
+- Business Bank Account Opening
+- Capital Deposit Handling
+
+**Office & Workspace:**
+- Virtual Office
+- Coworking Space
+- Business Incubators
+
+**Strategic & Legal:**
+- Management Consulting
+- Legal Consulting
+- Contract Drafting
+- Feasibility Studies
+- Market Entry Strategy
+
+**Exit & Restructuring:**
+- Company Liquidation
+- Striking Off
+- Local Sponsorship Services
+
+---
+
+### Proposed Updates
+
+#### 1. Update ConsultingServicesGrid.tsx
+
+Restructure from 4 generic categories to **6 comprehensive service pillars** that accurately reflect the full service portfolio:
 
 ```text
-Current Issues:
-- Fixed font sizes don't adapt to text length
-- Long headlines overflow or wrap awkwardly
-- Different pages use different font size scales
-- No max-width constraints on headline containers
-- Accent line (underline) can overflow on longer text
+Current:                          Proposed:
+┌────────────────────┐           ┌────────────────────┐
+│ Company Formation  │           │ Company Formation  │
+│ Strategic Advisory │           │ Registration &     │
+│ Government Liaison │           │   Compliance       │
+│ Operations Support │           │ Visa & Immigration │
+└────────────────────┘           │ Financial Services │
+                                 │ PRO & Government   │
+                                 │ Strategic Advisory │
+                                 └────────────────────┘
 ```
 
+**Service Pillar 1: Company Formation & Structuring**
+- WLL Company Formation
+- Single Person Company (SPC)
+- Branch Office Registration
+- Commercial Registration (CR)
+- Business License
+- MOA Drafting
+
+**Service Pillar 2: Registration & Compliance**
+- CR Renewal
+- CR Amendment
+- Lease Registration
+- Chamber of Commerce
+- Trade License Updates
+
+**Service Pillar 3: Visa & Immigration**
+- Work Visas
+- Family Visas
+- Golden Visa (10-year)
+- Visa Renewals
+- Visa Cancellation
+
+**Service Pillar 4: Financial Services**
+- Accounting & Bookkeeping
+- VAT Registration & Filing
+- Tax Compliance (NBR)
+- Bank Account Opening
+- Audit Support
+
+**Service Pillar 5: PRO & Government Liaison**
+- Document Processing
+- Certificate Attestation
+- Document Clearance
+- Ministry Coordination
+- Municipality Approvals
+
+**Service Pillar 6: Strategic & Legal**
+- Management Consulting
+- Legal Consulting
+- Feasibility Studies
+- Market Entry Strategy
+- Contract Drafting
+
 ---
 
-### Hero Components to Update
+#### 2. Update ConsultingHero.tsx
 
-| Component | Current Font Size | Issue |
-|-----------|------------------|-------|
-| WLLHero | 44px / 52px / 60px | Long "Build Your Partnership in 5-7 Days" overflows |
-| SPCHero | 44px / 52px / 60px | Works well (short text) |
-| LiquidationHero | 44px / 52px / 60px | "Avoid BHD 5,000+ in Penalties" slightly long |
-| LeaseHero | 44px / 52px / 60px | "Same-Day Processing - 100% Compliant" very long |
-| CRHero | 4xl / 5xl / 3.75rem | Inconsistent scale |
-| PROHero | 4xl / 5xl / 3.25rem | Different scale |
-| VisaServicesHero | 4xl / 5xl / 46px | Mixed units |
-| ManagementConsultingHero | 4xl / 5xl / 6xl | Single long headline wraps poorly |
+Enhance the hero to better reflect the comprehensive nature of services:
 
----
+**Current Headline:**
+"Your Complete Business Partner in Bahrain"
 
-### Solution: Standardized Responsive Typography
+**Proposed Headline:**
+"Your Complete Business Partner in Bahrain"
+(keep as is - it's strong)
 
-**Unified Font Scale:**
+**Update Feature Pills:**
 ```text
-Mobile (base): text-[32px] or text-3xl
-Tablet (md):   text-[40px] or text-4xl  
-Desktop (lg):  text-[48px]
-Large (xl):    text-[52px]
-```
-
-**Key Changes:**
-
-1. **Consistent Base Scale**
-   - Use `text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px]` for all headlines
-   - Slightly smaller than current to prevent overflow
-
-2. **Clamp-Based Scaling (Alternative)**
-   - Use CSS `clamp()` for fluid typography
-   - `font-size: clamp(2rem, 5vw, 3.25rem)`
-
-3. **Max-Width Constraints**
-   - Add `max-w-lg` or `max-w-xl` to headline containers
-   - Prevents excessively wide headlines on large screens
-
-4. **Improved Line Handling**
-   - Use `text-balance` CSS property for natural line breaks
-   - Add `hyphens-auto` for long words
-
-5. **Accent Line Fix**
-   - Change from `w-full` to `w-auto max-w-full`
-   - Prevents underline from overflowing container
-
----
-
-### Implementation Details
-
-**Files to Update:**
-
-1. `src/components/services/wll/WLLHero.tsx`
-2. `src/components/services/spc/SPCHero.tsx`
-3. `src/components/services/liquidation/LiquidationHero.tsx`
-4. `src/components/services/lease/LeaseHero.tsx`
-5. `src/components/services/cr/CRHero.tsx`
-6. `src/components/services/pro/PROHero.tsx`
-7. `src/components/services/visa/VisaServicesHero.tsx`
-8. `src/components/services/management-consulting/ManagementConsultingHero.tsx`
-9. `src/components/home/Hero.tsx`
-
----
-
-### Headline Structure Pattern
-
-**Before (problematic):**
-```tsx
-<h1 className="text-[44px] md:text-[52px] lg:text-[60px] font-bold tracking-tight leading-[1.1] mb-6">
-  <span className="block text-primary">WLL Company Formation</span>
-  <span className="block text-primary">in Bahrain</span>
-  <span className="block text-gold relative inline-block">
-    Build Your Partnership in 5-7 Days
-    <span className="absolute -bottom-1 left-0 w-full h-2 bg-gold/20..." />
-  </span>
-</h1>
-```
-
-**After (improved):**
-```tsx
-<h1 className="text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold tracking-tight leading-[1.15] mb-6">
-  <span className="block text-primary">WLL Company Formation</span>
-  <span className="block text-primary">in Bahrain</span>
-  <span className="block text-accent relative">
-    <span className="inline whitespace-normal">Build Your Partnership in 5-7 Days</span>
-    <span className="absolute -bottom-1 left-0 right-0 h-2 bg-accent/20 rounded-full" />
-  </span>
-</h1>
+Current:                          Proposed:
+- End-to-End Service             - 25+ Business Services
+- 10+ Years Experience           - 10+ Years in Bahrain
+- 500+ Businesses Served         - 500+ Businesses Served
+- Government Authorized          - MOIC & LMRA Authorized
 ```
 
 ---
 
-### Typography Scale Comparison
+#### 3. Update consultingFAQData.ts
+
+Add new FAQs that specifically address the range of services:
+
+**New FAQ Questions:**
+- "What services does Keylink provide as a business consultant?"
+- "Can you handle everything from formation to ongoing compliance?"
+- "Do you offer visa services for employees?"
+- "Can you help with bank account opening?"
+- "What about accounting and VAT registration?"
+
+---
+
+#### 4. Update Related Services Section
+
+Expand from 4 to 6 related services, featuring the most popular:
 
 ```text
-Current (inconsistent):
-┌─────────────────────────────────────────────────────────┐
-│ WLLHero:     44px → 52px → 60px                         │
-│ CRHero:      ~36px → ~48px → ~60px (tailwind classes)   │
-│ PROHero:     ~36px → ~48px → 52px                       │
-│ VisaHero:    ~36px → ~48px → 46px                       │
-└─────────────────────────────────────────────────────────┘
-
-Proposed (consistent):
-┌─────────────────────────────────────────────────────────┐
-│ All Heroes:  32px → 40px → 48px → 52px                  │
-│              (mobile → tablet → desktop → large)        │
-└─────────────────────────────────────────────────────────┘
+Current:                          Proposed:
+- Company Formation              - Company Formation
+- PRO Services                   - PRO Services  
+- Visa & Immigration             - Visa & Immigration
+- Accounting Services            - Accounting & Tax
+                                 - CR Renewal
+                                 - Lease Registration
 ```
 
 ---
 
-### Additional Improvements
+#### 5. Create New "All Services" Section
 
-1. **Leading (Line Height)**
-   - Increase from `leading-[1.1]` to `leading-[1.15]` or `leading-tight`
-   - Gives multi-line headlines more breathing room
+Add a new component that displays all services in a searchable/filterable grid:
 
-2. **Tracking (Letter Spacing)**
-   - Keep `tracking-tight` for professional look
-   - Slightly tighter on larger sizes
+**Component:** `ConsultingAllServices.tsx`
 
-3. **Text Balance**
-   - Add Tailwind's `text-balance` class where supported
-   - Creates more even line lengths
-
-4. **Container Constraints**
-   - Wrap headlines in `max-w-[600px]` or similar
-   - Prevents overly long lines on wide screens
+Features:
+- Category tabs (Formation, Registration, Visa, Financial, PRO, Strategic)
+- Service cards with icons, brief descriptions, and price indicators
+- Links to individual service pages
+- "View All Services" call-to-action
 
 ---
 
-### Benefits
+### File Changes Required
 
-- Consistent typography scale across all hero sections
-- Headlines adapt gracefully to varying content lengths
-- Improved mobile experience with smaller starting sizes
-- Accent underlines don't overflow their containers
-- Better line breaking with text-balance
-- Maintainable single pattern for all heroes
+| File | Changes |
+|------|---------|
+| `src/components/services/consulting/ConsultingServicesGrid.tsx` | Expand from 4 to 6 service pillars with comprehensive feature lists |
+| `src/components/services/consulting/ConsultingHero.tsx` | Update feature pills to reflect service breadth |
+| `src/components/services/consulting/consultingFAQData.ts` | Add 5+ new FAQs about service range |
+| `src/pages/services/BusinessConsulting.tsx` | Add new AllServices section, update related services |
+| `src/components/services/consulting/ConsultingAllServices.tsx` | NEW - Create categorized services showcase |
+
+---
+
+### Updated Services Data Structure
+
+```typescript
+const servicePillars = [
+  {
+    icon: Building2,
+    title: "Company Formation & Structuring",
+    description: "Start your Bahrain business with the right legal entity",
+    features: [
+      { name: "WLL Formation", href: "/services/wll-company" },
+      { name: "SPC Registration", href: "/services/single-person-company" },
+      { name: "Branch Office", href: "/services/branch-office" },
+      { name: "Commercial Registration", href: "/services/commercial-registration" },
+      { name: "Business License", href: "/services/business-license" },
+      { name: "MOA Drafting", href: "/services/moa" }
+    ]
+  },
+  {
+    icon: RefreshCw,
+    title: "Registration & Compliance",
+    description: "Keep your business compliant and up-to-date",
+    features: [
+      { name: "CR Renewal", href: "/services/cr-renewal" },
+      { name: "CR Amendment", href: "/services/cr-amendment" },
+      { name: "Lease Registration", href: "/services/lease-registration" },
+      { name: "Chamber of Commerce", href: "/services/chamber-of-commerce" }
+    ]
+  },
+  {
+    icon: Plane,
+    title: "Visa & Immigration",
+    description: "Work permits, residency, and family visas",
+    features: [
+      { name: "Work Visas", href: "/services/visa-immigration" },
+      { name: "Family Visas", href: "/services/visa-immigration" },
+      { name: "Golden Visa", href: "/services/visa-immigration" },
+      { name: "Visa Cancellation", href: "/services/visa-immigration" }
+    ]
+  },
+  {
+    icon: Calculator,
+    title: "Financial Services",
+    description: "Accounting, tax, and banking support",
+    features: [
+      { name: "Accounting & Bookkeeping", href: "/services/accounting" },
+      { name: "VAT Registration", href: "/services/tax-services" },
+      { name: "Tax Compliance", href: "/services/tax-services" },
+      { name: "Bank Account Opening", href: "/services/bank-account" }
+    ]
+  },
+  {
+    icon: FileText,
+    title: "PRO & Government Liaison",
+    description: "Navigate ministries and government processes",
+    features: [
+      { name: "PRO Services", href: "/services/pro-services" },
+      { name: "Document Clearance", href: "/services/document-clearance" },
+      { name: "Certificate Attestation", href: "/services/certificate-attestation" },
+      { name: "Ministry Coordination", href: "/services/pro-services" }
+    ]
+  },
+  {
+    icon: Compass,
+    title: "Strategic & Legal Advisory",
+    description: "Expert guidance for growth and compliance",
+    features: [
+      { name: "Management Consulting", href: "/services/management-consulting" },
+      { name: "Legal Consulting", href: "/services/legal-consulting" },
+      { name: "Feasibility Studies", href: "/services/management-consulting" },
+      { name: "Market Entry Strategy", href: "/services/management-consulting" }
+    ]
+  }
+];
+```
+
+---
+
+### Visual Layout for Services Grid
+
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│                    Full-Spectrum Business Consultancy            │
+│     From market entry to daily operations, we've got you covered │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌────────────────┐ │
+│  │ 🏢 Company       │  │ 🔄 Registration  │  │ ✈️ Visa &      │ │
+│  │    Formation     │  │    & Compliance  │  │    Immigration │ │
+│  │                  │  │                  │  │                │ │
+│  │ • WLL Formation  │  │ • CR Renewal     │  │ • Work Visas   │ │
+│  │ • SPC            │  │ • CR Amendment   │  │ • Family Visas │ │
+│  │ • Branch Office  │  │ • Lease Reg.     │  │ • Golden Visa  │ │
+│  │ • CR             │  │ • Chamber of     │  │ • Cancellation │ │
+│  │ • Business Lic.  │  │   Commerce       │  │                │ │
+│  │ • MOA Drafting   │  │                  │  │                │ │
+│  └──────────────────┘  └──────────────────┘  └────────────────┘ │
+│                                                                  │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌────────────────┐ │
+│  │ 💰 Financial     │  │ 📋 PRO &         │  │ 🎯 Strategic   │ │
+│  │    Services      │  │    Government    │  │    & Legal     │ │
+│  │                  │  │                  │  │                │ │
+│  │ • Accounting     │  │ • PRO Services   │  │ • Management   │ │
+│  │ • VAT Reg.       │  │ • Doc Clearance  │  │   Consulting   │ │
+│  │ • Tax Compliance │  │ • Attestation    │  │ • Legal        │ │
+│  │ • Bank Account   │  │ • Ministry       │  │ • Feasibility  │ │
+│  │ • Audit Support  │  │   Coordination   │  │ • Market Entry │ │
+│  └──────────────────┘  └──────────────────┘  └────────────────┘ │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Implementation Benefits
+
+1. **Complete Service Visibility** - Visitors see all 25+ services at a glance
+2. **Better Cross-Selling** - Each pillar links to specific service pages
+3. **SEO Improvement** - More internal links and comprehensive content
+4. **User Experience** - Clear categorization helps visitors find services
+5. **Competitive Positioning** - Shows breadth of capabilities vs. competitors
+6. **Reduced Bounce Rate** - Visitors find what they need faster
+
+---
+
+### Additional Enhancements
+
+1. **Add service count badge** - "25+ Services Under One Roof"
+2. **Quick link buttons** - Most popular services highlighted
+3. **Category filter tabs** - Allow filtering by service category
+4. **Price indicators** - Show starting prices where applicable
+5. **View all CTA** - Link to a dedicated services directory page
 
