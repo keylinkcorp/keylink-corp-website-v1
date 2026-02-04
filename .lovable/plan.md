@@ -1,198 +1,165 @@
 
 
-## Two-Column Layout Redesign: Bank Account Update Section
+## Hero Section Headline Typography Improvement
 
-Transform the current single-column alert-style layout into a modern split-layout design with accordion content on the left and a professional image on the right.
-
----
-
-### Current State
-
-The section currently has:
-- Full-width dark navy card
-- Centered content with header, description, 3-column requirements grid
-- Timeline info at the bottom
-
-**Issue:** All content stacked vertically, no visual imagery, can feel text-heavy
+Standardize and improve hero headline typography across all service pages to handle varying text lengths gracefully while maintaining visual consistency.
 
 ---
 
-### Proposed Design
+### Problem Identified
+
+Current hero sections have inconsistent headline styling:
 
 ```text
-┌─────────────────────────────────────────────────────────────────────────┐
-│                                                                          │
-│  ┌─────────────────────────────┬───────────────────────────────────────┐ │
-│  │                             │                                       │ │
-│  │  June 2024 Update Badge     │      ┌───────────────────────────┐   │ │
-│  │                             │      │                           │   │ │
-│  │  Mandatory Bank Account     │      │    PROFESSIONAL IMAGE     │   │ │
-│  │  Requirement                │      │    (bank meeting scene)   │   │ │
-│  │                             │      │                           │   │ │
-│  │  Brief description text     │      │    Floating badge:        │   │ │
-│  │                             │      │    "Required Since 2024"  │   │ │
-│  │  ─────────────────────────  │      │                           │   │ │
-│  │                             │      └───────────────────────────┘   │ │
-│  │  ▼ Key Requirements         │                                       │ │
-│  │    • Bank account before CR │                                       │ │
-│  │    • BHD 50 minimum capital │                                       │ │
-│  │    • Keylink assists        │                                       │ │
-│  │                             │                                       │ │
-│  │  ▼ Timeline Impact          │                                       │ │
-│  │    3-5 business days added  │                                       │ │
-│  │                             │                                       │ │
-│  │  ▼ How We Help              │                                       │ │
-│  │    Bank selection support   │                                       │ │
-│  │                             │                                       │ │
-│  └─────────────────────────────┴───────────────────────────────────────┘ │
-│                                                                          │
-└─────────────────────────────────────────────────────────────────────────┘
+Current Issues:
+- Fixed font sizes don't adapt to text length
+- Long headlines overflow or wrap awkwardly
+- Different pages use different font size scales
+- No max-width constraints on headline containers
+- Accent line (underline) can overflow on longer text
 ```
 
 ---
 
-### Key Changes
+### Hero Components to Update
 
-| Area | Current | New Design |
-|------|---------|------------|
-| **Layout** | Single column centered | Two-column split (50/50) |
-| **Content** | Requirements in 3-col grid | Accordion with expandable sections |
-| **Image** | None | Professional bank meeting image with floating badge |
-| **Information** | All visible at once | Organized in collapsible accordion items |
-| **Visual Depth** | Flat card | Image adds visual interest and credibility |
-
----
-
-### Left Column: Accordion Content
-
-**Header (always visible)**
-- Badge: "June 2024 Update"
-- H3: "Mandatory Bank Account Requirement"
-- Brief intro paragraph
-
-**Accordion Items:**
-
-1. **Key Requirements** (default open)
-   - Bank account must be opened before final CR issuance
-   - Minimum capital (BHD 50 for SPC) deposited and confirmed
-   - Account required for all company types
-
-2. **Timeline Impact**
-   - Adds 3-5 business days to registration
-   - Process can run parallel to other approvals
-
-3. **How Keylink Helps**
-   - Bank selection guidance
-   - Account opening assistance
-   - Document preparation support
+| Component | Current Font Size | Issue |
+|-----------|------------------|-------|
+| WLLHero | 44px / 52px / 60px | Long "Build Your Partnership in 5-7 Days" overflows |
+| SPCHero | 44px / 52px / 60px | Works well (short text) |
+| LiquidationHero | 44px / 52px / 60px | "Avoid BHD 5,000+ in Penalties" slightly long |
+| LeaseHero | 44px / 52px / 60px | "Same-Day Processing - 100% Compliant" very long |
+| CRHero | 4xl / 5xl / 3.75rem | Inconsistent scale |
+| PROHero | 4xl / 5xl / 3.25rem | Different scale |
+| VisaServicesHero | 4xl / 5xl / 46px | Mixed units |
+| ManagementConsultingHero | 4xl / 5xl / 6xl | Single long headline wraps poorly |
 
 ---
 
-### Right Column: Image with Badge
+### Solution: Standardized Responsive Typography
 
-**Image Specifications:**
-- Professional bank/business meeting scene
-- Rounded corners: `rounded-2xl`
-- Shadow: `shadow-xl`
-- Height: Match left column content
+**Unified Font Scale:**
+```text
+Mobile (base): text-[32px] or text-3xl
+Tablet (md):   text-[40px] or text-4xl  
+Desktop (lg):  text-[48px]
+Large (xl):    text-[52px]
+```
 
-**Floating Badge:**
-- Position: Bottom-left corner
-- Text: "Required Since June 2024"
-- Style: Gold background with navy text
-- Subtle shadow for depth
+**Key Changes:**
 
----
+1. **Consistent Base Scale**
+   - Use `text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px]` for all headlines
+   - Slightly smaller than current to prevent overflow
 
-### Technical Implementation
+2. **Clamp-Based Scaling (Alternative)**
+   - Use CSS `clamp()` for fluid typography
+   - `font-size: clamp(2rem, 5vw, 3.25rem)`
 
-**File:** `src/components/services/spc/SPCBankAccountUpdate.tsx`
+3. **Max-Width Constraints**
+   - Add `max-w-lg` or `max-w-xl` to headline containers
+   - Prevents excessively wide headlines on large screens
 
-**Changes:**
+4. **Improved Line Handling**
+   - Use `text-balance` CSS property for natural line breaks
+   - Add `hyphens-auto` for long words
 
-1. **Imports**
-   - Add `Accordion, AccordionContent, AccordionItem, AccordionTrigger` from `@/components/ui/accordion`
-   - Add `ChevronDown, Clock, HelpCircle` icons
-
-2. **Data Structure**
-   - Create `accordionData` array with sections:
-     ```typescript
-     const accordionData = [
-       {
-         id: "requirements",
-         title: "Key Requirements",
-         icon: CheckCircle2,
-         content: [
-           "Bank account must be opened before final CR issuance",
-           "Minimum capital (BHD 50 for SPC) deposited and confirmed",
-           "Keylink assists with bank selection and account opening"
-         ]
-       },
-       {
-         id: "timeline",
-         title: "Timeline Impact",
-         icon: Clock,
-         content: ["Adds 3-5 business days to registration timeline", ...]
-       },
-       {
-         id: "help",
-         title: "How We Help",
-         icon: HelpCircle,
-         content: ["Bank selection guidance", "Account opening support", ...]
-       }
-     ];
-     ```
-
-3. **Layout Structure**
-   - Main container: `grid lg:grid-cols-2 gap-8 lg:gap-12`
-   - Left column: Header + Accordion
-   - Right column: Image with overlay badge
-
-4. **Image Asset**
-   - Use/generate professional bank meeting image
-   - Alt text: "Corporate bank account opening consultation in Bahrain"
-
-5. **Accordion Styling**
-   - Trigger: White text with gold icon
-   - Content: White/80 text with bullet points
-   - Border: `border-white/10`
-   - Background on hover: `bg-white/5`
+5. **Accent Line Fix**
+   - Change from `w-full` to `w-auto max-w-full`
+   - Prevents underline from overflowing container
 
 ---
 
-### Responsive Behavior
+### Implementation Details
 
-| Breakpoint | Layout |
-|------------|--------|
-| Desktop (lg+) | Two columns side-by-side |
-| Tablet/Mobile | Stacked - content first, then image |
+**Files to Update:**
+
+1. `src/components/services/wll/WLLHero.tsx`
+2. `src/components/services/spc/SPCHero.tsx`
+3. `src/components/services/liquidation/LiquidationHero.tsx`
+4. `src/components/services/lease/LeaseHero.tsx`
+5. `src/components/services/cr/CRHero.tsx`
+6. `src/components/services/pro/PROHero.tsx`
+7. `src/components/services/visa/VisaServicesHero.tsx`
+8. `src/components/services/management-consulting/ManagementConsultingHero.tsx`
+9. `src/components/home/Hero.tsx`
 
 ---
 
-### Visual Styling Details
+### Headline Structure Pattern
 
-**Dark Container (kept from current)**
-- Background: `bg-gradient-to-br from-primary via-primary to-primary/90`
-- Rounded corners: `rounded-3xl`
-- Decorative blur elements
+**Before (problematic):**
+```tsx
+<h1 className="text-[44px] md:text-[52px] lg:text-[60px] font-bold tracking-tight leading-[1.1] mb-6">
+  <span className="block text-primary">WLL Company Formation</span>
+  <span className="block text-primary">in Bahrain</span>
+  <span className="block text-gold relative inline-block">
+    Build Your Partnership in 5-7 Days
+    <span className="absolute -bottom-1 left-0 w-full h-2 bg-gold/20..." />
+  </span>
+</h1>
+```
 
-**Left Column**
-- Header with badge and title
-- Accordion with custom styling for dark theme
-- Default first item open
+**After (improved):**
+```tsx
+<h1 className="text-[32px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold tracking-tight leading-[1.15] mb-6">
+  <span className="block text-primary">WLL Company Formation</span>
+  <span className="block text-primary">in Bahrain</span>
+  <span className="block text-accent relative">
+    <span className="inline whitespace-normal">Build Your Partnership in 5-7 Days</span>
+    <span className="absolute -bottom-1 left-0 right-0 h-2 bg-accent/20 rounded-full" />
+  </span>
+</h1>
+```
 
-**Right Column**
-- Image container with `aspect-[4/3]` or similar
-- Floating badge with absolute positioning
-- Subtle animation on scroll into view
+---
+
+### Typography Scale Comparison
+
+```text
+Current (inconsistent):
+┌─────────────────────────────────────────────────────────┐
+│ WLLHero:     44px → 52px → 60px                         │
+│ CRHero:      ~36px → ~48px → ~60px (tailwind classes)   │
+│ PROHero:     ~36px → ~48px → 52px                       │
+│ VisaHero:    ~36px → ~48px → 46px                       │
+└─────────────────────────────────────────────────────────┘
+
+Proposed (consistent):
+┌─────────────────────────────────────────────────────────┐
+│ All Heroes:  32px → 40px → 48px → 52px                  │
+│              (mobile → tablet → desktop → large)        │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Additional Improvements
+
+1. **Leading (Line Height)**
+   - Increase from `leading-[1.1]` to `leading-[1.15]` or `leading-tight`
+   - Gives multi-line headlines more breathing room
+
+2. **Tracking (Letter Spacing)**
+   - Keep `tracking-tight` for professional look
+   - Slightly tighter on larger sizes
+
+3. **Text Balance**
+   - Add Tailwind's `text-balance` class where supported
+   - Creates more even line lengths
+
+4. **Container Constraints**
+   - Wrap headlines in `max-w-[600px]` or similar
+   - Prevents overly long lines on wide screens
 
 ---
 
 ### Benefits
 
-1. **Visual Balance** - Image adds credibility and breaks up text
-2. **Better Information Architecture** - Accordion organizes content logically
-3. **Reduced Cognitive Load** - Users can expand what interests them
-4. **Modern Aesthetic** - Matches split-layout pattern used elsewhere
-5. **Mobile Friendly** - Content stacks naturally on small screens
+- Consistent typography scale across all hero sections
+- Headlines adapt gracefully to varying content lengths
+- Improved mobile experience with smaller starting sizes
+- Accent underlines don't overflow their containers
+- Better line breaking with text-balance
+- Maintainable single pattern for all heroes
 
