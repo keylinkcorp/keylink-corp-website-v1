@@ -7,6 +7,7 @@ import { RelatedServicesGrid } from "@/components/services/shared/RelatedService
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { BackToTop } from "@/components/BackToTop";
 import { visaImmigrationSchema } from "@/lib/schema/visaImmigrationSchema";
+import visaServicesImage from "@/assets/visa-services.jpg";
 
 // New enhanced visa components
 import {
@@ -168,7 +169,7 @@ export default function VisaImmigration() {
           title="Why Businesses Trust Keylink for Visa Services"
           subtitle="5,000+ visas processed with 100% approval rate"
           differentiators={whyChooseDifferentiators}
-          imageSrc="https://images.unsplash.com/photo-1569974507005-6dc61f97fb5c?auto=format&fit=crop&w=800&q=80"
+          imageSrc={visaServicesImage}
           imageAlt="Visa processing and passport services"
           floatingStatValue="100%"
           floatingStatLabel="Approval Rate"
