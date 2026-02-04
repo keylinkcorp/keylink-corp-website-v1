@@ -35,7 +35,7 @@ const trustStats = [
   { icon: Users, value: 24, suffix: "/7", label: "Support Available" },
 ];
 
-// Related services
+// Related services - expanded to 6
 const relatedServices = [
   {
     icon: Building2,
@@ -57,9 +57,21 @@ const relatedServices = [
   },
   {
     icon: Calculator,
-    title: "Accounting Services",
-    description: "Bookkeeping, VAT compliance, and financial reporting",
+    title: "Accounting & Tax",
+    description: "Bookkeeping, VAT filing, and NBR compliance",
     href: "/services/accounting"
+  },
+  {
+    icon: Briefcase,
+    title: "CR Renewal",
+    description: "Annual commercial registration renewal services",
+    href: "/services/cr-renewal"
+  },
+  {
+    icon: FileText,
+    title: "Lease Registration",
+    description: "RERA-compliant lease contract registration",
+    href: "/services/lease-registration"
   }
 ];
 

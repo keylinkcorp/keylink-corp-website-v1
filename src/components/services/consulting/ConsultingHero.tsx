@@ -7,10 +7,10 @@ import { staggerContainer, staggerItem } from "@/lib/animations";
 import heroImage from "@/assets/consulting-hero-professional.jpg";
 
 const featurePills = [
-  { icon: Shield, text: "End-to-End Service" },
-  { icon: Clock, text: "10+ Years Experience" },
+  { icon: Shield, text: "25+ Business Services" },
+  { icon: Clock, text: "10+ Years in Bahrain" },
   { icon: Users, text: "500+ Businesses Served" },
-  { icon: Award, text: "Government Authorized" },
+  { icon: Award, text: "MOIC & LMRA Authorized" },
 ];
 
 export function ConsultingHero() {
