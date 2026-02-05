@@ -1,128 +1,105 @@
 
-## Goal
-Update the **Costs & fees** section on `/free-zone-in-bahrain` so it matches your requested layout:
+## Summary of what will change
+You want the **Documents checklist** section on `/free-zone-in-bahrain` to remain **two columns** (left content + right image), but the **left content** should become a **collapsible accordion**.
 
-- **Badge + headline + subtitle stay at the top** (above the image)
-- **Image becomes a full-width block (container width) under the header** on **all screen sizes**
-- **Below the image**, keep the information area as a clean, conversion-first layout:
-  - **Left:** accordion (single-open, collapsible) for the core cost drivers + examples
-  - **Right:** “Fast pricing method” highlight card (and any supporting mini-card if needed)
+We’ll update:
+- `src/components/services/formation/free-zone/FreeZoneDocumentsChecklist.tsx`
 
-This keeps the section premium and scannable while still “landing-page” styled.
+No other sections will be modified.
 
 ---
 
-## What I found in the codebase (current state)
-- `src/components/services/formation/free-zone/FreeZoneCostsFees.tsx` currently uses `SplitSection` with the image in a side column (`imagePosition="right"`).
-- `SplitSection` is inherently a **two-column image + content** component; it’s not designed for “header → full-width image → content below” without adding new layout modes.
-- You already have:
-  - `SectionBackgroundOverlay` for consistent overlay-everywhere styling
-  - `AspectRatio` for consistent image sizing
-  - `Accordion` UI (`@/components/ui/accordion`) which matches other sections’ interaction patterns
-
-Given your requirement (“All sizes”, “Container width”, “Heading above image”), the cleanest change is to **custom-layout this section** instead of forcing `SplitSection` into a new mode just for one section.
+## Current state (what’s in the code now)
+`FreeZoneDocumentsChecklist.tsx` uses:
+- `<SplitSection ... imagePosition="right">` which already gives the section a 2-column layout (content left, image right).
+- Inside the left content area, it currently renders **two cards** in a `grid lg:grid-cols-2`:
+  - “Quick checklist”
+  - “Related services (internal links)”
 
 ---
 
-## Implementation approach (high level)
-Refactor **only** `FreeZoneCostsFees.tsx` to render its own section shell:
+## Target state (based on your request + your answers)
+### Layout
+- Keep the outer section as **two columns**:
+  - **Left:** information (accordion)
+  - **Right:** the same image
 
-1) **Section wrapper**
-- Use the same site-wide rhythm:
-  - `section-spacing relative overflow-hidden bg-background`
-  - Add `SectionBackgroundOverlay` with your consistent “overlay everywhere” approach (e.g., dots or grid-lines masked, low opacity).
+### Accordion structure (as you approved)
+- Use **3 accordion items**:
+  1) **Quick checklist** (bullets list)
+  2) **Download** (download button + “Confirm requirements” button)
+  3) **Related services** (the internal links list)
 
-2) **Header block (top)**
-- Render:
-  - badge (“Costs & fees”)
-  - H2 (“Free zone in Bahrain cost…”)
-  - subtitle paragraph
-- Keep typography consistent with other landing sections.
-
-3) **Full-width image (container width)**
-- Render a `card-elevated` image panel spanning the section’s content width:
-  - Use `AspectRatio` (likely 16/9)
-  - Keep the same `costsImage` and alt text
-  - Keep the small caption text below (“No logos…”), consistent with your other sections.
-
-4) **Content area below image**
-- Use a 2-column grid under the image:
-  - `grid gap-6 lg:grid-cols-12`
-  - **Left**: `lg:col-span-7` accordion container
-  - **Right**: `lg:col-span-5` highlight card(s)
-
-5) **Accordion content (“Mixed” as approved)**
-- Accordion behavior:
-  - `type="single"` + `collapsible`
-  - `defaultValue="registration"` (so it doesn’t look empty)
-- Items:
-  - Registration + licensing (from existing `cards[0]`)
-  - Address / lease (from existing `cards[1]`)
-  - Operating requirements (from existing `cards[2]`)
-  - Realistic examples (render existing `examples` list + note)
-
-6) **Right column**
-- Keep “Fast pricing method” as a single highlight `Card` (unchanged copy), styled to match the new page system.
+### Accordion behavior (as you approved)
+- **Single open** (only one item open at a time)
+- **Collapsible**
+- Default open: the first item (Quick checklist), so the section doesn’t look empty on load.
 
 ---
 
-## Exact file changes
-### 1) `src/components/services/formation/free-zone/FreeZoneCostsFees.tsx` (main refactor)
-- Remove usage of `<SplitSection ...>`
-- Replace with:
-  - `<section className="section-spacing relative overflow-hidden bg-background">`
-  - `<SectionBackgroundOverlay variant="dots" opacity={0.55} masked />` (or match your final overlay style)
-  - `<div className="container relative z-10">`
-  - `<div className="max-w-6xl mx-auto">`
-- Render in this order:
-  1. Header (badge/title/subtitle)
-  2. Image panel full width (container width)
-  3. Grid:
-     - left accordion card/panel
-     - right highlight card (“Fast pricing method”)
-- Import additions likely needed:
-  - `SectionBackgroundOverlay` (and `type SectionOverlayVariant` only if needed)
-  - `AspectRatio`
-  - `Accordion`, `AccordionItem`, `AccordionTrigger`, `AccordionContent`
-  - `cn` only if we need conditional classnames (optional)
-- Reuse your existing arrays: `cards` and `examples` (no copy rewrite).
+## Implementation details (how we’ll build it)
+### 1) Replace the two-card grid with one accordion panel
+In `FreeZoneDocumentsChecklist.tsx`:
+- Remove the `grid lg:grid-cols-2 gap-6` wrapper and the two `<Card>` blocks.
+- Replace with one unified container:
+  - A single `Card` (or bordered panel) that holds the accordion, so it looks premium and consistent.
 
-### 2) No changes expected in
-- `src/components/shared/SplitSection.tsx` (we won’t extend it unless you want this pattern reusable)
-- `src/components/ui/accordion.tsx` (reuse as-is)
+### 2) Use existing Radix/Shadcn accordion component
+Import:
+- `Accordion`, `AccordionItem`, `AccordionTrigger`, `AccordionContent` from `@/components/ui/accordion`
 
----
+Configure:
+- `<Accordion type="single" collapsible defaultValue="quick">`
 
-## Styling details (to match your screenshot intent)
-- Header spacing: `mb-8 md:mb-10`
-- Image card:
-  - `card-elevated overflow-hidden`
-  - `AspectRatio ratio={16/9}` (or 21/9 if you want more “banner” feel; we’ll start with 16/9)
-- Content spacing: `mt-10`
-- Accordion container:
-  - Wrap accordion in a `Card` with `card-elevated`
-  - Keep triggers roomy: good tap targets, consistent icon blocks (`bg-muted`, rounded-xl)
-- Maintain visual hierarchy:
-  - Accordion titles: `font-semibold text-primary`
-  - Accordion content: `text-sm text-muted-foreground leading-relaxed`
+### 3) Map existing content into accordion items (no copy loss)
+- **Item: Quick checklist**
+  - Move the existing bullet list (the `checklist` array) into the content.
+- **Item: Download**
+  - Move the two buttons into this accordion content:
+    - Download checklist (`/downloads/free-zone-bahrain-documents-checklist.txt`)
+    - Confirm requirements (`/free-consultation`)
+- **Item: Related services**
+  - Move the three existing `<Link>` blocks (CR, Lease registration, Visa & Immigration) into this accordion content.
+  - Keep the same internal routes and descriptions.
+
+### 4) Styling (to match the landing page look)
+- Keep the same icon “pill” style in triggers:
+  - Icon on the left inside a small rounded square (`bg-muted`, `rounded-xl`)
+  - Title text aligned with the rest of the page
+- Ensure trigger rows are comfortable tap targets:
+  - Slightly increase padding if needed (`py-4` already comes from the accordion trigger; we can add a wrapper class on the trigger content)
+- Accordion content spacing:
+  - Use `space-y-4`/`mt-4` so lists and buttons don’t feel cramped.
+- Remove the old `lg:grid-cols-2` because accordion becomes the single unified left-column component.
 
 ---
 
-## QA checklist (what you should verify in Preview)
-1) On `/free-zone-in-bahrain`, scroll to **Costs & fees**:
-   - Header appears first
-   - Image spans the section width (container width), not side-by-side
-   - Content is clearly below the image
-2) Accordion:
-   - Only one open at a time
-   - First item open by default
-   - Smooth open/close and readable on mobile
-3) Desktop layout:
-   - Below image: left accordion + right pricing-method card align cleanly
-4) Sticky CTA:
-   - Does not cover the bottom of accordion content on mobile (no blocked text)
+## Files to change
+1) `src/components/services/formation/free-zone/FreeZoneDocumentsChecklist.tsx`
+   - Primary refactor: convert left content into an accordion with 3 items (Quick checklist / Download / Related services)
+   - Keep `<SplitSection>` and the right-side image as-is.
+
+No changes expected to:
+- `src/components/shared/SplitSection.tsx`
+- `src/components/ui/accordion.tsx`
 
 ---
 
-## Optional follow-up (if you like this pattern)
-If you want to reuse this “header + full-width image + content below” pattern on more sections, we can add a `layout="stacked"` mode to `SplitSection` afterwards. For now, implementing it directly in `FreeZoneCostsFees.tsx` is the fastest and least risky.
+## QA checklist (what you will test in Preview)
+1) Go to `/free-zone-in-bahrain` and scroll to **Documents checklist**.
+2) Confirm the section is still **two columns** on desktop and stacked correctly on mobile.
+3) Accordion:
+   - “Quick checklist” is open by default
+   - Only one item can be open at a time
+   - Clicking an open item collapses it (collapsible)
+4) Buttons:
+   - “Download checklist” downloads successfully
+   - “Confirm requirements” navigates to `/free-consultation`
+5) Internal links:
+   - CR / Lease Contract Registration / Visa & Immigration navigate correctly
+
+---
+
+## Optional follow-up improvements (after you review)
+- Add a small “Tip” line under the accordion (e.g., “We’ll confirm the exact list based on shareholder type + activity”), or
+- Add a “Send document for review” CTA (WhatsApp) similar to other service pages, if you want stronger conversion here.
