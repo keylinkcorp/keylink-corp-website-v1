@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, Clock, Globe, Shield } from "lucide-react";
 import { SplitSection } from "@/components/shared/SplitSection";
+import { cn } from "@/lib/utils";
 
 import quickAnswerImage from "@/assets/free-zone/free-zone-steps.jpg";
 
@@ -25,6 +26,42 @@ const highlights = [
   },
 ];
 
+function HighlightCard({
+  icon: Icon,
+  title,
+  value,
+  note,
+}: {
+  icon: typeof Clock;
+  title: string;
+  value: string;
+  note: string;
+}) {
+  return (
+    <Card className="card-elevated-hover h-full">
+      <CardContent className="p-6">
+        <div className="flex items-start gap-4">
+          <div className="mt-0.5 w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+            <Icon className="w-5 h-5 text-accent" />
+          </div>
+
+          <div className="min-w-0">
+            <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              {title}
+            </p>
+            <p className="mt-1 text-2xl md:text-[28px] font-semibold text-foreground tracking-tight leading-none">
+              {value}
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground leading-snug">
+              {note}
+            </p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export function FreeZoneQuickAnswer() {
   return (
     <SplitSection
@@ -38,22 +75,15 @@ export function FreeZoneQuickAnswer() {
       overlayOpacity={1}
       imagePosition="right"
     >
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className={cn("grid gap-4 sm:gap-6", "md:grid-cols-3", "items-stretch")}>
         {highlights.map((item) => (
-          <Card key={item.title} className="card-elevated">
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-5 h-5 text-accent" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-primary">{item.title}</p>
-                  <p className="mt-1 text-2xl font-bold text-primary tracking-tight">{item.value}</p>
-                  <p className="mt-1 text-sm text-muted-foreground">{item.note}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <HighlightCard
+            key={item.title}
+            icon={item.icon}
+            title={item.title}
+            value={item.value}
+            note={item.note}
+          />
         ))}
       </div>
 
