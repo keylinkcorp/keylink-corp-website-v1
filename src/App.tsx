@@ -35,6 +35,10 @@ import BusinessIncubators from "./pages/services/BusinessIncubators";
 import VirtualOffice from "./pages/services/VirtualOffice";
 import FreeConsultation from "./pages/FreeConsultation";
 import FreeZoneInBahrain from "./pages/FreeZoneInBahrain";
+import BLZ from "./pages/free-zone/BLZ";
+import BIIP from "./pages/free-zone/BIIP";
+import BIW from "./pages/free-zone/BIW";
+import Sitra from "./pages/free-zone/Sitra";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -77,6 +81,10 @@ const App = () => (
           <Route path="/services/business-incubators" element={<BusinessIncubators />} />
           <Route path="/services/virtual-office" element={<VirtualOffice />} />
           <Route path="/free-zone-in-bahrain" element={<FreeZoneInBahrain />} />
+          <Route path="/free-zone-in-bahrain/blz" element={<BLZ />} />
+          <Route path="/free-zone-in-bahrain/biip" element={<BIIP />} />
+          <Route path="/free-zone-in-bahrain/biw" element={<BIW />} />
+          <Route path="/free-zone-in-bahrain/sitra" element={<Sitra />} />
           <Route path="/free-consultation" element={<FreeConsultation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

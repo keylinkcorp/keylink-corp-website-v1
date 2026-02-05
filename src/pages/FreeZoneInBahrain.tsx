@@ -8,6 +8,8 @@ import { FreeZoneQuickAnswer } from "@/components/services/formation/free-zone/F
 import { FreeZoneComparison } from "@/components/services/formation/free-zone/FreeZoneComparison";
 import { FreeZoneSetupSteps } from "@/components/services/formation/free-zone/FreeZoneSetupSteps";
 import { FreeZoneFAQ } from "@/components/services/formation/free-zone/FreeZoneFAQ";
+import { FreeZoneCostsFees } from "@/components/services/formation/free-zone/FreeZoneCostsFees";
+import { FreeZoneDocumentsChecklist } from "@/components/services/formation/free-zone/FreeZoneDocumentsChecklist";
 
 export default function FreeZoneInBahrain() {
   useEffect(() => {
@@ -56,7 +58,11 @@ export default function FreeZoneInBahrain() {
 
       <FreeZoneComparison />
 
+      <FreeZoneCostsFees />
+
       <FreeZonesGuide />
+
+      <FreeZoneDocumentsChecklist />
 
       <FreeZoneSetupSteps />
 
