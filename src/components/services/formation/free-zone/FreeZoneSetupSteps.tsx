@@ -42,7 +42,7 @@ export function FreeZoneSetupSteps() {
       variant="default"
       backgroundVariant="radial"
       overlayOpacity={1}
-      imagePosition="left"
+      layout="stacked"
     >
       <div className="grid md:grid-cols-2 gap-6">
         {steps.map((step, index) => (
