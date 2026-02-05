@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { ServiceHero } from "@/components/services/shared/ServiceHero";
+import { ServiceHeroSplit } from "@/components/services/shared/ServiceHeroSplit";
 import { FormationCTA } from "@/components/services/formation/FormationCTA";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Clock, Shield } from "lucide-react";
+
+import heroImage from "@/assets/free-zone/sitra-hero.jpg";
 
 export default function Sitra() {
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function Sitra() {
 
   return (
     <Layout>
-      <ServiceHero
+      <ServiceHeroSplit
         badge="Zone Deep‑Dive"
         title="Sitra"
         highlight="Industrial Area"
@@ -41,7 +43,20 @@ export default function Sitra() {
         ]}
         primaryCTA={{ text: "Get Free Consultation", href: "/free-consultation" }}
         secondaryCTA={{ text: "Call +973 1700 0000", href: "tel:+97317000000" }}
+        imageSrc={heroImage}
+        imageAlt="Industrial area roadway with factories in the distance"
       />
+
+      <script type="application/ld+json" data-schema="breadcrumb-sitra">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Free Zone in Bahrain", item: "https://keylinkcorp.com/free-zone-in-bahrain" },
+            { "@type": "ListItem", position: 2, name: "Sitra Industrial Area", item: "https://keylinkcorp.com/free-zone-in-bahrain/sitra" },
+          ],
+        })}
+      </script>
 
       <section className="section-spacing bg-background">
         <div className="container">
