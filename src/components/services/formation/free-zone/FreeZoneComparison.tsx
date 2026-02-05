@@ -1,11 +1,14 @@
+import type React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeCheck, Factory, Ship, Truck } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type ZoneRow = {
   zone: string;
   bestFor: string;
   typicalUses: string[];
   notes: string;
+  href: string;
   icon: React.ComponentType<{ className?: string }>;
 };
 
@@ -15,6 +18,7 @@ const rows: ZoneRow[] = [
     bestFor: "Port-adjacent logistics & warehousing",
     typicalUses: ["Warehousing", "Distribution", "Import/export"],
     notes: "Good fit when time-to-ship and port access are priorities.",
+    href: "/free-zone-in-bahrain/biw",
     icon: Ship,
   },
   {
@@ -22,6 +26,7 @@ const rows: ZoneRow[] = [
     bestFor: "E-commerce & regional distribution",
     typicalUses: ["Fulfillment", "3PL", "Regional hubs"],
     notes: "Best when your model is fast inbound/outbound movement.",
+    href: "/free-zone-in-bahrain/blz",
     icon: Truck,
   },
   {
@@ -29,6 +34,7 @@ const rows: ZoneRow[] = [
     bestFor: "Manufacturing & industrial operations",
     typicalUses: ["Light manufacturing", "Assembly", "Industrial offices"],
     notes: "Strong fit for industrial licensing and facility planning.",
+    href: "/free-zone-in-bahrain/biip",
     icon: Factory,
   },
   {
@@ -36,6 +42,7 @@ const rows: ZoneRow[] = [
     bestFor: "Heavier industrial activities",
     typicalUses: ["Workshops", "Industrial storage", "Processing"],
     notes: "Often chosen for heavier activity categories and space needs.",
+    href: "/free-zone-in-bahrain/sitra",
     icon: BadgeCheck,
   },
 ];
@@ -79,6 +86,10 @@ export function FreeZoneComparison() {
                     ))}
                   </div>
                   <p className="mt-4 text-sm leading-relaxed">{row.notes}</p>
+                  <Link to={row.href} className="mt-4 inline-flex items-center gap-2 text-accent font-medium hover:underline">
+                    Read zone guide
+                    <span aria-hidden className="text-accent">→</span>
+                  </Link>
                 </CardContent>
               </Card>
             ))}
