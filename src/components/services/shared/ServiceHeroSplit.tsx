@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { ArrowRight, LucideIcon, Phone } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 
 interface FeaturePill {
   icon: LucideIcon;
@@ -47,19 +48,10 @@ export function ServiceHeroSplit({
 }: ServiceHeroSplitProps) {
   return (
     <section className="relative overflow-hidden">
-      {/* Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `
-            radial-gradient(circle at 15% 35%, hsl(var(--gold) / 0.10) 0%, transparent 55%),
-            radial-gradient(circle at 85% 70%, hsl(var(--navy) / 0.08) 0%, transparent 50%)
-          `,
-        }}
-      />
-      <div className="absolute inset-0 z-0 pattern-grid-lines-light opacity-70" />
+      <SectionBackgroundOverlay variant="radial" opacity={1} masked={false} />
+      <SectionBackgroundOverlay variant="grid-lines" opacity={0.55} masked />
 
-      <div className="container relative z-10 mx-auto px-4 py-16 md:py-20 lg:py-24">
+      <div className="container relative z-10 mx-auto px-4 py-14 md:py-16 lg:py-20">
         <motion.div
           variants={staggerContainer}
           initial="hidden"

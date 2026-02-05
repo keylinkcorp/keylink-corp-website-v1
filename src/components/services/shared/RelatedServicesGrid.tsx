@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { ArrowRight, LucideIcon } from "lucide-react";
+import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 
 interface RelatedService {
   icon: LucideIcon;
@@ -36,22 +37,27 @@ export function RelatedServicesGrid({
     : services;
 
   return (
-    <section ref={ref} className="py-20 md:py-28 bg-secondary/30">
-      <div className="container mx-auto px-4">
+    <section ref={ref} className="section-spacing relative overflow-hidden bg-secondary/40">
+      <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
+
+      <div className="container relative z-10">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-12"
+          className="text-center mb-12 md:mb-14"
         >
           <motion.div variants={staggerItem}>
-            <span className="section-badge">{badge}</span>
+            <p className="text-sm font-medium text-accent tracking-wide uppercase">{badge}</p>
           </motion.div>
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2 variants={staggerItem} className="mt-3 text-balance">
             {title}
           </motion.h2>
           {subtitle && (
-            <motion.p variants={staggerItem} className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <motion.p
+              variants={staggerItem}
+              className="mt-4 text-lg leading-relaxed text-muted-foreground max-w-3xl mx-auto"
+            >
               {subtitle}
             </motion.p>
           )}
@@ -67,7 +73,7 @@ export function RelatedServicesGrid({
             <motion.div key={index} variants={staggerItem}>
               <Link
                 to={service.href}
-                className="group block bg-card rounded-2xl p-6 border border-border hover:border-accent hover:shadow-md transition-all h-full"
+                className="group block card-elevated-hover rounded-2xl p-6 h-full"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary/5 group-hover:bg-accent/10 flex items-center justify-center mb-4 transition-colors">
                   <service.icon className="w-7 h-7 text-primary group-hover:text-accent transition-colors" />

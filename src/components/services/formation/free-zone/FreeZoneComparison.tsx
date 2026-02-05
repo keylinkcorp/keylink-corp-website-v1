@@ -1,12 +1,23 @@
 import type React from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeCheck, Factory, Ship, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SplitSection } from "@/components/shared/SplitSection";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 import comparisonImage from "@/assets/free-zone/biw-hero.jpg";
 
 type ZoneRow = {
+  key: "biw" | "blz" | "biip" | "sitra";
   zone: string;
   bestFor: string;
   typicalUses: string[];
@@ -17,6 +28,7 @@ type ZoneRow = {
 
 const rows: ZoneRow[] = [
   {
+    key: "biw",
     zone: "BIW (Bahrain Investment Wharf)",
     bestFor: "Port-adjacent logistics & warehousing",
     typicalUses: ["Warehousing", "Distribution", "Import/export"],
@@ -25,6 +37,7 @@ const rows: ZoneRow[] = [
     icon: Ship,
   },
   {
+    key: "blz",
     zone: "BLZ (Bahrain Logistics Zone)",
     bestFor: "E-commerce & regional distribution",
     typicalUses: ["Fulfillment", "3PL", "Regional hubs"],
@@ -33,6 +46,7 @@ const rows: ZoneRow[] = [
     icon: Truck,
   },
   {
+    key: "biip",
     zone: "BIIP (Bahrain International Investment Park)",
     bestFor: "Manufacturing & industrial operations",
     typicalUses: ["Light manufacturing", "Assembly", "Industrial offices"],
@@ -41,6 +55,7 @@ const rows: ZoneRow[] = [
     icon: Factory,
   },
   {
+    key: "sitra",
     zone: "Sitra Industrial Area",
     bestFor: "Heavier industrial activities",
     typicalUses: ["Workshops", "Industrial storage", "Processing"],
@@ -51,6 +66,21 @@ const rows: ZoneRow[] = [
 ];
 
 export function FreeZoneComparison() {
+  const [zone, setZone] = useState<"all" | ZoneRow["key"]>("all");
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const filteredRows = useMemo(() => {
+    if (zone === "all") return rows;
+    return rows.filter((r) => r.key === zone);
+  }, [zone]);
+
+  useEffect(() => {
+    if (zone === "all") return;
+    const el = cardRefs.current[zone];
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [zone]);
+
   return (
     <SplitSection
       badge="Compare options"
@@ -63,38 +93,94 @@ export function FreeZoneComparison() {
       overlayOpacity={0.55}
       imagePosition="left"
     >
+      {/* Zone selector */}
+      <div className="mb-6">
+        {/* Mobile: Select */}
+        <div className="md:hidden">
+          <Select value={zone} onValueChange={(v) => setZone(v as typeof zone)}>
+            <SelectTrigger className="w-full bg-background z-50">
+              <SelectValue placeholder="Select a zone" />
+            </SelectTrigger>
+            <SelectContent className="z-50 bg-popover">
+              <SelectItem value="all">All zones</SelectItem>
+              <SelectItem value="biw">BIW</SelectItem>
+              <SelectItem value="blz">BLZ</SelectItem>
+              <SelectItem value="biip">BIIP</SelectItem>
+              <SelectItem value="sitra">Sitra</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Desktop: Tabs */}
+        <div className="hidden md:block">
+          <Tabs value={zone} onValueChange={(v) => setZone(v as typeof zone)}>
+            <TabsList className="bg-card border border-border">
+              <TabsTrigger value="all">All</TabsTrigger>
+              <TabsTrigger value="biw">BIW</TabsTrigger>
+              <TabsTrigger value="blz">BLZ</TabsTrigger>
+              <TabsTrigger value="biip">BIIP</TabsTrigger>
+              <TabsTrigger value="sitra">Sitra</TabsTrigger>
+            </TabsList>
+            <TabsContent value={zone} />
+          </Tabs>
+        </div>
+      </div>
+
       <div className="grid md:grid-cols-2 gap-6">
-        {rows.map((row) => (
-          <Card key={row.zone} className="card-elevated-hover">
-            <CardHeader className="pb-3">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
-                  <row.icon className="w-5 h-5 text-accent" />
+        {filteredRows.map((row) => (
+          <div
+            key={row.zone}
+            ref={(node) => {
+              cardRefs.current[row.key] = node;
+            }}
+          >
+            <Card
+              className={cn(
+                "card-elevated-hover",
+                zone !== "all" && row.key === zone
+                  ? "ring-1 ring-accent/40"
+                  : "",
+              )}
+            >
+              <CardHeader className="pb-3">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                    <row.icon className="w-5 h-5 text-accent" />
+                  </div>
+                  <div className="min-w-0">
+                    <CardTitle className="text-lg md:text-xl leading-snug">
+                      {row.zone}
+                    </CardTitle>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Best for: {row.bestFor}
+                    </p>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <CardTitle className="text-lg md:text-xl leading-snug">{row.zone}</CardTitle>
-                  <p className="mt-1 text-sm text-muted-foreground">Best for: {row.bestFor}</p>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="flex flex-wrap gap-2">
+                  {row.typicalUses.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-primary"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <div className="flex flex-wrap gap-2">
-                {row.typicalUses.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-primary"
-                  >
-                    {tag}
+                <p className="mt-4 text-sm leading-relaxed">{row.notes}</p>
+                <Link
+                  to={row.href}
+                  className="mt-4 inline-flex items-center gap-2 text-accent font-medium hover:underline"
+                >
+                  Read zone guide
+                  <span aria-hidden className="text-accent">
+                    →
                   </span>
-                ))}
-              </div>
-              <p className="mt-4 text-sm leading-relaxed">{row.notes}</p>
-              <Link to={row.href} className="mt-4 inline-flex items-center gap-2 text-accent font-medium hover:underline">
-                Read zone guide
-                <span aria-hidden className="text-accent">→</span>
-              </Link>
-            </CardContent>
-          </Card>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
         ))}
       </div>
 

@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
+import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 
 export type FreeZoneFaqItem = {
   question: string;
@@ -61,13 +62,14 @@ export function FreeZoneFAQ(props: { items?: FreeZoneFaqItem[] }) {
   }, [items]);
 
   return (
-    <section className="section-spacing bg-background">
+    <section className="section-spacing relative overflow-hidden bg-background">
+      <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
       {/* JSON-LD (kept in-body for SPA; crawlers can still read it) */}
       <script type="application/ld+json" data-schema="free-zone-bahrain-faq">
         {JSON.stringify(faqJsonLd)}
       </script>
 
-      <div className="container">
+      <div className="container relative z-10">
         <div className="max-w-5xl mx-auto">
           <header className="mb-10 md:mb-12">
             <p className="text-sm font-medium text-accent tracking-wide uppercase">FAQs</p>

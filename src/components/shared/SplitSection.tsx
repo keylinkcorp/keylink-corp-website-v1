@@ -10,6 +10,10 @@ type SplitSectionProps = {
   badge?: string;
   title: string;
   subtitle?: string;
+  align?: "left" | "center";
+  headerSize?: "default" | "compact";
+  leadClassName?: string;
+  hideImageCaption?: boolean;
   /** Extra content below subtitle (cards, lists, etc.) */
   children?: React.ReactNode;
   imageSrc: string;
@@ -28,6 +32,10 @@ export function SplitSection({
   badge,
   title,
   subtitle,
+  align = "left",
+  headerSize = "default",
+  leadClassName,
+  hideImageCaption = false,
   children,
   imageSrc,
   imageAlt,
@@ -42,6 +50,11 @@ export function SplitSection({
   const isSubtle = variant === "subtle";
   const resolvedOverlay: SectionOverlayVariant =
     backgroundVariant ?? (isSubtle ? "grid-lines" : "radial");
+  const isCenter = align === "center";
+  const headingClass = cn(
+    "text-balance",
+    headerSize === "compact" ? "text-2xl md:text-3xl" : ""
+  );
 
   return (
     <section
@@ -63,13 +76,21 @@ export function SplitSection({
               imagePosition === "left" ? "lg:order-2" : "lg:order-1",
             )}
           >
-            <header className="mb-8 md:mb-10">
+            <header className={cn("mb-8 md:mb-10", isCenter ? "text-center" : "text-left")}>
               {badge ? (
                 <p className="text-sm font-medium text-accent tracking-wide uppercase">{badge}</p>
               ) : null}
-              <h2 className={cn(badge ? "mt-3" : "", "text-balance")}>{title}</h2>
+              <h2 className={cn(badge ? "mt-3" : "", headingClass)}>{title}</h2>
               {subtitle ? (
-                <p className="mt-4 text-lg leading-relaxed max-w-3xl">{subtitle}</p>
+                <p
+                  className={cn(
+                    "mt-4 text-lg leading-relaxed max-w-3xl",
+                    isCenter ? "mx-auto" : "",
+                    leadClassName,
+                  )}
+                >
+                  {subtitle}
+                </p>
               ) : null}
             </header>
 
@@ -92,9 +113,11 @@ export function SplitSection({
                 />
               </AspectRatio>
             </div>
-            <div className="mt-3 text-xs text-muted-foreground">
-              No logos, no watermarks — images are illustrative.
-            </div>
+            {!hideImageCaption ? (
+              <div className="mt-3 text-xs text-muted-foreground">
+                No logos, no watermarks — images are illustrative.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
