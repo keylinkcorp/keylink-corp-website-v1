@@ -61,6 +61,8 @@ export function FreeZoneCostsFees() {
       imageSrc={costsImage}
       imageAlt="Business documents and calculator used for formation cost planning"
       variant="default"
+      backgroundVariant="dots"
+      overlayOpacity={0.55}
       imagePosition="right"
     >
       <div className="grid md:grid-cols-3 gap-6">

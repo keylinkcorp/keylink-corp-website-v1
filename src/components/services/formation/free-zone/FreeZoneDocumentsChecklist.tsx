@@ -24,6 +24,8 @@ export function FreeZoneDocumentsChecklist() {
       imageSrc={docsImage}
       imageAlt="Passport and company formation checklist on a clipboard"
       variant="subtle"
+      backgroundVariant="grid-lines"
+      overlayOpacity={0.55}
       imagePosition="right"
     >
       <div className="grid lg:grid-cols-2 gap-6">

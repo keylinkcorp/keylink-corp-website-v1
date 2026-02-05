@@ -1,6 +1,10 @@
 import type React from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import {
+  SectionBackgroundOverlay,
+  type SectionOverlayVariant,
+} from "@/components/shared/SectionBackgroundOverlay";
 
 type SplitSectionProps = {
   badge?: string;
@@ -12,6 +16,10 @@ type SplitSectionProps = {
   imageAlt: string;
   imagePosition?: "left" | "right";
   variant?: "default" | "subtle";
+  /** Decorative overlay pattern behind the section (design-system consistent). */
+  backgroundVariant?: SectionOverlayVariant;
+  overlayOpacity?: number;
+  overlayMasked?: boolean;
   imageRatio?: number;
   imageClassName?: string;
 };
@@ -25,14 +33,29 @@ export function SplitSection({
   imageAlt,
   imagePosition = "right",
   variant = "default",
+  backgroundVariant,
+  overlayOpacity,
+  overlayMasked,
   imageRatio = 16 / 9,
   imageClassName,
 }: SplitSectionProps) {
   const isSubtle = variant === "subtle";
+  const resolvedOverlay: SectionOverlayVariant =
+    backgroundVariant ?? (isSubtle ? "grid-lines" : "radial");
 
   return (
-    <section className={cn("section-spacing", isSubtle ? "bg-secondary/40" : "bg-background")}>
-      <div className="container">
+    <section
+      className={cn(
+        "section-spacing relative overflow-hidden",
+        isSubtle ? "bg-secondary/40" : "bg-background",
+      )}
+    >
+      <SectionBackgroundOverlay
+        variant={resolvedOverlay}
+        opacity={overlayOpacity}
+        masked={overlayMasked}
+      />
+      <div className="container relative z-10">
         <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-12 items-start">
           <div
             className={cn(
@@ -78,3 +101,4 @@ export function SplitSection({
     </section>
   );
 }
+

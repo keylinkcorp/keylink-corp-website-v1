@@ -59,6 +59,8 @@ export function FreeZoneComparison() {
       imageSrc={comparisonImage}
       imageAlt="Port-adjacent warehousing and containers near the sea"
       variant="subtle"
+      backgroundVariant="grid-lines"
+      overlayOpacity={0.55}
       imagePosition="left"
     >
       <div className="grid md:grid-cols-2 gap-6">
