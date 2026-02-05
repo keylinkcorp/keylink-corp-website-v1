@@ -237,9 +237,19 @@ export function Header() {
                               <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
                               {column.heading}
                             </h3>
-                            <ul className="space-y-0.5">
-                              {column.links.map((link) => (
-                                <li key={link.title}>
+                            <ul
+                              className={cn(
+                                "space-y-0.5",
+                                column.heading === "Company Types" && "grid grid-cols-2 gap-x-6 gap-y-0.5 space-y-0",
+                              )}
+                            >
+                              {column.links.map((link, idx) => (
+                                <li
+                                  key={link.title}
+                                  className={cn(
+                                    column.heading === "Company Types" && (idx < 3 ? "col-span-2" : "col-span-1"),
+                                  )}
+                                >
                                   <NavigationMenuLink asChild>
                                     <Link
                                       to={link.href}
