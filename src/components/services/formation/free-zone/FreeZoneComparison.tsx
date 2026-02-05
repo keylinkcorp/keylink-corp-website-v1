@@ -91,7 +91,7 @@ export function FreeZoneComparison() {
       variant="subtle"
       backgroundVariant="grid-lines"
       overlayOpacity={0.55}
-      imagePosition="left"
+      layout="stacked"
     >
       {/* Zone selector */}
       <div className="mb-6">
