@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, Clock, Shield, Wallet, Users } from "lucide-react";
+import { ArrowRight, Clock, Shield, Wallet, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/wll-hero-professional.jpg";
 import { heroHeadlineContainer, heroHeadlineLine, imageReveal } from "@/lib/animations";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const heroFeatures = [
   { icon: Users, text: "2-50 Shareholders Allowed" },
@@ -124,45 +125,9 @@ export function WLLHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-10"
+              className="mt-10"
             >
-              {/* Google Reviews */}
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Reviewer" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
-                  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Reviewer" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
-                  <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Reviewer" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-gold text-gold" />
-                    ))}
-                    <span className="text-sm font-semibold text-primary ml-1.5">4.9</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">Google Reviews</span>
-                </div>
-              </div>
-
-              <div className="hidden sm:block h-10 w-px bg-border" />
-
-              {/* Trustpilot */}
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Reviewer" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
-                  <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Reviewer" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
-                  <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Reviewer" className="w-8 h-8 rounded-full border-2 border-white object-cover" />
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-[#00B67A] text-[#00B67A]" />
-                    ))}
-                    <span className="text-sm font-semibold text-primary ml-1.5">4.8</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">Trustpilot</span>
-                </div>
-              </div>
+              <HeroReviewStrip align="left" />
             </motion.div>
 
             {/* Trust line */}

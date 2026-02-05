@@ -2,6 +2,7 @@ import { Building2, Award, Clock, TrendingUp, ArrowRight, Sparkles } from "lucid
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Link } from "react-router-dom";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 // Import hero images
 import businessAddressImg from "@/assets/virtual-office/business-address.jpg";
@@ -99,6 +100,10 @@ export function VirtualOfficeHero() {
               >
                 View Packages
               </Button>
+            </div>
+
+            <div className="mt-10">
+              <HeroReviewStrip align="left" />
             </div>
           </div>
 

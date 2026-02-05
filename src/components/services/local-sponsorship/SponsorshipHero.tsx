@@ -3,6 +3,7 @@ import { staggerContainer, staggerItem, heroHeadlineContainer, heroHeadlineLine 
 import { Shield, Wallet, FileCheck, Users, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import sponsorshipHeroImage from "@/assets/sponsorship-hero.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const features = [
   { icon: Shield, text: "Vetted Sponsors" },
@@ -127,6 +128,10 @@ export function SponsorshipHero() {
                   Call +973 1700 0000
                 </a>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10 flex justify-center lg:justify-start">
+              <HeroReviewStrip align="left" />
             </motion.div>
 
             {/* Trust Line */}

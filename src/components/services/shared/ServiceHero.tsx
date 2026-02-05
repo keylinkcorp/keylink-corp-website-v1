@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import { LucideIcon, ArrowRight, Phone } from "lucide-react";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 interface FeaturePill {
   icon: LucideIcon;
@@ -129,6 +130,10 @@ export function ServiceHero({
                 {secondaryCTA.text}
               </a>
             </Button>
+          </motion.div>
+
+          <motion.div variants={staggerItem} className="mt-10 flex justify-center">
+            <HeroReviewStrip align="center" />
           </motion.div>
         </motion.div>
       </div>

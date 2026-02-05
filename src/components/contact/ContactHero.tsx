@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Languages, Calendar } from "lucide-react";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const stats = [
   { icon: Clock, value: "<1 Hour", label: "Response Time" },
@@ -102,6 +103,10 @@ export function ContactHero() {
             or have questions about our services—we're ready to assist. 
             Reach out through your preferred channel.
           </motion.p>
+
+          <motion.div variants={itemVariants} className="mb-10 flex justify-center">
+            <HeroReviewStrip align="center" />
+          </motion.div>
 
           {/* Stats Row */}
           <motion.div

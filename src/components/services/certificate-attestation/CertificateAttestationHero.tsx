@@ -5,6 +5,7 @@ import { staggerContainer, staggerItem, imageReveal } from "@/lib/animations";
 import { Clock, Building2, Award, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/certificate-attestation-hero.png";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const featurePills = [
   { icon: Clock, text: "Same-Day Available" },
@@ -118,6 +119,10 @@ export function CertificateAttestationHero() {
                   View Pricing
                 </Link>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10">
+              <HeroReviewStrip align="left" />
             </motion.div>
           </motion.div>
 

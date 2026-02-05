@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { ArrowRight, Phone, Building2, Clock, CheckCircle, Globe } from "lucide-react";
 import chamberHeroImage from "@/assets/chamber-hero-professional.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const features = [
   { icon: Building2, text: "BCCI-Certified Partners" },
@@ -105,6 +106,10 @@ export function ChamberHero() {
                   Call +973 1700 0000
                 </a>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10">
+              <HeroReviewStrip align="left" />
             </motion.div>
           </motion.div>
 

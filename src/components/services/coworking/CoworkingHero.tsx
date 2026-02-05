@@ -1,6 +1,7 @@
 import { Users, Award, Building2, Star, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 // Import workspace images
 import hotDeskImage from "@/assets/coworking/hot-desk.jpg";
@@ -98,6 +99,10 @@ export function CoworkingHero() {
               >
                 View Pricing
               </Button>
+            </div>
+
+            <div className="mt-10">
+              <HeroReviewStrip align="left" />
             </div>
           </div>
 

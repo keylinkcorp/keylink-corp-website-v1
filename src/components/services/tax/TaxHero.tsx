@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { ArrowRight, Phone, Shield, Clock, CheckCircle, Headphones } from "lucide-react";
 import taxHeroImage from "@/assets/tax-hero-professional.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const features = [
   { icon: Shield, text: "NBR-Registered Agents" },
@@ -105,6 +106,10 @@ export function TaxHero() {
                   Call +973 1700 0000
                 </a>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10">
+              <HeroReviewStrip align="left" />
             </motion.div>
           </motion.div>
 

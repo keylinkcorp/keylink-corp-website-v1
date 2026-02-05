@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Shield, Award } from "lucide-react";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const trustIndicators = [
   { icon: Clock, label: "30-Minute Session" },
@@ -117,6 +118,15 @@ export function ConsultationHero() {
                 </span>
               </motion.div>
             ))}
+          </motion.div>
+
+          <motion.div
+            className="mt-10 flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+          >
+            <HeroReviewStrip align="center" />
           </motion.div>
         </div>
       </div>
