@@ -34,6 +34,8 @@ export function FreeZoneQuickAnswer() {
       imageSrc={quickAnswerImage}
       imageAlt="Consultant and founder planning a company setup process"
       variant="default"
+      backgroundVariant="radial"
+      overlayOpacity={1}
       imagePosition="right"
     >
       <div className="grid md:grid-cols-3 gap-6">

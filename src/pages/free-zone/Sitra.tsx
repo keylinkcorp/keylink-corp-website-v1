@@ -5,6 +5,7 @@ import { FormationCTA } from "@/components/services/formation/FormationCTA";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ArrowRight, Building2, Clock, Shield } from "lucide-react";
+import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 
 import heroImage from "@/assets/free-zone/sitra-hero.jpg";
 
@@ -58,8 +59,9 @@ export default function Sitra() {
         })}
       </script>
 
-      <section className="section-spacing bg-background">
-        <div className="container">
+      <section className="section-spacing relative overflow-hidden bg-background">
+        <SectionBackgroundOverlay variant="grid-lines" opacity={0.55} />
+        <div className="container relative z-10">
           <div className="max-w-5xl mx-auto grid lg:grid-cols-3 gap-6">
             <Card className="card-elevated lg:col-span-2">
               <CardContent className="p-6">

@@ -40,6 +40,8 @@ export function FreeZoneSetupSteps() {
       imageSrc={stepsImage}
       imageAlt="Consultation meeting planning a setup process"
       variant="default"
+      backgroundVariant="radial"
+      overlayOpacity={1}
       imagePosition="left"
     >
       <div className="grid md:grid-cols-2 gap-6">

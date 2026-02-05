@@ -13,6 +13,7 @@ import { FreeZoneDocumentsChecklist } from "@/components/services/formation/free
 import { ServiceTrustBar } from "@/components/services/shared/ServiceTrustBar";
 import { ServiceBenefits } from "@/components/services/shared/ServiceBenefits";
 import { RelatedServicesGrid } from "@/components/services/shared/RelatedServicesGrid";
+import { FreeZoneMidCTA } from "@/components/services/formation/free-zone/FreeZoneMidCTA";
 
 import heroImage from "@/assets/free-zone/free-zone-hero.jpg";
 
@@ -86,6 +87,8 @@ export default function FreeZoneInBahrain() {
       <FreeZoneQuickAnswer />
 
       <FreeZoneComparison />
+
+      <FreeZoneMidCTA />
 
       <FreeZoneCostsFees />
 
