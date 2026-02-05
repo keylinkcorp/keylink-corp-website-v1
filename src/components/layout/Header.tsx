@@ -25,7 +25,6 @@ const megaMenuItems = [
           { title: "Single Person Company", href: "/services/single-person-company", description: "SPC for solo entrepreneurs" },
           { title: "Branch Office", href: "/services/branch-office", description: "Foreign company branch setup" },
           { title: "WLL Company", href: "/services/wll-company", description: "Limited liability company" },
-          { title: "Free Zone in Bahrain", href: "/free-zone-in-bahrain", description: "Free zones guide & setup support" },
         ],
       },
       {
@@ -34,6 +33,7 @@ const megaMenuItems = [
           { title: "Commercial Registration", href: "/services/commercial-registration", description: "New CR registration" },
           { title: "CR Amendment", href: "/services/cr-amendment", description: "Modify existing registration" },
           { title: "Lease Contract", href: "/services/lease-contract-registration", description: "Business lease registration" },
+          { title: "Free Zone in Bahrain", href: "/free-zone-in-bahrain", description: "Free zones guide & setup support" },
         ],
       },
       {
