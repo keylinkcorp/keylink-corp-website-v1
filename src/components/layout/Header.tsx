@@ -240,14 +240,18 @@ export function Header() {
                             <ul
                               className={cn(
                                 "space-y-0.5",
-                                column.heading === "Company Types" && "grid grid-cols-2 gap-x-6 gap-y-0.5 space-y-0",
+                                column.heading === "Company Types" &&
+                                  column.links.length > 4 &&
+                                  "grid grid-cols-2 gap-x-6 gap-y-0.5 space-y-0",
                               )}
                             >
                               {column.links.map((link, idx) => (
                                 <li
                                   key={link.title}
                                   className={cn(
-                                    column.heading === "Company Types" && (idx < 3 ? "col-span-2" : "col-span-1"),
+                                    column.heading === "Company Types" &&
+                                      column.links.length > 4 &&
+                                      (idx < 3 ? "col-span-2" : "col-span-1"),
                                   )}
                                 >
                                   <NavigationMenuLink asChild>
