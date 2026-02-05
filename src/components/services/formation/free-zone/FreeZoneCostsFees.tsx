@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 import { Banknote, Calculator, FileText, MapPin } from "lucide-react";
-import { SplitSection } from "@/components/shared/SplitSection";
 
 import costsImage from "@/assets/free-zone/free-zone-costs.jpg";
 
@@ -54,72 +56,125 @@ const examples = [
 
 export function FreeZoneCostsFees() {
   return (
-    <SplitSection
-      badge="Costs & fees"
-      title="Free zone in Bahrain cost (what actually drives the price)"
-      subtitle="If you’re comparing free zone in Bahrain cost or company formation cost in Bahrain, the biggest swings usually come from activity approvals and address/facility requirements — not just government fees."
-      imageSrc={costsImage}
-      imageAlt="Business documents and calculator used for formation cost planning"
-      variant="default"
-      backgroundVariant="dots"
-      overlayOpacity={0.55}
-      imagePosition="right"
-    >
-      <div className="grid md:grid-cols-3 gap-6">
-        {cards.map((c) => (
-          <Card key={c.title} className="card-elevated">
-            <CardContent className="p-6">
-              <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
-                <c.icon className="w-5 h-5 text-accent" />
-              </div>
-              <h3 className="mt-4 text-lg font-semibold text-primary tracking-tight">{c.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed">{c.description}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <section className="section-spacing relative overflow-hidden bg-background">
+      <SectionBackgroundOverlay variant="dots" opacity={0.55} masked />
 
-      <div className="mt-10 grid lg:grid-cols-2 gap-6">
-        <Card className="card-elevated">
-          <CardContent className="p-6">
-            <div className="flex items-start gap-3">
-              <Calculator className="w-5 h-5 text-accent mt-0.5" />
-              <div>
-                <p className="text-sm font-semibold text-primary">Fast pricing method</p>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  We estimate total setup by confirming: (1) your activity, (2) ownership eligibility, (3) zone-fit, and (4)
-                  space requirement (sqm). This prevents under-budgeting and avoids choosing a lease that doesn’t match
-                  licensing.
-                </p>
-              </div>
+      <div className="container relative z-10">
+        <div className="max-w-6xl mx-auto">
+          {/* Header (above image) */}
+          <header className="mb-8 md:mb-10">
+            <div className="inline-flex items-center rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground">
+              Costs &amp; fees
             </div>
-          </CardContent>
-        </Card>
-
-        <Card className="card-elevated">
-          <CardContent className="p-6">
-            <p className="text-sm font-semibold text-primary">Realistic examples (for planning)</p>
-            <div className="mt-4 space-y-4">
-              {examples.map((ex) => (
-                <div key={ex.title} className="rounded-xl border border-border bg-background p-4">
-                  <p className="text-sm font-semibold text-primary">{ex.title}</p>
-                  <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-                    {ex.items.map((it) => (
-                      <li key={it} className="flex gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent flex-shrink-0" />
-                        <span>{it}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Note: Exact fees and timelines depend on the registered activity, approvals, and the chosen facility.
+            <h2 className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-primary">
+              Free zone in Bahrain cost (what actually drives the price)
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm md:text-base text-muted-foreground leading-relaxed">
+              If you’re comparing free zone in Bahrain cost or company formation cost in Bahrain, the biggest swings usually
+              come from activity approvals and address/facility requirements — not just government fees.
             </p>
-          </CardContent>
-        </Card>
+          </header>
+
+          {/* Full-width image (container width) */}
+          <figure className="card-elevated overflow-hidden">
+            <AspectRatio ratio={16 / 9}>
+              <img
+                src={costsImage}
+                alt="Business documents and calculator used for formation cost planning"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </AspectRatio>
+          </figure>
+
+          {/* Content below image */}
+          <div className="mt-10 grid gap-6 lg:grid-cols-12">
+            {/* Left: accordion */}
+            <Card className="card-elevated lg:col-span-7">
+              <CardContent className="p-0">
+                <Accordion type="single" collapsible defaultValue="registration" className="px-6 py-2">
+                  {cards.map((c) => (
+                    <AccordionItem
+                      key={c.title}
+                      value={
+                        c.title === "Registration + licensing"
+                          ? "registration"
+                          : c.title === "Address / lease"
+                            ? "address"
+                            : "operating"
+                      }
+                      className="border-border"
+                    >
+                      <AccordionTrigger className="py-5 hover:no-underline">
+                        <span className="flex items-center gap-3 text-left">
+                          <span className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                            <c.icon className="w-5 h-5 text-accent" />
+                          </span>
+                          <span className="text-base font-semibold text-primary tracking-tight">{c.title}</span>
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
+                        {c.description}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+
+                  <AccordionItem value="examples" className="border-border">
+                    <AccordionTrigger className="py-5 hover:no-underline">
+                      <span className="flex items-center gap-3 text-left">
+                        <span className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                          <Banknote className="w-5 h-5 text-accent" />
+                        </span>
+                        <span className="text-base font-semibold text-primary tracking-tight">
+                          Realistic examples (for planning)
+                        </span>
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-4">
+                        {examples.map((ex) => (
+                          <div key={ex.title} className="rounded-xl border border-border bg-background p-4">
+                            <p className="text-sm font-semibold text-primary">{ex.title}</p>
+                            <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+                              {ex.items.map((it) => (
+                                <li key={it} className="flex gap-2">
+                                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent flex-shrink-0" />
+                                  <span>{it}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+
+                      <p className="mt-4 text-xs text-muted-foreground">
+                        Note: Exact fees and timelines depend on the registered activity, approvals, and the chosen facility.
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </CardContent>
+            </Card>
+
+            {/* Right: highlight card */}
+            <Card className="card-elevated lg:col-span-5">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-3">
+                  <Calculator className="w-5 h-5 text-accent mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-primary">Fast pricing method</p>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                      We estimate total setup by confirming: (1) your activity, (2) ownership eligibility, (3) zone-fit, and (4)
+                      space requirement (sqm). This prevents under-budgeting and avoids choosing a lease that doesn’t match
+                      licensing.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
-    </SplitSection>
+    </section>
   );
 }
