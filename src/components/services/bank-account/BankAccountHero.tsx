@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Phone, CheckCircle2 } from "lucide-react";
 import heroImage from "@/assets/bank-account-hero-professional.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const featurePills = [
   "95% Approval Rate",
@@ -107,6 +108,10 @@ export function BankAccountHero() {
                   Call +973 1700 0000
                 </a>
               </Button>
+            </div>
+
+            <div className="mt-10 flex justify-center lg:justify-start">
+              <HeroReviewStrip align="left" />
             </div>
           </motion.div>
 

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Rocket, Target, Users, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 import incubatorHero1 from "@/assets/incubator-hero-1.jpg";
 import incubatorHero2 from "@/assets/incubator-hero-2.jpg";
@@ -102,6 +103,10 @@ export function IncubatorHero() {
                   Call Us Now
                 </a>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="pt-2">
+              <HeroReviewStrip align="left" />
             </motion.div>
 
             {/* Trust Stats */}

@@ -5,6 +5,7 @@ import { staggerContainer, staggerItem, imageReveal } from "@/lib/animations";
 import { Building2, Clock, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/pro-services-hero-professional.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const featurePills = [
   { icon: Clock, text: "Same-Day Collection" },
@@ -115,6 +116,10 @@ export function PROHero() {
                   View All Services
                 </Link>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10">
+              <HeroReviewStrip align="left" />
             </motion.div>
           </motion.div>
 

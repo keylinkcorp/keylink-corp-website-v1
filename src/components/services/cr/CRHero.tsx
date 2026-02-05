@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Award, Briefcase, ArrowRight, Phone, Star, Shield, Building2, FileCheck } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { CheckCircle2, Award, Briefcase, ArrowRight, Phone, Shield, Building2, FileCheck } from "lucide-react";
 import crHeroImage from "@/assets/cr-hero-professional.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const heroFeatures = [
   { icon: CheckCircle2, text: "100% Success Rate" },
@@ -140,37 +140,9 @@ export function CRHero() {
             {/* Social Proof - Enhanced with real avatars */}
             <motion.div 
               variants={heroHeadlineLine}
-              className="flex flex-col sm:flex-row gap-6 sm:gap-8"
+              className=""
             >
-              {/* Google Rating - Real Avatars */}
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Reviewer" className="w-9 h-9 rounded-full border-2 border-white shadow-sm object-cover" />
-                  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Reviewer" className="w-9 h-9 rounded-full border-2 border-white shadow-sm object-cover" />
-                  <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Reviewer" className="w-9 h-9 rounded-full border-2 border-white shadow-sm object-cover" />
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <span className="text-sm font-medium text-muted-foreground">4.9 on Google</span>
-                </div>
-              </div>
-              
-              {/* Divider */}
-              <div className="hidden sm:block w-px h-12 bg-border" />
-              
-              {/* Trustpilot Rating */}
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="w-4 h-4 fill-emerald-500 text-emerald-500" />
-                  ))}
-                </div>
-                <span className="text-sm font-medium text-muted-foreground">4.8 on Trustpilot</span>
-              </div>
+              <HeroReviewStrip align="left" />
             </motion.div>
 
             {/* Trust Line - New */}

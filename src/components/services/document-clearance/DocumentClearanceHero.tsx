@@ -5,6 +5,7 @@ import { staggerContainer, staggerItem, imageReveal } from "@/lib/animations";
 import { Clock, Building2, Receipt, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/document-clearance-hero-professional.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const featurePills = [
   { icon: Clock, text: "Same-Day Processing" },
@@ -115,6 +116,10 @@ export function DocumentClearanceHero() {
                   View All Clearances
                 </Link>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10">
+              <HeroReviewStrip align="left" />
             </motion.div>
           </motion.div>
 

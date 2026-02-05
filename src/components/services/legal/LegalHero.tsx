@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Award, Clock, FileText, Shield } from "lucide-react";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import heroImage from "@/assets/legal-hero-professional.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const featurePills = [
   { icon: Award, text: "Licensed Legal Consultants" },
@@ -111,6 +112,10 @@ export function LegalHero() {
                   Call +973 1700 0000
                 </a>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10 flex justify-center lg:justify-start">
+              <HeroReviewStrip align="left" />
             </motion.div>
           </motion.div>
 

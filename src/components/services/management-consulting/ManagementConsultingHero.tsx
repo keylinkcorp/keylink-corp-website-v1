@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Target, Globe, Clock, Rocket } from "lucide-react";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import heroImage from "@/assets/management-hero-professional.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const featurePills = [
   { icon: Target, text: "Strategic Planning Experts" },
@@ -109,6 +110,10 @@ export function ManagementConsultingHero() {
                   Call +973 1700 0000
                 </a>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10 flex justify-center lg:justify-start">
+              <HeroReviewStrip align="left" />
             </motion.div>
           </motion.div>
 

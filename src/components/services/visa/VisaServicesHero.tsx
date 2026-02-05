@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { Clock, Award, Users, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import visaHeroImage from "@/assets/visa-hero.jpg";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const features = [
   { icon: Clock, text: "5-Day Processing" },
@@ -108,6 +109,10 @@ export function VisaServicesHero() {
                   Call +973 1700 0000
                 </a>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10">
+              <HeroReviewStrip align="left" />
             </motion.div>
           </motion.div>
 

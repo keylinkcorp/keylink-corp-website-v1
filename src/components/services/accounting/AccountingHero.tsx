@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Shield, Users, FileCheck, Clock } from "lucide-react";
 import { staggerContainer, staggerItem } from "@/lib/animations";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const featurePills = [
   { icon: Shield, text: "NBR Registered" },
@@ -113,6 +114,10 @@ export function AccountingHero({ heroImage }: AccountingHeroProps) {
                   Call +973 1700 0000
                 </a>
               </Button>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="mt-10 flex justify-center lg:justify-start">
+              <HeroReviewStrip align="left" />
             </motion.div>
 
             {/* Price Anchor */}

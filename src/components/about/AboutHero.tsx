@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Badge } from "@/components/ui/badge";
 import teamPhoto from "@/assets/about/team-group-photo.png";
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 
 const stats = [
   { value: 10, suffix: "+", label: "Years Experience" },
@@ -160,6 +161,10 @@ export function AboutHero() {
             comprehensive formation, licensing, and support services. Your success 
             is our mission.
           </motion.p>
+
+          <motion.div variants={itemVariants} className="mb-10 flex justify-center">
+            <HeroReviewStrip align="center" />
+          </motion.div>
 
           {/* Stats Row - 4 columns on desktop, 2x2 on mobile */}
           <motion.div
