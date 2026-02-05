@@ -1,217 +1,128 @@
 
-## Objective (keep same content, redesign the full landing layout)
-Redesign `/free-zone-in-bahrain` into a **conversion-first** landing page with:
-- **Overlay/pattern in every section** (consistent brand look)
-- **Light “stat cards” trust strip** (premium, not heavy/dark)
-- A **sticky CTA bar** that appears on scroll (consultation + call)
-- A **zone selector** near the comparison section (fast navigation + better UX)
-- Keep all existing content/sections (no copy removal), but restructure spacing, headers, and visual hierarchy so it feels like one cohesive modern page.
+## Goal
+Update the **Costs & fees** section on `/free-zone-in-bahrain` so it matches your requested layout:
+
+- **Badge + headline + subtitle stay at the top** (above the image)
+- **Image becomes a full-width block (container width) under the header** on **all screen sizes**
+- **Below the image**, keep the information area as a clean, conversion-first layout:
+  - **Left:** accordion (single-open, collapsible) for the core cost drivers + examples
+  - **Right:** “Fast pricing method” highlight card (and any supporting mini-card if needed)
+
+This keeps the section premium and scannable while still “landing-page” styled.
 
 ---
 
-## What’s making it feel “not nice” right now (from code review)
-1) **Mixed section systems**
-   - `SplitSection` looks premium, but `ServiceTrustBar`, `ServiceBenefits`, `FreeZonesGuide`, and `RelatedServicesGrid` use different spacing/background logic, so the page feels stitched together.
+## What I found in the codebase (current state)
+- `src/components/services/formation/free-zone/FreeZoneCostsFees.tsx` currently uses `SplitSection` with the image in a side column (`imagePosition="right"`).
+- `SplitSection` is inherently a **two-column image + content** component; it’s not designed for “header → full-width image → content below” without adding new layout modes.
+- You already have:
+  - `SectionBackgroundOverlay` for consistent overlay-everywhere styling
+  - `AspectRatio` for consistent image sizing
+  - `Accordion` UI (`@/components/ui/accordion`) which matches other sections’ interaction patterns
 
-2) **Too many different “header styles”**
-   - Some sections use `.section-badge`, some use custom text headers, some center, some left.
-   - This breaks the “landing page rhythm”.
-
-3) **Overlays are inconsistent**
-   - You have `SectionBackgroundOverlay`, but it’s not applied consistently to *every* section.
-
-4) **Trust bar is visually heavy**
-   - `ServiceTrustBar` is currently `bg-primary` (dark band) which interrupts the calm premium look.
+Given your requirement (“All sizes”, “Container width”, “Heading above image”), the cleanest change is to **custom-layout this section** instead of forcing `SplitSection` into a new mode just for one section.
 
 ---
 
-## Target landing-page structure (same sections, new rhythm)
-We will keep the same sections, but enforce one consistent rail:
+## Implementation approach (high level)
+Refactor **only** `FreeZoneCostsFees.tsx` to render its own section shell:
 
-1) **Hero (image-led)** — keep `ServiceHeroSplit`, tune overlay + spacing
-2) **Trust stats (light stat cards)** — redesigned `ServiceTrustBar`
-3) **Benefits (same overlay language)** — redesigned `ServiceBenefits`
-4) **Quick Answer (SplitSection)**
-5) **Comparison (SplitSection) + Zone Selector (tabs)**
-6) **Mid CTA band** — keep but align styling to the rest
-7) **Costs (SplitSection)**
-8) **Zones Guide (rebuild to match landing style)**
-9) **Documents (SplitSection)**
-10) **Setup Steps (SplitSection)**
-11) **FAQ (overlay + consistent header)**
-12) **Related Services (overlay + consistent header)**
-13) **Formation CTA**
-14) **Sticky CTA bar** (appears after scrolling past hero)
+1) **Section wrapper**
+- Use the same site-wide rhythm:
+  - `section-spacing relative overflow-hidden bg-background`
+  - Add `SectionBackgroundOverlay` with your consistent “overlay everywhere” approach (e.g., dots or grid-lines masked, low opacity).
 
----
+2) **Header block (top)**
+- Render:
+  - badge (“Costs & fees”)
+  - H2 (“Free zone in Bahrain cost…”)
+  - subtitle paragraph
+- Keep typography consistent with other landing sections.
 
-## Implementation plan (concrete changes)
+3) **Full-width image (container width)**
+- Render a `card-elevated` image panel spanning the section’s content width:
+  - Use `AspectRatio` (likely 16/9)
+  - Keep the same `costsImage` and alt text
+  - Keep the small caption text below (“No logos…”), consistent with your other sections.
 
-### Phase 1 — Unify the “section shell” everywhere (spacing + overlay + header)
-**Goal:** Every section has the same foundation: `section-spacing`, overlay, and a consistent header pattern.
+4) **Content area below image**
+- Use a 2-column grid under the image:
+  - `grid gap-6 lg:grid-cols-12`
+  - **Left**: `lg:col-span-7` accordion container
+  - **Right**: `lg:col-span-5` highlight card(s)
 
-1) Upgrade `src/components/shared/SplitSection.tsx`
-   - Add props:
-     - `align?: "left" | "center"` (default left)
-     - `headerSize?: "default" | "compact"` (default default)
-     - `leadClassName?: string` (optional)
-     - `hideImageCaption?: boolean` (some sections may not want the “No logos…” caption)
-   - Ensure it can render:
-     - consistent badge → H2 → lead paragraph spacing
-     - consistent max widths (`max-w-6xl` default)
-   - Keep existing API working; add new props as optional to avoid breaking.
+5) **Accordion content (“Mixed” as approved)**
+- Accordion behavior:
+  - `type="single"` + `collapsible`
+  - `defaultValue="registration"` (so it doesn’t look empty)
+- Items:
+  - Registration + licensing (from existing `cards[0]`)
+  - Address / lease (from existing `cards[1]`)
+  - Operating requirements (from existing `cards[2]`)
+  - Realistic examples (render existing `examples` list + note)
 
-2) Standardize overlays per section
-   - Continue using `SectionBackgroundOverlay` but apply it consistently:
-     - default overlay for all SplitSections remains (radial or grid-lines based on variant)
-     - avoid “strong” overlays; prefer low opacity + masked
-
-Files:
-- `src/components/shared/SplitSection.tsx`
-- (No new dependencies)
+6) **Right column**
+- Keep “Fast pricing method” as a single highlight `Card` (unchanged copy), styled to match the new page system.
 
 ---
 
-### Phase 2 — Redesign TrustBar into “light stat cards” (as approved)
-**Goal:** Replace the dark navy band with a premium light strip using cards and overlay.
+## Exact file changes
+### 1) `src/components/services/formation/free-zone/FreeZoneCostsFees.tsx` (main refactor)
+- Remove usage of `<SplitSection ...>`
+- Replace with:
+  - `<section className="section-spacing relative overflow-hidden bg-background">`
+  - `<SectionBackgroundOverlay variant="dots" opacity={0.55} masked />` (or match your final overlay style)
+  - `<div className="container relative z-10">`
+  - `<div className="max-w-6xl mx-auto">`
+- Render in this order:
+  1. Header (badge/title/subtitle)
+  2. Image panel full width (container width)
+  3. Grid:
+     - left accordion card/panel
+     - right highlight card (“Fast pricing method”)
+- Import additions likely needed:
+  - `SectionBackgroundOverlay` (and `type SectionOverlayVariant` only if needed)
+  - `AspectRatio`
+  - `Accordion`, `AccordionItem`, `AccordionTrigger`, `AccordionContent`
+  - `cn` only if we need conditional classnames (optional)
+- Reuse your existing arrays: `cards` and `examples` (no copy rewrite).
 
-Update `src/components/services/shared/ServiceTrustBar.tsx`:
-- Change section wrapper to:
-  - `className="section-spacing-sm relative overflow-hidden bg-background"`
-  - add `SectionBackgroundOverlay` (likely `grid-lines` at ~0.45 + masked)
-- Render a single elevated container:
-  - `max-w-6xl mx-auto card-elevated p-6 md:p-8`
-- Each stat becomes a mini-card / row item with:
-  - icon container (muted background)
-  - counter + suffix
-  - label text
-- Keep animations and `AnimatedCounter` logic intact.
-
-Files:
-- `src/components/services/shared/ServiceTrustBar.tsx`
-
----
-
-### Phase 3 — Rebuild Benefits section to match the same overlay system
-Update `src/components/services/shared/ServiceBenefits.tsx`:
-- Replace the current custom background pattern div with `SectionBackgroundOverlay`
-- Switch spacing from `py-20 md:py-28` to `section-spacing` for consistency
-- Keep the content identical, but adjust layout:
-  - header style matches SplitSection (badge + H2 + lead)
-  - benefit cards use `card-elevated-hover` (consistent with other sections)
-  - consider reducing the 5-column layout on large screens if it feels cramped; optionally use 3 + 2 row layout (still same 5 items, just better composition)
-
-Files:
-- `src/components/services/shared/ServiceBenefits.tsx`
+### 2) No changes expected in
+- `src/components/shared/SplitSection.tsx` (we won’t extend it unless you want this pattern reusable)
+- `src/components/ui/accordion.tsx` (reuse as-is)
 
 ---
 
-### Phase 4 — Zone Selector (conversion-first UX)
-**Goal:** Make it feel like a landing page with a “guided decision” control.
-
-Update `src/components/services/formation/free-zone/FreeZoneComparison.tsx`:
-- Add a “Zone selector” UI above the grid:
-  - Use Radix Tabs (you already have `@radix-ui/react-tabs`) or a `Select` for mobile.
-  - Tabs: BIW / BLZ / BIIP / Sitra / All
-  - Behavior:
-    - “All” shows the full grid (current behavior)
-    - Selecting a zone highlights and scrolls/focuses its card, or filters to a single card (recommended: filter on mobile, highlight on desktop)
-- Ensure dropdowns/menus are not transparent and have proper z-index (per UI note).
-
-Files:
-- `src/components/services/formation/free-zone/FreeZoneComparison.tsx`
+## Styling details (to match your screenshot intent)
+- Header spacing: `mb-8 md:mb-10`
+- Image card:
+  - `card-elevated overflow-hidden`
+  - `AspectRatio ratio={16/9}` (or 21/9 if you want more “banner” feel; we’ll start with 16/9)
+- Content spacing: `mt-10`
+- Accordion container:
+  - Wrap accordion in a `Card` with `card-elevated`
+  - Keep triggers roomy: good tap targets, consistent icon blocks (`bg-muted`, rounded-xl)
+- Maintain visual hierarchy:
+  - Accordion titles: `font-semibold text-primary`
+  - Accordion content: `text-sm text-muted-foreground leading-relaxed`
 
 ---
 
-### Phase 5 — Sticky CTA bar (conversion-first UX)
-**Goal:** Always keep the user one click away from consulting/calling after they scroll.
-
-Implement a new component (or page-local) that:
-- Appears after user scrolls past hero (~400–600px)
-- Fixed at bottom on mobile, bottom-right or bottom center on desktop
-- Contains:
-  - Primary: “Free consultation”
-  - Secondary: “Call”
-- Styling:
-  - `card-elevated`, subtle overlay, high z-index (`z-50`)
-  - not too tall; avoid covering content (add bottom padding to page if needed)
-
-Where to mount it:
-- Best: inside `FreeZoneInBahrain` page only (so you can validate UX before using globally)
-- Alternatively: in `Layout` with route-based enabling (more complex; we will start page-only)
-
-Files:
-- `src/pages/FreeZoneInBahrain.tsx` (mount sticky CTA)
-- Potential new component: `src/components/services/formation/free-zone/FreeZoneStickyCTA.tsx` (small and reusable)
+## QA checklist (what you should verify in Preview)
+1) On `/free-zone-in-bahrain`, scroll to **Costs & fees**:
+   - Header appears first
+   - Image spans the section width (container width), not side-by-side
+   - Content is clearly below the image
+2) Accordion:
+   - Only one open at a time
+   - First item open by default
+   - Smooth open/close and readable on mobile
+3) Desktop layout:
+   - Below image: left accordion + right pricing-method card align cleanly
+4) Sticky CTA:
+   - Does not cover the bottom of accordion content on mobile (no blocked text)
 
 ---
 
-### Phase 6 — Bring FreeZonesGuide into the same landing system (big visual improvement)
-`FreeZonesGuide` currently uses a different layout system and no overlay.
-
-Update `src/components/services/formation/FreeZonesGuide.tsx`:
-- Convert it into a `SplitSection`-style section:
-  - Left: same header + short description (keep same meaning)
-  - Right: 2x2 grid of zone mini-cards linking to deep dives
-  - Keep the “Land from BHD 1/sqm/month” and CTA but style it as a compact footer inside a card (so it matches the landing page aesthetic)
-- Add overlay (since you want overlay everywhere): `grid-lines` or `dots` masked.
-
-Files:
-- `src/components/services/formation/FreeZonesGuide.tsx`
-
----
-
-### Phase 7 — Apply overlay + consistent header to the remaining “non-SplitSection” sections
-1) `src/components/services/formation/free-zone/FreeZoneFAQ.tsx`
-   - Wrap section in `relative overflow-hidden bg-background`
-   - Add `SectionBackgroundOverlay` (grid-lines masked low opacity)
-   - Ensure header spacing matches others
-
-2) `src/components/services/shared/RelatedServicesGrid.tsx`
-   - Change wrapper to `section-spacing relative overflow-hidden bg-background` or subtle bg
-   - Add overlay
-   - Normalize header to match (avoid custom `text-3xl md:text-4xl` if global `h2` handles it)
-
-Files:
-- `src/components/services/formation/free-zone/FreeZoneFAQ.tsx`
-- `src/components/services/shared/RelatedServicesGrid.tsx`
-
----
-
-### Phase 8 — Hero tuning (to match “overlay everywhere”)
-Update `src/components/services/shared/ServiceHeroSplit.tsx`:
-- Replace the ad-hoc overlay divs with `SectionBackgroundOverlay` usage (or align its opacity with the section overlays)
-- Slightly tighten hero spacing so it doesn’t feel oversized compared to the new stat strip and benefits
-- Keep H1 strong but ensure it doesn’t dominate the rest of the landing rail.
-
-Files:
-- `src/components/services/shared/ServiceHeroSplit.tsx`
-
----
-
-## QA checklist (what “nice” will look like)
-1) Full scroll on `/free-zone-in-bahrain`:
-   - No section feels like a different template
-   - Overlays are consistent and subtle (no “busy wallpaper”)
-2) Sticky CTA:
-   - Shows after hero, doesn’t cover important content
-   - Buttons work (consultation + tel)
-3) Zone selector:
-   - Works on mobile and desktop
-   - No transparent dropdowns; proper z-index
-4) Spacing:
-   - All major sections use `section-spacing` (or `section-spacing-sm` for trust strip)
-5) Performance:
-   - Only hero image eager; the rest lazy
-   - No layout shifts
-
----
-
-## Deliverable
-A fully redesigned, conversion-first landing page layout for `/free-zone-in-bahrain` that keeps all your existing content but looks like a single, premium, modern page:
-- overlay everywhere (consistent)
-- light trust stat cards
-- zone selector
-- sticky CTA
-- consistent headers, spacing, and card system
-
+## Optional follow-up (if you like this pattern)
+If you want to reuse this “header + full-width image + content below” pattern on more sections, we can add a `layout="stacked"` mode to `SplitSection` afterwards. For now, implementing it directly in `FreeZoneCostsFees.tsx` is the fastest and least risky.
