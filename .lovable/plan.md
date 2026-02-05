@@ -1,117 +1,111 @@
 
+Goal
+- Add the “Google Reviews / Trustpilot” review strip (like your screenshot) inside the hero section on every page.
+- Also identify which pages/heroes are currently missing it, and make the display consistent across the site.
 
-## Plan: Enhance "Why Do Some Business Activities Require a Local Sponsor?" Section
+What you want (confirmed)
+- Badges are static (not clickable).
+- Use fixed ratings: Google 4.9 and Trustpilot 4.8.
+- Apply to all pages (Home + all Services + About + Contact + Free Consultation).
 
-### Summary
-Redesign the OwnershipRequirement section with a minimal, modern aesthetic while condensing the content for better scannability.
+1) Audit: where the hero review strip exists vs missing
+Already has a review strip (in some form)
+- Home: src/components/home/Hero.tsx
+- Company Formation hero: src/components/services/formation/FormationHero.tsx
+- Lease hero: src/components/services/lease/LeaseHero.tsx
+- CR hero: src/components/services/cr/CRHero.tsx (has ratings, but layout differs from screenshot)
+- Plus several service heroes already include “Google Reviews / Trustpilot” blocks:
+  - src/components/services/wll/WLLHero.tsx
+  - src/components/services/spc/SPCHero.tsx
+  - src/components/services/branch/BranchHero.tsx
+  - src/components/services/liquidation/LiquidationHero.tsx
+  - src/components/services/bl/BLHero.tsx
+  - src/components/services/cr-amendment/CRAmendmentHero.tsx (variant differs)
 
-### Current Issues
-- Too many separate cards and visual elements
-- Content is spread across multiple sub-sections
-- Multiple heading styles create visual noise
-- Investor concerns section uses alarming red styling
+Missing (needs to be added)
+Core pages
+- About hero: src/components/about/AboutHero.tsx
+- Contact hero: src/components/contact/ContactHero.tsx
+- Free consultation hero: src/components/consultation/ConsultationHero.tsx
 
-### Proposed Design
+Services (examples confirmed missing from inspection)
+- PRO services hero: src/components/services/pro/PROHero.tsx
+- Tax services hero: src/components/services/tax/TaxHero.tsx
+- Virtual office hero: src/components/services/virtual-office/VirtualOfficeHero.tsx
+Likely additional service heroes missing (to be updated during implementation pass)
+- Document clearance, bank account, visa/immigration, legal, consulting, incubators, local sponsorship, MOA, certificate attestation, chamber services, etc. (we’ll systematically update every *Hero.tsx that does not already include the strip)
 
-```text
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│              Understanding Bahrain's Ownership Laws             │
-│                                                                 │
-│    Why Do Some Business Activities Require a Local Sponsor?    │
-│                                                                 │
-│   Brief intro paragraph (2-3 lines max)                         │
-│                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌──────────────────┐  ┌──────────────────┐                   │
-│   │ RESTRICTED       │  │ THE SOLUTION     │                   │
-│   │ ACTIVITIES       │  │                  │                   │
-│   │                  │  │                  │                   │
-│   │ • Real estate    │  │ Proper legal     │                   │
-│   │ • Trading        │  │ structuring      │                   │
-│   │ • Manpower       │  │ ensures full     │                   │
-│   │ • Professional   │  │ control while    │                   │
-│   │ • Media          │  │ accessing these  │                   │
-│   │                  │  │ sectors.         │                   │
-│   └──────────────────┘  └──────────────────┘                   │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+2) Implementation approach (keep it consistent and easy to maintain)
+A) Create a shared, reusable component
+- Add a new component (e.g., src/components/shared/HeroReviewStrip.tsx) that renders exactly the review strip layout from the screenshot:
+  - Left block: avatars + 5 gold stars + “4.9” + “Google Reviews”
+  - Divider (vertical on desktop)
+  - Right block: avatars + 5 green stars + “4.8” + “Trustpilot”
+- Use lucide-react Star icons (already in project) for consistent visuals.
+- Keep the styling responsive:
+  - Mobile: stacked vertically with spacing (no vertical divider)
+  - Desktop: inline row with divider (like the screenshot)
+- Keep it static (no links), per your choice.
 
-### Key Design Changes
+B) Normalize usage across all hero components
+- Replace duplicated review markup in existing heroes (Home/Formation/Lease/WLL/SPC/Branch/Liquidation/etc.) with <HeroReviewStrip /> to ensure:
+  - Same spacing, fonts, colors, avatar sizes everywhere
+  - One place to change later if you want real URLs, dynamic ratings, or different branding
 
-| Element | Current | New |
-|---------|---------|-----|
-| Layout | 4 separate sub-sections | 2-column split layout |
-| Restricted Activities | Individual cards with icons | Simple bullet list with subtle icons |
-| Investor Concerns | Red-styled warning cards | Remove entirely (addressed in later sections) |
-| The Right Approach | Separate box at bottom | Integrated into right column |
-| Typography | Multiple heading sizes | Simplified hierarchy |
-| Whitespace | Moderate | Generous (minimal aesthetic) |
+C) Add to missing hero components
+- Insert <HeroReviewStrip /> in each hero where it’s missing, placed in a consistent position:
+  - Usually after the CTAs and before any “trust line / accreditation line”
+  - In center-aligned heroes (About/Contact/Consultation): place under the subtitle/trust indicators (visually balanced)
+  - In split-layout heroes (Tax/PRO/VirtualOffice): place under CTAs on the text side
 
-### Content Consolidation
+D) Cover the shared generic hero too
+- Update src/components/services/shared/ServiceHero.tsx to include <HeroReviewStrip /> beneath its CTAs.
+  - This ensures any service pages using ServiceHero automatically get the strip.
 
-**Before (4 sub-sections):**
-1. Introduction paragraph
-2. Restricted Activities (5 cards)
-3. The Challenge for Foreign Investors (3 concern cards + 2 paragraphs)
-4. The Right Approach (1 box)
+3) Exact files we’ll touch (high-level)
+- New:
+  - src/components/shared/HeroReviewStrip.tsx (shared strip component)
+- Update (definite based on inspection):
+  - src/components/about/AboutHero.tsx
+  - src/components/contact/ContactHero.tsx
+  - src/components/consultation/ConsultationHero.tsx
+  - src/components/services/pro/PROHero.tsx
+  - src/components/services/tax/TaxHero.tsx
+  - src/components/services/virtual-office/VirtualOfficeHero.tsx
+  - src/components/services/shared/ServiceHero.tsx
+- Update (refactor to use shared component, removing duplicate code):
+  - src/components/home/Hero.tsx
+  - src/components/services/formation/FormationHero.tsx
+  - src/components/services/lease/LeaseHero.tsx
+  - src/components/services/cr/CRHero.tsx (align to screenshot format)
+  - src/components/services/wll/WLLHero.tsx
+  - src/components/services/spc/SPCHero.tsx
+  - src/components/services/branch/BranchHero.tsx
+  - src/components/services/liquidation/LiquidationHero.tsx
+  - src/components/services/bl/BLHero.tsx
+  - src/components/services/cr-amendment/CRAmendmentHero.tsx
+- Additional service hero files:
+  - During implementation, we’ll run a quick pass over all src/components/**/ *Hero.tsx to ensure none are missed.
 
-**After (2 columns):**
-1. Left: Restricted Activities (clean list)
-2. Right: The Solution (concise value proposition)
+4) QA / verification checklist (what you can test after implementation)
+- Visual check on these routes (at minimum):
+  - / (home)
+  - /about
+  - /contact
+  - /free-consultation
+  - /services/company-formation
+  - /services/virtual-office
+  - /services/tax-services
+  - /services/pro-services
+- Responsive:
+  - Mobile: strip stacks cleanly, no overflow, stars visible
+  - Desktop: strip aligns horizontally with a divider
+- Consistency:
+  - Same spacing, avatar size, star colors, typography across all heroes
 
-### Technical Changes
+5) Notes / edge cases
+- Current avatars in some heroes use external randomuser.me URLs; the shared component will keep a consistent approach. If you prefer fully local assets later (no external avatar URLs), we can switch to local placeholder avatar images in a follow-up.
+- Some heroes are left-aligned and others center-aligned; the shared component will support a simple alignment prop (center vs left) if needed so it looks natural everywhere.
 
-**File:** `src/components/services/local-sponsorship/OwnershipRequirement.tsx`
-
-1. **Remove:** Investor concerns section entirely (these points are covered in LegalProtectionFramework)
-2. **Simplify:** Restricted activities from card grid to inline list
-3. **Add:** Two-column layout with left showing activities, right showing solution
-4. **Update:** Typography to smaller, more refined scale
-5. **Reduce:** Overall vertical padding for tighter section
-
-### New Component Structure
-
-```tsx
-// Simplified data
-const restrictedActivities = [
-  "Real estate brokerage and property management",
-  "Certain import/export trading activities",
-  "Manpower supply and recruitment agencies",
-  "Specific professional services",
-  "Media and advertising activities"
-];
-
-// Two-column layout
-<div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-  {/* Left: Restricted Activities */}
-  <div className="bg-white rounded-2xl border p-6">
-    <h3>Restricted Activities</h3>
-    <ul className="space-y-3">
-      {activities.map(...)}
-    </ul>
-  </div>
-  
-  {/* Right: The Solution */}
-  <div className="bg-accent/5 rounded-2xl border-accent/20 p-6">
-    <h3>The Solution</h3>
-    <p>Concise explanation...</p>
-  </div>
-</div>
-```
-
-### Visual Refinements
-- Remove individual card icons (use simple bullet points)
-- Smaller section heading (`text-2xl md:text-3xl` instead of `text-3xl md:text-4xl`)
-- Tighter padding (`py-16 md:py-20` instead of `py-20 md:py-28`)
-- Consistent border styling between cards
-- Gold accent on solution card to draw attention
-
-### Implementation Steps
-1. Update OwnershipRequirement.tsx with new two-column layout
-2. Remove investorConcerns data and related UI
-3. Simplify restrictedActivities to text-only array
-4. Apply refined typography and spacing
-
+Deliverable
+- Every page hero shows the review strip (Google 4.9, Trustpilot 4.8) in the same style as your screenshot, with no missing pages and minimal duplicated code.
