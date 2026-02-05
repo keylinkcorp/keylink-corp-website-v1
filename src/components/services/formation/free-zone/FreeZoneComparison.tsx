@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeCheck, Factory, Ship, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SplitSection } from "@/components/shared/SplitSection";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
   SelectContent,
@@ -14,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-import comparisonImage from "@/assets/free-zone/biw-hero.jpg";
+import comparisonImage from "@/assets/free-zone/free-zone-comparison.png";
 
 type ZoneRow = {
   key: "biw" | "blz" | "biip" | "sitra";
@@ -111,18 +110,39 @@ export function FreeZoneComparison() {
           </Select>
         </div>
 
-        {/* Desktop: Tabs */}
+        {/* Desktop: Buttons (tabs removed) */}
         <div className="hidden md:block">
-          <Tabs value={zone} onValueChange={(v) => setZone(v as typeof zone)}>
-            <TabsList className="bg-card border border-border">
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="biw">BIW</TabsTrigger>
-              <TabsTrigger value="blz">BLZ</TabsTrigger>
-              <TabsTrigger value="biip">BIIP</TabsTrigger>
-              <TabsTrigger value="sitra">Sitra</TabsTrigger>
-            </TabsList>
-            <TabsContent value={zone} />
-          </Tabs>
+          <div
+            role="group"
+            aria-label="Filter zones"
+            className="inline-flex h-10 items-center justify-center rounded-md bg-card border border-border p-1 text-muted-foreground"
+          >
+            {(
+              [
+                { value: "all", label: "All" },
+                { value: "biw", label: "BIW" },
+                { value: "blz", label: "BLZ" },
+                { value: "biip", label: "BIIP" },
+                { value: "sitra", label: "Sitra" },
+              ] as const
+            ).map((opt) => {
+              const active = zone === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setZone(opt.value)}
+                  className={cn(
+                    "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                    active ? "bg-background text-foreground shadow-sm" : "hover:text-foreground",
+                  )}
+                  aria-pressed={active}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
