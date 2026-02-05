@@ -1,15 +1,20 @@
 import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { ServiceHero } from "@/components/services/shared/ServiceHero";
+import { ServiceHeroSplit } from "@/components/services/shared/ServiceHeroSplit";
 import { FreeZonesGuide } from "@/components/services/formation/FreeZonesGuide";
 import { FormationCTA } from "@/components/services/formation/FormationCTA";
-import { Clock, Globe, Shield } from "lucide-react";
+import { Building2, Clock, Globe, Shield, Timer, Users2 } from "lucide-react";
 import { FreeZoneQuickAnswer } from "@/components/services/formation/free-zone/FreeZoneQuickAnswer";
 import { FreeZoneComparison } from "@/components/services/formation/free-zone/FreeZoneComparison";
 import { FreeZoneSetupSteps } from "@/components/services/formation/free-zone/FreeZoneSetupSteps";
 import { FreeZoneFAQ } from "@/components/services/formation/free-zone/FreeZoneFAQ";
 import { FreeZoneCostsFees } from "@/components/services/formation/free-zone/FreeZoneCostsFees";
 import { FreeZoneDocumentsChecklist } from "@/components/services/formation/free-zone/FreeZoneDocumentsChecklist";
+import { ServiceTrustBar } from "@/components/services/shared/ServiceTrustBar";
+import { ServiceBenefits } from "@/components/services/shared/ServiceBenefits";
+import { RelatedServicesGrid } from "@/components/services/shared/RelatedServicesGrid";
+
+import heroImage from "@/assets/free-zone/free-zone-hero.jpg";
 
 export default function FreeZoneInBahrain() {
   useEffect(() => {
@@ -38,7 +43,7 @@ export default function FreeZoneInBahrain() {
 
   return (
     <Layout>
-      <ServiceHero
+      <ServiceHeroSplit
         badge="Launch Business"
         title="Free zone in"
         highlight="Bahrain"
@@ -52,6 +57,30 @@ export default function FreeZoneInBahrain() {
         secondaryCTA={{ text: "Call +973 1700 0000", href: "tel:+97317000000" }}
         priceFrom="BHD 1/sqm"
         priceLabel="Land from"
+        imageSrc={heroImage}
+        imageAlt="Bahrain industrial port skyline at golden hour"
+      />
+
+      <ServiceTrustBar
+        stats={[
+          { icon: Building2, value: 4, suffix: "", label: "Zones compared" },
+          { icon: Timer, value: 7, suffix: "days", label: "Typical setup (simple cases)" },
+          { icon: Users2, value: 500, suffix: "+", label: "Businesses supported" },
+          { icon: Shield, value: 100, suffix: "%", label: "Compliance-first planning" },
+        ]}
+      />
+
+      <ServiceBenefits
+        badge="Why this guide"
+        title="Make the zone decision once — and set up clean"
+        subtitle="Short, practical guidance based on what actually causes delays: activity approvals, address compliance, and facility fit."
+        benefits={[
+          { icon: Shield, title: "Approval planning", description: "We confirm your activity path before you sign a lease or commit to a zone." },
+          { icon: Clock, title: "Fewer delays", description: "Checklist-first submissions reduce back-and-forth and rework." },
+          { icon: Globe, title: "Founder-friendly", description: "Built for foreign-owned structures (eligibility is activity-dependent)." },
+          { icon: Building2, title: "Address fit", description: "We align your facility type (office/warehouse/land) with licensing." },
+          { icon: Timer, title: "Clear timeline", description: "You’ll know what happens next and what information affects time and cost." },
+        ]}
       />
 
       <FreeZoneQuickAnswer />
@@ -67,6 +96,39 @@ export default function FreeZoneInBahrain() {
       <FreeZoneSetupSteps />
 
       <FreeZoneFAQ />
+
+      <RelatedServicesGrid
+        badge="Related"
+        title="Helpful next steps"
+        subtitle="Internal pages that commonly sit next to industrial-zone setups."
+        services={[
+          {
+            icon: Building2,
+            title: "Company Formation",
+            description: "Choose the right structure and register cleanly.",
+            href: "/services/company-formation",
+          },
+          {
+            icon: Shield,
+            title: "Commercial Registration (CR)",
+            description: "Understand CR flow, requirements, and timelines.",
+            href: "/services/commercial-registration",
+          },
+          {
+            icon: Building2,
+            title: "Lease Contract Registration",
+            description: "Make sure your address is compliant for licensing.",
+            href: "/services/lease-contract-registration",
+          },
+          {
+            icon: Globe,
+            title: "Visa & Immigration",
+            description: "Plan founder and staff visas alongside setup.",
+            href: "/services/visa-immigration",
+          },
+        ]}
+        currentService="/free-zone-in-bahrain"
+      />
 
       <FormationCTA />
     </Layout>

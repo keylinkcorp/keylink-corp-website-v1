@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { ServiceHero } from "@/components/services/shared/ServiceHero";
+import { ServiceHeroSplit } from "@/components/services/shared/ServiceHeroSplit";
 import { FormationCTA } from "@/components/services/formation/FormationCTA";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock, Factory, Shield } from "lucide-react";
+
+import heroImage from "@/assets/free-zone/biip-hero.jpg";
 
 export default function BIIP() {
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function BIIP() {
 
   return (
     <Layout>
-      <ServiceHero
+      <ServiceHeroSplit
         badge="Zone Deep‑Dive"
         title="Bahrain International Investment Park"
         highlight="(BIIP)"
@@ -41,7 +43,20 @@ export default function BIIP() {
         ]}
         primaryCTA={{ text: "Get Free Consultation", href: "/free-consultation" }}
         secondaryCTA={{ text: "Call +973 1700 0000", href: "tel:+97317000000" }}
+        imageSrc={heroImage}
+        imageAlt="Modern light manufacturing facility exterior"
       />
+
+      <script type="application/ld+json" data-schema="breadcrumb-biip">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Free Zone in Bahrain", item: "https://keylinkcorp.com/free-zone-in-bahrain" },
+            { "@type": "ListItem", position: 2, name: "Bahrain International Investment Park (BIIP)", item: "https://keylinkcorp.com/free-zone-in-bahrain/biip" },
+          ],
+        })}
+      </script>
 
       <section className="section-spacing bg-background">
         <div className="container">
