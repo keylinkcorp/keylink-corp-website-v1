@@ -34,6 +34,7 @@ import LocalSponsorship from "./pages/services/LocalSponsorship";
 import BusinessIncubators from "./pages/services/BusinessIncubators";
 import VirtualOffice from "./pages/services/VirtualOffice";
 import FreeConsultation from "./pages/FreeConsultation";
+import FreeZoneInBahrain from "./pages/FreeZoneInBahrain";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -75,6 +76,7 @@ const App = () => (
           <Route path="/services/local-sponsorship" element={<LocalSponsorship />} />
           <Route path="/services/business-incubators" element={<BusinessIncubators />} />
           <Route path="/services/virtual-office" element={<VirtualOffice />} />
+          <Route path="/free-zone-in-bahrain" element={<FreeZoneInBahrain />} />
           <Route path="/free-consultation" element={<FreeConsultation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

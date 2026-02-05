@@ -25,6 +25,7 @@ const megaMenuItems = [
           { title: "Single Person Company", href: "/services/single-person-company", description: "SPC for solo entrepreneurs" },
           { title: "Branch Office", href: "/services/branch-office", description: "Foreign company branch setup" },
           { title: "WLL Company", href: "/services/wll-company", description: "Limited liability company" },
+          { title: "Free Zone in Bahrain", href: "/free-zone-in-bahrain", description: "Free zones guide & setup support" },
         ],
       },
       {
