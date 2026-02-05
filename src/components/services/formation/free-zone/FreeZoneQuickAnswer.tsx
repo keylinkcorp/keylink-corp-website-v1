@@ -3,7 +3,7 @@ import { CheckCircle2, Clock, Globe, Shield } from "lucide-react";
 import { SplitSection } from "@/components/shared/SplitSection";
 import { cn } from "@/lib/utils";
 
-import quickAnswerImage from "@/assets/free-zone/free-zone-steps.jpg";
+import quickAnswerImage from "@/assets/free-zone/free-zone-steps-portrait.jpg";
 
 const highlights = [
   {
@@ -70,21 +70,27 @@ export function FreeZoneQuickAnswer() {
       subtitle="Bahrain is often described as “free-zone-like” because many activities allow 100% foreign ownership and have a competitive tax environment. For industrial operations, dedicated zones and business parks (BLZ, BIIP, BIW and others) can provide clearer zoning, infrastructure, and logistics advantages."
       imageSrc={quickAnswerImage}
       imageAlt="Consultant and founder planning a company setup process"
+      imageRatio={3 / 4}
       variant="default"
       backgroundVariant="radial"
       overlayOpacity={1}
       imagePosition="right"
     >
-      <div className={cn("grid gap-4 sm:gap-6", "md:grid-cols-3", "items-stretch")}>
-        {highlights.map((item) => (
-          <HighlightCard
-            key={item.title}
-            icon={item.icon}
-            title={item.title}
-            value={item.value}
-            note={item.note}
-          />
-        ))}
+      <div className={cn("grid gap-4 sm:gap-6", "md:grid-cols-2", "items-stretch")}>
+        {highlights.map((item, idx) => {
+          const shouldSpan = idx === highlights.length - 1;
+          return (
+            <div key={item.title} className={cn(shouldSpan ? "md:col-span-2" : "")}
+            >
+              <HighlightCard
+                icon={item.icon}
+                title={item.title}
+                value={item.value}
+                note={item.note}
+              />
+            </div>
+          );
+        })}
       </div>
 
       <div className="mt-8 rounded-2xl border border-border bg-card p-6">
