@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
-import { Check, Clock, FileText, MessageCircle, Phone, Shield, Sparkles } from "lucide-react";
+import { Check, Clock, FileText, MessageCircle, Phone, Shield, Sparkles, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
 import heroImage from "@/assets/formation-hero-professional.jpg";
-import processImage from "@/assets/formation-process-professional.jpg";
-import consultantImage from "@/assets/formation-consultant.webp";
 
 type CompanyFormationHeroMontageProps = {
   onBookClick: () => void;
@@ -45,7 +43,7 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                   { icon: Shield, text: "MOIC/LMRA guidance and compliance support" },
                   { icon: FileText, text: "Transparent checklist + clear next steps" },
                 ].map((item) => (
-                  <li key={item.text} className="flex items-start gap-3 text-muted-foreground">
+                  <li key={item.text} className="flex items-start gap-3 text-foreground/90">
                     <item.icon className="mt-0.5 h-4 w-4 text-accent" />
                     {item.text}
                   </li>
@@ -57,14 +55,14 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                   Book Free Consultation
                 </Button>
 
-                <Button variant="outline" size="lg" asChild>
+                <Button variant="outline" size="default" asChild>
                   <a href="https://wa.me/97317008888">
                     <MessageCircle className="mr-2" />
                     WhatsApp
                   </a>
                 </Button>
 
-                <Button variant="outline" size="lg" asChild>
+                <Button variant="outline" size="default" asChild>
                   <a href="tel:+97317008888">
                     <Phone className="mr-2" />
                     Call
@@ -108,46 +106,69 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                 </div>
               </motion.div>
 
-              {/* Secondary 1 */}
+              {/* Offer Spec (replaces secondary photo) */}
               <motion.div
-                aria-hidden
-                className="hidden md:block absolute -left-10 bottom-10 w-[220px]"
+                className="hidden md:block absolute -left-10 bottom-10 w-[240px]"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, delay: 0.2 }}
               >
-                <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.35)]">
-                  <img
-                    src={processImage}
-                    alt=""
-                    className="h-[140px] w-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="p-3">
-                    <p className="text-xs font-medium text-foreground">Clear process</p>
-                    <p className="text-[11px] text-muted-foreground">Steps + checklist included</p>
+                <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.35)] hover-zoom-glow">
+                  <div className="p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-semibold text-accent">Offer</p>
+                        <p className="mt-1 text-lg font-bold tracking-tight text-foreground">From BHD 750</p>
+                        <p className="text-[11px] text-muted-foreground">+ government fees</p>
+                      </div>
+                      <div className="h-9 w-9 rounded-xl bg-accent/10 flex items-center justify-center">
+                        <Clock className="h-4 w-4 text-accent" />
+                      </div>
+                    </div>
+
+                    <div className="mt-4 space-y-2">
+                      <div className="flex items-start gap-2 text-[12px] text-foreground/90">
+                        <Clock className="mt-0.5 h-3.5 w-3.5 text-accent" />
+                        <span>3–7 business days typical</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-[12px] text-foreground/90">
+                        <Users className="mt-0.5 h-3.5 w-3.5 text-accent" />
+                        <span>100% foreign ownership options</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-[12px] text-foreground/90">
+                        <FileText className="mt-0.5 h-3.5 w-3.5 text-accent" />
+                        <span>Checklist after the call</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Secondary 2 */}
+              {/* Proof (replaces secondary photo) */}
               <motion.div
-                aria-hidden
-                className="hidden md:block absolute -right-10 top-10 w-[220px]"
+                className="hidden md:block absolute -right-10 top-10 w-[240px]"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, delay: 0.28 }}
               >
                 <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.35)]">
-                  <img
-                    src={consultantImage}
-                    alt=""
-                    className="h-[140px] w-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="p-3">
-                    <p className="text-xs font-medium text-foreground">Expert guidance</p>
-                    <p className="text-[11px] text-muted-foreground">Fast answers, fewer surprises</p>
+                  <div className="p-4">
+                    <p className="text-xs font-semibold text-muted-foreground">Trusted by founders worldwide</p>
+                    <div className="mt-3 grid grid-cols-2 gap-3">
+                      <div className="rounded-xl bg-muted/30 border border-border/60 p-3">
+                        <p className="text-2xl font-extrabold tracking-tight text-foreground">500+</p>
+                        <p className="text-[11px] text-muted-foreground">Businesses supported</p>
+                      </div>
+                      <div className="rounded-xl bg-muted/30 border border-border/60 p-3">
+                        <p className="text-2xl font-extrabold tracking-tight text-foreground">40+</p>
+                        <p className="text-[11px] text-muted-foreground">Countries served</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 flex items-center gap-2 text-[12px] text-foreground/90">
+                      <Sparkles className="h-3.5 w-3.5 text-accent" />
+                      <span>Fast response on WhatsApp</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
