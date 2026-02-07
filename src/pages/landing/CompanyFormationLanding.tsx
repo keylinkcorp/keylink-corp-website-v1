@@ -210,8 +210,8 @@ export default function CompanyFormationLanding() {
 
         {/* BOOKING */}
         <div id="book" />
-        <section aria-label="Book free consultation">
-          <div className="container mx-auto px-4 md:px-6 pt-16 md:pt-20">
+        <section aria-label="Book free consultation" className="section-spacing-sm">
+          <div className="container mx-auto px-4 md:px-6">
             <span className="section-badge">Booking</span>
             <h2>Book your free consultation</h2>
             <p className="mt-4">Free, 30 minutes, no obligation—book directly below.</p>
@@ -320,13 +320,13 @@ export default function CompanyFormationLanding() {
                   <Button size="lg" onClick={() => scrollToId("book")}>
                     Book Free Consultation
                   </Button>
-                  <Button variant="outline" size="lg" asChild>
+                  <Button variant="outline" size="default" asChild>
                     <a href="https://wa.me/97317008888">
                       <MessageCircle className="mr-2" />
                       WhatsApp
                     </a>
                   </Button>
-                  <Button variant="outline" size="lg" asChild>
+                  <Button variant="outline" size="default" asChild>
                     <a href="tel:+97317008888">
                       <Phone className="mr-2" />
                       Call
