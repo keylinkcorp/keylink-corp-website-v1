@@ -1,178 +1,176 @@
 
-## Goal (what you want)
-Add a **modern, MagicUI-inspired multi-step form right after the Hero** on `/lp/company-formation`.  
-Only **after the user submits their information** should we reveal the **Calendly “Book Free Consultation”** section (and scroll them to it). Calendly should not be visible before the form.
-
-You also want the multi-step questions to be **similar to your “company formation cost calculator” flow**, and after submit you want **Summary + Calendly** (no lead storage for now).
+## Objective
+Redesign the full `/lp/company-formation` landing page to look more modern and professional (premium “luxury editorial” aesthetic), while keeping the conversion flow intact:
+Hero → embedded Formation Cost Calculator → results/summary → Calendly unlock (no backend lead storage).
 
 ---
 
-## What I found in your current code
-- Route: `/lp/company-formation` renders `src/pages/landing/CompanyFormationLanding.tsx`.
-- Calendly is currently always shown in the “BOOKING” section via `CalendlyBooking`, and the Hero CTA scrolls to `#book`.
-- UTMs are already propagated correctly to Calendly by `mergeQueryParams(CALENDLY_BASE_URL, window.location.search)`.
-- You already have a good multi-step form pattern in `src/components/contact/ContactForm.tsx` (React Hook Form + Zod + step animations + toasts).
+## What’s already in place (current state)
+- `/lp/company-formation` is `src/pages/landing/CompanyFormationLanding.tsx`
+- Hero (`CompanyFormationHeroMontage`) already has premium visuals (mesh gradient, floating orb, montage cards).
+- Calculator (`FormationCostCalculator`) is embedded right after Hero and currently calls `onSeeResults()` when the user hits “See Results”.
+- Calendly is gated by `showBooking` in the landing page, triggered by calculator completion.
+- The app already has a design system in `src/index.css`:
+  - `section-spacing-sm`, `section-badge`, `card-elevated`, `glass-card-light`, gold/navy palette, mesh gradients.
 
 ---
 
-## Proposed UX (new flow)
-### Above the fold (Hero)
-- Primary CTA becomes: **“Get started”** (or “Check eligibility & book”)
-- Clicking it scrolls to the new form section (not Calendly).
-
-### After Hero (NEW)
-A **multi-step “Company Formation Quick Calculator” form** in a clean, centered “canvas” style (matching your current subtle side borders).
-
-### After form submit (NEW)
-- Show a **Summary card** (what they selected) + an action line like:  
-  “Great — now book your free 30‑minute call to confirm costs and timeline.”
-- Reveal **Calendly** below (same page), and auto-scroll to it.
-
-Calendly remains on the page, but **gated** behind successful form completion.
+## Core design issues to address
+1. **Calculator styling is visually “tool-like” rather than “premium landing”**
+   - Heavy “border-2” tiles everywhere, repeated gold borders, and a lead capture form inside results that doesn’t match the “Calculator unlocks booking” funnel.
+2. **Landing sections are good but not fully unified**
+   - Sections mix “card-elevated” / “glass-card-light” / band backgrounds inconsistently.
+3. **Results & booking transition needs a premium handoff**
+   - The “Summary” section exists, but we can elevate it into a more modern “quote card” design and make the booking reveal feel intentional.
 
 ---
 
-## Form content (based on “cost calculator” style)
-Because you said “only for company formation like our cost calculator” (but we don’t have the exact calculator here), I’ll implement a best-practice cost-qualifying set that’s typical for Bahrain formation.
+## Redesign approach (high-level)
+### A) Unify the page into 3 surface levels (consistent visual system)
+- Paper: `bg-background` (main canvas)
+- Elevated: `card-elevated` (key content)
+- Glass: `glass-card-light` (trust bar, subtle highlights)
 
-### Step 1 — Formation basics
-- “What best describes you?” (Individual / Existing company / Partner group)
-- “Planned business activity category” (simple dropdown presets + “Other”)
-- “Do you need visas?” (Yes/No + count selector 0–10)
-- “Office preference” (Virtual / Flexi-desk / Physical office / Not sure)
-- “Target timeline” (ASAP / This month / 1–3 months / Just exploring)
+### B) Make the calculator feel like a premium “guided estimator”
+- Softer borders, fewer hard outlines
+- More whitespace, clearer typography hierarchy
+- Cleaner selection states (less “gold border everywhere”, more “subtle highlight + small accent”)
+- Progress indicator refined to look like a premium wizard
 
-### Step 2 — Ownership & shareholders
-- “Shareholders count” (1 / 2 / 3+)
-- “Any Bahraini partner involved?” (Yes/No/Not sure)
-- “Preferred ownership” (100% foreign if possible / open / not sure)
-
-### Step 3 — Contact details + consent
-- Full name
-- Email
-- Phone
-- Company name (optional)
-- Consent checkbox (required)
-
-### Submit result
-- Show summary + Calendly.
+### C) Remove friction: no “Get Detailed Quote” form when embedded on LP
+Because the chosen flow is **calculator unlocks booking** and **no lead storage**, the embedded LP experience should not ask for name/email again inside the calculator results panel.
+Instead, the results view should:
+- show breakdown
+- show a strong CTA “Continue to free booking” (scrolls to Calendly)
+- optionally show “Prefer WhatsApp/Call” small secondary CTAs (subordinate)
 
 ---
 
-## Visual / styling direction (MagicUI-inspired, modern)
-- Keep the **light theme** and **subtle canvas borders** already added.
-- The form block will look like a **centered “wizard card”**:
-  - `bg-background`, soft shadow, border `border-border/60`
-  - clean step indicator (thin progress line or segmented steps)
-- Reduce “heavy card repetition” inside the form:
-  - use “field groups” with subtle dividers, not lots of elevated cards
-- Buttons:
-  - Primary: “Continue”, “Show summary”, “Unlock booking”
-  - Secondary: “Back”
-- Microcopy:
-  - “Takes ~60 seconds”
-  - “This helps us confirm exact costs and timeline on the call”
+## Implementation plan (concrete steps)
+
+### 1) Redesign `FormationCostCalculator` UI for embedded landing use
+**File:** `src/components/services/formation/FormationCostCalculator.tsx`
+
+**Add / refine props**
+- Introduce a prop to control “results mode” when embedded, for example:
+  - `resultsLayout?: "quote" | "leadForm"` (default keeps current behavior)
+  - or simpler: `hideLeadCapture?: boolean` automatically true when `embedded` + `onSeeResults` exists
+
+**Embedded “LP mode” behavior**
+- When `embedded` is true:
+  - Use lighter container styling (keep existing but refine):
+    - stronger “premium” shadow, consistent border `border-border/60`
+    - add subtle background overlay: `mesh-gradient-gold` at very low opacity or `pattern-grid-lines-light`
+- On results:
+  - Replace the “Get Your Detailed Quote” form with:
+    - a “Next step” card explaining booking
+    - a primary button: “Book free consultation” that triggers `onSeeResults` (already triggered on See Results) and scroll hint
+    - show trust microcopy: “Free • No obligation • 30 minutes”
+- Keep the lead capture form only for the non-embedded / service-page version (so you can still use it elsewhere if needed).
+
+**Visual refinements inside steps**
+- Replace `border-2` with `border` for tiles; selected state becomes:
+  - `bg-accent/5` + `ring-1 ring-accent/40` + slight shadow
+- Adjust tile sizes and spacing:
+  - reduce “big tiles grid” density on mobile (1-column for complex tiles, 2-column only for small ones)
+- Replace frequent “text-gold” usage with:
+  - accent used for key highlights only (price, selected state)
+  - primary text stays navy, secondary muted
+
+**Result breakdown redesign**
+- Convert list rows to a “receipt style”:
+  - label + amount aligned, subtle dividers, negative items green
+- Total section becomes premium:
+  - larger number, subtle gold radial behind, but restrained.
 
 ---
 
-## Technical implementation approach (fits your existing patterns)
-### 1) Add a new multi-step component (company-formation scoped)
-Create a new component (in the same folder pattern you use now):
-- `src/pages/landing/company-formation/CompanyFormationMultiStepForm.tsx`
+### 2) Update landing page section styling for a cohesive modern layout
+**File:** `src/pages/landing/CompanyFormationLanding.tsx`
 
-Implementation details:
-- Use `react-hook-form` + `zodResolver` like `ContactForm`.
-- Use local component state for `step` + animations (optional: reuse Framer Motion slide transitions).
-- Validation per step:
-  - Step 1 validates formation basics
-  - Step 2 validates shareholder/ownership inputs
-  - Step 3 validates name/email/phone + consent
-- On final submit:
-  - call `onComplete(formData)` passed from the landing page
-  - optionally persist to `sessionStorage` so refresh doesn’t lose progress (since “no storage” backend)
+**Hero / trust / calculator zone**
+- Add a smooth transition from hero into calculator:
+  - subtle divider band or background overlay behind the calculator area
+- Ensure the “Start here” block has consistent header sizing and spacing.
 
-### 2) Gate Calendly behind the form completion
-In `CompanyFormationLanding.tsx`:
-- Add state:
-  - `const [leadData, setLeadData] = useState<LeadData | null>(null);`
-  - `const [showBooking, setShowBooking] = useState(false);`
-- Render order becomes:
-  1. Hero
-  2. Trust bar
-  3. NEW form section (with an anchor id like `id="start"`)
-  4. Summary block (only if completed)
-  5. Calendly booking section (only if completed)
-- When the form completes:
-  - set `leadData`
-  - set `showBooking(true)`
-  - scroll smoothly to `#book`
+**Summary redesign**
+- Turn “Your estimate (quick recap)” into a premium quote card:
+  - left: company type + timeline
+  - right: estimated total with a subtle accent highlight
+  - add a “What happens next” mini timeline (3 bullets)
+- Add a “Continue to booking” button inside summary that scrolls to booking (this improves guidance).
 
-### 3) Update Hero CTA target
-In `CompanyFormationHeroMontage.tsx`:
-- Rename prop from `onBookClick` to something like `onPrimaryCtaClick` (or keep prop name but scroll to the form).
-- Change the button label to something closer to the new flow:
-  - “Get started” (recommended)
-  - Subtext still says “Free • No obligation …” but we’ll ensure it doesn’t imply booking happens immediately.
+**Booking section redesign**
+- Keep `CalendlyBooking variant="plain"`
+- Add a premium heading + short reassurance row above Calendly:
+  - “Free 30 minutes”, “Google Meet”, “No obligation”
+- Ensure spacing and card surfaces match the rest of the page.
 
-### 4) Keep UTM propagation intact
-- Keep the existing `calendlyUrl` `useMemo` logic in `CompanyFormationLanding.tsx`.
-- No changes needed unless you want to pass lead info into Calendly.
+**Mid-page sections**
+- Standardize card treatments:
+  - “How it works” steps: unify card style and hover to match calculator tiles
+  - “What you get” band: keep but refine internal padding and use consistent grid gaps
+  - Testimonials: align image + quote layout, reduce repeated shadows, make it more editorial
+  - FAQ: keep accordion but place it in a single premium elevated card with consistent padding
 
-Optional (only if you want):
-- Investigate Calendly “prefill” support (name/email) via query params or widget API.
-- If supported, we can append `name/email` to `calendlyUrl` after form submit.
-
-### 5) Make Calendly section match the new canvas (no full-bleed band)
-Right now `CalendlyBooking` renders its own `section` with `bg-muted/30` and big padding.
-To fit your “centered framed canvas” look:
-- Either:
-  - add a prop to `CalendlyBooking` to disable its background band styles, OR
-  - wrap it differently on the landing page and adjust internal styling so it feels like part of the framed column.
+**Final CTA**
+- Keep overlay-gold-radial-center, but refine:
+  - reduce overlay intensity
+  - ensure buttons hierarchy: booking primary, WhatsApp/Call outline
 
 ---
 
-## Files that will change
-- `src/pages/landing/CompanyFormationLanding.tsx`
-  - insert the gated multi-step section
-  - hide Calendly until completed
-  - update scroll targets
-- `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
-  - CTA now scrolls to the form
-  - copy adjustments for the new funnel
-- `src/components/consultation/CalendlyBooking.tsx` (likely)
-  - allow “no band background” mode so it fits the new framed layout
-- New file:
-  - `src/pages/landing/company-formation/CompanyFormationMultiStepForm.tsx`
+### 3) Small header polish (optional but recommended)
+**File:** `src/components/landing/LandingHeader.tsx`
+
+- Slightly modernize header:
+  - increase logo weight/kerning consistency
+  - tighten button sizes and spacing
+  - ensure sticky header background blur is consistent with premium style (`bg-background/70` + border)
+
+This is optional; the header already works well.
 
 ---
 
-## Edge cases & quality checks
-- Mobile:
-  - No horizontal scroll inside the framed canvas
-  - Steps are tap-friendly, progress indicator remains clear
-- Validation:
-  - If they try to continue without required answers, show inline errors + a toast (same as ContactForm pattern).
-- Calendly script:
-  - Ensure it loads only when needed (optional performance win):
-    - If we conditionally mount `CalendlyBooking` only after completion, the Calendly widget script won’t load on first paint.
-- Refresh behavior:
-  - Optionally keep progress and completion state in `sessionStorage` so users don’t lose their place.
+### 4) CSS utility additions (only if needed)
+**File:** `src/index.css`
+
+Only add utilities if we need repeated patterns for the new design, such as:
+- `lp-panel` (standard premium panel wrapper)
+- `lp-divider` (subtle section divider)
+- `lp-kpi` (small trust/metric chips)
+
+We already have a strong base system, so the goal is to reuse existing classes and keep additions minimal.
 
 ---
 
-## What I still need from you (so it matches your exact cost calculator)
-Your “Other” answer indicates you have a specific calculator logic. To match it precisely, I need one of these:
-1) A list of the exact questions/options your cost calculator uses (copy/paste), or  
-2) A screenshot/video of the calculator steps, or  
-3) The URL of that calculator (if public).
-
-If you provide that, I’ll mirror the steps 1:1 (same fields, same order, same labels).
+## QA checklist (what we will test after implementation)
+1. Full funnel works end-to-end:
+   - Hero “Get started” → calculator → “See Results” → summary visible → Calendly revealed and scrolls
+2. Responsive behavior:
+   - calculator tiles don’t overflow on mobile
+   - text remains readable, no cramped grids
+3. Visual consistency:
+   - one coherent card system across the page
+   - gold accent used sparingly (premium, not loud)
+4. Performance:
+   - Calendly widget only loads when revealed (already effectively handled by conditional render)
+5. No regression on other pages using `FormationCostCalculator`
+   - non-embedded version retains lead-capture behavior (if still desired)
 
 ---
 
-## Acceptance criteria (definition of done)
-- On `/lp/company-formation`, the user sees: Hero → Trust bar → Multi-step form (modern)  
-- Calendly booking is not visible until the form is submitted successfully  
-- After submit, user sees a clean summary + Calendly appears and page scrolls to it  
-- Light theme + subtle side borders remain consistent through the entire page  
-- Works on mobile and desktop, no layout shifts or horizontal scroll
+## Files expected to change
+- `src/components/services/formation/FormationCostCalculator.tsx` (primary redesign + embedded results behavior)
+- `src/pages/landing/CompanyFormationLanding.tsx` (section layout polish + summary/booking UI)
+- Optional:
+  - `src/components/landing/LandingHeader.tsx`
+  - `src/index.css` (only minimal new utility classes if needed)
+
+---
+
+## Outcome you should see
+- A noticeably more modern, premium-feeling landing page.
+- Calculator feels like a guided concierge estimator rather than a generic widget.
+- Clear, confident transition from estimate → booking (no extra lead capture friction).
+- Consistent “Luxury Editorial” look across Hero, calculator, summary, booking, and supporting sections.
