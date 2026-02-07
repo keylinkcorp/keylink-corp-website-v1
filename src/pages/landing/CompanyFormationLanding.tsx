@@ -17,6 +17,7 @@ import testimonial2 from "@/assets/testimonial-2.jpg";
 
 import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
 import { CompanyFormationTrustBar } from "@/pages/landing/company-formation/CompanyFormationTrustBar";
+import { CompanyFormationEstimateSummary } from "@/pages/landing/company-formation/CompanyFormationEstimateSummary";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
@@ -104,58 +105,42 @@ export default function CompanyFormationLanding() {
           {/* CALCULATOR (Gates booking) */}
           <div id="start" />
           <section aria-label="Company formation cost calculator" className="section-spacing-sm">
-            <div className="container mx-auto px-4 md:px-6">
-              <span className="section-badge">Start here</span>
-              <h2>Calculate your estimate</h2>
-              <p className="mt-4 max-w-2xl">
-                Answer a few questions to see your estimate—then book your free consultation to confirm the exact costs
-                and timeline.
-              </p>
+            <div className="relative">
+              <div aria-hidden className="absolute inset-0 mesh-gradient-gold opacity-60" />
+              <div aria-hidden className="absolute inset-0 pattern-grid-lines-light opacity-50" />
 
-              <div className="mt-8">
-                <FormationCostCalculator
-                  embedded
-                  showHeader={false}
-                  onSeeResults={(snapshot) => {
-                    setEstimate(snapshot);
-                    setShowBooking(true);
-                    requestAnimationFrame(() => scrollToId("book"));
-                  }}
-                />
-              </div>
-            </div>
-          </section>
-          {estimate && (
-            <section aria-label="Summary" className="section-spacing-sm">
-              <div className="container mx-auto px-4 md:px-6">
-                <span className="section-badge">Summary</span>
-                <h2>Your estimate (quick recap)</h2>
-
-                <div className="mt-8 card-elevated p-6 md:p-7">
-                  <div className="grid md:grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-muted-foreground">Company type</p>
-                      <p className="font-semibold text-foreground">{estimate.companyType.toUpperCase()}</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Timeline</p>
-                      <p className="font-semibold text-foreground">{estimate.timeline || "—"}</p>
-                    </div>
-                    <div className="md:col-span-2">
-                      <p className="text-muted-foreground">Estimated total</p>
-                      <p className="text-2xl font-bold text-foreground">BHD {estimate.total.toLocaleString()}</p>
-                    </div>
+              <div className="container mx-auto px-4 md:px-6 relative">
+                <div className="card-elevated p-6 md:p-8 noise-texture">
+                  <div className="max-w-2xl">
+                    <span className="section-badge">Start here</span>
+                    <h2>Calculate your estimate</h2>
+                    <p className="mt-4">
+                      Answer a few questions to see your estimate—then book your free consultation to confirm the exact
+                      costs and timeline.
+                    </p>
                   </div>
 
-                  <div className="mt-6 rounded-xl border border-border/60 bg-muted/20 p-4">
-                    <p className="text-sm text-muted-foreground">
-                      Next step: book your free 30‑minute consultation below to confirm eligibility, approvals, and final
-                      costs.
-                    </p>
+                  <div className="mt-8">
+                    <FormationCostCalculator
+                      embedded
+                      showHeader={false}
+                      onSeeResults={(snapshot) => {
+                        setEstimate(snapshot);
+                        setShowBooking(true);
+                        requestAnimationFrame(() => scrollToId("book"));
+                      }}
+                    />
                   </div>
                 </div>
               </div>
-            </section>
+            </div>
+          </section>
+
+          {estimate && (
+            <CompanyFormationEstimateSummary
+              estimate={estimate}
+              onContinue={() => scrollToId("book")}
+            />
           )}
 
           {/* HOW IT WORKS */}
