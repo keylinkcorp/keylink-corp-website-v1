@@ -9,7 +9,7 @@ const items = [
 
 export function CompanyFormationTrustBar() {
   return (
-    <section className="relative -mt-6 md:-mt-10">
+    <section className="relative -mt-4 md:-mt-8">
       <div className="container mx-auto px-4 md:px-6">
         <div className="glass-card-light p-4 md:p-5">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

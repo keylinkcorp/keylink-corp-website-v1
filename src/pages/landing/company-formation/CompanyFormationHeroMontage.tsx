@@ -11,13 +11,16 @@ type CompanyFormationHeroMontageProps = {
 
 export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHeroMontageProps) {
   return (
-    <section className="relative overflow-hidden noise-texture">
-      {/* Ambient background */}
-      <div aria-hidden className="absolute inset-0 mesh-gradient-gold" />
-      <div aria-hidden className="floating-orb floating-orb-gold animate-float-pulse -top-24 -left-24 h-[320px] w-[320px]" />
-      <div aria-hidden className="floating-orb floating-orb-navy animate-float-slow -bottom-24 -right-24 h-[380px] w-[380px]" />
+    <section className="relative overflow-hidden">
+      {/* Ambient background (soft, light MagicUI-style) */}
+      <div aria-hidden className="absolute inset-0 bg-muted/20" />
+      <div aria-hidden className="absolute inset-0 mesh-gradient-gold opacity-70" />
+      <div
+        aria-hidden
+        className="floating-orb floating-orb-gold animate-float-subtle -top-24 -left-24 h-[320px] w-[320px] opacity-60"
+      />
 
-      <div className="relative container mx-auto px-4 md:px-6 pt-14 md:pt-20 pb-12 md:pb-16">
+      <div className="relative container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-12 md:pb-16">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           {/* Copy */}
           <div className="lg:col-span-6">
