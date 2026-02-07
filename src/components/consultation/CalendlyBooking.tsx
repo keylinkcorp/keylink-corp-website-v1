@@ -24,7 +24,20 @@ const contactInfo = [
   { icon: MessageCircle, label: "WhatsApp", value: "+973 1700 8888", href: "https://wa.me/97317008888" },
 ];
 
-export function CalendlyBooking() {
+type CalendlyBookingProps = {
+  /** Defaults to Keylink free consultation Calendly link */
+  calendlyUrl?: string;
+  /** Widget height in px (default 700) */
+  height?: number;
+  /** Optional section id for on-page scrolling (e.g. "book") */
+  sectionId?: string;
+};
+
+export function CalendlyBooking({
+  calendlyUrl = "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1",
+  height = 700,
+  sectionId,
+}: CalendlyBookingProps) {
   useEffect(() => {
     // Load Calendly widget script
     const script = document.createElement("script");
@@ -44,7 +57,7 @@ export function CalendlyBooking() {
   }, []);
 
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
+    <section id={sectionId} className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Calendly Widget - Takes 2 columns */}
@@ -58,8 +71,8 @@ export function CalendlyBooking() {
             <div className="bg-background rounded-2xl shadow-lg border border-border/50 overflow-hidden">
               <div
                 className="calendly-inline-widget"
-                data-url="https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1"
-                style={{ minWidth: "320px", height: "700px" }}
+                data-url={calendlyUrl}
+                style={{ minWidth: "320px", height: `${height}px` }}
               />
             </div>
           </motion.div>
@@ -99,9 +112,7 @@ export function CalendlyBooking() {
 
             {/* Contact Details Card */}
             <div className="bg-primary rounded-2xl shadow-lg p-6 text-primary-foreground">
-              <h3 className="text-lg font-semibold mb-4">
-                Prefer to Talk Now?
-              </h3>
+              <h3 className="text-lg font-semibold mb-4">Prefer to Talk Now?</h3>
               <div className="space-y-4">
                 {contactInfo.map((contact, index) => (
                   <a
@@ -113,9 +124,7 @@ export function CalendlyBooking() {
                       <contact.icon className="w-5 h-5" />
                     </span>
                     <div>
-                      <p className="text-xs text-primary-foreground/60">
-                        {contact.label}
-                      </p>
+                      <p className="text-xs text-primary-foreground/60">{contact.label}</p>
                       <p className="font-medium">{contact.value}</p>
                     </div>
                   </a>
@@ -128,9 +137,7 @@ export function CalendlyBooking() {
                   <Clock className="w-4 h-4 text-accent" />
                   <span className="text-sm font-medium">Business Hours</span>
                 </div>
-                <p className="text-sm text-primary-foreground/70">
-                  Sunday - Thursday: 8:00 AM - 5:00 PM
-                </p>
+                <p className="text-sm text-primary-foreground/70">Sunday - Thursday: 8:00 AM - 5:00 PM</p>
               </div>
 
               {/* Location */}
@@ -146,10 +153,7 @@ export function CalendlyBooking() {
                 </p>
               </div>
 
-              <Button
-                className="w-full mt-6 bg-accent hover:bg-accent/90 text-primary"
-                asChild
-              >
+              <Button className="w-full mt-6 bg-accent hover:bg-accent/90 text-primary" asChild>
                 <a href="https://wa.me/97317008888">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Chat on WhatsApp
@@ -162,3 +166,4 @@ export function CalendlyBooking() {
     </section>
   );
 }
+
