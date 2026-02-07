@@ -603,8 +603,16 @@ export function FormationCostCalculator({
   const stepVariants = {
     hidden: { opacity: 0, x: 20 },
     visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -20 }
+    exit: { opacity: 0, x: -20 },
   };
+
+  const tileBase =
+    "group rounded-2xl border border-border/60 bg-background/70 backdrop-blur-sm cursor-pointer transition-all";
+  const tileUnselected = "hover:border-accent/40 hover:shadow-sm";
+  const tileSelected = "ring-1 ring-accent/40 border-accent/30 bg-accent/5 shadow-sm";
+  const tilePad = "p-5 md:p-6";
+  const iconClass = (selected: boolean) =>
+    cn("h-8 w-8 mb-3 transition-colors", selected ? "text-accent" : "text-muted-foreground");
 
   // Render step content based on company type and step
   const renderStepContent = () => {
@@ -612,42 +620,37 @@ export function FormationCostCalculator({
     if (step === 1) {
       return (
         <div>
-          <h3 className="text-2xl font-bold text-primary mb-2">
-            Choose Company Type
-          </h3>
+          <h3 className="text-2xl font-bold text-primary mb-2">Choose Company Type</h3>
           <p className="text-muted-foreground mb-8">
             Select the type of company you want to register in Bahrain
           </p>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {companyTypes.map((type) => (
-              <motion.div
-                key={type.id}
-                whileHover={{ y: -4 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleCompanyTypeSelect(type.id)}
-                className={cn(
-                  "p-6 rounded-2xl border-2 cursor-pointer transition-all",
-                  companyType === type.id
-                    ? "border-gold bg-gold/5 shadow-lg"
-                    : "border-border hover:border-gold/40"
-                )}
-              >
-                <type.icon className={cn(
-                  "h-10 w-10 mb-4",
-                  companyType === type.id ? "text-gold" : "text-muted-foreground"
-                )} />
-                <h4 className="font-bold text-primary text-xl mb-1">{type.name}</h4>
-                <p className="text-sm text-muted-foreground mb-1">{type.description}</p>
-                <p className="text-xs text-muted-foreground mb-3">{type.subtitle}</p>
-                <div className="flex items-center justify-between pt-3 border-t border-border">
-                  <span className="text-gold font-bold">from BHD {type.basePrice.toLocaleString()}</span>
-                  <span className="text-xs text-muted-foreground flex items-center gap-1">
-                    <Clock className="h-3 w-3" /> {type.timeline}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {companyTypes.map((type) => {
+              const selected = companyType === type.id;
+              return (
+                <motion.div
+                  key={type.id}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleCompanyTypeSelect(type.id)}
+                  className={cn(tileBase, tilePad, selected ? tileSelected : tileUnselected)}
+                >
+                  <type.icon className={cn("h-10 w-10 mb-4", selected ? "text-accent" : "text-muted-foreground")} />
+                  <h4 className="font-bold text-primary text-xl mb-1">{type.name}</h4>
+                  <p className="text-sm text-muted-foreground mb-1">{type.description}</p>
+                  <p className="text-xs text-muted-foreground mb-3">{type.subtitle}</p>
+                  <div className="flex items-center justify-between pt-3 border-t border-border/60">
+                    <span className="text-accent font-bold">
+                      from BHD {type.basePrice.toLocaleString()}
+                    </span>
+                    <span className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Clock className="h-3 w-3" /> {type.timeline}
+                    </span>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       );
@@ -753,34 +756,36 @@ export function FormationCostCalculator({
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setBusinessActivity(activity.id)}
                   className={cn(
-                    "p-5 rounded-2xl border-2 cursor-pointer transition-all relative",
+                    "p-5 rounded-2xl border border-border/60 bg-background/70 cursor-pointer transition-all relative",
                     businessActivity === activity.id
-                      ? "border-gold bg-gold/5 shadow-lg"
-                      : "border-border hover:border-gold/40"
+                      ? "ring-1 ring-accent/40 border-accent/30 bg-accent/5 shadow-sm"
+                      : "hover:border-accent/40 hover:shadow-sm"
                   )}
                 >
                   {activity.regulated && (
-                    <span className="absolute top-2 right-2 text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">
+                    <span className="absolute top-2 right-2 text-xs rounded-full border border-border/60 bg-muted/40 px-2 py-0.5 text-muted-foreground">
                       Regulated
                     </span>
                   )}
-                  <activity.icon className={cn(
-                    "h-6 w-6 mb-2",
-                    businessActivity === activity.id ? "text-gold" : "text-muted-foreground"
-                  )} />
+                  <activity.icon
+                    className={cn(
+                      "h-6 w-6 mb-2",
+                      businessActivity === activity.id ? "text-accent" : "text-muted-foreground"
+                    )}
+                  />
                   <h4 className="font-semibold text-primary text-sm">{activity.name}</h4>
                   {activity.fee > 0 && (
-                    <p className="text-gold font-semibold text-sm mt-1">+BHD {activity.fee}</p>
+                    <p className="text-accent font-semibold text-sm mt-1">+BHD {activity.fee}</p>
                   )}
                 </motion.div>
               ))}
             </div>
-            
-            {businessActivity && businessActivities.find(a => a.id === businessActivity)?.note && (
-              <div className="mt-4 p-4 bg-amber-50 rounded-xl border border-amber-200 flex items-start gap-3">
-                <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5" />
-                <p className="text-sm text-amber-800">
-                  {businessActivities.find(a => a.id === businessActivity)?.note}
+
+            {businessActivity && businessActivities.find((a) => a.id === businessActivity)?.note && (
+              <div className="mt-4 p-4 bg-muted/30 rounded-xl border border-border/60 flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-accent mt-0.5" />
+                <p className="text-sm text-muted-foreground">
+                  {businessActivities.find((a) => a.id === businessActivity)?.note}
                 </p>
               </div>
             )}
@@ -1309,28 +1314,28 @@ export function FormationCostCalculator({
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {services.map((service) => (
-            <motion.div
-              key={service.id}
-              whileHover={{ y: -2 }}
-              onClick={() => handleServiceToggle(service.id)}
-              className={cn(
-                "p-5 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-4",
-                selectedServices.includes(service.id)
-                  ? "border-gold bg-gold/5"
-                  : "border-border hover:border-gold/40"
-              )}
-            >
-              <Checkbox
-                checked={selectedServices.includes(service.id)}
-                className="h-5 w-5"
-              />
-              <div className="flex-1">
-                <h4 className="font-semibold text-primary">{service.name}</h4>
-              </div>
-              <span className="text-gold font-bold">+BHD {service.price}</span>
-            </motion.div>
-          ))}
+          {services.map((service) => {
+            const selected = selectedServices.includes(service.id);
+            return (
+              <motion.div
+                key={service.id}
+                whileHover={{ y: -2 }}
+                onClick={() => handleServiceToggle(service.id)}
+                className={cn(
+                  "p-5 rounded-2xl border border-border/60 bg-background/70 cursor-pointer transition-all flex items-center gap-4",
+                  selected
+                    ? "ring-1 ring-accent/40 border-accent/30 bg-accent/5"
+                    : "hover:border-accent/40 hover:shadow-sm"
+                )}
+              >
+                <Checkbox checked={selected} className="h-5 w-5" />
+                <div className="flex-1">
+                  <h4 className="font-semibold text-primary">{service.name}</h4>
+                </div>
+                <span className="text-accent font-bold">+BHD {service.price}</span>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     );
@@ -1344,47 +1349,53 @@ export function FormationCostCalculator({
     return (
       <div>
         <h3 className="text-2xl font-bold text-primary mb-6 flex items-center gap-2">
-          <Calculator className="h-6 w-6 text-gold" />
+          <Calculator className="h-6 w-6 text-accent" />
           Your Estimate
         </h3>
-        
-        <div className="mb-4 p-4 bg-muted/30 rounded-xl">
+
+        <div className="mb-6 rounded-2xl border border-border/60 bg-muted/20 p-5">
           <div className="flex items-center justify-between">
-            <span className="text-muted-foreground">Company Type</span>
-            <span className="font-semibold text-primary">{selectedTypeData?.name}</span>
+            <span className="text-sm text-muted-foreground">Company Type</span>
+            <span className="text-sm font-semibold text-primary">{selectedTypeData?.name}</span>
           </div>
           <div className="flex items-center justify-between mt-2">
-            <span className="text-muted-foreground">Estimated Timeline</span>
-            <span className="font-semibold text-primary flex items-center gap-1">
+            <span className="text-sm text-muted-foreground">Estimated Timeline</span>
+            <span className="text-sm font-semibold text-primary flex items-center gap-1">
               <Clock className="h-4 w-4" /> {selectedTypeData?.timeline}
             </span>
           </div>
         </div>
-        
-        <div className="space-y-3 mb-6">
-          {breakdown.map((item, index) => (
-            <div key={index} className="flex justify-between py-3 border-b border-border">
-              <span className="text-muted-foreground">{item.label}</span>
-              <span className={cn(
-                "font-semibold",
-                item.amount < 0 ? "text-green-600" : "text-primary"
-              )}>
-                {item.amount < 0 ? "-" : ""}BHD {Math.abs(item.amount).toLocaleString()}
+
+        <div className="rounded-2xl border border-border/60 bg-background/60">
+          <div className="px-5 py-4 border-b border-border/60">
+            <p className="text-sm font-semibold text-primary">Breakdown</p>
+            <p className="text-sm text-muted-foreground">A quick receipt-style recap.</p>
+          </div>
+
+          <div className="px-5 py-3">
+            <div className="divide-y divide-border/60">
+              {breakdown.map((item) => (
+                <div key={item.label} className="flex justify-between py-3 text-sm">
+                  <span className="text-muted-foreground">{item.label}</span>
+                  <span className="font-semibold text-primary">
+                    {item.amount < 0 ? "-" : ""}BHD {Math.abs(item.amount).toLocaleString()}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="px-5 py-4 border-t border-border/60 bg-muted/20 rounded-b-2xl">
+            <div className="flex justify-between items-center">
+              <span className="text-base font-semibold text-primary">Estimated Total</span>
+              <span className="text-3xl font-bold text-accent">
+                BHD {total.toLocaleString()}
               </span>
             </div>
-          ))}
-        </div>
-        
-        <div className="bg-primary/5 rounded-2xl p-6">
-          <div className="flex justify-between items-center">
-            <span className="text-lg font-semibold text-primary">Estimated Total</span>
-            <span className="text-3xl font-bold text-gold">
-              BHD {total.toLocaleString()}
-            </span>
+            <p className="text-sm text-muted-foreground mt-2">
+              Final quote may vary based on approvals and specific requirements.
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground mt-2">
-            *Final quote may vary based on specific requirements.
-          </p>
         </div>
       </div>
     );
@@ -1398,11 +1409,14 @@ export function FormationCostCalculator({
         embedded ? "" : "py-28 lg:py-36 bg-background"
       )}
     >
-      {/* Background Pattern */}
+      {/* Background */}
       {!embedded && (
-        <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
+        <div aria-hidden className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 mesh-gradient-gold opacity-60" />
+          <div className="absolute inset-0 pattern-grid-lines-light opacity-50" />
+        </div>
       )}
-      
+
       <div className={cn(embedded ? "" : "container relative")}>
         {showHeader && (
           <motion.div
@@ -1411,7 +1425,9 @@ export function FormationCostCalculator({
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">Interactive Tool</p>
+            <p className="text-sm font-medium text-accent tracking-wide uppercase mb-4">
+              Interactive Tool
+            </p>
             <h2 className="text-[40px] md:text-[48px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
               Calculate Your Company Formation Costs
             </h2>
@@ -1428,11 +1444,13 @@ export function FormationCostCalculator({
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          <div className={cn(
-            embedded
-              ? "rounded-3xl border border-border/60 bg-background shadow-sm p-6 md:p-8"
-              : "bg-background rounded-3xl border-2 border-border shadow-sm p-8 md:p-12"
-          )}>
+          <div
+            className={cn(
+              embedded
+                ? "rounded-3xl border border-border/60 bg-background/60 backdrop-blur-sm shadow-sm p-6 md:p-8"
+                : "bg-background rounded-3xl border border-border/60 shadow-sm p-8 md:p-12"
+            )}
+          >
             {/* Progress Bar */}
             {!showResult && (
               <div className="mb-10">
@@ -1440,7 +1458,7 @@ export function FormationCostCalculator({
                   <span className="text-sm font-medium text-muted-foreground">
                     Step {step} of {totalSteps}
                   </span>
-                  <span className="text-sm font-medium text-gold">
+                  <span className="text-sm font-medium text-accent">
                     {Math.round(progress)}% Complete
                   </span>
                 </div>
@@ -1469,77 +1487,100 @@ export function FormationCostCalculator({
                   transition={{ duration: 0.3 }}
                 >
                   {!isSubmitted ? (
-                    <div className="grid md:grid-cols-2 gap-10">
-                      {/* Cost Breakdown */}
-                      {renderResultsBreakdown()}
+                    embedded ? (
+                      <div className="grid gap-6">
+                        {renderResultsBreakdown()}
 
-                      {/* Lead Capture Form */}
-                      <div>
-                        <h3 className="text-2xl font-bold text-primary mb-2">
-                          Get Your Detailed Quote
-                        </h3>
-                        <p className="text-muted-foreground mb-6">
-                          Enter your details and we'll send a comprehensive proposal within 24 hours.
-                        </p>
-                        
-                        <div className="space-y-4">
-                          <div>
-                            <Label htmlFor="name">Full Name *</Label>
-                            <Input
-                              id="name"
-                              value={leadForm.name}
-                              onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
-                              placeholder="John Smith"
-                              className={formErrors.name ? "border-red-500" : ""}
-                            />
-                            {formErrors.name && (
-                              <p className="text-sm text-red-500 mt-1">{formErrors.name}</p>
-                            )}
+                        <div className="rounded-2xl border border-border/60 bg-muted/20 p-5">
+                          <p className="text-sm font-semibold text-primary">Next step</p>
+                          <p className="mt-1 text-sm text-muted-foreground">
+                            Book your free 30‑minute consultation to confirm eligibility, approvals, and the final quote.
+                          </p>
+
+                          <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                            <Button size="lg" className="w-full sm:w-auto" asChild>
+                              <a href="#book">Book free consultation</a>
+                            </Button>
+                            <Button variant="outline" className="w-full sm:w-auto" onClick={handleReset}>
+                              Start over
+                            </Button>
                           </div>
-                          
-                          <div>
-                            <Label htmlFor="email">Email Address *</Label>
-                            <Input
-                              id="email"
-                              type="email"
-                              value={leadForm.email}
-                              onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
-                              placeholder="john@company.com"
-                              className={formErrors.email ? "border-red-500" : ""}
-                            />
-                            {formErrors.email && (
-                              <p className="text-sm text-red-500 mt-1">{formErrors.email}</p>
-                            )}
-                          </div>
-                          
-                          <div>
-                            <Label htmlFor="phone">Phone (Optional)</Label>
-                            <Input
-                              id="phone"
-                              type="tel"
-                              value={leadForm.phone}
-                              onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
-                              placeholder="+973 1234 5678"
-                            />
-                          </div>
-                          
-                          <Button
-                            onClick={handleLeadSubmit}
-                            className="w-full h-12 text-base bg-primary hover:bg-primary/90"
-                          >
-                            <Send className="h-4 w-4 mr-2" />
-                            Get Detailed Quote
-                          </Button>
-                          
-                          <button
-                            onClick={handleReset}
-                            className="w-full text-sm text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            Start Over
-                          </button>
+
+                          <p className="mt-3 text-xs text-muted-foreground">
+                            Free • Google Meet • No obligation
+                          </p>
                         </div>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="grid md:grid-cols-2 gap-10">
+                        {/* Cost Breakdown */}
+                        {renderResultsBreakdown()}
+
+                        {/* Lead Capture Form */}
+                        <div>
+                          <h3 className="text-2xl font-bold text-primary mb-2">
+                            Get Your Detailed Quote
+                          </h3>
+                          <p className="text-muted-foreground mb-6">
+                            Enter your details and we'll send a comprehensive proposal within 24 hours.
+                          </p>
+
+                          <div className="space-y-4">
+                            <div>
+                              <Label htmlFor="name">Full Name *</Label>
+                              <Input
+                                id="name"
+                                value={leadForm.name}
+                                onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
+                                placeholder="John Smith"
+                                className={formErrors.name ? "border-destructive" : ""}
+                              />
+                              {formErrors.name && (
+                                <p className="text-sm text-destructive mt-1">{formErrors.name}</p>
+                              )}
+                            </div>
+
+                            <div>
+                              <Label htmlFor="email">Email Address *</Label>
+                              <Input
+                                id="email"
+                                type="email"
+                                value={leadForm.email}
+                                onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
+                                placeholder="john@company.com"
+                                className={formErrors.email ? "border-destructive" : ""}
+                              />
+                              {formErrors.email && (
+                                <p className="text-sm text-destructive mt-1">{formErrors.email}</p>
+                              )}
+                            </div>
+
+                            <div>
+                              <Label htmlFor="phone">Phone (Optional)</Label>
+                              <Input
+                                id="phone"
+                                type="tel"
+                                value={leadForm.phone}
+                                onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
+                                placeholder="+973 1234 5678"
+                              />
+                            </div>
+
+                            <Button onClick={handleLeadSubmit} className="w-full h-12 text-base">
+                              <Send className="h-4 w-4 mr-2" />
+                              Get Detailed Quote
+                            </Button>
+
+                            <button
+                              onClick={handleReset}
+                              className="w-full text-sm text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              Start Over
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )
                   ) : (
                     /* Success State */
                     <div className="text-center py-10">
@@ -1547,16 +1588,16 @@ export function FormationCostCalculator({
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", duration: 0.5 }}
-                        className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6"
+                        className="w-20 h-20 rounded-full bg-muted flex items-center justify-center mx-auto mb-6"
                       >
-                        <Check className="h-10 w-10 text-green-600" />
+                        <Check className="h-10 w-10 text-accent" />
                       </motion.div>
                       <h3 className="text-2xl font-bold text-primary mb-2">
                         Quote Request Submitted!
                       </h3>
                       <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                        Thank you for your interest. Our team will review your requirements 
-                        and send you a detailed proposal within 24 hours.
+                        Thank you for your interest. Our team will review your requirements and send you a detailed
+                        proposal within 24 hours.
                       </p>
                       <Button onClick={handleReset} variant="outline">
                         Calculate Another Quote
