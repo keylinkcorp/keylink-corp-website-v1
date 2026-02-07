@@ -2,7 +2,7 @@ import { Ship, Warehouse, Factory, Building2, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SplitSection } from "@/components/shared/SplitSection";
 
-import guideImage from "@/assets/free-zone/free-zones-guide-portrait.jpg";
+import guideImage from "@/assets/free-zone/free-zones-guide-portrait-option-1.jpg";
 
 const zones = [
   {
