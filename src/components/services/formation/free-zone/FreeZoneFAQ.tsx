@@ -62,10 +62,12 @@ export function FreeZoneFAQ(props: { items?: FreeZoneFaqItem[] }) {
   }, [items]);
 
   return (
-    <section className="section-spacing relative overflow-hidden bg-background">
-      <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
+    <section className="section-spacing relative overflow-hidden bg-secondary/40">
+      <SectionBackgroundOverlay variant="radial" opacity={1} masked={false} className="opacity-55" />
+      <SectionBackgroundOverlay variant="grid-lines" opacity={0.45} masked />
       {/* JSON-LD (kept in-body for SPA; crawlers can still read it) */}
       <script type="application/ld+json" data-schema="free-zone-bahrain-faq">
+
         {JSON.stringify(faqJsonLd)}
       </script>
 
