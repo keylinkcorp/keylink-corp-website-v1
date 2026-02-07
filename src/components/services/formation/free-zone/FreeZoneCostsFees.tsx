@@ -88,11 +88,16 @@ export function FreeZoneCostsFees() {
           </figure>
 
           {/* Content below image */}
-          <div className="mt-10 grid gap-6 lg:grid-cols-12">
+          <div className="mt-10 grid gap-6 lg:grid-cols-12 lg:gap-8 items-start">
             {/* Left: accordion */}
-            <Card className="card-elevated lg:col-span-7">
+            <Card className="card-elevated lg:col-span-7 overflow-hidden">
               <CardContent className="p-0">
-                <Accordion type="single" collapsible defaultValue="registration" className="px-6 py-2">
+                <Accordion
+                  type="single"
+                  collapsible
+                  defaultValue="registration"
+                  className="px-4 sm:px-6"
+                >
                   {cards.map((c) => (
                     <AccordionItem
                       key={c.title}
@@ -106,15 +111,30 @@ export function FreeZoneCostsFees() {
                       className="border-border"
                     >
                       <AccordionTrigger className="py-5 hover:no-underline">
-                        <span className="flex items-center gap-3 text-left">
-                          <span className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
-                            <c.icon className="w-5 h-5 text-accent" />
+                        <span className="flex w-full items-center justify-between gap-4 text-left">
+                          <span className="flex items-center gap-3 min-w-0">
+                            <span className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                              <c.icon className="w-5 h-5 text-accent" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block text-base font-semibold text-primary tracking-tight">
+                                {c.title}
+                              </span>
+                              <span className="mt-1 hidden sm:block text-xs text-muted-foreground">
+                                {c.title === "Registration + licensing"
+                                  ? "Approvals, activity, and licensing scope"
+                                  : c.title === "Address / lease"
+                                    ? "Zone selection and facility fit"
+                                    : "Space, staffing, and compliance"}
+                              </span>
+                            </span>
                           </span>
-                          <span className="text-base font-semibold text-primary tracking-tight">{c.title}</span>
                         </span>
                       </AccordionTrigger>
-                      <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
-                        {c.description}
+                      <AccordionContent className="pb-6 text-sm text-muted-foreground leading-relaxed">
+                        <div className="rounded-xl bg-secondary/30 border border-border p-4">
+                          {c.description}
+                        </div>
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -130,7 +150,7 @@ export function FreeZoneCostsFees() {
                         </span>
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent>
+                    <AccordionContent className="pb-6">
                       <div className="space-y-4">
                         {examples.map((ex) => (
                           <div key={ex.title} className="rounded-xl border border-border bg-background p-4">
@@ -157,21 +177,39 @@ export function FreeZoneCostsFees() {
             </Card>
 
             {/* Right: highlight card */}
-            <Card className="card-elevated lg:col-span-5">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-3">
-                  <Calculator className="w-5 h-5 text-accent mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-primary">Fast pricing method</p>
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                      We estimate total setup by confirming: (1) your activity, (2) ownership eligibility, (3) zone-fit, and (4)
-                      space requirement (sqm). This prevents under-budgeting and avoids choosing a lease that doesn’t match
-                      licensing.
-                    </p>
+            <div className="lg:col-span-5 lg:sticky lg:top-24">
+              <Card className="card-elevated">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-3">
+                    <Calculator className="w-5 h-5 text-accent mt-0.5" />
+                    <div>
+                      <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                        Fast pricing method
+                      </p>
+                      <p className="mt-2 text-base font-semibold text-primary tracking-tight">
+                        Get a realistic setup estimate in one call
+                      </p>
+                      <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                        We estimate total setup by confirming: (1) your activity, (2) ownership eligibility, (3) zone-fit, and (4)
+                        space requirement (sqm). This prevents under-budgeting and avoids choosing a lease that doesn’t match
+                        licensing.
+                      </p>
+
+                      <div className="mt-5 grid gap-3">
+                        <div className="rounded-xl border border-border bg-secondary/30 p-4">
+                          <p className="text-xs font-medium text-muted-foreground">What you share</p>
+                          <p className="mt-1 text-sm font-semibold text-primary">Activity + ownership + sqm</p>
+                        </div>
+                        <div className="rounded-xl border border-border bg-secondary/30 p-4">
+                          <p className="text-xs font-medium text-muted-foreground">What you get</p>
+                          <p className="mt-1 text-sm font-semibold text-primary">Zone shortlist + next steps</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
