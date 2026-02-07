@@ -1,92 +1,178 @@
 
-Goal
-- Update /lp/company-formation to feel like the MagicUI references: centered content column, generous whitespace, and faint left/right “page frame” borders (subtle 1px lines), while keeping your Gold/Navy brand accents and the conversion-first structure.
+## Goal (what you want)
+Add a **modern, MagicUI-inspired multi-step form right after the Hero** on `/lp/company-formation`.  
+Only **after the user submits their information** should we reveal the **Calendly “Book Free Consultation”** section (and scroll them to it). Calendly should not be visible before the form.
 
-What I observed in your current implementation
-- The page uses full-width sections with occasional background bands (e.g., bg-muted/20), but the visual “centered column” is not consistent because backgrounds and containers are applied at section level rather than a single page frame.
-- The hero currently has stronger decorative effects (noise + mesh + floating orbs) than MagicUI’s cleaner, calmer “centered canvas” look.
-- Your UI already has good tokens/utilities (border, muted, glass-card-light, etc.). We can reuse them and add 1–2 simple “page frame” utilities.
+You also want the multi-step questions to be **similar to your “company formation cost calculator” flow**, and after submit you want **Summary + Calendly** (no lead storage for now).
 
-Design direction from your references (Agent/CodeForge MagicUI)
-- A “page canvas” centered with a max width, sitting on a slightly tinted outer background.
-- Very subtle vertical border lines on left/right of the canvas, present throughout scroll.
-- Cleaner hero background: soft gradients, minimal decoration, clear type hierarchy.
+---
 
-Critical clarification needed (one decision)
-- You didn’t answer “Side borders” placement. I’ll implement “Full-page frame” by default (most consistent with the MagicUI feel). If you prefer hero-only or key-sections-only, we’ll adjust quickly afterward.
+## What I found in your current code
+- Route: `/lp/company-formation` renders `src/pages/landing/CompanyFormationLanding.tsx`.
+- Calendly is currently always shown in the “BOOKING” section via `CalendlyBooking`, and the Hero CTA scrolls to `#book`.
+- UTMs are already propagated correctly to Calendly by `mergeQueryParams(CALENDLY_BASE_URL, window.location.search)`.
+- You already have a good multi-step form pattern in `src/components/contact/ContactForm.tsx` (React Hook Form + Zod + step animations + toasts).
 
-Implementation approach (no backend changes)
-We’ll implement a reusable “LP frame” wrapper that:
-- Applies a soft outer background tint to the whole viewport.
-- Centers a max-width “canvas” with subtle left/right borders.
-- Keeps header/footer aligned with the same canvas (so the frame feels continuous).
-- Moves section background bands inside the canvas so they don’t break the centered-frame illusion.
+---
 
-Files to change
-1) src/pages/landing/CompanyFormationLanding.tsx
-2) src/index.css (add 1–2 small utilities for the frame and optional soft gradient)
+## Proposed UX (new flow)
+### Above the fold (Hero)
+- Primary CTA becomes: **“Get started”** (or “Check eligibility & book”)
+- Clicking it scrolls to the new form section (not Calendly).
 
-Step-by-step changes
+### After Hero (NEW)
+A **multi-step “Company Formation Quick Calculator” form** in a clean, centered “canvas” style (matching your current subtle side borders).
 
-1) Create a centered “canvas frame” for the entire landing page (CompanyFormationLanding.tsx)
-- Wrap the whole page content in an outer background:
-  - Outer wrapper: min-h-screen + a very light tinted background (e.g., bg-muted/20 or a custom subtle gradient utility)
-- Add an inner “LP canvas” wrapper:
-  - mx-auto max-w-[1100px] (or similar)
-  - border-l border-r border-border/60 (your “Subtle line” choice)
-  - bg-background
-  - Ensure it stretches full height and keeps consistent padding rhythm:
-    - Keep inner padding on sections via existing container classes, but ensure the frame provides the visual boundary.
+### After form submit (NEW)
+- Show a **Summary card** (what they selected) + an action line like:  
+  “Great — now book your free 30‑minute call to confirm costs and timeline.”
+- Reveal **Calendly** below (same page), and auto-scroll to it.
 
-2) Make section backgrounds consistent inside the frame (CompanyFormationLanding.tsx)
-- Currently some sections use bg-muted/20 at the section level (full width).
-- Change these so the “muted band” background is applied inside the canvas only:
-  - Option A (recommended): keep the section full-width but inside it, add a band div with bg-muted/20 and border-y, and keep content within it.
-  - Result: you still get alternating bands, but they appear inside the centered framed column rather than spanning the entire viewport.
+Calendly remains on the page, but **gated** behind successful form completion.
 
-3) Adjust the TrustBar positioning for the new frame (CompanyFormationTrustBar.tsx usage)
-- The TrustBar is currently pulled upward with negative margin (-mt-6 / -mt-10).
-- With a strict framed canvas, we’ll verify it doesn’t visually “collide” with the frame border.
-- Likely adjustments:
-  - Reduce negative margin slightly, or
-  - Add top padding to the first content section so the overlap feels intentional.
+---
 
-4) Soften the hero to match the MagicUI “centered canvas” aesthetic (CompanyFormationHeroMontage.tsx)
-- Keep minimal imagery (1 hero image + 2 editorial cards) as you requested.
-- Reduce visual noise:
-  - Tone down or remove floating orbs (these read more “decorative landing page” than “MagicUI clean”).
-  - Keep mesh gradient but lower intensity (opacity) so it feels like a soft wash.
-  - Reduce noise texture opacity if it makes the canvas feel “dirty” rather than “premium”.
-- Tighten the hero container spacing to a more MagicUI-like centered composition:
-  - Slightly reduce top padding on desktop (pt-14 md:pt-20 can feel tall once framed).
-  - Keep headline and subcopy centered-left aligned as-is (conversion friendly), but ensure line lengths match the “canvas” width.
+## Form content (based on “cost calculator” style)
+Because you said “only for company formation like our cost calculator” (but we don’t have the exact calculator here), I’ll implement a best-practice cost-qualifying set that’s typical for Bahrain formation.
 
-5) Add a small CSS utility for the frame (src/index.css)
-- Add a utility class (example names):
-  - .lp-canvas (max-width + border-x + background)
-  - Optional: .lp-outer (subtle gradient background behind the canvas)
-- Use existing tokens (border, muted, background) so everything stays consistent with the design system.
+### Step 1 — Formation basics
+- “What best describes you?” (Individual / Existing company / Partner group)
+- “Planned business activity category” (simple dropdown presets + “Other”)
+- “Do you need visas?” (Yes/No + count selector 0–10)
+- “Office preference” (Virtual / Flexi-desk / Physical office / Not sure)
+- “Target timeline” (ASAP / This month / 1–3 months / Just exploring)
 
-6) Visual QA checklist (end-to-end)
-- Desktop:
-  - Frame borders visible but subtle; consistent through all sections including header and footer.
-  - Alternating muted bands appear inside the framed column (not full-bleed).
-  - Hero looks calmer and more “MagicUI clean” (less busy background).
+### Step 2 — Ownership & shareholders
+- “Shareholders count” (1 / 2 / 3+)
+- “Any Bahraini partner involved?” (Yes/No/Not sure)
+- “Preferred ownership” (100% foreign if possible / open / not sure)
+
+### Step 3 — Contact details + consent
+- Full name
+- Email
+- Phone
+- Company name (optional)
+- Consent checkbox (required)
+
+### Submit result
+- Show summary + Calendly.
+
+---
+
+## Visual / styling direction (MagicUI-inspired, modern)
+- Keep the **light theme** and **subtle canvas borders** already added.
+- The form block will look like a **centered “wizard card”**:
+  - `bg-background`, soft shadow, border `border-border/60`
+  - clean step indicator (thin progress line or segmented steps)
+- Reduce “heavy card repetition” inside the form:
+  - use “field groups” with subtle dividers, not lots of elevated cards
+- Buttons:
+  - Primary: “Continue”, “Show summary”, “Unlock booking”
+  - Secondary: “Back”
+- Microcopy:
+  - “Takes ~60 seconds”
+  - “This helps us confirm exact costs and timeline on the call”
+
+---
+
+## Technical implementation approach (fits your existing patterns)
+### 1) Add a new multi-step component (company-formation scoped)
+Create a new component (in the same folder pattern you use now):
+- `src/pages/landing/company-formation/CompanyFormationMultiStepForm.tsx`
+
+Implementation details:
+- Use `react-hook-form` + `zodResolver` like `ContactForm`.
+- Use local component state for `step` + animations (optional: reuse Framer Motion slide transitions).
+- Validation per step:
+  - Step 1 validates formation basics
+  - Step 2 validates shareholder/ownership inputs
+  - Step 3 validates name/email/phone + consent
+- On final submit:
+  - call `onComplete(formData)` passed from the landing page
+  - optionally persist to `sessionStorage` so refresh doesn’t lose progress (since “no storage” backend)
+
+### 2) Gate Calendly behind the form completion
+In `CompanyFormationLanding.tsx`:
+- Add state:
+  - `const [leadData, setLeadData] = useState<LeadData | null>(null);`
+  - `const [showBooking, setShowBooking] = useState(false);`
+- Render order becomes:
+  1. Hero
+  2. Trust bar
+  3. NEW form section (with an anchor id like `id="start"`)
+  4. Summary block (only if completed)
+  5. Calendly booking section (only if completed)
+- When the form completes:
+  - set `leadData`
+  - set `showBooking(true)`
+  - scroll smoothly to `#book`
+
+### 3) Update Hero CTA target
+In `CompanyFormationHeroMontage.tsx`:
+- Rename prop from `onBookClick` to something like `onPrimaryCtaClick` (or keep prop name but scroll to the form).
+- Change the button label to something closer to the new flow:
+  - “Get started” (recommended)
+  - Subtext still says “Free • No obligation …” but we’ll ensure it doesn’t imply booking happens immediately.
+
+### 4) Keep UTM propagation intact
+- Keep the existing `calendlyUrl` `useMemo` logic in `CompanyFormationLanding.tsx`.
+- No changes needed unless you want to pass lead info into Calendly.
+
+Optional (only if you want):
+- Investigate Calendly “prefill” support (name/email) via query params or widget API.
+- If supported, we can append `name/email` to `calendlyUrl` after form submit.
+
+### 5) Make Calendly section match the new canvas (no full-bleed band)
+Right now `CalendlyBooking` renders its own `section` with `bg-muted/30` and big padding.
+To fit your “centered framed canvas” look:
+- Either:
+  - add a prop to `CalendlyBooking` to disable its background band styles, OR
+  - wrap it differently on the landing page and adjust internal styling so it feels like part of the framed column.
+
+---
+
+## Files that will change
+- `src/pages/landing/CompanyFormationLanding.tsx`
+  - insert the gated multi-step section
+  - hide Calendly until completed
+  - update scroll targets
+- `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+  - CTA now scrolls to the form
+  - copy adjustments for the new funnel
+- `src/components/consultation/CalendlyBooking.tsx` (likely)
+  - allow “no band background” mode so it fits the new framed layout
+- New file:
+  - `src/pages/landing/company-formation/CompanyFormationMultiStepForm.tsx`
+
+---
+
+## Edge cases & quality checks
 - Mobile:
-  - Borders can be removed or reduced (optional) to avoid cramped feel; alternatively keep but ensure padding is sufficient.
-  - No horizontal scroll.
-  - Primary CTA remains dominant; WhatsApp/Call stay secondary.
+  - No horizontal scroll inside the framed canvas
+  - Steps are tap-friendly, progress indicator remains clear
+- Validation:
+  - If they try to continue without required answers, show inline errors + a toast (same as ContactForm pattern).
+- Calendly script:
+  - Ensure it loads only when needed (optional performance win):
+    - If we conditionally mount `CalendlyBooking` only after completion, the Calendly widget script won’t load on first paint.
+- Refresh behavior:
+  - Optionally keep progress and completion state in `sessionStorage` so users don’t lose their place.
 
-Risks / trade-offs
-- Applying a global framed canvas means any full-bleed section backgrounds must be refactored to avoid breaking the frame illusion.
-- Negative margin overlaps (TrustBar) need rebalancing so the frame feels intentional rather than “misaligned”.
+---
 
-After this, optional enhancements (if you want it even closer to MagicUI)
-- Add a very subtle “top-to-bottom vignette” on the outer background.
-- Add faint grid/noise only in the outer background (not inside the canvas) so the content stays crisp.
-- Standardize all section headings to the same max width and spacing to strengthen the “centered editorial” rhythm.
+## What I still need from you (so it matches your exact cost calculator)
+Your “Other” answer indicates you have a specific calculator logic. To match it precisely, I need one of these:
+1) A list of the exact questions/options your cost calculator uses (copy/paste), or  
+2) A screenshot/video of the calculator steps, or  
+3) The URL of that calculator (if public).
 
-Definition of done
-- /lp/company-formation has a centered, consistent canvas with faint left/right border lines (subtle 1px).
-- Background bands and content feel cohesive inside that canvas.
-- The hero reads cleaner and more premium (closer to MagicUI references) while keeping your CTA and price anchor intact.
+If you provide that, I’ll mirror the steps 1:1 (same fields, same order, same labels).
+
+---
+
+## Acceptance criteria (definition of done)
+- On `/lp/company-formation`, the user sees: Hero → Trust bar → Multi-step form (modern)  
+- Calendly booking is not visible until the form is submitted successfully  
+- After submit, user sees a clean summary + Calendly appears and page scrolls to it  
+- Light theme + subtle side borders remain consistent through the entire page  
+- Works on mobile and desktop, no layout shifts or horizontal scroll
