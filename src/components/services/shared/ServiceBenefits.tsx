@@ -28,8 +28,8 @@ export function ServiceBenefits({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="section-spacing relative overflow-hidden bg-background">
-      <SectionBackgroundOverlay variant="dots" opacity={0.55} masked />
+    <section ref={ref} className="section-spacing relative overflow-hidden bg-secondary/40">
+      <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
 
       <div className="container relative z-10">
         <motion.div

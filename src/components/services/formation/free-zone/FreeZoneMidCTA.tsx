@@ -6,9 +6,11 @@ import { Link } from "react-router-dom";
 export function FreeZoneMidCTA() {
   return (
     <section className="section-spacing relative overflow-hidden bg-background">
-      <SectionBackgroundOverlay variant="dots" opacity={0.55} />
+      <SectionBackgroundOverlay variant="radial" opacity={1} masked={false} className="opacity-70" />
+      <SectionBackgroundOverlay variant="dots" opacity={0.45} />
       <div className="container relative z-10">
         <div className="mx-auto max-w-6xl">
+
           <div className="card-elevated overflow-hidden">
             <div
               className="relative p-8 md:p-10"

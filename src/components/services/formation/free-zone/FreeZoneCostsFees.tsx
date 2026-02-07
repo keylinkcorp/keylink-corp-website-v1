@@ -56,8 +56,9 @@ const examples = [
 
 export function FreeZoneCostsFees() {
   return (
-    <section className="section-spacing relative overflow-hidden bg-background">
-      <SectionBackgroundOverlay variant="dots" opacity={0.55} masked />
+    <section className="section-spacing relative overflow-hidden bg-secondary/40">
+      <SectionBackgroundOverlay variant="radial" opacity={1} masked={false} className="opacity-60" />
+      <SectionBackgroundOverlay variant="grid-lines" opacity={0.45} masked />
 
       <div className="container relative z-10">
         <div className="max-w-6xl mx-auto">
