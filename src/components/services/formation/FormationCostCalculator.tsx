@@ -192,7 +192,27 @@ interface LineItem {
   amount: number;
 }
 
-export function FormationCostCalculator() {
+export type FormationCalculatorSnapshot = {
+  companyType: string;
+  timeline?: string;
+  total: number;
+  breakdown: LineItem[];
+};
+
+type FormationCostCalculatorProps = {
+  /** When true, removes the outer section padding/background so it can be embedded into a landing page canvas. */
+  embedded?: boolean;
+  /** When false, hides the calculator header block (title/description). */
+  showHeader?: boolean;
+  /** Called when the user reaches the Results screen (e.g., presses "See Results"). */
+  onSeeResults?: (snapshot: FormationCalculatorSnapshot) => void;
+};
+
+export function FormationCostCalculator({
+  embedded = false,
+  showHeader = true,
+  onSeeResults,
+}: FormationCostCalculatorProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   
@@ -485,9 +505,22 @@ export function FormationCostCalculator() {
   const handleNext = () => {
     if (step < totalSteps) {
       setStep(step + 1);
-    } else {
-      setShowResult(true);
+      return;
     }
+
+    const { total, breakdown } = calculateTotal();
+    const selectedTypeData = companyTypes.find((t) => t.id === companyType);
+
+    if (companyType) {
+      onSeeResults?.({
+        companyType,
+        timeline: selectedTypeData?.timeline,
+        total,
+        breakdown,
+      });
+    }
+
+    setShowResult(true);
   };
 
   const handleBack = () => {
@@ -1358,28 +1391,36 @@ export function FormationCostCalculator() {
   };
 
   return (
-    <section ref={ref} className="py-28 lg:py-36 bg-white relative overflow-hidden">
+    <section
+      ref={ref}
+      className={cn(
+        "relative overflow-hidden",
+        embedded ? "" : "py-28 lg:py-36 bg-background"
+      )}
+    >
       {/* Background Pattern */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
+      {!embedded && (
+        <div className="absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
+      )}
       
-      <div className="container relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">
-            Interactive Tool
-          </p>
-          <h2 className="text-[40px] md:text-[48px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
-            Calculate Your Company Formation Costs
-          </h2>
-          <p className="text-lg text-muted-foreground leading-[1.8]">
-            Get an instant estimate for your Bahrain company formation. 
-            Answer a few questions and receive a detailed cost breakdown.
-          </p>
-        </motion.div>
+      <div className={cn(embedded ? "" : "container relative")}>
+        {showHeader && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-16"
+          >
+            <p className="text-sm font-medium text-gold tracking-wide uppercase mb-4">Interactive Tool</p>
+            <h2 className="text-[40px] md:text-[48px] font-bold text-primary mb-6 tracking-tight leading-[1.15]">
+              Calculate Your Company Formation Costs
+            </h2>
+            <p className="text-lg text-muted-foreground leading-[1.8]">
+              Get an instant estimate for your Bahrain company formation. Answer a few questions and receive a detailed
+              cost breakdown.
+            </p>
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -1387,7 +1428,11 @@ export function FormationCostCalculator() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-white rounded-3xl border-2 border-border shadow-sm p-8 md:p-12">
+          <div className={cn(
+            embedded
+              ? "rounded-3xl border border-border/60 bg-background shadow-sm p-6 md:p-8"
+              : "bg-background rounded-3xl border-2 border-border shadow-sm p-8 md:p-12"
+          )}>
             {/* Progress Bar */}
             {!showResult && (
               <div className="mb-10">

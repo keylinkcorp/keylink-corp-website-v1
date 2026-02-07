@@ -7,11 +7,14 @@ import { Button } from "@/components/ui/button";
 import { CalendlyBooking } from "@/components/consultation/CalendlyBooking";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
+import {
+  FormationCostCalculator,
+  type FormationCalculatorSnapshot,
+} from "@/components/services/formation/FormationCostCalculator";
 
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 
-import { CompanyFormationMultiStepForm, type CompanyFormationLeadData } from "@/pages/landing/company-formation/CompanyFormationMultiStepForm";
 import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
 import { CompanyFormationTrustBar } from "@/pages/landing/company-formation/CompanyFormationTrustBar";
 
@@ -36,7 +39,7 @@ function mergeQueryParams(baseUrl: string, search: string) {
 }
 
 export default function CompanyFormationLanding() {
-  const [leadData, setLeadData] = useState<CompanyFormationLeadData | null>(null);
+  const [estimate, setEstimate] = useState<FormationCalculatorSnapshot | null>(null);
   const [showBooking, setShowBooking] = useState(false);
 
   const calendlyUrl = useMemo(() => {
@@ -98,20 +101,23 @@ export default function CompanyFormationLanding() {
           <CompanyFormationHeroMontage onBookClick={() => scrollToId("start")} />
           <CompanyFormationTrustBar />
 
-          {/* MULTI-STEP (Gates booking) */}
+          {/* CALCULATOR (Gates booking) */}
           <div id="start" />
-          <section aria-label="Company formation calculator" className="section-spacing-sm">
+          <section aria-label="Company formation cost calculator" className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
               <span className="section-badge">Start here</span>
-              <h2>Answer a few quick questions</h2>
+              <h2>Calculate your estimate</h2>
               <p className="mt-4 max-w-2xl">
-                We’ll use this to tailor your free consultation and confirm the exact costs + timeline for your setup.
+                Answer a few questions to see your estimate—then book your free consultation to confirm the exact costs
+                and timeline.
               </p>
 
               <div className="mt-8">
-                <CompanyFormationMultiStepForm
-                  onComplete={(data) => {
-                    setLeadData(data);
+                <FormationCostCalculator
+                  embedded
+                  showHeader={false}
+                  onSeeResults={(snapshot) => {
+                    setEstimate(snapshot);
                     setShowBooking(true);
                     requestAnimationFrame(() => scrollToId("book"));
                   }}
@@ -119,47 +125,25 @@ export default function CompanyFormationLanding() {
               </div>
             </div>
           </section>
-
-          {leadData && (
+          {estimate && (
             <section aria-label="Summary" className="section-spacing-sm">
               <div className="container mx-auto px-4 md:px-6">
                 <span className="section-badge">Summary</span>
-                <h2>Your details (for the call)</h2>
+                <h2>Your estimate (quick recap)</h2>
 
                 <div className="mt-8 card-elevated p-6 md:p-7">
                   <div className="grid md:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-muted-foreground">Name</p>
-                      <p className="font-semibold text-foreground">{leadData.name}</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Email</p>
-                      <p className="font-semibold text-foreground">{leadData.email}</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Phone</p>
-                      <p className="font-semibold text-foreground">{leadData.phone}</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Company</p>
-                      <p className="font-semibold text-foreground">{leadData.company || "—"}</p>
-                    </div>
-                    <div className="md:col-span-2">
-                      <p className="text-muted-foreground">Services</p>
-                      <p className="font-semibold text-foreground">{leadData.services.join(", ")}</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">Activity</p>
-                      <p className="font-semibold text-foreground">
-                        {leadData.activityCategory}
-                        {leadData.activityCategory === "Other" && leadData.activityOther
-                          ? ` — ${leadData.activityOther}`
-                          : ""}
-                      </p>
+                      <p className="text-muted-foreground">Company type</p>
+                      <p className="font-semibold text-foreground">{estimate.companyType.toUpperCase()}</p>
                     </div>
                     <div>
                       <p className="text-muted-foreground">Timeline</p>
-                      <p className="font-semibold text-foreground">{leadData.timeline}</p>
+                      <p className="font-semibold text-foreground">{estimate.timeline || "—"}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                      <p className="text-muted-foreground">Estimated total</p>
+                      <p className="text-2xl font-bold text-foreground">BHD {estimate.total.toLocaleString()}</p>
                     </div>
                   </div>
 
@@ -230,7 +214,6 @@ export default function CompanyFormationLanding() {
               </div>
             </div>
           </section>
-
           {/* CONSULTATION VALUE (band inside the canvas) */}
           <section className="section-spacing-sm">
             <div className="border-y border-border/60 bg-muted/20">
