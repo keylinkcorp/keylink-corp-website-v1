@@ -66,10 +66,12 @@ export function FreeZoneFAQ(props: { items?: FreeZoneFaqItem[] }) {
       <SectionBackgroundOverlay variant="radial" opacity={1} masked={false} className="opacity-55" />
       <SectionBackgroundOverlay variant="grid-lines" opacity={0.45} masked />
       {/* JSON-LD (kept in-body for SPA; crawlers can still read it) */}
-      <script type="application/ld+json" data-schema="free-zone-bahrain-faq">
-
-        {JSON.stringify(faqJsonLd)}
-      </script>
+      <script
+        type="application/ld+json"
+        data-schema="free-zone-bahrain-faq"
+        // Avoid React managing text children inside <script>, which can trigger DOM removeChild errors
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
 
       <div className="container relative z-10">
         <div className="max-w-5xl mx-auto">
