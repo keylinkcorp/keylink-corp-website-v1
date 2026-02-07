@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 import { Banknote, Calculator, FileText, MapPin } from "lucide-react";
 
-import costsImage from "@/assets/free-zone/free-zone-costs.jpg";
+import costsImage from "@/assets/free-zone/free-zone-costs-option-3.jpg";
 
 const cards = [
   {
