@@ -31,12 +31,15 @@ type CalendlyBookingProps = {
   height?: number;
   /** Optional section id for on-page scrolling (e.g. "book") */
   sectionId?: string;
+  /** Visual wrapper style (use "plain" when embedding inside an existing page canvas) */
+  variant?: "band" | "plain";
 };
 
 export function CalendlyBooking({
   calendlyUrl = "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1",
   height = 700,
   sectionId,
+  variant = "band",
 }: CalendlyBookingProps) {
   useEffect(() => {
     // Load Calendly widget script
@@ -57,7 +60,10 @@ export function CalendlyBooking({
   }, []);
 
   return (
-    <section id={sectionId} className="py-16 md:py-24 bg-muted/30">
+    <section
+      id={sectionId}
+      className={variant === "band" ? "py-16 md:py-24 bg-muted/30" : "py-8 md:py-10"}
+    >
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Calendly Widget - Takes 2 columns */}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Check, MessageCircle, Phone } from "lucide-react";
 
@@ -11,6 +11,7 @@ import { LandingHeader } from "@/components/landing/LandingHeader";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 
+import { CompanyFormationMultiStepForm, type CompanyFormationLeadData } from "@/pages/landing/company-formation/CompanyFormationMultiStepForm";
 import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
 import { CompanyFormationTrustBar } from "@/pages/landing/company-formation/CompanyFormationTrustBar";
 
@@ -35,6 +36,9 @@ function mergeQueryParams(baseUrl: string, search: string) {
 }
 
 export default function CompanyFormationLanding() {
+  const [leadData, setLeadData] = useState<CompanyFormationLeadData | null>(null);
+  const [showBooking, setShowBooking] = useState(false);
+
   const calendlyUrl = useMemo(() => {
     if (typeof window === "undefined") return CALENDLY_BASE_URL;
     return mergeQueryParams(CALENDLY_BASE_URL, window.location.search);
@@ -91,8 +95,84 @@ export default function CompanyFormationLanding() {
         <LandingHeader onLogoClick={() => scrollToId("top")} />
 
         <main id="top" className="flex-1">
-          <CompanyFormationHeroMontage onBookClick={() => scrollToId("book")} />
+          <CompanyFormationHeroMontage onBookClick={() => scrollToId("start")} />
           <CompanyFormationTrustBar />
+
+          {/* MULTI-STEP (Gates booking) */}
+          <div id="start" />
+          <section aria-label="Company formation calculator" className="section-spacing-sm">
+            <div className="container mx-auto px-4 md:px-6">
+              <span className="section-badge">Start here</span>
+              <h2>Answer a few quick questions</h2>
+              <p className="mt-4 max-w-2xl">
+                We’ll use this to tailor your free consultation and confirm the exact costs + timeline for your setup.
+              </p>
+
+              <div className="mt-8">
+                <CompanyFormationMultiStepForm
+                  onComplete={(data) => {
+                    setLeadData(data);
+                    setShowBooking(true);
+                    requestAnimationFrame(() => scrollToId("book"));
+                  }}
+                />
+              </div>
+            </div>
+          </section>
+
+          {leadData && (
+            <section aria-label="Summary" className="section-spacing-sm">
+              <div className="container mx-auto px-4 md:px-6">
+                <span className="section-badge">Summary</span>
+                <h2>Your details (for the call)</h2>
+
+                <div className="mt-8 card-elevated p-6 md:p-7">
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Name</p>
+                      <p className="font-semibold text-foreground">{leadData.name}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Email</p>
+                      <p className="font-semibold text-foreground">{leadData.email}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Phone</p>
+                      <p className="font-semibold text-foreground">{leadData.phone}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Company</p>
+                      <p className="font-semibold text-foreground">{leadData.company || "—"}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                      <p className="text-muted-foreground">Services</p>
+                      <p className="font-semibold text-foreground">{leadData.services.join(", ")}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Activity</p>
+                      <p className="font-semibold text-foreground">
+                        {leadData.activityCategory}
+                        {leadData.activityCategory === "Other" && leadData.activityOther
+                          ? ` — ${leadData.activityOther}`
+                          : ""}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Timeline</p>
+                      <p className="font-semibold text-foreground">{leadData.timeline}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 rounded-xl border border-border/60 bg-muted/20 p-4">
+                    <p className="text-sm text-muted-foreground">
+                      Next step: book your free 30‑minute consultation below to confirm eligibility, approvals, and final
+                      costs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* HOW IT WORKS */}
           <section className="section-spacing-sm">
@@ -209,16 +289,18 @@ export default function CompanyFormationLanding() {
             </div>
           </section>
 
-          {/* BOOKING */}
+          {/* BOOKING (revealed after form submit) */}
           <div id="book" />
-          <section aria-label="Book free consultation" className="section-spacing-sm">
-            <div className="container mx-auto px-4 md:px-6">
-              <span className="section-badge">Booking</span>
-              <h2>Book your free consultation</h2>
-              <p className="mt-4">Free, 30 minutes, no obligation—book directly below.</p>
-            </div>
-            <CalendlyBooking calendlyUrl={calendlyUrl} sectionId="book" />
-          </section>
+          {showBooking && (
+            <section aria-label="Book free consultation" className="section-spacing-sm">
+              <div className="container mx-auto px-4 md:px-6">
+                <span className="section-badge">Booking</span>
+                <h2>Book your free consultation</h2>
+                <p className="mt-4">Free, 30 minutes, no obligation—book directly below.</p>
+              </div>
+              <CalendlyBooking variant="plain" calendlyUrl={calendlyUrl} sectionId="book" />
+            </section>
+          )}
 
           {/* TESTIMONIALS */}
           <section className="section-spacing-sm">
