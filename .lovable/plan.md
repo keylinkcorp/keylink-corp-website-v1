@@ -1,159 +1,92 @@
 
-## What I found (from Google search research)
-Across multiple 2025 sources, the repeated “high-converting Google Ads landing page” themes are:
+Goal
+- Update /lp/company-formation to feel like the MagicUI references: centered content column, generous whitespace, and faint left/right “page frame” borders (subtle 1px lines), while keeping your Gold/Navy brand accents and the conversion-first structure.
 
-1) Pass the “5‑second test” above the fold  
-- Visitors should instantly understand: what it is, why it matters, what to do next. (Framer, 2025)  
-- Above the fold should include: clear headline, benefit copy, authentic social proof, low-friction action. (Framer, 2025)
+What I observed in your current implementation
+- The page uses full-width sections with occasional background bands (e.g., bg-muted/20), but the visual “centered column” is not consistent because backgrounds and containers are applied at section level rather than a single page frame.
+- The hero currently has stronger decorative effects (noise + mesh + floating orbs) than MagicUI’s cleaner, calmer “centered canvas” look.
+- Your UI already has good tokens/utilities (border, muted, glass-card-light, etc.). We can reuse them and add 1–2 simple “page frame” utilities.
 
-2) Strong message match (Ad → Landing page)  
-- Keep ad headline and landing page headline very close to reduce uncertainty and improve Quality Score. (Leadpages, updated 2025; PodiumDesign, 2025)
+Design direction from your references (Agent/CodeForge MagicUI)
+- A “page canvas” centered with a max width, sitting on a slightly tinted outer background.
+- Very subtle vertical border lines on left/right of the canvas, present throughout scroll.
+- Cleaner hero background: soft gradients, minimal decoration, clear type hierarchy.
 
-3) Distraction removal  
-- Remove navbars and escape routes for paid traffic. (Framer, 2025)  
-We already do this; we will keep it.
+Critical clarification needed (one decision)
+- You didn’t answer “Side borders” placement. I’ll implement “Full-page frame” by default (most consistent with the MagicUI feel). If you prefer hero-only or key-sections-only, we’ll adjust quickly afterward.
 
-4) Speed and mobile clarity matter a lot  
-- Fast load time is directly tied to bounce rate and Quality Score. (Leadpages, updated 2025; PodiumDesign, 2025)  
-This means: fewer/optimized images, fewer heavy visual effects, stable layout.
+Implementation approach (no backend changes)
+We’ll implement a reusable “LP frame” wrapper that:
+- Applies a soft outer background tint to the whole viewport.
+- Centers a max-width “canvas” with subtle left/right borders.
+- Keeps header/footer aligned with the same canvas (so the frame feels continuous).
+- Moves section background bands inside the canvas so they don’t break the centered-frame illusion.
 
-5) Single “primary” CTA and low friction  
-- Multiple competing CTAs can create choice paralysis; keep a dominant primary action. (PodiumDesign, 2025)  
-We’ll keep WhatsApp/Call as secondary actions, but visually subordinate.
+Files to change
+1) src/pages/landing/CompanyFormationLanding.tsx
+2) src/index.css (add 1–2 small utilities for the frame and optional soft gradient)
 
-## Your latest decisions (so I’ll implement accordingly)
-- Headline: keep current (Company Formation in Bahrain (2026))
-- Add a small price anchor (“From BHD ___”) on the page
-- Imagery: “Minimal imagery” to avoid stock-photo boredom and improve speed
-- Hero style remains “Hero montage”
-- Accent vibe: Gold/Navy
-- Mobile CTA bar: no bottom bar
-- Logo: scroll to top
+Step-by-step changes
 
-## Why the current page still feels “not nice”
-Based on the code and your feedback, these are the main UX/design causes:
-- Too many “card blocks” with similar styling creates visual monotony (everything feels the same weight).
-- Spacing rhythm is inconsistent: some sections feel airy, others feel cramped, especially around headings/badges and cards.
-- The montage’s two small secondary images read as “stock” and reduce the premium feel.
-- The background effects exist, but the layout hierarchy is not “editorial” enough (stronger type scale + tighter copy blocks + intentional negative space).
+1) Create a centered “canvas frame” for the entire landing page (CompanyFormationLanding.tsx)
+- Wrap the whole page content in an outer background:
+  - Outer wrapper: min-h-screen + a very light tinted background (e.g., bg-muted/20 or a custom subtle gradient utility)
+- Add an inner “LP canvas” wrapper:
+  - mx-auto max-w-[1100px] (or similar)
+  - border-l border-r border-border/60 (your “Subtle line” choice)
+  - bg-background
+  - Ensure it stretches full height and keeps consistent padding rhythm:
+    - Keep inner padding on sections via existing container classes, but ensure the frame provides the visual boundary.
 
-## Redesign approach (Luxury Editorial + Minimal Imagery)
-We’ll keep the conversion structure, but upgrade the art direction and hierarchy:
-- One strong hero image (still montage, but less “photo collage” and more “editorial layout”).
-- Replace the two small secondary photo cards with:
-  - one “editorial spec card” (price anchor + timeframe + ownership + consultation length), and
-  - one “trust proof card” (rating-style proof or “500+ businesses / 40+ countries” in a premium layout).
-- Make the hero headline + subheadline area feel more “magazine cover”:
-  - narrower max width
-  - stronger line-height control
-  - tighter spacing between headline/subhead/bullets
-- Introduce a consistent spacing system across sections so whitespace feels intentional, not random.
-- Ensure “Book Free Consultation” is always the primary visual CTA; WhatsApp/Call remain accessible but quieter.
+2) Make section backgrounds consistent inside the frame (CompanyFormationLanding.tsx)
+- Currently some sections use bg-muted/20 at the section level (full width).
+- Change these so the “muted band” background is applied inside the canvas only:
+  - Option A (recommended): keep the section full-width but inside it, add a band div with bg-muted/20 and border-y, and keep content within it.
+  - Result: you still get alternating bands, but they appear inside the centered framed column rather than spanning the entire viewport.
 
-## Implementation plan (code changes we will make)
-### 1) Update the hero montage to “minimal imagery montage”
-Files:
-- `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+3) Adjust the TrustBar positioning for the new frame (CompanyFormationTrustBar.tsx usage)
+- The TrustBar is currently pulled upward with negative margin (-mt-6 / -mt-10).
+- With a strict framed canvas, we’ll verify it doesn’t visually “collide” with the frame border.
+- Likely adjustments:
+  - Reduce negative margin slightly, or
+  - Add top padding to the first content section so the overlap feels intentional.
 
-Changes:
-- Keep the main hero image (eager load).
-- Remove/replace the two secondary image cards:
-  - Replace left card with an “Offer Spec” card:
-    - “From BHD ___” (your provided number)
-    - “3–7 business days typical”
-    - “Free 30‑minute Google Meet”
-    - “100% foreign ownership options”
-  - Replace right card with a “Proof” card:
-    - 500+ businesses supported
-    - 40+ countries served
-    - optional: “Fast response on WhatsApp” (if true)
-- Improve typography hierarchy:
-  - Reduce overly-muted text in the hero (muted is fine, but not everything should be muted).
-  - Make bullet points slightly larger and more readable on mobile.
-- CTA hierarchy:
-  - Primary button stays filled.
-  - Secondary WhatsApp/Call become smaller or “ghost/outline” and visually secondary.
+4) Soften the hero to match the MagicUI “centered canvas” aesthetic (CompanyFormationHeroMontage.tsx)
+- Keep minimal imagery (1 hero image + 2 editorial cards) as you requested.
+- Reduce visual noise:
+  - Tone down or remove floating orbs (these read more “decorative landing page” than “MagicUI clean”).
+  - Keep mesh gradient but lower intensity (opacity) so it feels like a soft wash.
+  - Reduce noise texture opacity if it makes the canvas feel “dirty” rather than “premium”.
+- Tighten the hero container spacing to a more MagicUI-like centered composition:
+  - Slightly reduce top padding on desktop (pt-14 md:pt-20 can feel tall once framed).
+  - Keep headline and subcopy centered-left aligned as-is (conversion friendly), but ensure line lengths match the “canvas” width.
 
-### 2) Add the price anchor (without clutter)
-Files:
-- `src/pages/landing/CompanyFormationLanding.tsx`
-- (optionally) `CompanyFormationHeroMontage.tsx` if we decide the anchor belongs inside hero
+5) Add a small CSS utility for the frame (src/index.css)
+- Add a utility class (example names):
+  - .lp-canvas (max-width + border-x + background)
+  - Optional: .lp-outer (subtle gradient background behind the canvas)
+- Use existing tokens (border, muted, background) so everything stays consistent with the design system.
 
-Placement:
-- Best conversion/clarity placement: directly under the hero subheadline OR inside the new “Offer Spec” card.
-- We’ll keep it to one line, not a pricing table:
-  - “From BHD ___ • All-inclusive guidance • Transparent checklist after the call”
-(You will confirm the exact BHD amount before implementation or we’ll use a placeholder like “From BHD 750” only if you explicitly want that.)
+6) Visual QA checklist (end-to-end)
+- Desktop:
+  - Frame borders visible but subtle; consistent through all sections including header and footer.
+  - Alternating muted bands appear inside the framed column (not full-bleed).
+  - Hero looks calmer and more “MagicUI clean” (less busy background).
+- Mobile:
+  - Borders can be removed or reduced (optional) to avoid cramped feel; alternatively keep but ensure padding is sufficient.
+  - No horizontal scroll.
+  - Primary CTA remains dominant; WhatsApp/Call stay secondary.
 
-### 3) Fix spacing rhythm and “editorial grid”
-Files:
-- `src/index.css` (or wherever the section utilities live)
-- `CompanyFormationLanding.tsx`
+Risks / trade-offs
+- Applying a global framed canvas means any full-bleed section backgrounds must be refactored to avoid breaking the frame illusion.
+- Negative margin overlaps (TrustBar) need rebalancing so the frame feels intentional rather than “misaligned”.
 
-Changes:
-- Create/adjust utilities so section padding is consistent:
-  - Ensure `section-spacing-sm` feels premium (often slightly more top padding than bottom in editorial layouts).
-- Normalize “badge → heading → paragraph” spacing so every section starts the same way.
-- Use consistent max widths:
-  - Headings: max-w (e.g., 18–24ch)
-  - Paragraphs: max-w (e.g., 50–65ch)
-This makes whitespace look intentional and more premium.
+After this, optional enhancements (if you want it even closer to MagicUI)
+- Add a very subtle “top-to-bottom vignette” on the outer background.
+- Add faint grid/noise only in the outer background (not inside the canvas) so the content stays crisp.
+- Standardize all section headings to the same max width and spacing to strengthen the “centered editorial” rhythm.
 
-### 4) Reduce “everything is a card” monotony
-Files:
-- `CompanyFormationLanding.tsx`
-- `src/index.css`
-
-Changes:
-- Keep cards, but introduce 2–3 surface levels instead of one:
-  - “Paper” (flat, border only)
-  - “Elevated” (shadow)
-  - “Glass” (used sparingly)
-- Apply glass only to hero and trust moments, not everywhere.
-- Update the “What you get” grid so it’s lighter and more editorial (less heavy boxes).
-
-### 5) Make imagery feel premium without adding new photos
-Files:
-- `CompanyFormationHeroMontage.tsx`
-- `src/index.css`
-
-Changes:
-- Apply subtle premium treatment to the single hero image:
-  - slightly stronger navy overlay
-  - subtle grain/noise (already have `noise-texture`, but we will ensure it doesn’t look like a cheap filter)
-  - consistent border radius and shadow tuned for “luxury editorial” (less “big SaaS shadow”, more controlled)
-
-### 6) Mobile-first polish (to address whitespace problems you’re seeing)
-Files:
-- `CompanyFormationLanding.tsx`
-- `CompanyFormationHeroMontage.tsx`
-- `LandingHeader.tsx` (if needed)
-
-Changes:
-- Tighten hero vertical padding on small screens (less empty space above headline).
-- Ensure the booking section heading is close enough to the Calendly embed (reduce dead space).
-- Ensure CTA buttons don’t wrap awkwardly; prefer:
-  - Row for primary + secondary on larger screens
-  - Column with primary first on mobile
-
-### 7) Verify performance and conversion fundamentals still match research
-We will validate after redesign:
-- Hero passes 5-second test: headline + benefit + proof + CTA visible immediately.
-- Message match: headline remains aligned with ad promise.
-- No distractions: no nav links; footer stays minimal.
-- Speed: fewer images (removing two montage photos helps), lazy-load everything except hero.
-
-## What I need from you (only one item)
-- What exact number should we show for the price anchor text?
-  - Example formats:
-    - “From BHD 750”
-    - “From BHD 750 + government fees”
-    - “From BHD 750 (consultation free)”
-If you don’t want to share a number yet, we can use a neutral anchor like “Transparent pricing after your call” (but you selected “Add price anchor”, so a number works best).
-
-## Deliverables after implementation
-- A visibly more premium, modern luxury-editorial hero (less stock-photo feel)
-- More intentional spacing rhythm across the page
-- Stronger hierarchy and less UI monotony
-- Price anchor included without clutter
-- Fewer images and better speed while keeping the “Hero montage” concept
+Definition of done
+- /lp/company-formation has a centered, consistent canvas with faint left/right border lines (subtle 1px).
+- Background bands and content feel cohesive inside that canvas.
+- The hero reads cleaner and more premium (closer to MagicUI references) while keeping your CTA and price anchor intact.
