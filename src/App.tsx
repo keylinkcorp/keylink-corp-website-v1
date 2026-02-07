@@ -35,6 +35,7 @@ import BusinessIncubators from "./pages/services/BusinessIncubators";
 import VirtualOffice from "./pages/services/VirtualOffice";
 import FreeConsultation from "./pages/FreeConsultation";
 import FreeZoneInBahrain from "./pages/FreeZoneInBahrain";
+import CompanyFormationLanding from "./pages/landing/CompanyFormationLanding";
 import BLZ from "./pages/free-zone/BLZ";
 import BIIP from "./pages/free-zone/BIIP";
 import BIW from "./pages/free-zone/BIW";
@@ -86,6 +87,7 @@ const App = () => (
           <Route path="/free-zone-in-bahrain/biw" element={<BIW />} />
           <Route path="/free-zone-in-bahrain/sitra" element={<Sitra />} />
           <Route path="/free-consultation" element={<FreeConsultation />} />
+          <Route path="/lp/company-formation" element={<CompanyFormationLanding />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
