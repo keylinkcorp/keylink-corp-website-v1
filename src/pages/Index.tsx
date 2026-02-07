@@ -1,14 +1,59 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from "react";
+import { Layout } from "@/components/layout/Layout";
+import { Hero } from "@/components/home/Hero";
+import { TrustBar } from "@/components/home/TrustBar";
+import { Services } from "@/components/home/Services";
+import { WhyChooseUs } from "@/components/home/WhyChooseUs";
+import { CompanyFormationProcess } from "@/components/home/CompanyFormationProcess";
+import { CostCalculatorPreview } from "@/components/home/CostCalculatorPreview";
+import { IndustryServices } from "@/components/home/IndustryServices";
+import { Testimonials } from "@/components/home/Testimonials";
+import { MissionVision } from "@/components/home/MissionVision";
+import { FAQ } from "@/components/home/FAQ";
+import { CTABanner } from "@/components/home/CTABanner";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { BackToTop } from "@/components/BackToTop";
 
-const Index = () => {
+export default function Index() {
+  useEffect(() => {
+    document.title = "Keylink Corp - Business Setup & Company Formation in Bahrain | 100% Foreign Ownership";
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "Keylink Corp offers complete business setup services in Bahrain. Company formation, CR registration, visa services, PRO services & more. Start your business in 3-7 days with 100% foreign ownership."
+      );
+    }
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", "https://keylinkcorp.com");
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome — GitHub Sync Test</h1>
-        <p className="text-xl text-muted-foreground">If you can see this, the change deployed to preview and should sync to GitHub.</p>
-      </div>
-    </div>
-  );
-};
+    <>
+      <Layout>
+        <Hero />
+        <TrustBar />
+        <Services />
+        <WhyChooseUs />
+        <CompanyFormationProcess />
+        <CostCalculatorPreview />
+        <IndustryServices />
+        <Testimonials />
+        <MissionVision />
+        <FAQ />
+        <CTABanner />
+      </Layout>
 
-export default Index;
+      <FloatingWhatsApp />
+      <BackToTop />
+    </>
+  );
+}
+
