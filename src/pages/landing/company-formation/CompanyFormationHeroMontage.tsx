@@ -55,7 +55,7 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
 
               <div className="mt-9 flex flex-col sm:flex-row gap-3">
                 <Button size="lg" onClick={onBookClick}>
-                  Book Free Consultation
+                  Get started
                 </Button>
 
                 <Button variant="outline" size="default" asChild>
