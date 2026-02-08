@@ -1,5 +1,15 @@
-import { Check, Clock, FileText, MessageCircle, Phone, Shield, Sparkles, Users } from "lucide-react";
+import {
+  Check,
+  Clock,
+  FileText,
+  MessageCircle,
+  Phone,
+  Shield,
+  Sparkles,
+  Users,
+} from "lucide-react";
 
+import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 import { Button } from "@/components/ui/button";
 
 import heroImage from "@/assets/formation-hero-professional.jpg";
@@ -24,17 +34,17 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
           {/* Copy */}
           <div className="lg:col-span-6">
             <div>
-              <p className="inline-flex items-center gap-2 text-sm text-muted-foreground mb-5">
+              <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs text-muted-foreground tracking-tight">
                 <Sparkles className="h-4 w-4 text-accent" />
                 Google Ads Offer • Free 30‑minute consultation
               </p>
 
-              <h1 className="text-balance">
+              <h1 className="lp-hero-title text-balance">
                 Company Formation in Bahrain
                 <span className="text-accent"> (2026)</span>
               </h1>
 
-              <p className="mt-5 lead max-w-xl">
+              <p className="mt-5 lead max-w-[56ch]">
                 A premium, clear setup experience—100% foreign ownership guidance, transparent costs, and a realistic
                 timeline.
               </p>
@@ -52,19 +62,19 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                 ))}
               </ul>
 
-              <div className="mt-9 flex flex-col sm:flex-row gap-3">
-                <Button size="lg" onClick={onBookClick}>
+              <div className="mt-7 flex flex-col sm:flex-row gap-3">
+                <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
                   Get started
                 </Button>
 
-                <Button variant="outline" size="default" asChild>
+                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
                   <a href="https://wa.me/97317008888">
                     <MessageCircle className="mr-2" />
                     WhatsApp
                   </a>
                 </Button>
 
-                <Button variant="outline" size="default" asChild>
+                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
                   <a href="tel:+97317008888">
                     <Phone className="mr-2" />
                     Call
@@ -72,7 +82,9 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                 </Button>
               </div>
 
-              <p className="mt-4 text-xs text-muted-foreground">
+              <HeroReviewStrip className="mt-5" />
+
+              <p className="mt-3 text-xs text-muted-foreground">
                 Free • No obligation • You’ll get a cost breakdown + document checklist
               </p>
             </div>

@@ -156,6 +156,15 @@
     @apply inline-block px-4 py-1.5 rounded-full bg-gold/10 text-gold text-sm font-medium mb-4;
   }
 
+  /* Landing page (scoped) editorial typography helpers */
+  .lp-hero-title {
+    @apply max-w-[18ch] leading-[1.03] md:leading-[1.08];
+  }
+
+  .lp-section-subtitle {
+    @apply text-lg leading-relaxed max-w-2xl;
+  }
+
   /* CTA Button Styles */
   .btn-gold {
     @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-gold hover:bg-gold-dark text-primary font-semibold rounded-xl transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-gold/20;
