@@ -80,6 +80,7 @@ export function CompanyFormationCallSection() {
       imagePosition="left"
       contentColSpanLg={5}
       imageColSpanLg={7}
+      imageSticky
       variant="default"
       backgroundVariant="ibelick-lines"
       overlayOpacity={0.35}
@@ -102,7 +103,7 @@ export function CompanyFormationCallSection() {
         ))}
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4 md:gap-5 mt-6 md:mt-7">
+      <div className="grid gap-4 md:gap-5 mt-6 md:mt-7">
         {BENEFITS.map(({ title, detail, Icon }) => (
           <div
             key={title}

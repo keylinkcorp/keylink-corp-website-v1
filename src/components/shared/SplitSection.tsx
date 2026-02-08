@@ -37,6 +37,10 @@ type SplitSectionProps = {
   /** Desktop split layout column spans (lg+). Defaults to 6/6. */
   contentColSpanLg?: number;
   imageColSpanLg?: number;
+  /** When true, the image column stays sticky while content scrolls (lg+ only). */
+  imageSticky?: boolean;
+  /** Top offset classes for sticky image (e.g. `lg:top-24`). */
+  imageStickyTopClassName?: string;
   variant?: "default" | "subtle";
   /** Decorative overlay pattern behind the section (design-system consistent). */
   backgroundVariant?: SectionOverlayVariant;
@@ -77,6 +81,8 @@ export function SplitSection({
   imagePosition = "right",
   contentColSpanLg = 6,
   imageColSpanLg = 6,
+  imageSticky = false,
+  imageStickyTopClassName,
   variant = "default",
   backgroundVariant,
   overlayOpacity,
@@ -234,6 +240,12 @@ export function SplitSection({
               className={cn(
                 resolvedImageColSpanLg,
                 imagePosition === "left" ? "lg:order-1" : "lg:order-2",
+                imageSticky
+                  ? cn(
+                      "lg:sticky lg:self-start",
+                      imageStickyTopClassName ?? "lg:top-24",
+                    )
+                  : "",
               )}
             >
               <div className={cn(imageClassName)}>
