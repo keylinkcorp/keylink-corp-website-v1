@@ -1,7 +1,13 @@
 import type React from "react";
 import { cn } from "@/lib/utils";
 
-export type SectionOverlayVariant = "none" | "grid-lines" | "dots" | "radial";
+export type SectionOverlayVariant =
+  | "none"
+  | "grid-lines"
+  | "dots"
+  | "radial"
+  | "ibelick-soft"
+  | "ibelick-lines";
 
 type SectionBackgroundOverlayProps = {
   variant?: SectionOverlayVariant;
@@ -42,7 +48,8 @@ export function SectionBackgroundOverlay({
   }
 
   const defaultOpacity =
-    opacity ?? (variant === "grid-lines" ? 0.65 : variant === "dots" ? 0.6 : 1);
+    opacity ??
+    (variant === "grid-lines" ? 0.65 : variant === "dots" ? 0.6 : variant === "ibelick-lines" ? 0.75 : 1);
 
   return (
     <div
@@ -50,6 +57,8 @@ export function SectionBackgroundOverlay({
       className={cn(
         "pointer-events-none absolute inset-0 z-0",
         variant === "grid-lines" ? "pattern-grid-lines-light" : "",
+        variant === "ibelick-soft" ? "overlay-ibelick-soft" : "",
+        variant === "ibelick-lines" ? "overlay-ibelick-lines" : "",
         className,
       )}
       style={{ ...style, opacity: defaultOpacity }}

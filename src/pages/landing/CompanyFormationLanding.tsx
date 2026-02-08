@@ -159,9 +159,11 @@ export default function CompanyFormationLanding() {
             imageAlt="Consultant explaining the company formation process"
             imagePosition="right"
             variant="subtle"
-            backgroundVariant="grid-lines"
-            overlayOpacity={0.55}
+            backgroundVariant="ibelick-soft"
+            overlayOpacity={0.9}
             overlayMasked
+            imageRatio={16 / 10}
+            imageOverlayStrength={0.55}
           >
             <div className="grid gap-4">
               {[
@@ -178,7 +180,7 @@ export default function CompanyFormationLanding() {
                   desc: "Documents, costs, and steps to start with confidence.",
                 },
               ].map((step, idx) => (
-                <div key={step.title} className="card-elevated-hover p-6 md:p-7">
+                <div key={step.title} className="card-elevated p-6 md:p-7">
                   <div className="flex items-start justify-between gap-6">
                     <div>
                       <div className="text-sm text-muted-foreground">Step {idx + 1}</div>
@@ -212,9 +214,11 @@ export default function CompanyFormationLanding() {
             imageAlt="Business consultation reviewing a checklist"
             imagePosition="left"
             variant="subtle"
-            backgroundVariant="grid-lines"
-            overlayOpacity={0.5}
+            backgroundVariant="ibelick-soft"
+            overlayOpacity={0.85}
             overlayMasked
+            imageRatio={16 / 10}
+            imageOverlayStrength={0.55}
           >
             <div className="grid sm:grid-cols-2 gap-4">
               {[
@@ -282,13 +286,19 @@ export default function CompanyFormationLanding() {
               <h2>Client feedback</h2>
               <p className="mt-4 max-w-2xl">A few recent outcomes—kept short for ad traffic.</p>
 
-              <div className="mt-8 card-elevated overflow-hidden">
-                <img
-                  src={testimonialsImage}
-                  alt="Happy clients and consultants after a successful meeting"
-                  loading="lazy"
-                  className="h-56 w-full object-cover"
-                />
+              <div className="mt-8">
+                <div className="card-elevated overflow-hidden">
+                  <div className="relative aspect-[16/6]">
+                    <img
+                      src={testimonialsImage}
+                      alt="Happy clients and consultants after a successful meeting"
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <div aria-hidden className="absolute inset-0 overlay-navy-vertical opacity-60" />
+                    <div aria-hidden className="absolute inset-0 overlay-gold-accent opacity-50" />
+                  </div>
+                </div>
               </div>
 
               <div className="mt-8 grid md:grid-cols-2 gap-6">
@@ -306,7 +316,7 @@ export default function CompanyFormationLanding() {
                     img: testimonial2,
                   },
                 ].map((t) => (
-                  <div key={t.quote} className="card-elevated-hover p-7 flex gap-4">
+                  <div key={t.quote} className="card-elevated p-7 flex gap-4">
                     <img
                       src={t.img}
                       alt={t.name}
@@ -329,12 +339,16 @@ export default function CompanyFormationLanding() {
               <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
                 <div className="lg:col-span-5">
                   <div className="card-elevated overflow-hidden">
-                    <img
-                      src={faqImage}
-                      alt="Reviewing business formation documents"
-                      loading="lazy"
-                      className="h-64 w-full object-cover"
-                    />
+                    <div className="relative aspect-[4/3]">
+                      <img
+                        src={faqImage}
+                        alt="Reviewing business formation documents"
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                      <div aria-hidden className="absolute inset-0 overlay-navy-vertical opacity-55" />
+                      <div aria-hidden className="absolute inset-0 overlay-gold-accent opacity-45" />
+                    </div>
                   </div>
                   <p className="mt-3 text-xs text-muted-foreground">No logos, no watermarks — images are illustrative.</p>
                 </div>
