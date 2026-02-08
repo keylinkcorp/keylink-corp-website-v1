@@ -1,155 +1,148 @@
 
-Goal
-- Make /lp/company-formation feel like a “Vibe AI designer” output: modern, calm, premium, minimal motion, with sophisticated background overlays inspired by https://bg.ibelick.com/.
-- Keep conversion flow identical (Hero → Calculator → Summary → unlock Booking → Proof/FAQ → Final CTA).
+Scope (what you asked)
+- Add a hero-section social proof bar (reuse the same HeroReviewStrip from the main service pages).
+- Refine typography hierarchy for a more editorial feel (tighter H1/H2 rhythm, better subtitle widths, cleaner badge placement) without changing the page structure/flow.
+- Apply the ibelick overlay system consistently to the remaining sections: Calculator band + Testimonials + Final CTA, so the entire LP feels like one design system.
+- Do a mobile-first spacing pass (image crops, accordion spacing, CTA stacks) so it feels premium on small screens.
 
-What’s making it feel “not nice” right now (based on code)
-- Visual language is mixed:
-  - Landing uses design-system classes (card-elevated, glass-card-light), but CalendlyBooking uses its own “shadow-lg + border/50” cards and a very dark bg-primary block; it reads like a different product.
-  - SplitSection badge styling is different from the rest of the landing (uppercase accent text vs section-badge pills).
-- Images are present in each section, but they aren’t “designed into” the layout:
-  - They sit as plain photos in cards. Modern landing pages usually apply consistent treatment (overlay, subtle grain, consistent aspect ratios, consistent corner radii).
-- Motion is heavier than necessary in some parts (CalendlyBooking uses multiple whileInView animations; hero montage has motion elements). You asked for low motion.
+Decisions captured (from your answers)
+- Hero social proof: Use HeroReviewStrip.
+- Avatars: Keep external avatars (randomuser.me) as-is.
+- Overlay consistency: Mixed — Soft for Calculator + Final CTA, Lines for Testimonials.
 
-Design direction we’ll implement
-- “Minimal modern + luxury editorial restraint”:
-  - More whitespace, softer dividers, fewer heavy shadows.
-  - Gold accent used only as micro-accent (badges, icons, key numbers), not as large blocks.
-- “Ibelick-style backgrounds”:
-  - Subtle layered gradients + thin-line patterns behind sections.
-  - Use masking so patterns fade at edges.
-- “Editorial image system”:
-  - Consistent image ratio, consistent border radius, consistent overlay and optional grain.
-  - Images feel cohesive as a set even if individually different.
-
-Implementation steps (what I will change)
-
-1) Create an “Ibelick-inspired background overlay system”
-Files:
-- src/components/shared/SectionBackgroundOverlay.tsx
-- src/index.css
-
-Changes:
-- Add new overlay variants to SectionOverlayVariant, e.g.
-  - "ibelick-soft" (multi-radial gradient + subtle blur look)
-  - "ibelick-waves" (very subtle repeating linear gradients)
-  - "ibelick-noise" (optional, very low opacity)
-- Keep existing variants for backwards compatibility.
-- Add CSS utilities for these overlays in index.css:
-  - New background-image recipes modeled after ibelick-style layers:
-    - multiple radial gradients with very low alpha
-    - thin grid/line pattern at 2–4% alpha
-  - Add one reusable mask utility to fade edges (similar to current maskImage approach).
-
-Outcome:
-- Every major section can opt into a modern background “treatment” without custom per-section hacks.
-
-2) Build a consistent “EditorialImage” treatment (so images look premium, not stocky)
-Files:
-- src/components/shared/SplitSection.tsx
-- src/components/consultation/CalendlyBooking.tsx
-- (optional) a tiny helper component if needed, e.g. src/components/shared/EditorialImage.tsx
-
-Changes:
-- Apply consistent image styling everywhere images appear:
-  - consistent rounding (rounded-3xl or keep rounded-2xl but unify)
-  - consistent border (border-border/60)
-  - consistent overlay inside image container:
-    - a subtle navy-to-transparent gradient (for depth)
-    - a subtle gold highlight corner (very low opacity)
-  - optional micro-grain/noise overlay (ultra subtle, 1–2% opacity) to unify AI images
-  - consistent hover: remove “zoom glow” on non-hero sections to keep low motion; keep static or ultra-subtle.
-- Update SplitSection:
-  - Replace badge rendering to use the same pill style as the landing: className="section-badge" (not uppercase accent text)
-  - Add new props:
-    - imageTreatment?: "none" | "editorial" (default "editorial")
-    - imageOverlayStrength?: number (default subtle)
-  - Ensure stacked and split modes both use the same treatment.
-- Update CalendlyBooking:
-  - Replace ad-hoc card styles (bg-background rounded-2xl shadow-lg border...) with design-system surfaces:
-    - use card-elevated for the widget container and info cards
-    - replace the bg-primary “Contact Details Card” with a premium but lighter surface:
-      - either glass-card-dark or card-elevated with a subtle navy gradient header
-  - Apply the same EditorialImage treatment to the booking image panel so it matches SplitSection images.
-
-Outcome:
-- All section images look like one coherent design system (not “random photos placed in cards”).
-
-3) Reduce motion to “low motion” across landing experience
-Files:
-- src/components/consultation/CalendlyBooking.tsx
+Key files involved
 - src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
-- (optional) any other landing blocks using framer-motion heavily
-
-Changes:
-- CalendlyBooking:
-  - remove per-item animated list staggering
-  - keep only one subtle fade-in for the whole block (or remove whileInView entirely)
-- Hero montage:
-  - keep only minimal entrance fade (or none)
-  - remove hover-zoom-glow on the hero image if it feels too “effect-y”
-- Trust bar:
-  - either remove motion or reduce to a single subtle fade for the entire bar.
-
-Outcome:
-- Page feels modern and calm, not “animated template”.
-
-4) Tighten spacing & hierarchy (make it feel more “designer”)
-Files:
 - src/pages/landing/CompanyFormationLanding.tsx
-- src/components/shared/SplitSection.tsx
-- src/index.css (minor)
+- src/components/shared/HeroReviewStrip.tsx (reuse; minimal/no changes expected)
+- src/components/shared/SectionBackgroundOverlay.tsx (already supports ibelick-soft / ibelick-lines)
+- src/index.css (small, scoped typography/spacing utilities if needed)
 
-Changes:
-- Normalize all section headers:
-  - consistent spacing between badge → title → subtitle
-  - consistent max-width for subtitles
-- Increase whitespace slightly between blocks inside SplitSection (steps grid, benefit grid, CTA cards) so it breathes.
-- Ensure image heights are consistent:
-  - standardize AspectRatio across sections (e.g., 4/3 or 16/10 depending on look)
-  - avoid very short banners (testimonials image at h-56 may feel arbitrary); use ratio-based containers instead.
-- Align Testimonials + FAQ layouts to the same grid rhythm used by SplitSection:
-  - Testimonials:
-    - keep the hero image banner but make it editorial (ratio container + overlay)
-    - refine testimonial cards to be calmer (less hover translate, less shadow jump)
-  - FAQ:
-    - keep image + accordion, but unify padding and borders to match the rest.
+Implementation plan (exact changes)
 
-Outcome:
-- The whole page reads like one premium layout system.
+1) Hero: add social proof bar (HeroReviewStrip) in the hero copy column
+File: src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
+- Import HeroReviewStrip from "@/components/shared/HeroReviewStrip".
+- Place the strip directly under the CTA buttons (or under the “Free • No obligation…” line) so it reads as immediate reassurance.
+- Keep low motion: no framer-motion; just render static content.
+- Mobile polish:
+  - Ensure the strip wraps gracefully (it already stacks to column on small screens).
+  - Reduce spacing so it doesn’t push the fold too far down: tighten margins around CTAs/strip.
 
-5) Optional: Regenerate only the weakest images (if any still feel “AI-stock”)
-No code dependency (asset-only), but we’ll do it if needed.
-- We’ll keep your people-focused direction, but push prompts toward:
-  - candid editorial moments
-  - minimal props
-  - consistent lens/lighting
-  - no exaggerated smiles / no staged handshake clichés
-- If you tell me which section image feels most “off”, we regenerate that single one first.
+Acceptance check
+- Hero shows Google/Trustpilot strip consistently, with correct spacing on mobile/desktop.
 
-QA checklist (you will verify in preview)
-- Visual cohesion:
-  - Do all sections feel like one design system (cards, overlays, image treatment)?
-  - Do backgrounds feel modern like ibelick-style layers (subtle, not noisy)?
-- Funnel:
-  - Calculator still gates booking
-  - Summary still displays correctly
-  - Booking still reveals and Calendly loads
-- Responsiveness:
-  - SplitSection stacking looks intentional on mobile
-  - No awkward image crops; faces not cut off
+2) Typography hierarchy: “editorial tightening” without layout changes
+Files:
+- src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
+- src/pages/landing/CompanyFormationLanding.tsx
+- (optional) src/index.css (scoped utilities only)
+
+Hero (H1 + lead + bullets)
+- In CompanyFormationHeroMontage:
+  - Make H1 line-height slightly tighter on mobile and reduce visual “jump” between lines:
+    - Add a hero-specific className to h1 (e.g., "lp-hero-title") and apply tighter leading + balanced max width.
+  - Constrain the lead paragraph width a little more on desktop (max-w) to feel more editorial and less “wide marketing text”.
+  - Align the small top line (“Google Ads Offer…”) into a badge-like chip or keep as-is but reduce visual noise (lighter color, slightly tighter tracking).
+
+Section headings (H2 + subtitles)
+- In SplitSection, headings are already consistent; most changes are in CompanyFormationLanding where there are manual h2 + p blocks (Booking, Testimonials, Final CTA).
+- Update those blocks to match SplitSection header rhythm:
+  - Consistent spacing: badge → title (mt-3) → subtitle (mt-4) and consistent subtitle max width (max-w-2xl or max-w-3xl).
+  - Ensure subtitles don’t run full width on large screens.
+
+Global CSS (only if needed)
+- Avoid changing global h1/h2 for the whole site. If we need more finesse, add 1–2 scoped utility classes in src/index.css (e.g., .lp-hero-title, .lp-section-subtitle) and apply only on this LP.
+
+Acceptance check
+- H1 feels calmer and tighter (especially on mobile), subtitles have consistent widths, badges sit consistently above headings.
+
+3) Overlay consistency: replace “one-off” backgrounds with SectionBackgroundOverlay system
+File: src/pages/landing/CompanyFormationLanding.tsx
+
+3a) Calculator band: migrate to ibelick-soft overlay
+Current state
+- Calculator uses:
+  - mesh-gradient-gold
+  - pattern-grid-lines-light
+These are fine but don’t use the new overlay system, so it can feel like a different design layer.
+
+Change
+- Replace the two absolute overlay divs with:
+  - <SectionBackgroundOverlay variant="ibelick-soft" opacity=... masked=... />
+- Keep the card-elevated + noise-texture on the calculator container (that’s part of the premium surface system).
+- Tune opacity so the calculator remains the primary focus (subtle background, not loud).
+
+Acceptance check
+- Calculator section background matches the same “ibelick” language as the SplitSections.
+
+3b) Testimonials section: add ibelick-lines overlay behind the section
+Current state
+- Testimonials section has no overlay behind it; only the image banner has overlays.
+
+Change
+- Wrap Testimonials section with relative/overflow-hidden and add:
+  - <SectionBackgroundOverlay variant="ibelick-lines" masked opacity=... />
+- Keep the testimonial image banner as-is (it already has editorial overlays), but ensure the overall section reads as one system.
+
+Acceptance check
+- Testimonials section background is consistent with the rest of the page and still feels clean/minimal.
+
+3c) Final CTA: switch from gold radial-only to ibelick-soft (keep gold as micro-accent)
+Current state
+- Final CTA card uses overlay-gold-radial-center.
+
+Change
+- Add a SectionBackgroundOverlay at the section level with ibelick-soft (masked).
+- Inside the CTA card:
+  - Either remove overlay-gold-radial-center, or reduce it significantly and let ibelick-soft do most of the work.
+  - Keep gold as subtle accent, not a dominating wash.
+
+Acceptance check
+- Final CTA looks like the same “system” as the rest (not a different decorative style).
+
+4) Mobile-first spacing pass (premium feel on small screens)
+Files:
+- src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
+- src/pages/landing/CompanyFormationLanding.tsx
+- (optional) src/components/shared/SplitSection.tsx (only if we can improve mobile defaults without side effects)
+
+Hero
+- Tighten top/bottom padding slightly on mobile so the hero doesn’t feel tall.
+- Ensure CTAs are full-width stacked cleanly with consistent gaps.
+- Ensure HeroReviewStrip doesn’t feel cramped: add a small top margin and allow it to stack.
+
+SplitSections (“How it works”, “What happens on the call”)
+- Verify card padding on mobile:
+  - Step cards and benefit cards may feel slightly heavy; consider reducing p-6 → p-5 on mobile only (keep desktop).
+- Confirm image crops do not cut off faces:
+  - If any image is cropping poorly on mobile, adjust object-position per image (e.g., object-[center_30%]) without changing aspect ratio.
+
+Booking section
+- Title/subtitle spacing aligned with the new rhythm.
+- Ensure CalendlyBooking columns stack with comfortable spacing:
+  - Confirm image panel + cards don’t feel too long; adjust spacing between blocks on mobile (space-y-5 instead of 6, etc.) while staying breathable.
+
+FAQ
+- Accordion container currently: card-elevated p-2 md:p-3
+- Improve mobile tap targets and whitespace:
+  - Slightly increase inner padding on mobile if triggers feel tight, or adjust AccordionTrigger spacing.
+  - Keep the image above accordion on mobile (current grid will stack; confirm the order is ideal).
+
+Acceptance check
+- On mobile, the page feels “designed”: consistent spacing, no cramped accordions, CTAs look intentional, images crop well.
+
+QA / verification checklist (you will test in preview)
+- End-to-end funnel still works:
+  - Complete calculator → summary appears → booking unlocks → Calendly loads.
+- Visual consistency:
+  - Calculator, Testimonials, Final CTA all show ibelick overlays with the chosen variants (soft/lines/soft).
+- Mobile polish:
+  - Hero + review strip + CTAs feel clean
+  - SplitSections stack nicely
+  - FAQ accordion comfortable to tap/read
 - Performance:
-  - Images still lazy-load (except hero)
-  - No heavy animation jank
+  - Hero stays eager/high priority; all other images remain lazy.
 
-Files expected to change
-- src/components/shared/SectionBackgroundOverlay.tsx (new overlay variants)
-- src/index.css (new overlay utilities; optional grain utility)
-- src/components/shared/SplitSection.tsx (badge consistency + editorial image treatment)
-- src/components/consultation/CalendlyBooking.tsx (unify surfaces + image treatment + reduce motion)
-- src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx (reduce motion/effects, optional)
-- src/pages/landing/CompanyFormationLanding.tsx (spacing rhythm + testimonials/faq image ratio polish)
-
-Decision points (only if needed during implementation)
-- Pick one primary overlay variant for most sections (so it’s cohesive), and reserve others for special moments (hero, calculator band, final CTA).
-- Confirm whether you want the booking “contact panel” to stay dark-navy or switch to light surfaces with a navy header strip (usually looks more modern/minimal).
+Out of scope (unless you ask)
+- Regenerating images again (we can do it later if a specific one still feels off-brand).
+- Changing the conversion flow or adding extra steps/capture forms.
