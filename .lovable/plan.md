@@ -1,148 +1,194 @@
 
-Scope (what you asked)
-- Add a hero-section social proof bar (reuse the same HeroReviewStrip from the main service pages).
-- Refine typography hierarchy for a more editorial feel (tighter H1/H2 rhythm, better subtitle widths, cleaner badge placement) without changing the page structure/flow.
-- Apply the ibelick overlay system consistently to the remaining sections: Calculator band + Testimonials + Final CTA, so the entire LP feels like one design system.
-- Do a mobile-first spacing pass (image crops, accordion spacing, CTA stacks) so it feels premium on small screens.
+Goal
+- Make /lp/company-formation feel calmer and more premium: smaller headlines, no “hard” shadows, better whitespace, images that crop cleanly, and ibelick-style overlays that are actually visible (in your current view they read as “not showing”).
 
-Decisions captured (from your answers)
-- Hero social proof: Use HeroReviewStrip.
-- Avatars: Keep external avatars (randomuser.me) as-is.
-- Overlay consistency: Mixed — Soft for Calculator + Final CTA, Lines for Testimonials.
+What I found (current code)
+1) Headlines are globally large
+- src/index.css sets global:
+  - h1: text-4xl → text-6xl (very big)
+  - h2: text-3xl → text-4xl
+- The LP then adds .lp-hero-title which tightens leading but does not reduce size; so the page still reads “too big” (hero + section headings).
 
-Key files involved
+2) Shadows feel “hard” in a few places
+- Global .card-elevated uses: shadow-[0_4px_24px_hsl(var(--navy)/0.08)]
+- Hero image container uses a stronger custom shadow:
+  - shadow-[0_30px_80px_-40px_hsl(var(--navy)/0.30)]
+- The small floating cards in the hero montage also use shadow_*; combined with borders it can feel harsh.
+
+3) Images “not fitting” is mostly crop/aspect + inconsistent ratios
+- SplitSection images are forced into a ratio (16/10) and use object-cover; if the source images aren’t composed for that crop, faces/subjects can be clipped.
+- Booking image uses EditorialImage 16/10 too.
+- Testimonials banner is 16/6 (very wide), which can create awkward crops depending on the source image.
+- FAQ is 4/3; again depends on source composition.
+- Your requirement “1080×1350” implies you want portrait exports (4:5) for better subject framing; we can use those sources and crop down for web safely.
+
+4) “BG overlay not showing” is likely a contrast/coverage issue, not missing CSS
+- overlay-ibelick-soft and overlay-ibelick-lines are defined in src/index.css and SectionBackgroundOverlay renders correctly.
+- But:
+  - The overlay gradients are intentionally very subtle (gold/navy alpha ~0.08–0.12), and
+  - Some sections also set their own background colors (SplitSection subtle uses bg-secondary/40), which can wash the overlay out,
+  - Plus the mask fades the overlay aggressively near edges.
+- Net effect: on a white canvas with borders, it can look like “nothing is happening”.
+
+Decisions already confirmed in previous thread
+- Low motion
+- Keep ibelick-inspired backgrounds
+- Keep external avatars for HeroReviewStrip
+- Mixed overlay usage (soft + lines) previously selected, but your latest feedback suggests we should increase visibility regardless.
+
+Implementation plan (what I will change)
+
+A) Reduce headline sizes for this landing page (hero + section headings) without changing the global site typography
+Files
+- src/index.css
 - src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
 - src/pages/landing/CompanyFormationLanding.tsx
-- src/components/shared/HeroReviewStrip.tsx (reuse; minimal/no changes expected)
-- src/components/shared/SectionBackgroundOverlay.tsx (already supports ibelick-soft / ibelick-lines)
-- src/index.css (small, scoped typography/spacing utilities if needed)
+- src/components/shared/SplitSection.tsx (if needed for consistent H2 sizing)
 
-Implementation plan (exact changes)
+Changes
+1) Add LP-scoped typography utilities (so only this page changes)
+- Create classes like:
+  - .lp-h1 (smaller than global h1; tighter max width; calmer leading)
+  - .lp-h2 (smaller than global h2; consistent rhythm)
+  - .lp-lead (reduce .lead size on LP only: text-lg/ text-xl instead of text-xl/2xl)
+2) Apply those classes in:
+- CompanyFormationHeroMontage:
+  - h1: add lp-h1 and remove reliance on global h1 sizing
+  - lead paragraph: switch from .lead to lp-lead (keeps editorial feel, less loud)
+- CompanyFormationLanding + SplitSection headers:
+  - ensure section titles use lp-h2 consistently where headings feel too big
 
-1) Hero: add social proof bar (HeroReviewStrip) in the hero copy column
-File: src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
-- Import HeroReviewStrip from "@/components/shared/HeroReviewStrip".
-- Place the strip directly under the CTA buttons (or under the “Free • No obligation…” line) so it reads as immediate reassurance.
-- Keep low motion: no framer-motion; just render static content.
-- Mobile polish:
-  - Ensure the strip wraps gracefully (it already stacks to column on small screens).
-  - Reduce spacing so it doesn’t push the fold too far down: tighten margins around CTAs/strip.
+Acceptance criteria
+- Hero headline feels premium and not “shouty” on mobile and desktop.
+- Section titles are smaller, with more whitespace rather than bigger type.
 
-Acceptance check
-- Hero shows Google/Trustpilot strip consistently, with correct spacing on mobile/desktop.
-
-2) Typography hierarchy: “editorial tightening” without layout changes
-Files:
+B) Remove “hard” shadows; keep subtle borders and depth
+Files
+- src/index.css
 - src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
 - src/pages/landing/CompanyFormationLanding.tsx
-- (optional) src/index.css (scoped utilities only)
+- src/components/consultation/CalendlyBooking.tsx
+- (optional) src/components/shared/EditorialImage.tsx
 
-Hero (H1 + lead + bullets)
-- In CompanyFormationHeroMontage:
-  - Make H1 line-height slightly tighter on mobile and reduce visual “jump” between lines:
-    - Add a hero-specific className to h1 (e.g., "lp-hero-title") and apply tighter leading + balanced max width.
-  - Constrain the lead paragraph width a little more on desktop (max-w) to feel more editorial and less “wide marketing text”.
-  - Align the small top line (“Google Ads Offer…”) into a badge-like chip or keep as-is but reduce visual noise (lighter color, slightly tighter tracking).
+Changes
+1) Introduce LP-only surface styles
+- Add utilities like:
+  - .lp-card (border-border/60 + very soft shadow or no shadow)
+  - .lp-card-strong (only where you truly need separation; still subtle)
+2) Replace hard shadow usage in hero montage
+- Reduce/remove:
+  - hero main image container shadow-[0_30px_80px...]
+  - mini cards’ shadow-[0_18px_50px...]
+- Prefer border + subtle shadow (or none) to match “minimal modern”.
+3) If you want site-wide softer shadows (optional)
+- We can soften .card-elevated globally, but only if you confirm other pages are also “too shadowy”.
+- Default plan: keep global unchanged; only change LP.
 
-Section headings (H2 + subtitles)
-- In SplitSection, headings are already consistent; most changes are in CompanyFormationLanding where there are manual h2 + p blocks (Booking, Testimonials, Final CTA).
-- Update those blocks to match SplitSection header rhythm:
-  - Consistent spacing: badge → title (mt-3) → subtitle (mt-4) and consistent subtitle max width (max-w-2xl or max-w-3xl).
-  - Ensure subtitles don’t run full width on large screens.
+Acceptance criteria
+- Cards feel like “paper” with subtle edges, not floating blocks.
+- No obvious dark drop shadows on white.
 
-Global CSS (only if needed)
-- Avoid changing global h1/h2 for the whole site. If we need more finesse, add 1–2 scoped utility classes in src/index.css (e.g., .lp-hero-title, .lp-section-subtitle) and apply only on this LP.
-
-Acceptance check
-- H1 feels calmer and tighter (especially on mobile), subtitles have consistent widths, badges sit consistently above headings.
-
-3) Overlay consistency: replace “one-off” backgrounds with SectionBackgroundOverlay system
-File: src/pages/landing/CompanyFormationLanding.tsx
-
-3a) Calculator band: migrate to ibelick-soft overlay
-Current state
-- Calculator uses:
-  - mesh-gradient-gold
-  - pattern-grid-lines-light
-These are fine but don’t use the new overlay system, so it can feel like a different design layer.
-
-Change
-- Replace the two absolute overlay divs with:
-  - <SectionBackgroundOverlay variant="ibelick-soft" opacity=... masked=... />
-- Keep the card-elevated + noise-texture on the calculator container (that’s part of the premium surface system).
-- Tune opacity so the calculator remains the primary focus (subtle background, not loud).
-
-Acceptance check
-- Calculator section background matches the same “ibelick” language as the SplitSections.
-
-3b) Testimonials section: add ibelick-lines overlay behind the section
-Current state
-- Testimonials section has no overlay behind it; only the image banner has overlays.
-
-Change
-- Wrap Testimonials section with relative/overflow-hidden and add:
-  - <SectionBackgroundOverlay variant="ibelick-lines" masked opacity=... />
-- Keep the testimonial image banner as-is (it already has editorial overlays), but ensure the overall section reads as one system.
-
-Acceptance check
-- Testimonials section background is consistent with the rest of the page and still feels clean/minimal.
-
-3c) Final CTA: switch from gold radial-only to ibelick-soft (keep gold as micro-accent)
-Current state
-- Final CTA card uses overlay-gold-radial-center.
-
-Change
-- Add a SectionBackgroundOverlay at the section level with ibelick-soft (masked).
-- Inside the CTA card:
-  - Either remove overlay-gold-radial-center, or reduce it significantly and let ibelick-soft do most of the work.
-  - Keep gold as subtle accent, not a dominating wash.
-
-Acceptance check
-- Final CTA looks like the same “system” as the rest (not a different decorative style).
-
-4) Mobile-first spacing pass (premium feel on small screens)
-Files:
-- src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
+C) Make ibelick overlays visibly present (fix “not showing”)
+Files
+- src/components/shared/SectionBackgroundOverlay.tsx
+- src/index.css
+- src/components/shared/SplitSection.tsx
 - src/pages/landing/CompanyFormationLanding.tsx
-- (optional) src/components/shared/SplitSection.tsx (only if we can improve mobile defaults without side effects)
+- src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx (optional)
 
-Hero
-- Tighten top/bottom padding slightly on mobile so the hero doesn’t feel tall.
-- Ensure CTAs are full-width stacked cleanly with consistent gaps.
-- Ensure HeroReviewStrip doesn’t feel cramped: add a small top margin and allow it to stack.
+Changes
+1) Increase overlay visibility in a controlled way
+- Adjust overlay recipes:
+  - Slightly increase alpha values (e.g., gold/navy stops from 0.08–0.12 → ~0.12–0.18)
+  - Add one ultra-subtle line layer to soft variant so it reads even on large white sections
+2) Reduce “washout” from section backgrounds
+- In SplitSection, currently subtle variant adds bg-secondary/40.
+- Change logic: when SectionBackgroundOverlay is used, keep the base section background transparent (or near-transparent), so the overlay can actually be seen.
+3) Tweak masking so it doesn’t erase everything
+- Current mask fades to transparent at ~78%.
+- Adjust mask to keep pattern visible longer (e.g., fade later, or use a gentler mask gradient).
 
-SplitSections (“How it works”, “What happens on the call”)
-- Verify card padding on mobile:
-  - Step cards and benefit cards may feel slightly heavy; consider reducing p-6 → p-5 on mobile only (keep desktop).
-- Confirm image crops do not cut off faces:
-  - If any image is cropping poorly on mobile, adjust object-position per image (e.g., object-[center_30%]) without changing aspect ratio.
+Acceptance criteria
+- On your screen, each section has a visible, tasteful ibelick-style texture/gradient.
+- Overlay remains decorative (does not reduce text contrast).
 
-Booking section
-- Title/subtitle spacing aligned with the new rhythm.
-- Ensure CalendlyBooking columns stack with comfortable spacing:
-  - Confirm image panel + cards don’t feel too long; adjust spacing between blocks on mobile (space-y-5 instead of 6, etc.) while staying breathable.
+D) Fix image “fit” by improving crop control + swapping to portrait-first regenerated sources (1080×1350)
+Files
+- src/components/shared/EditorialImage.tsx
+- src/components/shared/SplitSection.tsx
+- src/components/consultation/CalendlyBooking.tsx
+- src/pages/landing/CompanyFormationLanding.tsx
+- src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
 
-FAQ
-- Accordion container currently: card-elevated p-2 md:p-3
-- Improve mobile tap targets and whitespace:
-  - Slightly increase inner padding on mobile if triggers feel tight, or adjust AccordionTrigger spacing.
-  - Keep the image above accordion on mobile (current grid will stack; confirm the order is ideal).
+Changes
+1) Add crop controls to EditorialImage
+- Add props such as:
+  - imgClassName already exists, but we’ll standardize usage
+  - objectPosition (or just pass a Tailwind class like object-[center_30%])
+  - “focus presets” per section (top/center) to prevent cutting faces on mobile
+2) Normalize ratios where current crops are risky
+- Testimonials banner (16/6) is especially sensitive:
+  - either change to a slightly less extreme banner ratio (still wide, but safer), or
+  - keep ratio and regenerate an image composed for wide banners.
+3) Regenerate the specific section images in 1080×1350
+- Even though the page uses landscape ratios in some spots, portrait masters give us safer crops for people shots (more headroom).
+- We will:
+  - Generate 1080×1350 images per section with consistent lighting/grading and composition that works when cropped to 16/10 or 4/3.
+  - Replace assets under src/assets/company-formation/lp/ (and hero if needed).
+4) Apply per-section object-position tweaks
+- For each section image, set object-position so the subject stays centered on mobile.
 
-Acceptance check
-- On mobile, the page feels “designed”: consistent spacing, no cramped accordions, CTAs look intentional, images crop well.
+Acceptance criteria
+- No awkward crops on mobile (faces not cut).
+- Images feel consistent as a set (same warmth, contrast, gold/navy toning).
 
-QA / verification checklist (you will test in preview)
-- End-to-end funnel still works:
-  - Complete calculator → summary appears → booking unlocks → Calendly loads.
-- Visual consistency:
-  - Calculator, Testimonials, Final CTA all show ibelick overlays with the chosen variants (soft/lines/soft).
-- Mobile polish:
-  - Hero + review strip + CTAs feel clean
-  - SplitSections stack nicely
-  - FAQ accordion comfortable to tap/read
-- Performance:
-  - Hero stays eager/high priority; all other images remain lazy.
+E) Improve whitespace / “design space” (mobile-first)
+Files
+- src/pages/landing/CompanyFormationLanding.tsx
+- src/components/shared/SplitSection.tsx
+- src/components/consultation/CalendlyBooking.tsx
+- src/index.css (if we add spacing utilities)
 
-Out of scope (unless you ask)
-- Regenerating images again (we can do it later if a specific one still feels off-brand).
-- Changing the conversion flow or adding extra steps/capture forms.
+Changes
+1) Increase whitespace by reducing visual weight, not by making everything taller
+- Keep section-spacing but:
+  - reduce dense card padding on mobile where it feels cramped
+  - increase gap between headline/subtitle and content blocks for breathing room
+2) FAQ: improve readability and tap comfort
+- Slightly increase spacing inside Accordion triggers/contents; ensure consistent padding.
+3) CTA stacks on mobile
+- Ensure CTA buttons do not feel crowded; consistent vertical rhythm and margins.
+
+Acceptance criteria
+- Page feels “premium magazine”: calmer, more breathing room, fewer heavy surfaces.
+
+Execution order (to minimize rework)
+1) Overlay visibility fixes (so we can judge contrast with typography and images correctly)
+2) Typography downscale (hero + section headings)
+3) Shadow softening (LP only)
+4) Image crop controls + per-section object-position
+5) Regenerate and replace images at 1080×1350 (only after crop system is ready)
+6) Mobile spacing polish pass and final QA
+
+QA checklist (what you should test after implementation)
+- Desktop + mobile:
+  - Hero headline not oversized
+  - No harsh shadows anywhere in hero/cards
+  - Overlays visibly present in Calculator, SplitSections, Testimonials, Final CTA
+  - Images crop well on mobile (no cut faces)
+- Funnel still works end-to-end:
+  - Calculator → results → estimate summary → booking reveal → Calendly loads
+
+Assets to regenerate (based on your latest message)
+- You selected “all images”, so the default will be:
+  - Hero
+  - How it works
+  - What happens on the call
+  - Booking
+  - Testimonials banner
+  - FAQ
+All regenerated at 1080×1350 with consistent editorial lighting/grading and composed to survive cropping.
+
+Notes / minimal-risk approach
+- Typography and shadows will be scoped to this landing page first (so other pages aren’t unintentionally changed).
+- If you later want the same calmer typographic scale site-wide, we can do that as a separate, deliberate change.
