@@ -1,63 +1,124 @@
 
 <context>
-Goal: Redesign the “What happens on the call” section on `/lp/company-formation` to match the modern reference: bigger/taller image block, tighter/cleaner header rhythm, and more refined boxed benefit cards with light borders and no shadows.
+Goal
+- Redesign the “What happens on the call” section on /lp/company-formation to match the modern reference (image-9):
+  - Bigger image block (wider image column on desktop)
+  - Cleaner header rhythm
+  - Benefit cards upgraded to “title + detail” layout with unique icons
+  - Add “trust highlights” inside the section to improve Google Ads conversion (reassurance + credibility) without adding heavy motion or shadows.
 
-Current state:
-- Section lives in `src/pages/landing/CompanyFormationLanding.tsx` as a `SplitSection`.
-- `SplitSection` (in `src/components/shared/SplitSection.tsx`) renders a fixed two-column grid with a header and an image wrapper using `AspectRatio`.
-- Benefits are already a 2-column boxed grid with light borders; the main gaps vs your screenshot are (a) the image height/weight and (b) the header spacing and (c) subtle card details (padding, border tone, icon treatment).
+Current implementation
+- Section component: src/pages/landing/company-formation/CompanyFormationCallSection.tsx
+  - Uses SplitSection with imagePosition="left", backgroundVariant="ibelick-lines", overlayOpacity=0.35, imageRatio=4/3
+  - Benefits currently render as single-line text with an icon chip.
+- Layout component: src/components/shared/SplitSection.tsx
+  - Desktop split layout uses fixed lg:col-span-6 / lg:col-span-6 (cannot currently widen image column).
 </context>
 
-<what-will-change>
-1) Make the image block feel bigger/taller (closer to the screenshot)
-- In `CompanyFormationLanding.tsx`, update this section’s `imageRatio` from `16/10` to a taller ratio, likely `4/3` (or `3/2` if you want slightly less tall).
-- Ensure the image container can visually “stand” next to the benefit grid:
-  - Pass a dedicated `imageClassName` to increase perceived size and stability (e.g., ensure it’s not visually cramped by spacing).
-  - If needed, extend `SplitSection` with an optional prop like `imageWrapperClassName` (or reuse `imageClassName`) that applies to the non-editorial image frame wrapper so we can enforce consistent height/min-height on desktop.
+<design-changes (what will change visually)>
+A) Desktop layout: wider image column
+- Match screenshot proportions by making the image column wider than the content column on lg+.
+- Target: image 7/12, content 5/12 (or 8/12 + 4/12 if needed, but we’ll start with 7/5 to keep text comfortable).
 
-2) Header spacing/typography to match the reference rhythm
-- The current badge spacing is controlled globally by `.section-badge` (it includes `mb-4`).
-- To match your screenshot more precisely without changing global styles:
-  - In `CompanyFormationLanding.tsx`, set `badge={undefined}` for this section and render a local badge pill inside the children area (or add a new optional `badgeClassName` prop to `SplitSection` and override only this section).
-  - Reduce the vertical gaps: slightly smaller badge-to-title spacing and subtitle spacing.
-  - Keep `useLpHeadings` so the title stays calm/premium (already aligned with your LP typography memory).
+B) Header rhythm: tighter + cleaner
+- Keep the existing pill badge (already good).
+- Tighten spacing so badge → title → subtitle feels closer to the reference:
+  - Slightly reduce header bottom margin and subtitle top margin.
+  - Keep calm LP heading scale (useLpHeadings).
 
-3) Benefit cards styling refinements (still flat, light borders, modern)
-- In `CompanyFormationLanding.tsx`, tune each benefit card to match the screenshot:
-  - Border lightness: keep `border-border/15`–`/20` range (slightly lighter than now if needed).
-  - Surface: keep `bg-background` but consider `bg-background/90` or `bg-card` consistently (no shadow).
-  - Padding: slightly increase to match screenshot (likely `p-6` on desktop, `p-5` on mobile).
-  - Icon chip: adjust to a cleaner “check in subtle circle”:
-    - circle: `border border-border/20` (lighter), optionally `bg-muted/10`
-    - icon: keep `text-accent` and slightly thinner look by size (`h-4 w-4` is fine).
-  - Text: move from `text-foreground/80` to a slightly stronger tone if needed for clarity, while remaining premium (e.g., `text-foreground/75`–`/85`).
+C) Benefit cards: “title + detail” format + unique icons
+- Replace each benefit’s single sentence with:
+  - Title (short, scannable)
+  - Detail (one short supporting line)
+- Card layout:
+  - Flat, shadowless, light border, rounded-2xl
+  - Icon placed to the left of the text block (like the reference), sized consistently.
+  - Typography: title slightly stronger; detail slightly muted but readable (avoid too-low contrast).
 
-4) Optional: tighten column proportions (only if it helps match your screenshot)
-- If after the ratio change the layout still feels off, extend `SplitSection` with optional props to control column spans just for this section, e.g.:
-  - `contentColSpanLg?: number` and `imageColSpanLg?: number` (default stays 6/6).
-- This keeps the component flexible without affecting other sections.
+D) Add “Trust highlights” row (conversion booster)
+- Add a small 3-item highlight row under the subtitle and above the benefit grid:
+  - Example items (final copy will be concise, ad-friendly):
+    1) “Free 30‑minute call”
+    2) “Transparent pricing”
+    3) “3–7 day typical timeline”
+- Each item includes a small icon and short text, rendered as a calm inline row that wraps on mobile.
+- No animation; no heavy emphasis; just clarity and reassurance for ad traffic.
+</design-changes>
 
-</what-will-change>
+<implementation approach (exact code steps)>
+1) Extend SplitSection to support custom desktop column spans (needed for wider image column)
+File: src/components/shared/SplitSection.tsx
+- Add optional props:
+  - contentColSpanLg?: number (default 6)
+  - imageColSpanLg?: number (default 6)
+- Use these to build the className for the two lg column wrappers:
+  - content wrapper: `lg:col-span-${contentColSpanLg}`
+  - image wrapper: `lg:col-span-${imageColSpanLg}`
+- Validate sum = 12 (if not, we’ll still render but we’ll choose defaults to keep 12 in our usage).
 
-<files-to-edit>
-- Primary:
-  - `src/pages/landing/CompanyFormationLanding.tsx`
-- If needed for cleaner, local-only header spacing and/or image sizing:
-  - `src/components/shared/SplitSection.tsx` (add small optional props to override badge class / image wrapper sizing or column spans)
-</files-to-edit>
+2) Update CompanyFormationCallSection to use wider image column
+File: src/pages/landing/company-formation/CompanyFormationCallSection.tsx
+- Pass:
+  - imageColSpanLg={7}
+  - contentColSpanLg={5}
+- Keep imageRatio at 4/3 (already close to reference).
+- Optionally increase perceived image “presence” with a slightly stronger border (still light) by using existing SplitSection imageFrame="flat" and (if needed) tweaking imageClassName.
 
-<acceptance-checklist>
-On `/lp/company-formation`:
-- Desktop:
-  - Image looks noticeably taller/bigger and visually balanced with the benefits grid.
-  - Badge/title/subtitle spacing matches the screenshot’s calmer rhythm (less “gappy”).
-  - Benefit cards look modern and consistent: flat, light borders, no shadows, comfortable padding.
-- Mobile:
-  - Stacks cleanly; image remains nicely framed; benefit cards are single-column with good spacing and readable text.
-- No shadows reintroduced anywhere in this section.
-</acceptance-checklist>
+3) Refactor benefits data to “title + detail”
+File: src/pages/landing/company-formation/CompanyFormationCallSection.tsx
+- Change BenefitItem shape from:
+  - { label, Icon }
+  to:
+  - { title, detail, Icon }
+- Update copy to be more scannable (example mapping):
+  - “Business structure advice” + “Tailored to your goals”
+  - “Transparent cost breakdown” + “No hidden fees”
+  - “Realistic timeline estimate” + “Based on your setup”
+  - “Document checklist” + “What to prepare to start”
+  - “Direct Q&A” + “Talk with our setup experts”
+  - “Next-step plan” + “Simple and actionable”
+- Update card markup:
+  - Layout: icon left, text stack right
+  - Text: title `text-sm font-semibold text-foreground`, detail `text-sm text-muted-foreground` (tuned so it’s still readable)
+  - Keep padding slightly larger (p-6 desktop, p-5 mobile).
 
-<implementation-notes-technical>
-- Prefer local overrides first (per-section markup/classes) to avoid unintended global ripple effects.
-- Only extend `SplitSection` props if we cannot achieve the layout precisely through existing `imageClassName`, `imageRatio`, and local badge rendering.
-</implementation-notes-technical>
+4) Add Trust highlights row under subtitle
+File: src/pages/landing/company-formation/CompanyFormationCallSection.tsx
+- Insert a new block between the header and the benefit grid:
+  - A responsive flex row with 3 items
+  - Each item: tiny icon + short text
+  - Styling: very light border or subtle background only if needed; otherwise plain inline row to avoid visual clutter
+- Icons (auto-pick Lucide): e.g., Clock / ShieldCheck / ReceiptText / Sparkles (final selection will match the highlight meaning and existing icon palette).
+
+5) Polish pass to match the screenshot
+- Header spacing:
+  - Adjust SplitSection props already in use: headerClassName, titleTopMarginClassName, subtitleTopMarginClassName, leadClassName.
+- Card borders:
+  - Ensure consistent border opacity across cards (likely /15 to /20).
+- Background grid:
+  - Keep ibelick-lines but reduce opacity slightly if it competes with text (e.g., 0.25–0.35 range).
+</implementation approach>
+
+<acceptance checklist>
+On /lp/company-formation:
+- Desktop
+  - Image is visibly wider than the text column (closer to reference).
+  - Badge/title/subtitle spacing feels tight and premium (not “gappy”).
+  - Benefit cards show icon + title + detail and feel modern, flat, and consistent.
+  - Trust highlights row is visible, readable, and supports decision-making without clutter.
+- Mobile
+  - Layout stacks naturally, no overflow.
+  - Trust highlights wrap cleanly.
+  - Benefit cards remain readable with comfortable spacing.
+- No heavy shadows or distracting animations are introduced (low motion stays intact).
+
+<files to change>
+- src/components/shared/SplitSection.tsx (add optional column span props)
+- src/pages/landing/company-formation/CompanyFormationCallSection.tsx (benefit card redesign + trust highlights + pass wider column spans)
+</files to change>
+
+<notes (conversion-focused, Google Ads)>
+- “Trust highlights” act as rapid reassurance for cold traffic and reduces uncertainty before the calculator/booking gate.
+- Title+detail benefits improve scanning on mobile and make the value more obvious at a glance.
+- Wider image column increases perceived premium quality and credibility (visual authority) without adding friction.
+</notes>
