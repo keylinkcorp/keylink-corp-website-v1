@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { Check, MessageCircle, Phone } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,6 @@ import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 
 import howItWorksImage from "@/assets/company-formation/lp/how-it-works-portrait.jpg";
-import whatYouGetImage from "@/assets/company-formation/lp/what-you-get-portrait.jpg";
 import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
 import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
 import faqImage from "@/assets/company-formation/lp/faq-portrait.jpg";
@@ -26,6 +25,7 @@ import faqImage from "@/assets/company-formation/lp/faq-portrait.jpg";
 import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
 import { CompanyFormationTrustBar } from "@/pages/landing/company-formation/CompanyFormationTrustBar";
 import { CompanyFormationEstimateSummary } from "@/pages/landing/company-formation/CompanyFormationEstimateSummary";
+import { CompanyFormationCallSection } from "@/pages/landing/company-formation/CompanyFormationCallSection";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
@@ -209,45 +209,7 @@ export default function CompanyFormationLanding() {
             </div>
           </SplitSection>
           {/* CONSULTATION VALUE */}
-          <SplitSection
-            badge="What you get"
-            title="What happens on the call"
-            subtitle="Practical guidance and a clean plan—so you move fast and avoid surprises."
-            useLpHeadings
-            imageSrc={whatYouGetImage}
-            imageAlt="Business consultation reviewing a checklist"
-            imagePosition="left"
-            variant="default"
-            backgroundVariant="ibelick-lines"
-            overlayOpacity={0.35}
-            overlayMasked
-            imageRatio={16 / 10}
-            imageTreatment="none"
-            imageFrame="flat"
-            imageOverlayStrength={0.45}
-            imageImgClassName="object-[center_35%]"
-          >
-            <div className="grid md:grid-cols-2 gap-5 md:gap-6 mt-8">
-              {[
-                "Business structure advice tailored to your goals",
-                "Transparent cost breakdown (no hidden fees)",
-                "Realistic timeline estimate for your setup",
-                "Complete document checklist to get started",
-                "Direct Q&A with our business setup experts",
-                "Next-step plan after the call (simple + actionable)",
-              ].map((b) => (
-                <div
-                  key={b}
-                  className="h-full rounded-2xl border border-border/20 bg-background p-5 sm:p-6 flex gap-3 sm:gap-4 items-start"
-                >
-                  <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full border border-border/25 bg-background">
-                    <Check className="h-4 w-4 text-accent" />
-                  </span>
-                  <p className="text-sm leading-relaxed text-foreground/80">{b}</p>
-                </div>
-              ))}
-            </div>
-          </SplitSection>
+          <CompanyFormationCallSection />
 
           {/* BOOKING (revealed after form submit) */}
           <div id="book" />
