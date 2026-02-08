@@ -6,7 +6,6 @@ import {
   Phone,
   Shield,
   Sparkles,
-  Users,
 } from "lucide-react";
 
 import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
@@ -21,13 +20,8 @@ type CompanyFormationHeroMontageProps = {
 export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHeroMontageProps) {
   return (
     <section className="relative overflow-hidden">
-      {/* Ambient background (soft, light MagicUI-style) */}
+      {/* Calm background (no decorative blobs) */}
       <div aria-hidden className="absolute inset-0 bg-muted/20" />
-      <div aria-hidden className="absolute inset-0 mesh-gradient-gold opacity-70" />
-      <div
-        aria-hidden
-        className="floating-orb floating-orb-gold -top-24 -left-24 h-[320px] w-[320px] opacity-60"
-      />
 
       <div className="relative container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-12 md:pb-16">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
@@ -105,7 +99,7 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                 <div className="absolute inset-0 overlay-navy-vertical" />
 
                 <div className="absolute bottom-5 left-5 right-5">
-                  <div className="glass-card-light p-3 md:p-4 flex items-center justify-between gap-3">
+                  <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-accent" />
                       <span className="text-sm text-foreground font-medium">Free 30‑minute call • Google Meet</span>
@@ -115,62 +109,6 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                 </div>
               </div>
 
-              {/* Offer Spec (replaces secondary photo) */}
-              <div className="hidden md:block absolute -left-10 bottom-10 w-[240px]">
-                <div className="rounded-2xl overflow-hidden lp-card-flat">
-                  <div className="p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-xs font-semibold text-accent">Offer</p>
-                        <p className="mt-1 text-lg font-bold tracking-tight text-foreground">From BHD 750</p>
-                        <p className="text-[11px] text-muted-foreground">+ government fees</p>
-                      </div>
-                      <div className="h-9 w-9 rounded-xl bg-accent/10 flex items-center justify-center">
-                        <Clock className="h-4 w-4 text-accent" />
-                      </div>
-                    </div>
-
-                    <div className="mt-4 space-y-2">
-                      <div className="flex items-start gap-2 text-[12px] text-foreground/90">
-                        <Clock className="mt-0.5 h-3.5 w-3.5 text-accent" />
-                        <span>3–7 business days typical</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-[12px] text-foreground/90">
-                        <Users className="mt-0.5 h-3.5 w-3.5 text-accent" />
-                        <span>100% foreign ownership options</span>
-                      </div>
-                      <div className="flex items-start gap-2 text-[12px] text-foreground/90">
-                        <FileText className="mt-0.5 h-3.5 w-3.5 text-accent" />
-                        <span>Checklist after the call</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Proof (replaces secondary photo) */}
-              <div className="hidden md:block absolute -right-10 top-10 w-[240px]">
-                <div className="rounded-2xl overflow-hidden lp-card-flat">
-                  <div className="p-4">
-                    <p className="text-xs font-semibold text-muted-foreground">Trusted by founders worldwide</p>
-                    <div className="mt-3 grid grid-cols-2 gap-3">
-                      <div className="rounded-xl bg-muted/30 border border-border/60 p-3">
-                        <p className="text-2xl font-extrabold tracking-tight text-foreground">500+</p>
-                        <p className="text-[11px] text-muted-foreground">Businesses supported</p>
-                      </div>
-                      <div className="rounded-xl bg-muted/30 border border-border/60 p-3">
-                        <p className="text-2xl font-extrabold tracking-tight text-foreground">40+</p>
-                        <p className="text-[11px] text-muted-foreground">Countries served</p>
-                      </div>
-                    </div>
-
-                    <div className="mt-3 flex items-center gap-2 text-[12px] text-foreground/90">
-                      <Sparkles className="h-3.5 w-3.5 text-accent" />
-                      <span>Fast response on WhatsApp</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

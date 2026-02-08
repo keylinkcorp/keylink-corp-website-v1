@@ -196,7 +196,7 @@ export default function CompanyFormationLanding() {
               ))}
             </div>
 
-            <div className="mt-6 glass-card-light p-6 md:p-7">
+            <div className="mt-6 lp-card-flat bg-muted/20 p-6 md:p-7">
               <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-foreground">Want exact costs + timeline?</p>
@@ -225,7 +225,7 @@ export default function CompanyFormationLanding() {
             imageOverlayStrength={0.55}
             imageImgClassName="object-[center_35%]"
           >
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               {[
                 "Business structure advice tailored to your goals",
                 "Transparent cost breakdown (no hidden fees)",
@@ -234,34 +234,11 @@ export default function CompanyFormationLanding() {
                 "Direct Q&A with our business setup experts",
                 "Next-step plan after the call (simple + actionable)",
               ].map((b) => (
-                <div key={b} className="lp-card p-5 flex gap-3">
+                <div key={b} className="lp-card-flat p-4 sm:p-5 flex gap-3">
                   <Check className="h-4 w-4 text-accent mt-0.5" />
                   <p className="text-sm text-muted-foreground">{b}</p>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-6 lp-card p-6 md:p-7">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                  <p className="font-semibold text-foreground">Prefer to talk now?</p>
-                  <p className="text-sm text-muted-foreground mt-1">Sunday–Thursday • 8:00 AM – 5:00 PM</p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                  <Button className="w-full sm:w-auto" asChild>
-                    <a href="https://wa.me/97317008888">
-                      <MessageCircle className="mr-2" />
-                      WhatsApp
-                    </a>
-                  </Button>
-                  <Button variant="outline" className="w-full sm:w-auto" asChild>
-                    <a href="tel:+97317008888">
-                      <Phone className="mr-2" />
-                      Call
-                    </a>
-                  </Button>
-                </div>
-              </div>
             </div>
           </SplitSection>
 

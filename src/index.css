@@ -180,9 +180,9 @@
     @apply text-lg leading-relaxed max-w-2xl;
   }
 
-  /* LP-only surfaces (reduce “hard shadow” feel) */
+  /* LP-only surfaces (remove “hard shadow” feel) */
   .lp-card {
-    @apply bg-card rounded-2xl border border-border/60 shadow-[0_2px_14px_hsl(var(--navy)/0.06)];
+    @apply bg-card rounded-2xl border border-border/60 shadow-none;
   }
 
   .lp-card-flat {
