@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -88,6 +88,13 @@ const App = () => (
           <Route path="/free-zone-in-bahrain/sitra" element={<Sitra />} />
           <Route path="/free-consultation" element={<FreeConsultation />} />
           <Route path="/lp/company-formation" element={<CompanyFormationLanding />} />
+
+          {/* Legacy / convenience redirects to avoid 404s */}
+          <Route path="/services/visa-services" element={<Navigate to="/services/visa-immigration" replace />} />
+          <Route path="/cost-calculator" element={<Navigate to="/services/company-formation" replace />} />
+          <Route path="/faqs" element={<Navigate to="/contact" replace />} />
+          <Route path="/services/compliance" element={<Navigate to="/services/pro-services" replace />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
