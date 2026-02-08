@@ -1,14 +1,7 @@
 import { useEffect } from "react";
-import { motion } from "framer-motion";
-import {
-  Check,
-  Phone,
-  Mail,
-  MessageCircle,
-  Clock,
-  MapPin,
-} from "lucide-react";
+import { Check, Phone, Mail, MessageCircle, Clock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { EditorialImage } from "@/components/shared/EditorialImage";
 
 const benefits = [
   "Business structure advice tailored to your goals",
@@ -72,44 +65,30 @@ export function CalendlyBooking({
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Calendly Widget - Takes 2 columns */}
-          <motion.div
-            className="lg:col-span-2"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="bg-background rounded-2xl shadow-lg border border-border/50 overflow-hidden">
+          <div className="lg:col-span-2">
+            <div className="card-elevated overflow-hidden">
               <div
                 className="calendly-inline-widget"
                 data-url={calendlyUrl}
                 style={{ minWidth: "320px", height: `${height}px` }}
               />
             </div>
-          </motion.div>
+          </div>
 
           {/* Info Panel - Takes 1 column */}
-          <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div className="space-y-6">
             {/* Optional Image */}
             {imageSrc ? (
-              <div className="bg-background rounded-2xl shadow-lg border border-border/50 overflow-hidden">
-                <img
-                  src={imageSrc}
-                  alt={imageAlt}
-                  loading="lazy"
-                  className="h-40 w-full object-cover"
-                />
-              </div>
+              <EditorialImage
+                src={imageSrc}
+                alt={imageAlt}
+                ratio={16 / 10}
+                overlayStrength={0.55}
+              />
             ) : null}
 
             {/* What You'll Get Card */}
-            <div className="bg-background rounded-2xl shadow-lg border border-border/50 p-6">
+            <div className="card-elevated p-6">
               <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 <span className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
                   <Check className="w-4 h-4 text-accent" />
@@ -117,33 +96,26 @@ export function CalendlyBooking({
                 What You'll Get
               </h3>
               <ul className="space-y-3">
-                {benefits.map((benefit, index) => (
-                  <motion.li
-                    key={index}
-                    className="flex items-start gap-3 text-sm text-muted-foreground"
-                    initial={{ opacity: 0, x: 10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  >
+                {benefits.map((benefit) => (
+                  <li key={benefit} className="flex items-start gap-3 text-sm text-muted-foreground">
                     <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" />
                     <span>{benefit}</span>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
             </div>
 
-            {/* Contact Details Card */}
-            <div className="bg-primary rounded-2xl shadow-lg p-6 text-primary-foreground">
+            {/* Contact Details Card (lighter, premium; still clearly separated) */}
+            <div className="glass-card-dark p-6 text-primary-foreground">
               <h3 className="text-lg font-semibold mb-4">Prefer to Talk Now?</h3>
               <div className="space-y-4">
-                {contactInfo.map((contact, index) => (
+                {contactInfo.map((contact) => (
                   <a
-                    key={index}
+                    key={contact.href}
                     href={contact.href}
-                    className="flex items-center gap-3 text-primary-foreground/90 hover:text-accent transition-colors group"
+                    className="flex items-center gap-3 text-primary-foreground/90 hover:text-primary-foreground transition-colors group"
                   >
-                    <span className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                    <span className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center group-hover:bg-primary-foreground/15 transition-colors">
                       <contact.icon className="w-5 h-5" />
                     </span>
                     <div>
@@ -176,14 +148,14 @@ export function CalendlyBooking({
                 </p>
               </div>
 
-              <Button className="w-full mt-6 bg-accent hover:bg-accent/90 text-primary" asChild>
+              <Button className="w-full mt-6" asChild>
                 <a href="https://wa.me/97317008888">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Chat on WhatsApp
                 </a>
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

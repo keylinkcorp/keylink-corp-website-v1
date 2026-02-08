@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Check, Clock, FileText, MessageCircle, Phone, Shield, Sparkles, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,14 +16,14 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
       <div aria-hidden className="absolute inset-0 mesh-gradient-gold opacity-70" />
       <div
         aria-hidden
-        className="floating-orb floating-orb-gold animate-float-subtle -top-24 -left-24 h-[320px] w-[320px] opacity-60"
+        className="floating-orb floating-orb-gold -top-24 -left-24 h-[320px] w-[320px] opacity-60"
       />
 
       <div className="relative container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-12 md:pb-16">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           {/* Copy */}
           <div className="lg:col-span-6">
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+            <div>
               <p className="inline-flex items-center gap-2 text-sm text-muted-foreground mb-5">
                 <Sparkles className="h-4 w-4 text-accent" />
                 Google Ads Offer • Free 30‑minute consultation
@@ -76,18 +75,15 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
               <p className="mt-4 text-xs text-muted-foreground">
                 Free • No obligation • You’ll get a cost breakdown + document checklist
               </p>
-            </motion.div>
+            </div>
           </div>
 
           {/* Montage */}
           <div className="lg:col-span-6">
             <div className="relative">
               {/* Main */}
-              <motion.div
-                className="relative rounded-3xl overflow-hidden border bg-card shadow-[0_30px_80px_-40px_hsl(var(--navy)/0.35)] hover-zoom-glow"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: 0.05 }}
+              <div
+                className="relative rounded-3xl overflow-hidden border bg-card shadow-[0_30px_80px_-40px_hsl(var(--navy)/0.30)]"
               >
                 <img
                   src={heroImage}
@@ -107,16 +103,11 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                     <span className="text-xs text-muted-foreground">Same‑page booking</span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Offer Spec (replaces secondary photo) */}
-              <motion.div
-                className="hidden md:block absolute -left-10 bottom-10 w-[240px]"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: 0.2 }}
-              >
-                <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.35)] hover-zoom-glow">
+              <div className="hidden md:block absolute -left-10 bottom-10 w-[240px]">
+                <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.28)]">
                   <div className="p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div>
@@ -145,16 +136,11 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Proof (replaces secondary photo) */}
-              <motion.div
-                className="hidden md:block absolute -right-10 top-10 w-[240px]"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: 0.28 }}
-              >
-                <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.35)]">
+              <div className="hidden md:block absolute -right-10 top-10 w-[240px]">
+                <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.28)]">
                   <div className="p-4">
                     <p className="text-xs font-semibold text-muted-foreground">Trusted by founders worldwide</p>
                     <div className="mt-3 grid grid-cols-2 gap-3">
@@ -174,7 +160,7 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>

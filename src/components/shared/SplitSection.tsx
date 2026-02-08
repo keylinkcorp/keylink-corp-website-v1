@@ -1,6 +1,7 @@
 import type React from "react";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { EditorialImage } from "@/components/shared/EditorialImage";
 import {
   SectionBackgroundOverlay,
   type SectionOverlayVariant,
@@ -28,6 +29,9 @@ type SplitSectionProps = {
   overlayMasked?: boolean;
   imageRatio?: number;
   imageClassName?: string;
+  /** Use consistent editorial image styling (default true). */
+  imageTreatment?: "editorial" | "none";
+  imageOverlayStrength?: number;
   /** Only used when layout="stacked". */
   stackedImageHeightClassName?: string;
 };
@@ -51,16 +55,22 @@ export function SplitSection({
   overlayMasked,
   imageRatio = 16 / 9,
   imageClassName,
-  stackedImageHeightClassName = "h-[32vh] sm:h-[30vh] md:h-[25vh] min-h-[220px] md:min-h-[240px]",
+  imageTreatment = "editorial",
+  imageOverlayStrength,
+  stackedImageHeightClassName =
+    "h-[32vh] sm:h-[30vh] md:h-[25vh] min-h-[220px] md:min-h-[240px]",
 }: SplitSectionProps) {
   const isSubtle = variant === "subtle";
   const resolvedOverlay: SectionOverlayVariant =
-    backgroundVariant ?? (isSubtle ? "grid-lines" : "radial");
+    backgroundVariant ?? (isSubtle ? "ibelick-lines" : "ibelick-soft");
   const isCenter = align === "center";
   const headingClass = cn(
     "text-balance",
     headerSize === "compact" ? "text-2xl md:text-3xl" : ""
   );
+
+  const badgeClassName = "section-badge";
+  const useEditorialImage = imageTreatment !== "none";
 
   return (
     <section
@@ -76,27 +86,40 @@ export function SplitSection({
       />
       <div className="container relative z-10">
         {layout === "stacked" ? (
-          <div className="max-w-6xl mx-auto">
-            <div className={cn("card-elevated overflow-hidden", imageClassName)}>
-              <div className={cn("w-full", stackedImageHeightClassName)}>
-                <img
-                  src={imageSrc}
-                  alt={imageAlt}
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
+            <div className="max-w-6xl mx-auto">
+              <div className={cn(imageClassName)}>
+                {useEditorialImage ? (
+                  <div className={stackedImageHeightClassName}>
+                    <EditorialImage
+                      src={imageSrc}
+                      alt={imageAlt}
+                      ratio={undefined}
+                      overlayStrength={imageOverlayStrength}
+                      className={cn("h-full", "w-full")}
+                      imgClassName="h-full"
+                    />
+                  </div>
+                ) : (
+                  <div className={cn("card-elevated overflow-hidden", stackedImageHeightClassName)}>
+                    <img
+                      src={imageSrc}
+                      alt={imageAlt}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                )}
               </div>
-            </div>
-            {!hideImageCaption ? (
-              <div className="mt-3 text-xs text-muted-foreground">
-                No logos, no watermarks — images are illustrative.
-              </div>
-            ) : null}
+              {!hideImageCaption ? (
+                <div className="mt-3 text-xs text-muted-foreground">
+                  No logos, no watermarks — images are illustrative.
+                </div>
+              ) : null}
 
             <div className="mt-8">
               <header className={cn("mb-8 md:mb-10", isCenter ? "text-center" : "text-left")}>
                 {badge ? (
-                  <p className="text-sm font-medium text-accent tracking-wide uppercase">{badge}</p>
+                  <p className={badgeClassName}>{badge}</p>
                 ) : null}
                 <h2 className={cn(badge ? "mt-3" : "", headingClass)}>{title}</h2>
                 {subtitle ? (
@@ -125,7 +148,7 @@ export function SplitSection({
             >
               <header className={cn("mb-8 md:mb-10", isCenter ? "text-center" : "text-left")}>
                 {badge ? (
-                  <p className="text-sm font-medium text-accent tracking-wide uppercase">{badge}</p>
+                  <p className={badgeClassName}>{badge}</p>
                 ) : null}
                 <h2 className={cn(badge ? "mt-3" : "", headingClass)}>{title}</h2>
                 {subtitle ? (
@@ -150,15 +173,26 @@ export function SplitSection({
                 imagePosition === "left" ? "lg:order-1" : "lg:order-2",
               )}
             >
-              <div className={cn("card-elevated overflow-hidden", imageClassName)}>
-                <AspectRatio ratio={imageRatio}>
-                  <img
+              <div className={cn(imageClassName)}>
+                {useEditorialImage ? (
+                  <EditorialImage
                     src={imageSrc}
                     alt={imageAlt}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
+                    ratio={imageRatio}
+                    overlayStrength={imageOverlayStrength}
                   />
-                </AspectRatio>
+                ) : (
+                  <div className={cn("card-elevated overflow-hidden")}> 
+                    <AspectRatio ratio={imageRatio}>
+                      <img
+                        src={imageSrc}
+                        alt={imageAlt}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    </AspectRatio>
+                  </div>
+                )}
               </div>
               {!hideImageCaption ? (
                 <div className="mt-3 text-xs text-muted-foreground">
