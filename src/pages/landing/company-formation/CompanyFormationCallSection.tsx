@@ -1,8 +1,30 @@
-import { Check } from "lucide-react";
+import {
+  Building2,
+  Clock,
+  FileText,
+  MessageSquareText,
+  ReceiptText,
+  Route,
+  type LucideIcon,
+} from "lucide-react";
 
 import { SplitSection } from "@/components/shared/SplitSection";
 
 import whatYouGetImage from "@/assets/company-formation/lp/what-you-get-portrait.jpg";
+
+type BenefitItem = {
+  label: string;
+  Icon: LucideIcon;
+};
+
+const BENEFITS: BenefitItem[] = [
+  { label: "Business structure advice tailored to your goals", Icon: Building2 },
+  { label: "Transparent cost breakdown (no hidden fees)", Icon: ReceiptText },
+  { label: "Realistic timeline estimate for your setup", Icon: Clock },
+  { label: "Complete document checklist to get started", Icon: FileText },
+  { label: "Direct Q&A with our business setup experts", Icon: MessageSquareText },
+  { label: "Next-step plan after the call (simple + actionable)", Icon: Route },
+];
 
 export function CompanyFormationCallSection() {
   return (
@@ -30,25 +52,19 @@ export function CompanyFormationCallSection() {
       imageImgClassName="object-[center_35%]"
     >
       <div className="grid md:grid-cols-2 gap-5 md:gap-6 mt-7">
-        {[
-          "Business structure advice tailored to your goals",
-          "Transparent cost breakdown (no hidden fees)",
-          "Realistic timeline estimate for your setup",
-          "Complete document checklist to get started",
-          "Direct Q&A with our business setup experts",
-          "Next-step plan after the call (simple + actionable)",
-        ].map((b) => (
+        {BENEFITS.map(({ label, Icon }) => (
           <div
-            key={b}
+            key={label}
             className="h-full rounded-2xl border border-border/15 bg-background p-5 sm:p-6 flex gap-3 sm:gap-4 items-start"
           >
             <span className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full border border-border/20 bg-muted/10">
-              <Check className="h-4 w-4 text-accent" />
+              <Icon className="h-4 w-4 text-accent" />
             </span>
-            <p className="text-sm leading-relaxed text-foreground/85">{b}</p>
+            <p className="text-sm leading-relaxed text-foreground/85">{label}</p>
           </div>
         ))}
       </div>
     </SplitSection>
   );
 }
+
