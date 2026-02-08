@@ -34,6 +34,9 @@ type SplitSectionProps = {
   /** Layout mode: split (two-column) or stacked (image full-width on top, content below). */
   layout?: "split" | "stacked";
   imagePosition?: "left" | "right";
+  /** Desktop split layout column spans (lg+). Defaults to 6/6. */
+  contentColSpanLg?: number;
+  imageColSpanLg?: number;
   variant?: "default" | "subtle";
   /** Decorative overlay pattern behind the section (design-system consistent). */
   backgroundVariant?: SectionOverlayVariant;
@@ -72,6 +75,8 @@ export function SplitSection({
   imageAlt,
   layout = "split",
   imagePosition = "right",
+  contentColSpanLg = 6,
+  imageColSpanLg = 6,
   variant = "default",
   backgroundVariant,
   overlayOpacity,
@@ -100,6 +105,26 @@ export function SplitSection({
   const resolvedSubtitleTopMargin = subtitleTopMarginClassName ?? "mt-4";
 
   const useEditorialImage = imageTreatment !== "none";
+
+  const colSpanLgClassMap: Record<number, string> = {
+    1: "lg:col-span-1",
+    2: "lg:col-span-2",
+    3: "lg:col-span-3",
+    4: "lg:col-span-4",
+    5: "lg:col-span-5",
+    6: "lg:col-span-6",
+    7: "lg:col-span-7",
+    8: "lg:col-span-8",
+    9: "lg:col-span-9",
+    10: "lg:col-span-10",
+    11: "lg:col-span-11",
+    12: "lg:col-span-12",
+  };
+
+  const resolvedContentColSpanLg = colSpanLgClassMap[contentColSpanLg] ??
+    "lg:col-span-6";
+  const resolvedImageColSpanLg = colSpanLgClassMap[imageColSpanLg] ??
+    "lg:col-span-6";
 
   const Header = (
     <header
@@ -197,7 +222,7 @@ export function SplitSection({
           <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-12 items-start">
             <div
               className={cn(
-                "lg:col-span-6",
+                resolvedContentColSpanLg,
                 imagePosition === "left" ? "lg:order-2" : "lg:order-1",
               )}
             >
@@ -207,7 +232,7 @@ export function SplitSection({
 
             <div
               className={cn(
-                "lg:col-span-6",
+                resolvedImageColSpanLg,
                 imagePosition === "left" ? "lg:order-1" : "lg:order-2",
               )}
             >
