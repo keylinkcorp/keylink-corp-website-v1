@@ -35,6 +35,8 @@ type SplitSectionProps = {
   imageImgClassName?: string;
   /** Use consistent editorial image styling (default true). */
   imageTreatment?: "editorial" | "none";
+  /** When imageTreatment="none", choose whether the frame is elevated or flat. */
+  imageFrame?: "elevated" | "flat";
   imageOverlayStrength?: number;
   /** Only used when layout="stacked". */
   stackedImageHeightClassName?: string;
@@ -62,6 +64,7 @@ export function SplitSection({
   imageClassName,
   imageImgClassName,
   imageTreatment = "editorial",
+  imageFrame = "elevated",
   imageOverlayStrength,
   stackedImageHeightClassName =
     "h-[32vh] sm:h-[30vh] md:h-[25vh] min-h-[220px] md:min-h-[240px]",
@@ -107,12 +110,19 @@ export function SplitSection({
                     />
                   </div>
                 ) : (
-                  <div className={cn("card-elevated overflow-hidden", stackedImageHeightClassName)}>
+                  <div
+                    className={cn(
+                      imageFrame === "flat"
+                        ? "rounded-2xl border border-border/30 bg-card overflow-hidden"
+                        : "card-elevated overflow-hidden",
+                      stackedImageHeightClassName,
+                    )}
+                  >
                     <img
                       src={imageSrc}
                       alt={imageAlt}
                       loading="lazy"
-                      className="h-full w-full object-cover"
+                      className={cn("h-full w-full object-cover", imageImgClassName)}
                     />
                   </div>
                 )}
@@ -190,13 +200,19 @@ export function SplitSection({
                     imgClassName={imageImgClassName}
                   />
                 ) : (
-                  <div className={cn("card-elevated overflow-hidden")}> 
+                  <div
+                    className={cn(
+                      imageFrame === "flat"
+                        ? "rounded-2xl border border-border/30 bg-card overflow-hidden"
+                        : "card-elevated overflow-hidden",
+                    )}
+                  >
                     <AspectRatio ratio={imageRatio}>
                       <img
                         src={imageSrc}
                         alt={imageAlt}
                         loading="lazy"
-                        className="h-full w-full object-cover"
+                        className={cn("h-full w-full object-cover", imageImgClassName)}
                       />
                     </AspectRatio>
                   </div>

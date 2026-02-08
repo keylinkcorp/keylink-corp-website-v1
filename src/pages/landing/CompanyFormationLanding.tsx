@@ -217,15 +217,17 @@ export default function CompanyFormationLanding() {
             imageSrc={whatYouGetImage}
             imageAlt="Business consultation reviewing a checklist"
             imagePosition="left"
-            variant="subtle"
-            backgroundVariant="ibelick-soft"
-            overlayOpacity={0.85}
+            variant="default"
+            backgroundVariant="ibelick-lines"
+            overlayOpacity={0.35}
             overlayMasked
             imageRatio={16 / 10}
-            imageOverlayStrength={0.55}
+            imageTreatment="none"
+            imageFrame="flat"
+            imageOverlayStrength={0.45}
             imageImgClassName="object-[center_35%]"
           >
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-5 md:gap-6 mt-8">
               {[
                 "Business structure advice tailored to your goals",
                 "Transparent cost breakdown (no hidden fees)",
@@ -234,9 +236,14 @@ export default function CompanyFormationLanding() {
                 "Direct Q&A with our business setup experts",
                 "Next-step plan after the call (simple + actionable)",
               ].map((b) => (
-                <div key={b} className="lp-card-flat p-4 sm:p-5 flex gap-3">
-                  <Check className="h-4 w-4 text-accent mt-0.5" />
-                  <p className="text-sm text-muted-foreground">{b}</p>
+                <div
+                  key={b}
+                  className="h-full rounded-2xl border border-border/20 bg-background p-5 sm:p-6 flex gap-3 sm:gap-4 items-start"
+                >
+                  <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full border border-border/25 bg-background">
+                    <Check className="h-4 w-4 text-accent" />
+                  </span>
+                  <p className="text-sm leading-relaxed text-foreground/80">{b}</p>
                 </div>
               ))}
             </div>
