@@ -1,124 +1,91 @@
 
-<context>
 Goal
-- Redesign the “What happens on the call” section on /lp/company-formation to match the modern reference (image-9):
-  - Bigger image block (wider image column on desktop)
-  - Cleaner header rhythm
-  - Benefit cards upgraded to “title + detail” layout with unique icons
-  - Add “trust highlights” inside the section to improve Google Ads conversion (reassurance + credibility) without adding heavy motion or shadows.
+- Remove the “blank app” content currently showing on `/` and replace it with your real homepage (built from `src/components/home/*`) while keeping navigation free of obvious 404s.
 
-Current implementation
-- Section component: src/pages/landing/company-formation/CompanyFormationCallSection.tsx
-  - Uses SplitSection with imagePosition="left", backgroundVariant="ibelick-lines", overlayOpacity=0.35, imageRatio=4/3
-  - Benefits currently render as single-line text with an icon chip.
-- Layout component: src/components/shared/SplitSection.tsx
-  - Desktop split layout uses fixed lg:col-span-6 / lg:col-span-6 (cannot currently widen image column).
-</context>
+What I found (current state)
+- Route `/` renders `src/pages/Index.tsx`, which still contains the Vite-style “Welcome to Your Blank App (Sync test)” screen.
+- Your real homepage sections already exist in `src/components/home/` (Hero, Services, TrustBar, etc.) but they are not currently composed into any page.
+- Several links in Header/Footer/Home sections point to routes that do not exist in `src/App.tsx`, including:
+  - `/cost-calculator`
+  - `/faqs`
+  - `/services/visa-services` (your actual route is `/services/visa-immigration`)
+  - `/services/compliance`
+  - `/about/team`, `/about/why-us`, `/about/testimonials` (your About page exists at `/about`; these look like intended subpages/anchors)
 
-<design-changes (what will change visually)>
-A) Desktop layout: wider image column
-- Match screenshot proportions by making the image column wider than the content column on lg+.
-- Target: image 7/12, content 5/12 (or 8/12 + 4/12 if needed, but we’ll start with 7/5 to keep text comfortable).
+Implementation approach
+1) Replace the blank homepage with the real homepage
+- Update `src/pages/Index.tsx` to render the homepage using:
+  - `Layout` wrapper: `src/components/layout/Layout.tsx`
+  - Homepage sections from `src/components/home/*` in a sensible order (example order below).
+- This removes the blank “Sync test” screen from `/` without changing the overall routing structure.
 
-B) Header rhythm: tighter + cleaner
-- Keep the existing pill badge (already good).
-- Tighten spacing so badge → title → subtitle feels closer to the reference:
-  - Slightly reduce header bottom margin and subtitle top margin.
-  - Keep calm LP heading scale (useLpHeadings).
+Suggested homepage composition order (can be adjusted)
+- <Layout>
+  - <Hero />
+  - <TrustBar />
+  - <Services />
+  - <WhyChooseUs />
+  - <IndustryServices />
+  - <CompanyFormationProcess />
+  - <CostCalculatorPreview />
+  - <Testimonials />
+  - <FAQ />
+  - <CTABanner />
+- </Layout>
 
-C) Benefit cards: “title + detail” format + unique icons
-- Replace each benefit’s single sentence with:
-  - Title (short, scannable)
-  - Detail (one short supporting line)
-- Card layout:
-  - Flat, shadowless, light border, rounded-2xl
-  - Icon placed to the left of the text block (like the reference), sized consistently.
-  - Typography: title slightly stronger; detail slightly muted but readable (avoid too-low contrast).
+2) Prevent obvious broken links (lightweight fixes)
+To avoid users clicking into 404s from your header/footer/homepage:
+- Add a few redirect/alias routes in `src/App.tsx` using `Navigate` (react-router-dom v6):
+  - `/services/visa-services` → `/services/visa-immigration`
+  - `/cost-calculator` → `/services/company-formation` (where the calculator already exists)
+  - `/faqs` → either:
+    - Option A: `/contact` (quickest), or
+    - Option B: `/free-consultation`, or
+    - Option C: create a simple FAQ page later (recommended long-term)
+  - `/services/compliance` → pick the most appropriate existing page (likely `/services/pro-services` or `/services/legal-consulting`) as a temporary redirect
 
-D) Add “Trust highlights” row (conversion booster)
-- Add a small 3-item highlight row under the subtitle and above the benefit grid:
-  - Example items (final copy will be concise, ad-friendly):
-    1) “Free 30‑minute call”
-    2) “Transparent pricing”
-    3) “3–7 day typical timeline”
-- Each item includes a small icon and short text, rendered as a calm inline row that wraps on mobile.
-- No animation; no heavy emphasis; just clarity and reassurance for ad traffic.
-</design-changes>
+3) Make About dropdown links not 404 (quick fix)
+- Update `src/components/layout/Header.tsx` links for:
+  - `/about/team`, `/about/why-us`, `/about/testimonials`
+- Point them to anchors on `/about` if those sections exist (example):
+  - `/about#team`, `/about#why-choose-us`, `/about#testimonials`
+- If those anchors are not currently present on the About page, we’ll either:
+  - add ids to the relevant About sections (preferred), or
+  - redirect them all to `/about` as a safe fallback.
 
-<implementation approach (exact code steps)>
-1) Extend SplitSection to support custom desktop column spans (needed for wider image column)
-File: src/components/shared/SplitSection.tsx
-- Add optional props:
-  - contentColSpanLg?: number (default 6)
-  - imageColSpanLg?: number (default 6)
-- Use these to build the className for the two lg column wrappers:
-  - content wrapper: `lg:col-span-${contentColSpanLg}`
-  - image wrapper: `lg:col-span-${imageColSpanLg}`
-- Validate sum = 12 (if not, we’ll still render but we’ll choose defaults to keep 12 in our usage).
+4) Validate end-to-end in preview
+- Open `/` and confirm homepage sections render with Header/Footer.
+- Click test:
+  - Header: “Visa Services”/mega menu link should not 404
+  - Footer: “Cost Calculator”, “Visa Services”, “FAQs” should not 404
+  - Homepage CTA buttons should route correctly
 
-2) Update CompanyFormationCallSection to use wider image column
-File: src/pages/landing/company-formation/CompanyFormationCallSection.tsx
-- Pass:
-  - imageColSpanLg={7}
-  - contentColSpanLg={5}
-- Keep imageRatio at 4/3 (already close to reference).
-- Optionally increase perceived image “presence” with a slightly stronger border (still light) by using existing SplitSection imageFrame="flat" and (if needed) tweaking imageClassName.
+Files that will change (in the implementation phase)
+- `src/pages/Index.tsx`
+  - Replace blank JSX with composed homepage using `Layout` + `src/components/home/*` sections.
+- `src/App.tsx`
+  - Add redirect routes for missing paths (`/cost-calculator`, `/faqs`, `/services/visa-services`, `/services/compliance`).
+- `src/components/layout/Header.tsx`
+  - Fix About dropdown links to anchors or `/about`.
+- (Optional) `src/components/layout/Footer.tsx` and/or `src/components/home/*`
+  - Only if you prefer updating the link destinations directly instead of redirects.
 
-3) Refactor benefits data to “title + detail”
-File: src/pages/landing/company-formation/CompanyFormationCallSection.tsx
-- Change BenefitItem shape from:
-  - { label, Icon }
-  to:
-  - { title, detail, Icon }
-- Update copy to be more scannable (example mapping):
-  - “Business structure advice” + “Tailored to your goals”
-  - “Transparent cost breakdown” + “No hidden fees”
-  - “Realistic timeline estimate” + “Based on your setup”
-  - “Document checklist” + “What to prepare to start”
-  - “Direct Q&A” + “Talk with our setup experts”
-  - “Next-step plan” + “Simple and actionable”
-- Update card markup:
-  - Layout: icon left, text stack right
-  - Text: title `text-sm font-semibold text-foreground`, detail `text-sm text-muted-foreground` (tuned so it’s still readable)
-  - Keep padding slightly larger (p-6 desktop, p-5 mobile).
+Decisions needed from you (non-technical)
+1) Where should “Cost Calculator” go when clicked?
+- Recommended: redirect to `/services/company-formation` (because the calculator already exists there).
+2) Where should “FAQs” go for now?
+- Options:
+  - Redirect to `/free-consultation`
+  - Redirect to `/contact`
+  - Redirect to `/about`
+  - (Later) build a dedicated `/faqs` page
 
-4) Add Trust highlights row under subtitle
-File: src/pages/landing/company-formation/CompanyFormationCallSection.tsx
-- Insert a new block between the header and the benefit grid:
-  - A responsive flex row with 3 items
-  - Each item: tiny icon + short text
-  - Styling: very light border or subtle background only if needed; otherwise plain inline row to avoid visual clutter
-- Icons (auto-pick Lucide): e.g., Clock / ShieldCheck / ReceiptText / Sparkles (final selection will match the highlight meaning and existing icon palette).
+Risks / notes
+- The homepage Hero currently links to `/cost-calculator`, and Footer links to `/cost-calculator` too; without redirects or link updates, users will hit 404.
+- Header currently contains links to routes not implemented (compliance and some about subpages). Redirects or anchor fixes will prevent a broken-feeling site.
 
-5) Polish pass to match the screenshot
-- Header spacing:
-  - Adjust SplitSection props already in use: headerClassName, titleTopMarginClassName, subtitleTopMarginClassName, leadClassName.
-- Card borders:
-  - Ensure consistent border opacity across cards (likely /15 to /20).
-- Background grid:
-  - Keep ibelick-lines but reduce opacity slightly if it competes with text (e.g., 0.25–0.35 range).
-</implementation approach>
-
-<acceptance checklist>
-On /lp/company-formation:
-- Desktop
-  - Image is visibly wider than the text column (closer to reference).
-  - Badge/title/subtitle spacing feels tight and premium (not “gappy”).
-  - Benefit cards show icon + title + detail and feel modern, flat, and consistent.
-  - Trust highlights row is visible, readable, and supports decision-making without clutter.
-- Mobile
-  - Layout stacks naturally, no overflow.
-  - Trust highlights wrap cleanly.
-  - Benefit cards remain readable with comfortable spacing.
-- No heavy shadows or distracting animations are introduced (low motion stays intact).
-
-<files to change>
-- src/components/shared/SplitSection.tsx (add optional column span props)
-- src/pages/landing/company-formation/CompanyFormationCallSection.tsx (benefit card redesign + trust highlights + pass wider column spans)
-</files to change>
-
-<notes (conversion-focused, Google Ads)>
-- “Trust highlights” act as rapid reassurance for cold traffic and reduces uncertainty before the calculator/booking gate.
-- Title+detail benefits improve scanning on mobile and make the value more obvious at a glance.
-- Wider image column increases perceived premium quality and credibility (visual authority) without adding friction.
-</notes>
+Acceptance criteria
+- Visiting `/` no longer shows the blank “Welcome to Your Blank App” screen.
+- `/` shows your intended homepage sections.
+- Clicking “Cost Calculator”, “Visa Services”, and “FAQs” does not lead to 404.
+- Main navigation remains functional across existing service pages.
