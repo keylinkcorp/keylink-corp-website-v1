@@ -9,8 +9,18 @@ import {
 
 type SplitSectionProps = {
   badge?: string;
+  /** Optional override for the badge element classes (defaults to `section-badge`). */
+  badgeClassName?: string;
   title: string;
+  titleClassName?: string;
   subtitle?: string;
+  subtitleClassName?: string;
+  /** Override default header spacing (e.g., tighter rhythm for specific landing sections). */
+  headerClassName?: string;
+  /** Override the title top margin applied when a badge is present (default: `mt-3`). */
+  titleTopMarginClassName?: string;
+  /** Override the subtitle top margin (default: `mt-4`). */
+  subtitleTopMarginClassName?: string;
   align?: "left" | "center";
   headerSize?: "default" | "compact";
   /** Apply LP-specific calmer heading scale (does not affect global typography). */
@@ -44,8 +54,14 @@ type SplitSectionProps = {
 
 export function SplitSection({
   badge,
+  badgeClassName,
   title,
+  titleClassName,
   subtitle,
+  subtitleClassName,
+  headerClassName,
+  titleTopMarginClassName,
+  subtitleTopMarginClassName,
   align = "left",
   headerSize = "default",
   useLpHeadings = false,
@@ -79,8 +95,45 @@ export function SplitSection({
     headerSize === "compact" ? "text-2xl md:text-3xl" : "",
   );
 
-  const badgeClassName = "section-badge";
+  const resolvedBadgeClassName = badgeClassName ?? "section-badge";
+  const resolvedTitleTopMargin = titleTopMarginClassName ?? "mt-3";
+  const resolvedSubtitleTopMargin = subtitleTopMarginClassName ?? "mt-4";
+
   const useEditorialImage = imageTreatment !== "none";
+
+  const Header = (
+    <header
+      className={cn(
+        "mb-8 md:mb-10",
+        isCenter ? "text-center" : "text-left",
+        headerClassName,
+      )}
+    >
+      {badge ? <p className={resolvedBadgeClassName}>{badge}</p> : null}
+      <h2
+        className={cn(
+          badge ? resolvedTitleTopMargin : "",
+          headingClass,
+          titleClassName,
+        )}
+      >
+        {title}
+      </h2>
+      {subtitle ? (
+        <p
+          className={cn(
+            resolvedSubtitleTopMargin,
+            "text-lg leading-relaxed max-w-3xl",
+            isCenter ? "mx-auto" : "",
+            leadClassName,
+            subtitleClassName,
+          )}
+        >
+          {subtitle}
+        </p>
+      ) : null}
+    </header>
+  );
 
   return (
     <section
@@ -94,64 +147,49 @@ export function SplitSection({
         opacity={overlayOpacity}
         masked={overlayMasked}
       />
+
       <div className="container relative z-10">
         {layout === "stacked" ? (
-            <div className="max-w-6xl mx-auto">
-              <div className={cn(imageClassName)}>
-                {useEditorialImage ? (
-                  <div className={stackedImageHeightClassName}>
-                    <EditorialImage
-                      src={imageSrc}
-                      alt={imageAlt}
-                      ratio={undefined}
-                      overlayStrength={imageOverlayStrength}
-                      className={cn("h-full", "w-full")}
-                      imgClassName={cn("h-full", imageImgClassName)}
-                    />
-                  </div>
-                ) : (
-                  <div
-                    className={cn(
-                      imageFrame === "flat"
-                        ? "rounded-2xl border border-border/30 bg-card overflow-hidden"
-                        : "card-elevated overflow-hidden",
-                      stackedImageHeightClassName,
-                    )}
-                  >
-                    <img
-                      src={imageSrc}
-                      alt={imageAlt}
-                      loading="lazy"
-                      className={cn("h-full w-full object-cover", imageImgClassName)}
-                    />
-                  </div>
-                )}
-              </div>
-              {!hideImageCaption ? (
-                <div className="mt-3 text-xs text-muted-foreground">
-                  No logos, no watermarks — images are illustrative.
+          <div className="max-w-6xl mx-auto">
+            <div className={cn(imageClassName)}>
+              {useEditorialImage ? (
+                <div className={stackedImageHeightClassName}>
+                  <EditorialImage
+                    src={imageSrc}
+                    alt={imageAlt}
+                    ratio={undefined}
+                    overlayStrength={imageOverlayStrength}
+                    className={cn("h-full", "w-full")}
+                    imgClassName={cn("h-full", imageImgClassName)}
+                  />
                 </div>
-              ) : null}
+              ) : (
+                <div
+                  className={cn(
+                    imageFrame === "flat"
+                      ? "rounded-2xl border border-border/30 bg-card overflow-hidden"
+                      : "card-elevated overflow-hidden",
+                    stackedImageHeightClassName,
+                  )}
+                >
+                  <img
+                    src={imageSrc}
+                    alt={imageAlt}
+                    loading="lazy"
+                    className={cn("h-full w-full object-cover", imageImgClassName)}
+                  />
+                </div>
+              )}
+            </div>
+
+            {!hideImageCaption ? (
+              <div className="mt-3 text-xs text-muted-foreground">
+                No logos, no watermarks — images are illustrative.
+              </div>
+            ) : null}
 
             <div className="mt-8">
-              <header className={cn("mb-8 md:mb-10", isCenter ? "text-center" : "text-left")}>
-                {badge ? (
-                  <p className={badgeClassName}>{badge}</p>
-                ) : null}
-                <h2 className={cn(badge ? "mt-3" : "", headingClass)}>{title}</h2>
-                {subtitle ? (
-                  <p
-                    className={cn(
-                      "mt-4 text-lg leading-relaxed max-w-3xl",
-                      isCenter ? "mx-auto" : "",
-                      leadClassName,
-                    )}
-                  >
-                    {subtitle}
-                  </p>
-                ) : null}
-              </header>
-
+              {Header}
               {children}
             </div>
           </div>
@@ -163,24 +201,7 @@ export function SplitSection({
                 imagePosition === "left" ? "lg:order-2" : "lg:order-1",
               )}
             >
-              <header className={cn("mb-8 md:mb-10", isCenter ? "text-center" : "text-left")}>
-                {badge ? (
-                  <p className={badgeClassName}>{badge}</p>
-                ) : null}
-                <h2 className={cn(badge ? "mt-3" : "", headingClass)}>{title}</h2>
-                {subtitle ? (
-                  <p
-                    className={cn(
-                      "mt-4 text-lg leading-relaxed max-w-3xl",
-                      isCenter ? "mx-auto" : "",
-                      leadClassName,
-                    )}
-                  >
-                    {subtitle}
-                  </p>
-                ) : null}
-              </header>
-
+              {Header}
               {children}
             </div>
 
@@ -212,12 +233,16 @@ export function SplitSection({
                         src={imageSrc}
                         alt={imageAlt}
                         loading="lazy"
-                        className={cn("h-full w-full object-cover", imageImgClassName)}
+                        className={cn(
+                          "h-full w-full object-cover",
+                          imageImgClassName,
+                        )}
                       />
                     </AspectRatio>
                   </div>
                 )}
               </div>
+
               {!hideImageCaption ? (
                 <div className="mt-3 text-xs text-muted-foreground">
                   No logos, no watermarks — images are illustrative.
@@ -230,4 +255,3 @@ export function SplitSection({
     </section>
   );
 }
-
