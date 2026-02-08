@@ -13,6 +13,8 @@ type SplitSectionProps = {
   subtitle?: string;
   align?: "left" | "center";
   headerSize?: "default" | "compact";
+  /** Apply LP-specific calmer heading scale (does not affect global typography). */
+  useLpHeadings?: boolean;
   leadClassName?: string;
   hideImageCaption?: boolean;
   /** Extra content below subtitle (cards, lists, etc.) */
@@ -29,6 +31,8 @@ type SplitSectionProps = {
   overlayMasked?: boolean;
   imageRatio?: number;
   imageClassName?: string;
+  /** Extra classes applied to the underlying <img> (object-position, etc.). */
+  imageImgClassName?: string;
   /** Use consistent editorial image styling (default true). */
   imageTreatment?: "editorial" | "none";
   imageOverlayStrength?: number;
@@ -42,6 +46,7 @@ export function SplitSection({
   subtitle,
   align = "left",
   headerSize = "default",
+  useLpHeadings = false,
   leadClassName,
   hideImageCaption = false,
   children,
@@ -55,6 +60,7 @@ export function SplitSection({
   overlayMasked,
   imageRatio = 16 / 9,
   imageClassName,
+  imageImgClassName,
   imageTreatment = "editorial",
   imageOverlayStrength,
   stackedImageHeightClassName =
@@ -66,7 +72,8 @@ export function SplitSection({
   const isCenter = align === "center";
   const headingClass = cn(
     "text-balance",
-    headerSize === "compact" ? "text-2xl md:text-3xl" : ""
+    useLpHeadings ? "lp-h2" : "",
+    headerSize === "compact" ? "text-2xl md:text-3xl" : "",
   );
 
   const badgeClassName = "section-badge";
@@ -96,7 +103,7 @@ export function SplitSection({
                       ratio={undefined}
                       overlayStrength={imageOverlayStrength}
                       className={cn("h-full", "w-full")}
-                      imgClassName="h-full"
+                      imgClassName={cn("h-full", imageImgClassName)}
                     />
                   </div>
                 ) : (
@@ -180,6 +187,7 @@ export function SplitSection({
                     alt={imageAlt}
                     ratio={imageRatio}
                     overlayStrength={imageOverlayStrength}
+                    imgClassName={imageImgClassName}
                   />
                 ) : (
                   <div className={cn("card-elevated overflow-hidden")}> 

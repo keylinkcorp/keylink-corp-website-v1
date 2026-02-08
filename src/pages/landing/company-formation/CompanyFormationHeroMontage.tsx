@@ -12,7 +12,7 @@ import {
 import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 import { Button } from "@/components/ui/button";
 
-import heroImage from "@/assets/formation-hero-professional.jpg";
+import heroImage from "@/assets/formation-hero-professional-portrait.jpg";
 
 type CompanyFormationHeroMontageProps = {
   onBookClick: () => void;
@@ -39,12 +39,12 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                 Google Ads Offer • Free 30‑minute consultation
               </p>
 
-              <h1 className="lp-hero-title text-balance">
+              <h1 className="lp-h1 lp-hero-title text-balance">
                 Company Formation in Bahrain
                 <span className="text-accent"> (2026)</span>
               </h1>
 
-              <p className="mt-5 lead max-w-[56ch]">
+              <p className="mt-5 lp-lead max-w-[56ch]">
                 A premium, clear setup experience—100% foreign ownership guidance, transparent costs, and a realistic
                 timeline.
               </p>
@@ -94,9 +94,7 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
           <div className="lg:col-span-6">
             <div className="relative">
               {/* Main */}
-              <div
-                className="relative rounded-3xl overflow-hidden border bg-card shadow-[0_30px_80px_-40px_hsl(var(--navy)/0.30)]"
-              >
+              <div className="relative rounded-3xl overflow-hidden lp-card-flat">
                 <img
                   src={heroImage}
                   alt="Business consultation for company formation in Bahrain"
@@ -119,7 +117,7 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
 
               {/* Offer Spec (replaces secondary photo) */}
               <div className="hidden md:block absolute -left-10 bottom-10 w-[240px]">
-                <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.28)]">
+                <div className="rounded-2xl overflow-hidden lp-card-flat">
                   <div className="p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div>
@@ -152,7 +150,7 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
 
               {/* Proof (replaces secondary photo) */}
               <div className="hidden md:block absolute -right-10 top-10 w-[240px]">
-                <div className="rounded-2xl overflow-hidden border bg-card shadow-[0_18px_50px_-30px_hsl(var(--navy)/0.28)]">
+                <div className="rounded-2xl overflow-hidden lp-card-flat">
                   <div className="p-4">
                     <p className="text-xs font-semibold text-muted-foreground">Trusted by founders worldwide</p>
                     <div className="mt-3 grid grid-cols-2 gap-3">
