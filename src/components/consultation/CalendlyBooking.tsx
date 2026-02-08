@@ -66,7 +66,7 @@ export function CalendlyBooking({
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Calendly Widget - Takes 2 columns */}
           <div className="lg:col-span-2">
-            <div className="card-elevated overflow-hidden">
+            <div className="lp-card overflow-hidden">
               <div
                 className="calendly-inline-widget"
                 data-url={calendlyUrl}
@@ -84,11 +84,12 @@ export function CalendlyBooking({
                 alt={imageAlt}
                 ratio={16 / 10}
                 overlayStrength={0.55}
+                imgClassName="object-[center_35%]"
               />
             ) : null}
 
             {/* What You'll Get Card */}
-            <div className="card-elevated p-6">
+            <div className="lp-card p-6">
               <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                 <span className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
                   <Check className="w-4 h-4 text-accent" />

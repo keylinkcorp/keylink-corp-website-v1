@@ -161,8 +161,32 @@
     @apply max-w-[18ch] leading-[1.03] md:leading-[1.08];
   }
 
+  /* LP-only type scale (calmer than global h1/h2) */
+  .lp-h1 {
+    @apply text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary leading-[1.08];
+    letter-spacing: -0.02em;
+  }
+
+  .lp-h2 {
+    @apply text-2xl sm:text-3xl md:text-[2.25rem] font-bold tracking-tight text-primary leading-[1.15];
+    letter-spacing: -0.015em;
+  }
+
+  .lp-lead {
+    @apply text-lg md:text-xl text-muted-foreground leading-relaxed;
+  }
+
   .lp-section-subtitle {
     @apply text-lg leading-relaxed max-w-2xl;
+  }
+
+  /* LP-only surfaces (reduce “hard shadow” feel) */
+  .lp-card {
+    @apply bg-card rounded-2xl border border-border/60 shadow-[0_2px_14px_hsl(var(--navy)/0.06)];
+  }
+
+  .lp-card-flat {
+    @apply bg-card rounded-2xl border border-border/60 shadow-none;
   }
 
   /* CTA Button Styles */
@@ -488,18 +512,22 @@
   /* ===== Ibelick-inspired Section Overlays ===== */
   .overlay-ibelick-soft {
     background-image:
-      radial-gradient(ellipse 70% 55% at 15% 20%, hsl(var(--gold) / 0.12) 0%, transparent 55%),
-      radial-gradient(ellipse 65% 55% at 85% 35%, hsl(var(--navy) / 0.10) 0%, transparent 58%),
-      radial-gradient(ellipse 70% 55% at 55% 100%, hsl(var(--gold) / 0.08) 0%, transparent 55%),
-      linear-gradient(to bottom, hsl(var(--background) / 1) 0%, hsl(var(--background) / 0.98) 100%);
+      radial-gradient(ellipse 70% 55% at 15% 20%, hsl(var(--gold) / 0.18) 0%, transparent 58%),
+      radial-gradient(ellipse 65% 55% at 85% 35%, hsl(var(--navy) / 0.14) 0%, transparent 62%),
+      radial-gradient(ellipse 70% 55% at 55% 100%, hsl(var(--gold) / 0.12) 0%, transparent 58%),
+      /* ultra-subtle lines so it reads on white even when gradients are gentle */
+      linear-gradient(to right, hsl(var(--navy) / 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--navy) / 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--background) / 1) 0%, hsl(var(--background) / 0.985) 100%);
+    background-size: auto, auto, auto, 8.5rem 5.25rem, 8.5rem 5.25rem, auto;
   }
 
   .overlay-ibelick-lines {
     background-image:
-      radial-gradient(ellipse 80% 60% at 25% 25%, hsl(var(--gold) / 0.10) 0%, transparent 55%),
-      radial-gradient(ellipse 70% 55% at 85% 70%, hsl(var(--navy) / 0.08) 0%, transparent 60%),
-      linear-gradient(to right, hsl(var(--navy) / 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--navy) / 0.03) 1px, transparent 1px);
+      radial-gradient(ellipse 80% 60% at 25% 25%, hsl(var(--gold) / 0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 55% at 85% 70%, hsl(var(--navy) / 0.12) 0%, transparent 64%),
+      linear-gradient(to right, hsl(var(--navy) / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--navy) / 0.04) 1px, transparent 1px);
     background-size: auto, auto, 7rem 4.5rem, 7rem 4.5rem;
   }
 

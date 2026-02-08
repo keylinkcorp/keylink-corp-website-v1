@@ -43,7 +43,8 @@ export function SectionBackgroundOverlay({
   }
 
   if (masked) {
-    style.maskImage = "radial-gradient(circle at 50% 35%, black 0%, transparent 78%)";
+    style.maskImage =
+      "radial-gradient(circle at 50% 35%, black 0%, black 62%, transparent 92%)";
     (style as Record<string, unknown>).WebkitMaskImage = style.maskImage;
   }
 

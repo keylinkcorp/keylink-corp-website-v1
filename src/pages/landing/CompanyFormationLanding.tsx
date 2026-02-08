@@ -17,11 +17,11 @@ import {
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 
-import howItWorksImage from "@/assets/company-formation/lp/how-it-works.jpg";
-import whatYouGetImage from "@/assets/company-formation/lp/what-you-get.jpg";
-import bookingImage from "@/assets/company-formation/lp/booking.jpg";
-import testimonialsImage from "@/assets/company-formation/lp/testimonials.jpg";
-import faqImage from "@/assets/company-formation/lp/faq.jpg";
+import howItWorksImage from "@/assets/company-formation/lp/how-it-works-portrait.jpg";
+import whatYouGetImage from "@/assets/company-formation/lp/what-you-get-portrait.jpg";
+import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
+import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
+import faqImage from "@/assets/company-formation/lp/faq-portrait.jpg";
 
 import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
 import { CompanyFormationTrustBar } from "@/pages/landing/company-formation/CompanyFormationTrustBar";
@@ -119,10 +119,10 @@ export default function CompanyFormationLanding() {
 
             <div id="start" />
             <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <div className="card-elevated p-5 sm:p-6 md:p-8 noise-texture">
+              <div className="lp-card p-5 sm:p-6 md:p-8 noise-texture">
                 <div className="max-w-2xl">
                   <span className="section-badge">Start here</span>
-                  <h2>Calculate your estimate</h2>
+                  <h2 className="lp-h2">Calculate your estimate</h2>
                   <p className="mt-4 lp-section-subtitle">
                     Answer a few questions to see your estimate—then book your free consultation to confirm the exact
                     costs and timeline.
@@ -156,6 +156,7 @@ export default function CompanyFormationLanding() {
             badge="The process"
             title="How it works"
             subtitle="A simple, conversion-focused flow: clarity first, then confident next steps."
+            useLpHeadings
             imageSrc={howItWorksImage}
             imageAlt="Consultant explaining the company formation process"
             imagePosition="right"
@@ -165,6 +166,7 @@ export default function CompanyFormationLanding() {
             overlayMasked
             imageRatio={16 / 10}
             imageOverlayStrength={0.55}
+            imageImgClassName="object-[center_35%]"
           >
             <div className="grid gap-4">
               {[
@@ -181,7 +183,7 @@ export default function CompanyFormationLanding() {
                   desc: "Documents, costs, and steps to start with confidence.",
                 },
               ].map((step, idx) => (
-                <div key={step.title} className="card-elevated p-5 sm:p-6 md:p-7">
+                <div key={step.title} className="lp-card p-5 sm:p-6 md:p-7">
                   <div className="flex items-start justify-between gap-6">
                     <div>
                       <div className="text-sm text-muted-foreground">Step {idx + 1}</div>
@@ -211,6 +213,7 @@ export default function CompanyFormationLanding() {
             badge="What you get"
             title="What happens on the call"
             subtitle="Practical guidance and a clean plan—so you move fast and avoid surprises."
+            useLpHeadings
             imageSrc={whatYouGetImage}
             imageAlt="Business consultation reviewing a checklist"
             imagePosition="left"
@@ -220,6 +223,7 @@ export default function CompanyFormationLanding() {
             overlayMasked
             imageRatio={16 / 10}
             imageOverlayStrength={0.55}
+            imageImgClassName="object-[center_35%]"
           >
             <div className="grid sm:grid-cols-2 gap-4">
               {[
@@ -230,14 +234,14 @@ export default function CompanyFormationLanding() {
                 "Direct Q&A with our business setup experts",
                 "Next-step plan after the call (simple + actionable)",
               ].map((b) => (
-                <div key={b} className="card-elevated p-5 flex gap-3">
+                <div key={b} className="lp-card p-5 flex gap-3">
                   <Check className="h-4 w-4 text-accent mt-0.5" />
                   <p className="text-sm text-muted-foreground">{b}</p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 card-elevated p-6 md:p-7">
+            <div className="mt-6 lp-card p-6 md:p-7">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                   <p className="font-semibold text-foreground">Prefer to talk now?</p>
@@ -267,7 +271,7 @@ export default function CompanyFormationLanding() {
               <section aria-label="Book free consultation" className="section-spacing-sm">
                 <div className="container mx-auto px-4 md:px-6">
                   <span className="section-badge">Booking</span>
-                  <h2>Book your free consultation</h2>
+                  <h2 className="lp-h2">Book your free consultation</h2>
                   <p className="mt-4 lp-section-subtitle">Free, 30 minutes, no obligation—book directly below.</p>
                 </div>
               <CalendlyBooking
@@ -286,17 +290,17 @@ export default function CompanyFormationLanding() {
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
               <span className="section-badge">Results</span>
-              <h2>Client feedback</h2>
+              <h2 className="lp-h2">Client feedback</h2>
               <p className="mt-4 lp-section-subtitle">A few recent outcomes—kept short for ad traffic.</p>
 
               <div className="mt-8">
-                <div className="card-elevated overflow-hidden">
+                <div className="lp-card overflow-hidden">
                   <div className="relative aspect-[16/6]">
                     <img
                       src={testimonialsImage}
                       alt="Happy clients and consultants after a successful meeting"
                       loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover"
+                      className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
                     />
                     <div aria-hidden className="absolute inset-0 overlay-navy-vertical opacity-60" />
                     <div aria-hidden className="absolute inset-0 overlay-gold-accent opacity-50" />
@@ -319,7 +323,7 @@ export default function CompanyFormationLanding() {
                     img: testimonial2,
                   },
                 ].map((t) => (
-                  <div key={t.quote} className="card-elevated p-6 sm:p-7 flex gap-4">
+                  <div key={t.quote} className="lp-card p-6 sm:p-7 flex gap-4">
                     <img
                       src={t.img}
                       alt={t.name}
@@ -341,13 +345,13 @@ export default function CompanyFormationLanding() {
             <div className="container mx-auto px-4 md:px-6">
               <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
                 <div className="lg:col-span-5">
-                  <div className="card-elevated overflow-hidden">
+                  <div className="lp-card overflow-hidden">
                     <div className="relative aspect-[4/3]">
                       <img
                         src={faqImage}
                         alt="Reviewing business formation documents"
                         loading="lazy"
-                        className="absolute inset-0 h-full w-full object-cover"
+                        className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
                       />
                       <div aria-hidden className="absolute inset-0 overlay-navy-vertical opacity-55" />
                       <div aria-hidden className="absolute inset-0 overlay-gold-accent opacity-45" />
@@ -358,10 +362,10 @@ export default function CompanyFormationLanding() {
 
                 <div className="lg:col-span-7">
                   <span className="section-badge">FAQ</span>
-                  <h2>Questions (answered clearly)</h2>
+                  <h2 className="lp-h2">Questions (answered clearly)</h2>
 
                   <div className="mt-8">
-                    <div className="card-elevated p-3 md:p-4">
+                    <div className="lp-card p-3 md:p-4">
                       <Accordion type="single" collapsible>
                         <AccordionItem value="a">
                           <AccordionTrigger>How fast can I register a company in Bahrain?</AccordionTrigger>
@@ -410,12 +414,12 @@ export default function CompanyFormationLanding() {
           <section className="section-spacing-sm relative overflow-hidden">
             <SectionBackgroundOverlay variant="ibelick-soft" opacity={0.85} masked />
 
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <div className="relative overflow-hidden card-elevated p-7 sm:p-8 md:p-10">
-                <div aria-hidden className="absolute inset-0 overlay-gold-radial-center opacity-35" />
-                <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Ready to start?</h2>
+              <div className="container mx-auto px-4 md:px-6 relative z-10">
+                <div className="relative overflow-hidden lp-card p-7 sm:p-8 md:p-10">
+                  <div aria-hidden className="absolute inset-0 overlay-gold-radial-center opacity-35" />
+                  <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                    <div>
+                      <h2 className="lp-h2 text-foreground">Ready to start?</h2>
                     <p className="mt-3 lp-section-subtitle">
                       Book your free consultation or contact us now—everything stays on this page.
                     </p>
