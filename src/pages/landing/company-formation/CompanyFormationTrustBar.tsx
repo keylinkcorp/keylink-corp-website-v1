@@ -12,12 +12,12 @@ export function CompanyFormationTrustBar() {
     <section className="relative -mt-4 md:-mt-8">
       <div className="w-full px-4 md:px-6">
         <div className="mx-auto max-w-6xl">
-          <div className="rounded-2xl border border-border/60 bg-background p-4 md:p-5">
+          <div className="rounded-2xl border border-border/40 bg-background p-4 md:p-5">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {items.map((item, idx) => (
                 <motion.div
                   key={item.v}
-                  className="rounded-xl border border-border/60 bg-background p-4 md:p-5"
+                  className="rounded-xl border border-border/30 bg-background p-4 md:p-5"
                   initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -36,3 +36,4 @@ export function CompanyFormationTrustBar() {
     </section>
   );
 }
+
