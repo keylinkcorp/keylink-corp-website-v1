@@ -143,9 +143,9 @@ const aboutDropdown = {
     {
       links: [
         { title: "About Us", href: "/about", description: "Our story & mission", icon: "🏢" },
-        { title: "Our Team", href: "/about/team", description: "Meet the experts", icon: "👥" },
-        { title: "Why Choose Us", href: "/about/why-us", description: "What sets us apart", icon: "⭐" },
-        { title: "Testimonials", href: "/about/testimonials", description: "Client success stories", icon: "💬" },
+        { title: "Our Team", href: "/about", description: "Meet the experts", icon: "👥" },
+        { title: "Why Choose Us", href: "/about", description: "What sets us apart", icon: "⭐" },
+        { title: "Testimonials", href: "/about", description: "Client success stories", icon: "💬" },
       ],
     },
     {
