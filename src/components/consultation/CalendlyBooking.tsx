@@ -33,6 +33,9 @@ type CalendlyBookingProps = {
   sectionId?: string;
   /** Visual wrapper style (use "plain" when embedding inside an existing page canvas) */
   variant?: "band" | "plain";
+  /** Optional image displayed at the top of the info panel (people-focused visual). */
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
 export function CalendlyBooking({
@@ -40,6 +43,8 @@ export function CalendlyBooking({
   height = 700,
   sectionId,
   variant = "band",
+  imageSrc,
+  imageAlt = "Consultation preview",
 }: CalendlyBookingProps) {
   useEffect(() => {
     // Load Calendly widget script
@@ -91,6 +96,18 @@ export function CalendlyBooking({
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
+            {/* Optional Image */}
+            {imageSrc ? (
+              <div className="bg-background rounded-2xl shadow-lg border border-border/50 overflow-hidden">
+                <img
+                  src={imageSrc}
+                  alt={imageAlt}
+                  loading="lazy"
+                  className="h-40 w-full object-cover"
+                />
+              </div>
+            ) : null}
+
             {/* What You'll Get Card */}
             <div className="bg-background rounded-2xl shadow-lg border border-border/50 p-6">
               <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
