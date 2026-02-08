@@ -6,6 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Home from "./pages/Home";
+import CostCalculator from "./pages/CostCalculator";
+import Index from "./pages/Index";
+
 import CompanyFormation from "./pages/services/CompanyFormation";
 import CoworkingSpace from "./pages/services/CoworkingSpace";
 import CompanyLiquidation from "./pages/services/CompanyLiquidation";
@@ -35,7 +39,6 @@ import BusinessIncubators from "./pages/services/BusinessIncubators";
 import VirtualOffice from "./pages/services/VirtualOffice";
 import FreeConsultation from "./pages/FreeConsultation";
 import FreeZoneInBahrain from "./pages/FreeZoneInBahrain";
-import CompanyFormationLanding from "./pages/landing/CompanyFormationLanding";
 import BLZ from "./pages/free-zone/BLZ";
 import BIIP from "./pages/free-zone/BIIP";
 import BIW from "./pages/free-zone/BIW";
@@ -51,9 +54,11 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<CompanyFormationLanding />} />
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/blank" element={<Index />} />
+          <Route path="/cost-calculator" element={<CostCalculator />} />
           <Route path="/services/company-formation" element={<CompanyFormation />} />
           <Route path="/services/coworking-space" element={<CoworkingSpace />} />
           <Route path="/services/company-liquidation" element={<CompanyLiquidation />} />
@@ -61,6 +66,7 @@ const App = () => (
           <Route path="/services/cr-amendment" element={<CRAmendment />} />
           <Route path="/services/cr-renewal" element={<CRRenewal />} />
           <Route path="/services/visa-immigration" element={<VisaImmigration />} />
+          <Route path="/services/visa-services" element={<VisaImmigration />} />
           <Route path="/services/pro-services" element={<PROServices />} />
           <Route path="/services/accounting" element={<Accounting />} />
           <Route path="/services/accounting-services" element={<AccountingServices />} />
@@ -87,7 +93,6 @@ const App = () => (
           <Route path="/free-zone-in-bahrain/biw" element={<BIW />} />
           <Route path="/free-zone-in-bahrain/sitra" element={<Sitra />} />
           <Route path="/free-consultation" element={<FreeConsultation />} />
-          <Route path="/lp/company-formation" element={<CompanyFormationLanding />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
