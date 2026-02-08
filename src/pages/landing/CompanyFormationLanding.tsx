@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CalendlyBooking } from "@/components/consultation/CalendlyBooking";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
+import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 import { SplitSection } from "@/components/shared/SplitSection";
 import {
   FormationCostCalculator,
@@ -110,34 +111,34 @@ export default function CompanyFormationLanding() {
           <CompanyFormationTrustBar />
 
           {/* CALCULATOR (Gates booking) */}
-          <div id="start" />
-          <section aria-label="Company formation cost calculator" className="section-spacing-sm">
-            <div className="relative">
-              <div aria-hidden className="absolute inset-0 mesh-gradient-gold opacity-60" />
-              <div aria-hidden className="absolute inset-0 pattern-grid-lines-light opacity-50" />
+          <section
+            aria-label="Company formation cost calculator"
+            className="section-spacing-sm relative overflow-hidden"
+          >
+            <SectionBackgroundOverlay variant="ibelick-soft" opacity={0.9} masked />
 
-              <div className="container mx-auto px-4 md:px-6 relative">
-                <div className="card-elevated p-6 md:p-8 noise-texture">
-                  <div className="max-w-2xl">
-                    <span className="section-badge">Start here</span>
-                    <h2>Calculate your estimate</h2>
-                    <p className="mt-4">
-                      Answer a few questions to see your estimate—then book your free consultation to confirm the exact
-                      costs and timeline.
-                    </p>
-                  </div>
+            <div id="start" />
+            <div className="container mx-auto px-4 md:px-6 relative z-10">
+              <div className="card-elevated p-5 sm:p-6 md:p-8 noise-texture">
+                <div className="max-w-2xl">
+                  <span className="section-badge">Start here</span>
+                  <h2>Calculate your estimate</h2>
+                  <p className="mt-4 lp-section-subtitle">
+                    Answer a few questions to see your estimate—then book your free consultation to confirm the exact
+                    costs and timeline.
+                  </p>
+                </div>
 
-                  <div className="mt-8">
-                    <FormationCostCalculator
-                      embedded
-                      showHeader={false}
-                      onSeeResults={(snapshot) => {
-                        setEstimate(snapshot);
-                        setShowBooking(true);
-                        requestAnimationFrame(() => scrollToId("book"));
-                      }}
-                    />
-                  </div>
+                <div className="mt-8">
+                  <FormationCostCalculator
+                    embedded
+                    showHeader={false}
+                    onSeeResults={(snapshot) => {
+                      setEstimate(snapshot);
+                      setShowBooking(true);
+                      requestAnimationFrame(() => scrollToId("book"));
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -180,7 +181,7 @@ export default function CompanyFormationLanding() {
                   desc: "Documents, costs, and steps to start with confidence.",
                 },
               ].map((step, idx) => (
-                <div key={step.title} className="card-elevated p-6 md:p-7">
+                <div key={step.title} className="card-elevated p-5 sm:p-6 md:p-7">
                   <div className="flex items-start justify-between gap-6">
                     <div>
                       <div className="text-sm text-muted-foreground">Step {idx + 1}</div>
@@ -262,13 +263,13 @@ export default function CompanyFormationLanding() {
 
           {/* BOOKING (revealed after form submit) */}
           <div id="book" />
-          {showBooking && (
-            <section aria-label="Book free consultation" className="section-spacing-sm">
-              <div className="container mx-auto px-4 md:px-6">
-                <span className="section-badge">Booking</span>
-                <h2>Book your free consultation</h2>
-                <p className="mt-4">Free, 30 minutes, no obligation—book directly below.</p>
-              </div>
+            {showBooking && (
+              <section aria-label="Book free consultation" className="section-spacing-sm">
+                <div className="container mx-auto px-4 md:px-6">
+                  <span className="section-badge">Booking</span>
+                  <h2>Book your free consultation</h2>
+                  <p className="mt-4 lp-section-subtitle">Free, 30 minutes, no obligation—book directly below.</p>
+                </div>
               <CalendlyBooking
                 variant="plain"
                 calendlyUrl={calendlyUrl}
@@ -280,11 +281,13 @@ export default function CompanyFormationLanding() {
           )}
 
           {/* TESTIMONIALS */}
-          <section className="section-spacing-sm">
-            <div className="container mx-auto px-4 md:px-6">
+          <section className="section-spacing-sm relative overflow-hidden">
+            <SectionBackgroundOverlay variant="ibelick-lines" opacity={0.8} masked />
+
+            <div className="container mx-auto px-4 md:px-6 relative z-10">
               <span className="section-badge">Results</span>
               <h2>Client feedback</h2>
-              <p className="mt-4 max-w-2xl">A few recent outcomes—kept short for ad traffic.</p>
+              <p className="mt-4 lp-section-subtitle">A few recent outcomes—kept short for ad traffic.</p>
 
               <div className="mt-8">
                 <div className="card-elevated overflow-hidden">
@@ -316,7 +319,7 @@ export default function CompanyFormationLanding() {
                     img: testimonial2,
                   },
                 ].map((t) => (
-                  <div key={t.quote} className="card-elevated p-7 flex gap-4">
+                  <div key={t.quote} className="card-elevated p-6 sm:p-7 flex gap-4">
                     <img
                       src={t.img}
                       alt={t.name}
@@ -358,7 +361,7 @@ export default function CompanyFormationLanding() {
                   <h2>Questions (answered clearly)</h2>
 
                   <div className="mt-8">
-                    <div className="card-elevated p-2 md:p-3">
+                    <div className="card-elevated p-3 md:p-4">
                       <Accordion type="single" collapsible>
                         <AccordionItem value="a">
                           <AccordionTrigger>How fast can I register a company in Bahrain?</AccordionTrigger>
@@ -404,26 +407,30 @@ export default function CompanyFormationLanding() {
           </section>
 
           {/* FINAL CTA */}
-          <section className="section-spacing-sm">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="relative overflow-hidden card-elevated p-8 md:p-10">
-                <div aria-hidden className="absolute inset-0 overlay-gold-radial-center" />
+          <section className="section-spacing-sm relative overflow-hidden">
+            <SectionBackgroundOverlay variant="ibelick-soft" opacity={0.85} masked />
+
+            <div className="container mx-auto px-4 md:px-6 relative z-10">
+              <div className="relative overflow-hidden card-elevated p-7 sm:p-8 md:p-10">
+                <div aria-hidden className="absolute inset-0 overlay-gold-radial-center opacity-35" />
                 <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                   <div>
                     <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Ready to start?</h2>
-                    <p className="mt-3">Book your free consultation or contact us now—everything stays on this page.</p>
+                    <p className="mt-3 lp-section-subtitle">
+                      Book your free consultation or contact us now—everything stays on this page.
+                    </p>
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button size="lg" onClick={() => scrollToId("book")}>
+                  <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                    <Button size="lg" className="w-full sm:w-auto" onClick={() => scrollToId("book")}>
                       Book Free Consultation
                     </Button>
-                    <Button variant="outline" size="default" asChild>
+                    <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
                       <a href="https://wa.me/97317008888">
                         <MessageCircle className="mr-2" />
                         WhatsApp
                       </a>
                     </Button>
-                    <Button variant="outline" size="default" asChild>
+                    <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
                       <a href="tel:+97317008888">
                         <Phone className="mr-2" />
                         Call
