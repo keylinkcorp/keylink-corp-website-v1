@@ -1,101 +1,63 @@
 
-Scope
-- Redesign only the “What happens on the call” SplitSection on `/lp/company-formation` to match the modern reference (image-6): clean two-column layout, subtle grid background, light borders, no shadows, and a neat 2x3 benefit-card grid.
+<context>
+Goal: Redesign the “What happens on the call” section on `/lp/company-formation` to match the modern reference: bigger/taller image block, tighter/cleaner header rhythm, and more refined boxed benefit cards with light borders and no shadows.
 
-What the reference design implies (visual requirements)
-- Background: very light, with a faint square grid pattern (not a strong overlay).
-- Left column: large rounded image card with a light border and no shadow; small caption under it.
-- Right column header: small pill badge, large bold title, short subtitle with comfortable spacing.
-- Benefit items: 2-column grid on desktop, 1-column on mobile; each item is a rounded card with:
-  - very light border
-  - flat white surface (or extremely subtle tint)
-  - consistent padding
-  - small check icon on the left
-  - readable text (not too muted)
-  - no shadows
-- Overall: more whitespace and calmer contrast than current.
+Current state:
+- Section lives in `src/pages/landing/CompanyFormationLanding.tsx` as a `SplitSection`.
+- `SplitSection` (in `src/components/shared/SplitSection.tsx`) renders a fixed two-column grid with a header and an image wrapper using `AspectRatio`.
+- Benefits are already a 2-column boxed grid with light borders; the main gaps vs your screenshot are (a) the image height/weight and (b) the header spacing and (c) subtle card details (padding, border tone, icon treatment).
+</context>
 
-Codebase findings (current implementation)
-- The section already exists in `src/pages/landing/CompanyFormationLanding.tsx` using `SplitSection` with:
-  - `badge="What you get"` and `title="What happens on the call"` (matches reference)
-  - `variant="subtle"` which in `SplitSection.tsx` forces `bg-secondary/40` (can look “grey” vs the reference’s brighter canvas)
-  - Benefit cards currently use `lp-card-flat` with `text-muted-foreground` (can look too low-contrast and less “premium card grid”)
+<what-will-change>
+1) Make the image block feel bigger/taller (closer to the screenshot)
+- In `CompanyFormationLanding.tsx`, update this section’s `imageRatio` from `16/10` to a taller ratio, likely `4/3` (or `3/2` if you want slightly less tall).
+- Ensure the image container can visually “stand” next to the benefit grid:
+  - Pass a dedicated `imageClassName` to increase perceived size and stability (e.g., ensure it’s not visually cramped by spacing).
+  - If needed, extend `SplitSection` with an optional prop like `imageWrapperClassName` (or reuse `imageClassName`) that applies to the non-editorial image frame wrapper so we can enforce consistent height/min-height on desktop.
 
-Implementation plan (exact edits)
-1) Update the “What happens on the call” section styling (primary change)
-File: `src/pages/landing/CompanyFormationLanding.tsx`
+2) Header spacing/typography to match the reference rhythm
+- The current badge spacing is controlled globally by `.section-badge` (it includes `mb-4`).
+- To match your screenshot more precisely without changing global styles:
+  - In `CompanyFormationLanding.tsx`, set `badge={undefined}` for this section and render a local badge pill inside the children area (or add a new optional `badgeClassName` prop to `SplitSection` and override only this section).
+  - Reduce the vertical gaps: slightly smaller badge-to-title spacing and subtitle spacing.
+  - Keep `useLpHeadings` so the title stays calm/premium (already aligned with your LP typography memory).
 
-A. Adjust the SplitSection props to match the reference background feel
-- Change this SplitSection from `variant="subtle"` to `variant="default"` so the base is clean white.
-- Set `backgroundVariant` to a line/grid-like overlay (`ibelick-lines`) with a low opacity to emulate the faint grid.
-  - Example direction:
-    - `variant="default"`
-    - `backgroundVariant="ibelick-lines"`
-    - `overlayOpacity={0.35}` (tune until it’s subtle)
-    - keep `overlayMasked` if it helps keep the grid soft near edges
+3) Benefit cards styling refinements (still flat, light borders, modern)
+- In `CompanyFormationLanding.tsx`, tune each benefit card to match the screenshot:
+  - Border lightness: keep `border-border/15`–`/20` range (slightly lighter than now if needed).
+  - Surface: keep `bg-background` but consider `bg-background/90` or `bg-card` consistently (no shadow).
+  - Padding: slightly increase to match screenshot (likely `p-6` on desktop, `p-5` on mobile).
+  - Icon chip: adjust to a cleaner “check in subtle circle”:
+    - circle: `border border-border/20` (lighter), optionally `bg-muted/10`
+    - icon: keep `text-accent` and slightly thinner look by size (`h-4 w-4` is fine).
+  - Text: move from `text-foreground/80` to a slightly stronger tone if needed for clarity, while remaining premium (e.g., `text-foreground/75`–`/85`).
 
-B. Make the badge look like a small pill (if current section-badge isn’t already)
-- If `section-badge` already renders as a pill, keep it.
-- If it’s not pill-like enough, we’ll wrap or extend it locally:
-  - Replace the badge rendering by setting `badge={undefined}` and manually render a pill above the title inside children, or
-  - Keep `badge="What you get"` and adjust the global `section-badge` styles later only if you want site-wide consistency.
-- In this pass, we’ll prefer local-only changes (no global typography changes) unless necessary.
+4) Optional: tighten column proportions (only if it helps match your screenshot)
+- If after the ratio change the layout still feels off, extend `SplitSection` with optional props to control column spans just for this section, e.g.:
+  - `contentColSpanLg?: number` and `imageColSpanLg?: number` (default stays 6/6).
+- This keeps the component flexible without affecting other sections.
 
-C. Replace benefit grid markup to match reference “boxed grid”
-- Update the benefit item card classes from the current:
-  - `lp-card-flat p-4 sm:p-5 flex gap-3`
-- To a more “modern boxed grid” look:
-  - `rounded-2xl border border-border/20 bg-background p-5 sm:p-6`
-  - `flex gap-3 sm:gap-4 items-start`
-  - ensure equal height: `h-full`
-  - remove extra-muted text: use `text-foreground/80` or `text-muted-foreground` but not too faint (we’ll tune)
-- Increase grid gap slightly (`gap-5` or `gap-6`) and set consistent vertical rhythm:
-  - `className="grid md:grid-cols-2 gap-5 mt-8"` (or similar)
-- Icon styling:
-  - Use `Check` at `h-4 w-4` and `text-accent`
-  - Put icon in a small “slot” so alignment matches reference:
-    - e.g., icon in a `mt-0.5` container, keep consistent
+</what-will-change>
 
-D. Ensure the left image feels like a bordered card (no shadow)
-- The `EditorialImage` already uses border and rounded corners; we’ll ensure it matches:
-  - If it’s too heavy, slightly reduce `overlayStrength` for this section (reference image looks clean).
-  - If the border looks strong, we’ll pass a `className` to `SplitSection`’s image wrapper via `imageClassName` or adjust `EditorialImage` usage via props (without changing global behavior).
-- Keep the caption under the image (already done by SplitSection unless `hideImageCaption` is true).
+<files-to-edit>
+- Primary:
+  - `src/pages/landing/CompanyFormationLanding.tsx`
+- If needed for cleaner, local-only header spacing and/or image sizing:
+  - `src/components/shared/SplitSection.tsx` (add small optional props to override badge class / image wrapper sizing or column spans)
+</files-to-edit>
 
-2) Optional: add a lightweight background grid utility (only if `ibelick-lines` isn’t close enough)
-Files:
-- `src/components/shared/SectionBackgroundOverlay.tsx` (only if needed)
-or
-- add a local absolute div in the section in `CompanyFormationLanding.tsx`
-
-Approach:
-- If the existing overlay variants can’t replicate the faint square grid in the reference, we’ll add a subtle CSS background just for this section:
-  - `bg-[linear-gradient(...)]` style or a Tailwind arbitrary background with low opacity
-- This will be applied behind content, inside the SplitSection, without affecting other pages.
-
-3) QA / tuning checklist (what we’ll verify in preview)
-Route: `/lp/company-formation`
+<acceptance-checklist>
+On `/lp/company-formation`:
 - Desktop:
-  - The section matches the reference: left image + right header + 2-column boxed grid.
-  - Borders are light (not heavy), no shadows visible.
-  - Badge appears as a soft pill (or close).
-  - Background grid is faint and doesn’t compete with text.
+  - Image looks noticeably taller/bigger and visually balanced with the benefits grid.
+  - Badge/title/subtitle spacing matches the screenshot’s calmer rhythm (less “gappy”).
+  - Benefit cards look modern and consistent: flat, light borders, no shadows, comfortable padding.
 - Mobile:
-  - Image stacks above content naturally.
-  - Benefit cards become a single column with comfortable spacing.
-  - No weird cropping on image (adjust `imageImgClassName` object-position if needed).
+  - Stacks cleanly; image remains nicely framed; benefit cards are single-column with good spacing and readable text.
+- No shadows reintroduced anywhere in this section.
+</acceptance-checklist>
 
-Files we will edit
-- `src/pages/landing/CompanyFormationLanding.tsx` (main redesign)
-- Potentially (only if required by the grid background match):
-  - `src/components/shared/SectionBackgroundOverlay.tsx` or a small local-only CSS utility approach
-
-Notes on keeping borders light
-- We’ll use consistent light border tokens like:
-  - outer containers: `border-border/30` to `/40`
-  - inner cards: `border-border/15` to `/25`
-- No shadow classes anywhere in this section.
-
-Out of scope (unless you ask next)
-- Redesigning “How it works” cards to the same boxed-grid style
-- Changing global `.section-badge` or global typography system-wide
+<implementation-notes-technical>
+- Prefer local overrides first (per-section markup/classes) to avoid unintended global ripple effects.
+- Only extend `SplitSection` props if we cannot achieve the layout precisely through existing `imageClassName`, `imageRatio`, and local badge rendering.
+</implementation-notes-technical>
