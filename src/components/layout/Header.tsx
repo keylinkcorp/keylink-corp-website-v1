@@ -136,22 +136,20 @@ const megaMenuItems = [
   },
 ];
 
-// About dropdown with icons
+// About dropdown with icons (only existing routes)
 const aboutDropdown = {
   title: "About",
   sections: [
     {
       links: [
         { title: "About Us", href: "/about", description: "Our story & mission", icon: "🏢" },
-        { title: "Our Team", href: "/about/team", description: "Meet the experts", icon: "👥" },
-        { title: "Why Choose Us", href: "/about/why-us", description: "What sets us apart", icon: "⭐" },
-        { title: "Testimonials", href: "/about/testimonials", description: "Client success stories", icon: "💬" },
+        { title: "Free Consultation", href: "/free-consultation", description: "Talk to an expert", icon: "💬" },
+        { title: "Cost Calculator", href: "/cost-calculator", description: "Estimate setup costs", icon: "🧮" },
       ],
     },
     {
       links: [
-        { title: "Resources", href: "/resources", description: "Helpful guides & tools", icon: "📚" },
-        { title: "Careers", href: "/careers", description: "Join our growing team", icon: "🚀" },
+        { title: "Free Zone in Bahrain", href: "/free-zone-in-bahrain", description: "Free zones guide", icon: "🗺️" },
         { title: "Contact Us", href: "/contact", description: "Get in touch with us", icon: "📞" },
       ],
     },
