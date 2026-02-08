@@ -106,43 +106,43 @@ export function CalendlyBooking({
               </ul>
             </div>
 
-            {/* Contact Details Card (lighter, premium; still clearly separated) */}
-            <div className="glass-card-dark p-6 text-primary-foreground">
-              <h3 className="text-lg font-semibold mb-4">Prefer to Talk Now?</h3>
+            {/* Contact Details Card (flat, minimal) */}
+            <div className="lp-card-flat bg-muted/20 p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-4">Prefer to Talk Now?</h3>
               <div className="space-y-4">
                 {contactInfo.map((contact) => (
                   <a
                     key={contact.href}
                     href={contact.href}
-                    className="flex items-center gap-3 text-primary-foreground/90 hover:text-primary-foreground transition-colors group"
+                    className="flex items-center gap-3 text-foreground/90 hover:text-foreground transition-colors group"
                   >
-                    <span className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center group-hover:bg-primary-foreground/15 transition-colors">
+                    <span className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
                       <contact.icon className="w-5 h-5" />
                     </span>
                     <div>
-                      <p className="text-xs text-primary-foreground/60">{contact.label}</p>
-                      <p className="font-medium">{contact.value}</p>
+                      <p className="text-xs text-muted-foreground">{contact.label}</p>
+                      <p className="font-medium text-foreground">{contact.value}</p>
                     </div>
                   </a>
                 ))}
               </div>
 
               {/* Business Hours */}
-              <div className="mt-6 pt-6 border-t border-primary-foreground/10">
+              <div className="mt-6 pt-6 border-t border-border/60">
                 <div className="flex items-center gap-2 mb-2">
                   <Clock className="w-4 h-4 text-accent" />
-                  <span className="text-sm font-medium">Business Hours</span>
+                  <span className="text-sm font-medium text-foreground">Business Hours</span>
                 </div>
-                <p className="text-sm text-primary-foreground/70">Sunday - Thursday: 8:00 AM - 5:00 PM</p>
+                <p className="text-sm text-muted-foreground">Sunday - Thursday: 8:00 AM - 5:00 PM</p>
               </div>
 
               {/* Location */}
-              <div className="mt-4 pt-4 border-t border-primary-foreground/10">
+              <div className="mt-4 pt-4 border-t border-border/60">
                 <div className="flex items-center gap-2 mb-2">
                   <MapPin className="w-4 h-4 text-accent" />
-                  <span className="text-sm font-medium">Our Office</span>
+                  <span className="text-sm font-medium text-foreground">Our Office</span>
                 </div>
-                <p className="text-sm text-primary-foreground/70">
+                <p className="text-sm text-muted-foreground">
                   Sanabis Exhibition Tower, Office 601
                   <br />
                   Manama, Kingdom of Bahrain
