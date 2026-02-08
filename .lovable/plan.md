@@ -1,114 +1,155 @@
 
-## Summary of what will change
-You want the landing page to feel more “premium + modern” by using relevant, consistent business imagery throughout (not just the hero), and you prefer people-focused images. We’ll introduce a cohesive image set (AI-generated), then refactor key sections into image-supported layouts so the page feels designed—not text blocks stacked.
+Goal
+- Make /lp/company-formation feel like a “Vibe AI designer” output: modern, calm, premium, minimal motion, with sophisticated background overlays inspired by https://bg.ibelick.com/.
+- Keep conversion flow identical (Hero → Calculator → Summary → unlock Booking → Proof/FAQ → Final CTA).
 
-## Goals (success criteria)
-- Every major section on `/lp/company-formation` has a relevant modern business image (people-focused).
-- Images feel consistent (same style, lighting, color grading) and don’t look random or stocky.
-- Layout remains conversion-focused: Hero → Calculator → Summary → (unlock) Booking → Proof/FAQ → Final CTA.
-- Fast loading: images are responsive, compressed, and lazy-loaded where appropriate.
+What’s making it feel “not nice” right now (based on code)
+- Visual language is mixed:
+  - Landing uses design-system classes (card-elevated, glass-card-light), but CalendlyBooking uses its own “shadow-lg + border/50” cards and a very dark bg-primary block; it reads like a different product.
+  - SplitSection badge styling is different from the rest of the landing (uppercase accent text vs section-badge pills).
+- Images are present in each section, but they aren’t “designed into” the layout:
+  - They sit as plain photos in cards. Modern landing pages usually apply consistent treatment (overlay, subtle grain, consistent aspect ratios, consistent corner radii).
+- Motion is heavier than necessary in some parts (CalendlyBooking uses multiple whileInView animations; hero montage has motion elements). You asked for low motion.
 
-## What I found in your code
-- Page is `src/pages/landing/CompanyFormationLanding.tsx`.
-- Hero already uses a strong image: `formation-hero-professional.jpg`.
-- Sections “How it works”, “What happens on the call”, “Booking”, “Testimonials”, “FAQ” are currently mostly text/cards.
-- You already have a strong pattern component for image + content sections: `SplitSection` (`src/components/shared/SplitSection.tsx`).
-- There are many existing assets, but you specifically want new AI images for a modern consistent look.
+Design direction we’ll implement
+- “Minimal modern + luxury editorial restraint”:
+  - More whitespace, softer dividers, fewer heavy shadows.
+  - Gold accent used only as micro-accent (badges, icons, key numbers), not as large blocks.
+- “Ibelick-style backgrounds”:
+  - Subtle layered gradients + thin-line patterns behind sections.
+  - Use masking so patterns fade at edges.
+- “Editorial image system”:
+  - Consistent image ratio, consistent border radius, consistent overlay and optional grain.
+  - Images feel cohesive as a set even if individually different.
 
-## Image strategy (AI-generated, consistent set)
-We’ll generate a small “collection” of images with matching:
-- palette: clean neutrals + subtle navy/gold tones
-- lighting: bright, soft daylight
-- composition: minimal, premium, uncluttered
-- constraints: no text, no logos, no watermarks, no flags, no brand marks
+Implementation steps (what I will change)
 
-### Images to generate (recommended set)
-1) **How it works** image  
-   “Consultant explaining a simple process to a founder at a modern desk” (people + process vibe)
+1) Create an “Ibelick-inspired background overlay system”
+Files:
+- src/components/shared/SectionBackgroundOverlay.tsx
+- src/index.css
 
-2) **What you get (call value)** image  
-   “Professional consultation moment, document checklist on a tablet/laptop, clean office” (people + checklist)
+Changes:
+- Add new overlay variants to SectionOverlayVariant, e.g.
+  - "ibelick-soft" (multi-radial gradient + subtle blur look)
+  - "ibelick-waves" (very subtle repeating linear gradients)
+  - "ibelick-noise" (optional, very low opacity)
+- Keep existing variants for backwards compatibility.
+- Add CSS utilities for these overlays in index.css:
+  - New background-image recipes modeled after ibelick-style layers:
+    - multiple radial gradients with very low alpha
+    - thin grid/line pattern at 2–4% alpha
+  - Add one reusable mask utility to fade edges (similar to current maskImage approach).
 
-3) **Booking** image  
-   “Founder on a video call in a modern office, laptop with blurred UI, Google Meet vibe without branding” (people + booking)
+Outcome:
+- Every major section can opt into a modern background “treatment” without custom per-section hacks.
 
-4) **Testimonials / Results** image  
-   “Happy founder handshake / small team smiling after meeting, premium editorial look” (people + trust)
+2) Build a consistent “EditorialImage” treatment (so images look premium, not stocky)
+Files:
+- src/components/shared/SplitSection.tsx
+- src/components/consultation/CalendlyBooking.tsx
+- (optional) a tiny helper component if needed, e.g. src/components/shared/EditorialImage.tsx
 
-5) **FAQ** image (optional but recommended)  
-   “Close-up of hands reviewing official documents, subtle premium desk setup” (people + documents)
+Changes:
+- Apply consistent image styling everywhere images appear:
+  - consistent rounding (rounded-3xl or keep rounded-2xl but unify)
+  - consistent border (border-border/60)
+  - consistent overlay inside image container:
+    - a subtle navy-to-transparent gradient (for depth)
+    - a subtle gold highlight corner (very low opacity)
+  - optional micro-grain/noise overlay (ultra subtle, 1–2% opacity) to unify AI images
+  - consistent hover: remove “zoom glow” on non-hero sections to keep low motion; keep static or ultra-subtle.
+- Update SplitSection:
+  - Replace badge rendering to use the same pill style as the landing: className="section-badge" (not uppercase accent text)
+  - Add new props:
+    - imageTreatment?: "none" | "editorial" (default "editorial")
+    - imageOverlayStrength?: number (default subtle)
+  - Ensure stacked and split modes both use the same treatment.
+- Update CalendlyBooking:
+  - Replace ad-hoc card styles (bg-background rounded-2xl shadow-lg border...) with design-system surfaces:
+    - use card-elevated for the widget container and info cards
+    - replace the bg-primary “Contact Details Card” with a premium but lighter surface:
+      - either glass-card-dark or card-elevated with a subtle navy gradient header
+  - Apply the same EditorialImage treatment to the booking image panel so it matches SplitSection images.
 
-## UX/layout changes (what you’ll see)
-### 1) How it works → convert to SplitSection with an image
-- Left: text + steps (keep your 3 steps)
-- Right: modern AI image
-- Keep the “Book now” CTA inside the content side
+Outcome:
+- All section images look like one coherent design system (not “random photos placed in cards”).
 
-### 2) What happens on the call → convert to SplitSection with an image
-- Keep the current benefit grid + “Prefer to talk now”
-- Add a relevant consultation image on the opposite side
-- Preserve the existing band feel if you like, but make the content feel more “designed”
+3) Reduce motion to “low motion” across landing experience
+Files:
+- src/components/consultation/CalendlyBooking.tsx
+- src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx
+- (optional) any other landing blocks using framer-motion heavily
 
-### 3) Booking section → add a dedicated image panel
-Since Calendly already has a 2-column layout (widget + info panel), we’ll enhance the **info panel** to include:
-- A top image (small, premium, rounded)
-- Then “What you’ll get” bullets and contact options below
-This makes the booking area look richer and more trustworthy.
+Changes:
+- CalendlyBooking:
+  - remove per-item animated list staggering
+  - keep only one subtle fade-in for the whole block (or remove whileInView entirely)
+- Hero montage:
+  - keep only minimal entrance fade (or none)
+  - remove hover-zoom-glow on the hero image if it feels too “effect-y”
+- Trust bar:
+  - either remove motion or reduce to a single subtle fade for the entire bar.
 
-### 4) Testimonials + FAQ → add imagery without feeling cluttered
-- Testimonials: upgrade to larger editorial cards or add one “section image” above the testimonial grid (instead of forcing an image into each testimonial)
-- FAQ: add a side image (SplitSection-like layout or a small image panel above the accordion), so it doesn’t feel like a generic FAQ block
+Outcome:
+- Page feels modern and calm, not “animated template”.
 
-## Technical implementation steps (files we will change)
-### Step A — Add new images
-- Generate the 4–5 images (as above).
-- Save into a dedicated folder to keep things organized, e.g.:
-  - `src/assets/company-formation/lp/how-it-works.jpg`
-  - `src/assets/company-formation/lp/what-you-get.jpg`
-  - `src/assets/company-formation/lp/booking.jpg`
-  - `src/assets/company-formation/lp/testimonials.jpg`
-  - `src/assets/company-formation/lp/faq.jpg` (optional)
-- Ensure images are optimized (reasonable dimensions, compressed). Use `loading="lazy"` except hero.
+4) Tighten spacing & hierarchy (make it feel more “designer”)
+Files:
+- src/pages/landing/CompanyFormationLanding.tsx
+- src/components/shared/SplitSection.tsx
+- src/index.css (minor)
 
-### Step B — Refactor sections to use images
-- **`src/pages/landing/CompanyFormationLanding.tsx`**
-  - Replace the “How it works” section with a `SplitSection` block and import the new image.
-  - Replace “What happens on the call” with a `SplitSection` block and import the new image.
-  - Update Testimonials + FAQ sections to include new imagery in a controlled way (one image per section, not too many).
+Changes:
+- Normalize all section headers:
+  - consistent spacing between badge → title → subtitle
+  - consistent max-width for subtitles
+- Increase whitespace slightly between blocks inside SplitSection (steps grid, benefit grid, CTA cards) so it breathes.
+- Ensure image heights are consistent:
+  - standardize AspectRatio across sections (e.g., 4/3 or 16/10 depending on look)
+  - avoid very short banners (testimonials image at h-56 may feel arbitrary); use ratio-based containers instead.
+- Align Testimonials + FAQ layouts to the same grid rhythm used by SplitSection:
+  - Testimonials:
+    - keep the hero image banner but make it editorial (ratio container + overlay)
+    - refine testimonial cards to be calmer (less hover translate, less shadow jump)
+  - FAQ:
+    - keep image + accordion, but unify padding and borders to match the rest.
 
-- **`src/components/consultation/CalendlyBooking.tsx`**
-  - Add an optional `imageSrc/imageAlt` prop (or a `showImage` prop) for the right-side info panel.
-  - Render a rounded image at the top of the info column (only when provided).
+Outcome:
+- The whole page reads like one premium layout system.
 
-### Step C — Keep the conversion funnel intact
-- No changes to calculator gating logic.
-- Calendly still only appears after calculator results.
-- No new lead capture fields added.
+5) Optional: Regenerate only the weakest images (if any still feel “AI-stock”)
+No code dependency (asset-only), but we’ll do it if needed.
+- We’ll keep your people-focused direction, but push prompts toward:
+  - candid editorial moments
+  - minimal props
+  - consistent lens/lighting
+  - no exaggerated smiles / no staged handshake clichés
+- If you tell me which section image feels most “off”, we regenerate that single one first.
 
-## QA checklist (what you will test after)
-1) End-to-end flow:
-   - Hero → scroll to calculator → complete → summary shows → booking unlocks → Calendly loads correctly
-2) Visual check (most important here):
-   - Each section has a relevant modern image
-   - Images look consistent as a set (not mismatched styles)
-3) Mobile:
-   - SplitSection stacks nicely (image + content)
-   - No awkward cropping, no overly tall images
-4) Performance:
-   - Images are not huge, and non-hero images are lazy-loaded
+QA checklist (you will verify in preview)
+- Visual cohesion:
+  - Do all sections feel like one design system (cards, overlays, image treatment)?
+  - Do backgrounds feel modern like ibelick-style layers (subtle, not noisy)?
+- Funnel:
+  - Calculator still gates booking
+  - Summary still displays correctly
+  - Booking still reveals and Calendly loads
+- Responsiveness:
+  - SplitSection stacking looks intentional on mobile
+  - No awkward image crops; faces not cut off
+- Performance:
+  - Images still lazy-load (except hero)
+  - No heavy animation jank
 
-## Potential follow-up (optional, but high impact)
-- Add subtle “image color grading” consistency (slight warm tone) via CSS filter or by regenerating with tighter prompts.
-- Replace the hero image as well (only if you want an even more consistent “set”).
+Files expected to change
+- src/components/shared/SectionBackgroundOverlay.tsx (new overlay variants)
+- src/index.css (new overlay utilities; optional grain utility)
+- src/components/shared/SplitSection.tsx (badge consistency + editorial image treatment)
+- src/components/consultation/CalendlyBooking.tsx (unify surfaces + image treatment + reduce motion)
+- src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx (reduce motion/effects, optional)
+- src/pages/landing/CompanyFormationLanding.tsx (spacing rhythm + testimonials/faq image ratio polish)
 
-## Prompts (drafts I will use for AI generation)
-I’ll use prompts along these lines (and tune after first generation):
-- “Modern premium business consultation in a bright minimalist office, two professionals discussing, subtle navy and warm gold accents, editorial photography, shallow depth of field, no logos, no text, no watermark.”
-- “Founder on a video call in a modern office, laptop visible with blurred interface, premium editorial lighting, minimal desk, no brand UI, no logos, no text.”
-- “Hands reviewing official documents on a clean desk, premium stationery, soft daylight, minimal, no seals/logos readable, no text, no watermark.”
-
-## Files expected to change
-- `src/pages/landing/CompanyFormationLanding.tsx`
-- `src/components/consultation/CalendlyBooking.tsx`
-- New images in `src/assets/company-formation/lp/*`
-- Potential minor CSS touch-ups (only if needed): `src/index.css`
+Decision points (only if needed during implementation)
+- Pick one primary overlay variant for most sections (so it’s cohesive), and reserve others for special moments (hero, calculator band, final CTA).
+- Confirm whether you want the booking “contact panel” to stay dark-navy or switch to light surfaces with a navy header strip (usually looks more modern/minimal).
