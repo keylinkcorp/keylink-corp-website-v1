@@ -153,21 +153,21 @@ export default function PROServices() {
         
         {/* 2. Trust Bar */}
         <ServiceTrustBar stats={trustBarStats} />
+
+        {/* 3. Services List */}
+        <PROServicesList />
         
-        {/* 3. Audience Clarity */}
+        {/* 4. Audience Clarity */}
         <PROAudienceClarity />
         
-        {/* 4. Problem Agitation */}
+        {/* 5. Problem Agitation */}
         <PROProblemAgitation />
         
-        {/* 5. What Is a PRO */}
+        {/* 6. What Is a PRO */}
         <PROWhatIs />
         
-        {/* 6. Solution Framework */}
+        {/* 7. Solution Framework */}
         <PROSolutionFramework />
-        
-        {/* 7. Services List */}
-        <PROServicesList />
         
         {/* 8. Process Timeline */}
         <PROProcessTimeline />
