@@ -20,7 +20,6 @@ import testimonial2 from "@/assets/testimonial-2.jpg";
 import howItWorksImage from "@/assets/company-formation/lp/how-it-works-portrait.jpg";
 import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
 import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
-import faqImage from "@/assets/company-formation/lp/faq-portrait.jpg";
 
 import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
 import { CompanyFormationTrustBar } from "@/pages/landing/company-formation/CompanyFormationTrustBar";
@@ -289,67 +288,59 @@ export default function CompanyFormationLanding() {
           {/* FAQ */}
           <section className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
-              <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
-                <div className="lg:col-span-5">
-                  <div className="lp-card overflow-hidden">
-                    <div className="relative aspect-[4/3]">
-                      <img
-                        src={faqImage}
-                        alt="Reviewing business formation documents"
-                        loading="lazy"
-                        className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
-                      />
-                      <div aria-hidden className="absolute inset-0 overlay-navy-vertical opacity-55" />
-                      <div aria-hidden className="absolute inset-0 overlay-gold-accent opacity-45" />
-                    </div>
-                  </div>
-                  <p className="mt-3 text-xs text-muted-foreground">No logos, no watermarks — images are illustrative.</p>
-                </div>
+              <div className="lg:col-span-12">
+                <span className="section-badge">FAQ</span>
+                <h2 className="lp-h2">Questions (answered clearly)</h2>
 
-                <div className="lg:col-span-7">
-                  <span className="section-badge">FAQ</span>
-                  <h2 className="lp-h2">Questions (answered clearly)</h2>
-
-                  <div className="mt-8">
-                    <div className="lp-card p-3 md:p-4">
-                      <Accordion type="single" collapsible>
-                        <AccordionItem value="a">
-                          <AccordionTrigger>How fast can I register a company in Bahrain?</AccordionTrigger>
-                          <AccordionContent>
-                            Many setups can be completed in roughly 3–7 business days, depending on activities, approvals,
-                            and documents.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="b">
-                          <AccordionTrigger>Can foreigners own 100% of a Bahrain company?</AccordionTrigger>
-                          <AccordionContent>
-                            Yes—many activities allow 100% foreign ownership. We’ll confirm eligibility based on your
-                            activity and structure.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="c">
-                          <AccordionTrigger>What documents do I need?</AccordionTrigger>
-                          <AccordionContent>
-                            It depends on the structure and shareholders. After your call, we’ll share a clear document
-                            checklist tailored to you.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="d">
-                          <AccordionTrigger>Is the consultation really free?</AccordionTrigger>
-                          <AccordionContent>
-                            Yes—30 minutes, no obligation. The goal is to give you clarity on cost, timeline, and next
-                            steps.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="e">
-                          <AccordionTrigger>Do you support MOIC/LMRA procedures?</AccordionTrigger>
-                          <AccordionContent>
-                            We guide you through MOIC/LMRA requirements and related compliance steps as part of the setup
-                            plan.
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    </div>
+                <div className="mt-8">
+                  <div className="lp-card p-3 md:p-4">
+                    <Accordion type="single" collapsible>
+                      <AccordionItem value="a">
+                        <AccordionTrigger className="text-sm font-semibold">
+                          How fast can I register a company in Bahrain?
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          Many setups can be completed in roughly 3–7 business days, depending on activities, approvals,
+                          and documents.
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="b">
+                        <AccordionTrigger className="text-sm font-semibold">
+                          Can foreigners own 100% of a Bahrain company?
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          Yes—many activities allow 100% foreign ownership. We’ll confirm eligibility based on your
+                          activity and structure.
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="c">
+                        <AccordionTrigger className="text-sm font-semibold">
+                          What documents do I need?
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          It depends on the structure and shareholders. After your call, we’ll share a clear document
+                          checklist tailored to you.
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="d">
+                        <AccordionTrigger className="text-sm font-semibold">
+                          Is the consultation really free?
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          Yes—30 minutes, no obligation. The goal is to give you clarity on cost, timeline, and next
+                          steps.
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="e">
+                        <AccordionTrigger className="text-sm font-semibold">
+                          Do you support MOIC/LMRA procedures?
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          We guide you through MOIC/LMRA requirements and related compliance steps as part of the setup
+                          plan.
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </div>
                 </div>
               </div>
