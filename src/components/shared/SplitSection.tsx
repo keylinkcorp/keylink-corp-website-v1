@@ -275,8 +275,8 @@ export function SplitSection({
                 imagePosition === "left" ? "lg:order-1" : "lg:order-2",
                 imageSticky
                   ? cn(
-                      "lg:sticky lg:self-start",
-                      imageStickyTopClassName ?? "lg:top-24",
+                      "md:sticky md:self-start",
+                      imageStickyTopClassName ?? "md:top-24",
                     )
                   : "",
               )}
