@@ -159,6 +159,7 @@ export default function CompanyFormationLanding() {
             imageSrc={howItWorksImage}
             imageAlt="Consultant explaining the company formation process"
             imagePosition="right"
+            imageSticky
             variant="subtle"
             backgroundVariant="ibelick-soft"
             overlayOpacity={0.9}
