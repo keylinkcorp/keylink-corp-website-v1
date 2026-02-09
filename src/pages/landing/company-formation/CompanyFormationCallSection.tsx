@@ -78,8 +78,8 @@ export function CompanyFormationCallSection() {
       imageSrc={whatYouGetImage}
       imageAlt="Business consultation reviewing a checklist"
       imagePosition="left"
-      contentColSpanLg={5}
-      imageColSpanLg={7}
+      contentColSpanLg={7}
+      imageColSpanLg={5}
       imageSticky
       variant="default"
       backgroundVariant="ibelick-lines"
