@@ -36,7 +36,7 @@ export function BankAccountOpening() {
       className="py-24 lg:py-32 relative overflow-hidden"
     >
       {/* Background Pattern */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_40%,transparent_100%)]" />
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background opacity-40 bg-[linear-gradient(to_right,hsl(var(--border)/0.35)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.35)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_55%_at_50%_50%,#000_28%,transparent_100%)]" />
 
       <div className="container max-w-6xl">
         {/* Header */}
