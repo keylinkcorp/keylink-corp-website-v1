@@ -55,7 +55,11 @@ type SplitSectionProps = {
   /** When imageTreatment="none", choose whether the frame is elevated or flat. */
   imageFrame?: "elevated" | "flat";
   imageOverlayStrength?: number;
-  /** Only used when layout="stacked". */
+  /** Only used when layout="stacked".
+   * If provided, the stacked image uses an aspect ratio (better for very wide banners).
+   */
+  stackedImageRatio?: number;
+  /** Only used when layout="stacked" and stackedImageRatio is not provided. */
   stackedImageHeightClassName?: string;
 };
 
@@ -93,6 +97,7 @@ export function SplitSection({
   imageTreatment = "editorial",
   imageFrame = "elevated",
   imageOverlayStrength,
+  stackedImageRatio,
   stackedImageHeightClassName =
     "h-[32vh] sm:h-[30vh] md:h-[25vh] min-h-[220px] md:min-h-[240px]",
 }: SplitSectionProps) {
@@ -184,31 +189,58 @@ export function SplitSection({
           <div className="max-w-6xl mx-auto">
             <div className={cn(imageClassName)}>
               {useEditorialImage ? (
-                <div className={stackedImageHeightClassName}>
+                typeof stackedImageRatio === "number" ? (
                   <EditorialImage
                     src={imageSrc}
                     alt={imageAlt}
-                    ratio={undefined}
+                    ratio={stackedImageRatio}
                     overlayStrength={imageOverlayStrength}
-                    className={cn("h-full", "w-full")}
-                    imgClassName={cn("h-full", imageImgClassName)}
+                    className={cn("w-full")}
+                    imgClassName={cn(imageImgClassName)}
                   />
-                </div>
+                ) : (
+                  <div className={stackedImageHeightClassName}>
+                    <EditorialImage
+                      src={imageSrc}
+                      alt={imageAlt}
+                      ratio={undefined}
+                      overlayStrength={imageOverlayStrength}
+                      className={cn("h-full", "w-full")}
+                      imgClassName={cn("h-full", imageImgClassName)}
+                    />
+                  </div>
+                )
               ) : (
                 <div
                   className={cn(
                     imageFrame === "flat"
                       ? "rounded-2xl border border-border/30 bg-card overflow-hidden"
                       : "card-elevated overflow-hidden",
-                    stackedImageHeightClassName,
+                    typeof stackedImageRatio === "number"
+                      ? ""
+                      : stackedImageHeightClassName,
                   )}
                 >
-                  <img
-                    src={imageSrc}
-                    alt={imageAlt}
-                    loading="lazy"
-                    className={cn("h-full w-full object-cover", imageImgClassName)}
-                  />
+                  {typeof stackedImageRatio === "number" ? (
+                    <AspectRatio ratio={stackedImageRatio}>
+                      <img
+                        src={imageSrc}
+                        alt={imageAlt}
+                        loading="lazy"
+                        className={cn(
+                          "h-full w-full object-cover",
+                          imageImgClassName,
+                        )}
+                      />
+                    </AspectRatio>
+                  ) : (
+                    <img
+                      src={imageSrc}
+                      alt={imageAlt}
+                      loading="lazy"
+                      className={cn("h-full w-full object-cover", imageImgClassName)}
+                    />
+                  )}
                 </div>
               )}
             </div>
