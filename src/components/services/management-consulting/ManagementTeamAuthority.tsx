@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { Users, Award, Globe, Briefcase, Building2, Shield, BadgeCheck } from "lucide-react";
-import teamImage from "@/assets/management-team-photo.jpg";
+import teamImage from "@/assets/management-consulting/management-team-authority-hero.jpg";
 
 const authorityBadges = [
   { icon: Building2, text: "MOIC Registered" },
