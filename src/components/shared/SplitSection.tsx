@@ -174,7 +174,8 @@ export function SplitSection({
   return (
     <section
       className={cn(
-        "section-spacing relative overflow-hidden",
+        "section-spacing relative",
+        imageSticky ? "overflow-visible" : "overflow-hidden",
         isSubtle ? "bg-secondary/40" : "bg-background",
       )}
     >
