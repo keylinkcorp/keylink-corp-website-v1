@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { SplitSection } from "@/components/shared/SplitSection";
 import { cn } from "@/lib/utils";
 
-import comparisonImage from "@/assets/free-zone/free-zone-comparison.png";
+import comparisonImage from "@/assets/free-zone/industrial-zone-wide-21x9.jpg";
 
 type ZoneRow = {
   key: "biw" | "blz" | "biip" | "sitra";
@@ -67,11 +67,13 @@ export function FreeZoneComparison() {
       subtitle="Use this as a fast shortlist. Final eligibility depends on your registered activity and required approvals."
       align="center"
       imageSrc={comparisonImage}
-      imageAlt="Port-adjacent warehousing and containers near the sea"
+      imageAlt="Modern industrial logistics zone with warehouses, trucks, and port cranes"
       variant="subtle"
       backgroundVariant="grid-lines"
       overlayOpacity={0.55}
       layout="stacked"
+      stackedImageRatio={21 / 9}
+      imageImgClassName="object-center"
     >
       <div className="grid md:grid-cols-2 gap-6">
         {zoneRows.map((row) => (
