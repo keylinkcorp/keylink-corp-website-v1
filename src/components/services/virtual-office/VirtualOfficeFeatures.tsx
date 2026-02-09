@@ -1,24 +1,78 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { 
-  MapPin, Mail, Send, Package, Phone, PhoneIncoming, 
-  PhoneForwarded, Voicemail, Users, UserCheck, ListChecks, Archive 
+import {
+  MapPin,
+  Mail,
+  Send,
+  Package,
+  Phone,
+  PhoneIncoming,
+  PhoneForwarded,
+  Voicemail,
+  Users,
+  UserCheck,
+  ListChecks,
+  Archive,
 } from "lucide-react";
 import mailServiceImage from "@/assets/virtual-office/mail-service-detail.jpg";
 
 const features = [
-  { icon: MapPin, title: "Business Address", description: "Prestigious Sanabis address for CR registration" },
-  { icon: Mail, title: "Mail Reception", description: "Receive all mail and packages on your behalf" },
-  { icon: Send, title: "Mail Forwarding", description: "Forward mail to any address worldwide" },
-  { icon: Package, title: "Package Handling", description: "Secure handling of all business packages" },
+  {
+    icon: MapPin,
+    title: "Business Address",
+    description: "Prestigious Sanabis address for CR registration",
+  },
+  {
+    icon: Mail,
+    title: "Mail Reception",
+    description: "Receive all mail and packages on your behalf",
+  },
+  {
+    icon: Send,
+    title: "Mail Forwarding",
+    description: "Forward mail to any address worldwide",
+  },
+  {
+    icon: Package,
+    title: "Package Handling",
+    description: "Secure handling of all business packages",
+  },
   { icon: Phone, title: "Business Phone Line", description: "Dedicated Bahrain phone number" },
-  { icon: PhoneIncoming, title: "Call Answering", description: "Professional live call reception" },
-  { icon: PhoneForwarded, title: "Call Forwarding", description: "Route calls to your mobile or office" },
-  { icon: Voicemail, title: "Voicemail to Email", description: "Receive voicemails in your inbox" },
-  { icon: Users, title: "Meeting Room Access", description: "Book fully-equipped meeting rooms" },
-  { icon: UserCheck, title: "Receptionist Services", description: "Professional greeting for your clients" },
-  { icon: ListChecks, title: "Directory Listing", description: "Your company on building directory" },
-  { icon: Archive, title: "Document Storage", description: "Secure storage for important documents" },
+  {
+    icon: PhoneIncoming,
+    title: "Call Answering",
+    description: "Professional live call reception",
+  },
+  {
+    icon: PhoneForwarded,
+    title: "Call Forwarding",
+    description: "Route calls to your mobile or office",
+  },
+  {
+    icon: Voicemail,
+    title: "Voicemail to Email",
+    description: "Receive voicemails in your inbox",
+  },
+  {
+    icon: Users,
+    title: "Meeting Room Access",
+    description: "Book fully-equipped meeting rooms",
+  },
+  {
+    icon: UserCheck,
+    title: "Receptionist Services",
+    description: "Professional greeting for your clients",
+  },
+  {
+    icon: ListChecks,
+    title: "Directory Listing",
+    description: "Your company on building directory",
+  },
+  {
+    icon: Archive,
+    title: "Document Storage",
+    description: "Secure storage for important documents",
+  },
 ];
 
 const staggerContainer = {
@@ -37,6 +91,14 @@ const staggerItem = {
 export function VirtualOfficeFeatures() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const uniqueFeatures = useMemo(() => {
+    const map = new Map<string, (typeof features)[number]>();
+    features.forEach((feature) => {
+      if (!map.has(feature.title)) map.set(feature.title, feature);
+    });
+    return Array.from(map.values());
+  }, []);
 
   return (
     <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-white">
@@ -105,11 +167,11 @@ export function VirtualOfficeFeatures() {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto"
         >
-          {features.map((feature, index) => {
+          {uniqueFeatures.map((feature) => {
             const Icon = feature.icon;
             return (
               <motion.div
-                key={index}
+                key={feature.title}
                 variants={staggerItem}
                 whileHover={{ y: -4 }}
                 className="group p-5 md:p-6 rounded-xl bg-background border border-border hover:border-accent/30 hover:shadow-md transition-all duration-300"
