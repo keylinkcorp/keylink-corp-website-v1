@@ -23,6 +23,8 @@ import testimonialsImage from "@/assets/company-formation/lp/testimonials-portra
 
 import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
 import { CompanyFormationTrustBar } from "@/pages/landing/company-formation/CompanyFormationTrustBar";
+import { CompanyFormationSegmentSwitcher } from "@/pages/landing/company-formation/CompanyFormationSegmentSwitcher";
+import { CompanyFormationPricingSection } from "@/pages/landing/company-formation/CompanyFormationPricingSection";
 import { CompanyFormationEstimateSummary } from "@/pages/landing/company-formation/CompanyFormationEstimateSummary";
 import { CompanyFormationCallSection } from "@/pages/landing/company-formation/CompanyFormationCallSection";
 
@@ -108,6 +110,14 @@ export default function CompanyFormationLanding() {
         <main id="top" className="flex-1">
           <CompanyFormationHeroMontage onBookClick={() => scrollToId("start")} />
           <CompanyFormationTrustBar />
+          <CompanyFormationSegmentSwitcher
+            onScrollToCalculator={() => scrollToId("start")}
+            onScrollToBooking={() => scrollToId("book")}
+          />
+          <CompanyFormationPricingSection
+            onScrollToCalculator={() => scrollToId("start")}
+            onScrollToBooking={() => scrollToId("book")}
+          />
 
           {/* CALCULATOR (Gates booking) */}
           <section
