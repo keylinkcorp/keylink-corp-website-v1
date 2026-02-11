@@ -109,15 +109,6 @@ export default function CompanyFormationLanding() {
 
         <main id="top" className="flex-1">
           <CompanyFormationHeroMontage onBookClick={() => scrollToId("start")} />
-          <CompanyFormationTrustBar />
-          <CompanyFormationSegmentSwitcher
-            onScrollToCalculator={() => scrollToId("start")}
-            onScrollToBooking={() => scrollToId("book")}
-          />
-          <CompanyFormationPricingSection
-            onScrollToCalculator={() => scrollToId("start")}
-            onScrollToBooking={() => scrollToId("book")}
-          />
 
           {/* CALCULATOR (Gates booking) */}
           <section
@@ -154,10 +145,7 @@ export default function CompanyFormationLanding() {
           </section>
 
           {estimate && (
-            <CompanyFormationEstimateSummary
-              estimate={estimate}
-              onContinue={() => scrollToId("book")}
-            />
+            <CompanyFormationEstimateSummary estimate={estimate} onContinue={() => scrollToId("book")} />
           )}
 
           {/* HOW IT WORKS */}
@@ -218,8 +206,20 @@ export default function CompanyFormationLanding() {
               </div>
             </div>
           </SplitSection>
+
           {/* CONSULTATION VALUE */}
           <CompanyFormationCallSection />
+
+          {/* TRUST + QUALIFYING (Moved below call section) */}
+          <CompanyFormationTrustBar />
+          <CompanyFormationSegmentSwitcher
+            onScrollToCalculator={() => scrollToId("start")}
+            onScrollToBooking={() => scrollToId("book")}
+          />
+          <CompanyFormationPricingSection
+            onScrollToCalculator={() => scrollToId("start")}
+            onScrollToBooking={() => scrollToId("book")}
+          />
 
           {/* BOOKING (revealed after form submit) */}
           <div id="book" />
