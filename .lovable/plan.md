@@ -1,191 +1,119 @@
 
-## Objective
-Increase lead volume and lead quality from **Google Search** ads for “company formation in Bahrain / company registration Bahrain” by improving:
-1) **Message match** (keyword → ad → landing page headline/sections),
-2) **Conversion friction** (capture lead form fast),
-3) **Trust** (proof + clarity on pricing/timeline/ownership),
-4) **Measurement** (so you can optimize based on real conversion data).
+## What I understood (“missing section”)
+You want to add **two missing sections** to **/lp/company-formation**, placed **above the calculator**:
+1) A dedicated **Pricing** section (what affects cost + typical ranges + CTA to calculator/booking)
+2) A **Segment switcher** (“Choose your situation”: Foreign / Local / Branch / Solo) that improves message match for Google Search traffic and routes people to the right next step.
 
-You confirmed:
-- Conversion goal: **Lead form** (primary)
-- Audience: **Foreign founders + local founders + branch/expansion + solo**
-- Angle: **Price-first**
-- Traffic: **Google Search**
+Important constraint already agreed: **No backend (no submit)**, so these sections will focus on **clarity + click-to-action (scroll to calculator / booking, WhatsApp/call)** rather than collecting leads.
 
 ---
 
-## What we’ll change on the landing page (high-converting structure)
+## Proposed UX changes (what the user will see)
 
-### 1) Above-the-fold: convert first, explain second
-**Current:** Hero is strong, but primary conversion is “Get started” → calculator flow → booking.
-**Change:** Add a **simple lead form above the fold** (or directly under hero) that’s optimized for search traffic:
-- Fields (minimum viable): **Name, WhatsApp/Phone, Email, Company activity (dropdown), Timeline (dropdown)**  
-- Microcopy: “Get a cost breakdown + document checklist in 30 minutes (free).”
-- A clear consent/privacy line (important for ad trust + policy alignment):  
-  “By submitting, you agree to be contacted about company formation services. Privacy policy.”
+### A) New “Choose your situation” section (Segment switcher)
+**Placement:** Immediately after the hero + trust bar, before the calculator.
 
-**Why this converts:** Search users often want “price + next steps” quickly. A short form beats a multi-step calculator for raw lead volume.
+**Layout:**
+- 4 selectable cards or tabs:
+  - Foreign founder (remote setup)
+  - Bahrain resident
+  - Branch / expansion
+  - Solo / freelancer
+- When a segment is selected, show:
+  - 2–3 bullets that match that segment’s intent (“ownership eligibility”, “visas”, “banking guidance”, “timeline”, etc.)
+  - A primary button: **“Calculate estimate”** (smooth scroll to `#start`)
+  - A secondary button: **“Book free call”** (smooth scroll to `#book`)
+  - Optional tertiary: WhatsApp / Call (tracked later if desired)
 
-### 2) Price-first “instant reassurance” block (right after form)
-Add a compact block (bullets / chips) reinforcing:
-- “Transparent estimate”
-- “Typical timeline 3–7 business days (varies by activity)”
-- “100% foreign ownership eligibility check”
-- “MOIC/LMRA guidance”
+**Behavior:**
+- Segment selection persists while on the page (React state).
+- Optional: read `?intent=` or `?utm_term=` and preselect a segment (simple keyword mapping) to improve ad→LP relevance.
 
-This is already present across sections, but we’ll **bring it earlier**.
+### B) New “Pricing (what affects cost)” section
+**Placement:** Directly below segment switcher (still above calculator).
 
-### 3) Segment the offer (so each audience sees themselves)
-Add a small “Choose your situation” switcher (tabs or 4 cards):
-- Foreign founder (remote setup)
-- Bahrain resident
-- Branch/expansion
-- Solo/freelancer
+**Content structure:**
+- Headline aligned to search intent:
+  - “Pricing: what affects your company formation cost”
+- A short “price-first” explanation:
+  - “Costs vary mainly by activity, visas, office, and shareholder profile. Use the calculator for a fast estimate.”
+- 4–6 “cost drivers” as bullets/chips:
+  - Business activities (regulated vs standard)
+  - Company type (WLL / SPC / Branch)
+  - Visa requirements
+  - Office type
+  - Shareholders / nationality (eligibility/approvals)
+  - Add-ons (PRO, accounting, bank support)
+- “Typical ranges” box:
+  - Keep conservative, non-committal wording (since exact fees depend on inputs)
+  - Example style: “Most setups fall within a range after adding office + visas. Confirm exact costs on the free call.”
+- CTAs:
+  - Primary: “Calculate estimate” → scroll to `#start`
+  - Secondary: “Book free call” → scroll to `#book`
 
-Each shows 2–3 bullets and a “Request estimate” button that scrolls to the form and preselects the segment.
-
-### 4) Trust proof: make it specific + Bahrain-relevant
-Enhance trust bar + add proof near the form:
-- “400+ companies formed” (if true for Keylink; otherwise use accurate number)
-- “MOIC/LMRA guidance”
-- “Transparent pricing”
-- Testimonials (already present) + add 1–2 “short proof outcomes” (time + type of setup)
-
-### 5) Keep sticky image sections, but reduce cognitive load
-Your SplitSection sticky behavior is working. We’ll ensure:
-- Sticky top offset matches header height
-- Images are supportive, not oversized
-- The “What you get” section stays sticky but keeps content dominant (already narrowed to 7/5)
-
-### 6) Add an explicit “Pricing” section for ad-intent match
-Even if you don’t show exact fees publicly, add:
-- “What affects cost?” (activities, visas, office, shareholders, licenses)
-- “Typical ranges” (if you’re comfortable) or “We provide a line-item quote on the call”
-- Link: “Use the calculator” (secondary)
-
-This improves conversion for price-first traffic and reduces low-quality leads.
+**Note:** This section is intentionally “explicit pricing context” even though the calculator exists—this improves message match for search keywords like “company formation cost Bahrain”.
 
 ---
 
-## Google Ads research outcomes → how we apply them
+## Implementation approach (code-level)
 
-### A) Message match & Quality Score
-Google’s guidance emphasizes relevance between **keywords, ad text, and landing page content**. We’ll:
-- Align H1/H2 with your main ad group keywords:
-  - “Company Formation in Bahrain”
-  - “Company Registration in Bahrain”
-  - “Open a WLL/SPC/Branch in Bahrain”
-- Add short keyword-rich subheaders in relevant sections (without stuffing).
+### 1) Add two new components (keeps `CompanyFormationLanding.tsx` clean)
+Create:
+- `src/pages/landing/company-formation/CompanyFormationSegmentSwitcher.tsx`
+- `src/pages/landing/company-formation/CompanyFormationPricingSection.tsx`
 
-### B) Lead form and compliance expectations
-Google lead experiences benefit from:
-- Clear business identity
-- Clear value exchange (“what user gets”)
-- Clear consent/privacy wording  
-We’ll add a visible **privacy link** and concise consent line under the form.
+Both will:
+- Use existing LP styling conventions: `section-spacing-sm`, `section-badge`, `lp-h2`, `lp-card`, `SectionBackgroundOverlay` where appropriate.
+- Use existing `Button` component.
+- Use smooth-scroll helper already in `CompanyFormationLanding.tsx` (`scrollToId`).
+  - Either pass `onScrollToCalculator` / `onScrollToBooking` callbacks into components, or export `scrollToId` to a tiny shared helper.
 
----
+### 2) Wire them into `src/pages/landing/CompanyFormationLanding.tsx`
+Insert them **after**:
+- `<CompanyFormationHeroMontage ... />`
+- `<CompanyFormationTrustBar />`
 
-## Campaign structure recommendations (so the landing page matches ad groups)
-Create separate ad groups (or campaigns) mapped to sections on the page:
+And **before** the calculator `<section aria-label="Company formation cost calculator">...`
 
-1) **Company Formation Bahrain (generic high intent)**
-   - Keywords: company formation bahrain, company registration bahrain, register company bahrain
-   - Landing: hero + form + pricing block + “how it works”
-
-2) **100% foreign ownership**
-   - Keywords: 100% foreign ownership bahrain company, foreign investor company bahrain
-   - Landing: segment card preselected + ownership FAQ expanded
-
-3) **WLL / SPC / Branch**
-   - Keywords: WLL company bahrain, SPC bahrain, branch office bahrain
-   - Landing: segment switcher + “structures” mini section
-
-4) **Cost / fees**
-   - Keywords: company formation cost bahrain, registration fees bahrain company
-   - Landing: pricing section + calculator + form
-
-We can implement landing-page behavior to read `?utm_term=` or `?intent=` and **auto-highlight** the most relevant segment.
+### 3) Optional (recommended): preselect segment from URL
+- In `CompanyFormationLanding.tsx`, read `window.location.search` once.
+- If `intent` exists (or `utm_term` contains keywords), set default selected segment.
+- Keep mapping simple and safe (no brittle logic).
 
 ---
 
-## Measurement plan (so you can optimize)
-1) Add conversion events:
-   - Lead form submit success (primary)
-   - WhatsApp click
-   - Call click
-   - Calendly booking (secondary)
-2) Store UTM parameters with the lead:
-   - utm_source, utm_campaign, utm_adgroup, utm_term, utm_content, gclid (if present)
-3) Optional: add a lightweight “thank-you” state (on-page) + optionally redirect to `/thank-you`.
+## Content defaults (copy we’ll ship with)
+### Segment bullets (examples)
+- Foreign founder: “100% ownership eligibility check”, “remote-friendly process”, “visa + banking guidance”
+- Local founder: “fast setup path”, “clear checklist”, “transparent pricing”
+- Branch: “parent document requirements”, “typical timelines”, “local compliance steps”
+- Solo: “SPC-friendly path”, “simple structure”, “low-friction start”
+
+### Pricing “what affects cost” bullets (examples)
+- “Activity (some require extra approvals)”
+- “Company type (WLL / SPC / Branch)”
+- “Office type”
+- “Visas required”
+- “Shareholder profile & eligibility”
+- “Add-ons (PRO, accounting, bank support)”
+
+(We’ll keep language aligned with your hero: “transparent costs”, “3–7 business days (typical)”, “MOIC/LMRA guidance”.)
 
 ---
 
-## Technical implementation approach (in this codebase)
-
-### 1) Build a dedicated Lead Form component
-- Use `react-hook-form` + `zod` + `@hookform/resolvers/zod`
-- Client validation + safe length limits
-- UI: existing shadcn components (Input, Select, Button, Card)
-- UX:
-  - One-column on mobile
-  - Inline error messages
-  - Loading + success state
-  - “Prefer WhatsApp?” secondary CTA under the button
-
-### 2) Persist leads (recommended)
-Option A (best): **Supabase (Lovable Cloud)**
-- Create table: `company_formation_leads`
-- Fields: name, email, phone, segment, timeline, notes, utms, page_path, created_at
-- RLS:
-  - Public insert allowed with validation; restrict read to admin/service role
-- Add basic anti-spam:
-  - Honeypot field
-  - Rate limit (edge function) or minimal throttling
-  - Optional: reCAPTCHA later if needed
-
-Option B: Email-only (less ideal for tracking and deduping)
-- Edge function sends email to your sales inbox + stores minimal record
-
-### 3) Wire the form into `/lp/company-formation`
-- Place it:
-  - Under Hero montage OR
-  - Replace “Start here” calculator gate as the primary CTA while keeping calculator as a secondary section
-
-### 4) Copy updates for “price-first”
-- Tighten hero subtitle and form microcopy to emphasize:
-  - “Transparent cost breakdown”
-  - “Document checklist”
-  - “Timeline estimate”
-- Ensure language is consistent with ads:
-  - If ad says “3–7 business days”, keep that exact phrasing on page
+## Acceptance criteria (what you can verify in preview)
+1) On **/lp/company-formation**, a **Segment switcher** appears above the calculator.
+2) Selecting each segment updates the bullets and the CTA buttons.
+3) A dedicated **Pricing** section appears above the calculator with “what affects cost” and “typical ranges” messaging.
+4) Buttons smoothly scroll to:
+   - `#start` (calculator)
+   - `#book` (booking section, when visible)
+5) No layout regressions:
+   - Mobile: cards stack cleanly, no overflow
+   - Desktop: spacing matches existing LP sections
 
 ---
 
-## Edge cases & quality safeguards
-- Form submission should never break the page even if backend fails:
-  - Show toast + allow retry
-- Phone formatting:
-  - Accept international numbers; store raw + normalized if desired
-- Ensure sticky sections behave on common breakpoints:
-  - md+ sticky, but disable sticky on very short viewports if needed
-
----
-
-## Deliverables / Acceptance criteria
-- Lead form appears above fold and submits successfully.
-- Lead record stored with UTMs and timestamp.
-- After submit: user sees confirmation + next step (book call / WhatsApp).
-- Page remains fast and mobile-friendly.
-- Tracking events fire for submit + key clicks.
-
----
-
-## What I need from you (to finalize copy + form fields)
-1) What exact fields do you want on the form?
-   - Minimum recommended: Name + WhatsApp/Phone + Email + “Company type/intent”
-2) Where should leads go immediately?
-   - Your email inbox, a CRM, or just saved in Supabase for now?
-3) Do you have a Privacy Policy URL to link under the form?
-
-Once you confirm those 3 items, I’ll implement the form + storage + UTM capture and update the landing sections for a “price-first, search-traffic” conversion flow.
+## Small but important note I found while reviewing the code
+Your footers link to **`/privacy-policy`**, but there is currently **no route/page** for it in `src/App.tsx` and no page component found in `src/pages/`.
+If you still want the “Create /privacy page” item from earlier, I can include that in the implementation pass too (it’s separate from the “missing sections” but currently affects compliance/trust for ads).
