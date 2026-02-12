@@ -1,5 +1,6 @@
 import { Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { KeylinkLogo } from "@/components/brand/KeylinkLogo";
 
 type LandingHeaderProps = {
   onLogoClick?: () => void;
@@ -12,11 +13,10 @@ export function LandingHeader({ onLogoClick }: LandingHeaderProps) {
         <button
           type="button"
           onClick={onLogoClick}
-          className="inline-flex items-center gap-2"
+          className="inline-flex items-center"
           aria-label="Scroll to top"
         >
-          <span className="text-xl font-bold text-foreground tracking-tight">Keylink</span>
-          <span className="text-xl font-bold text-accent tracking-tight">Corp</span>
+          <KeylinkLogo className="h-7 w-auto md:h-8" />
         </button>
 
         <div className="flex items-center gap-2">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { KeylinkLogo } from "@/components/brand/KeylinkLogo";
 
 const footerLinks = {
   services: [
@@ -63,9 +64,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="flex items-center mb-4">
-              <span className="text-2xl font-bold text-primary-foreground">Keylink</span>
-              <span className="text-2xl font-bold text-gold">Corp</span>
+            <div className="mb-4">
+              <KeylinkLogo onDark className="h-9 w-auto" />
             </div>
             <p className="text-primary-foreground/70 mb-6 max-w-sm">
               Your trusted partner for business setup and corporate services in Bahrain. 
