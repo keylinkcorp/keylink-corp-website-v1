@@ -207,17 +207,21 @@ export function Header() {
       {/* Main navigation */}
       <div
         className={cn(
-          "container flex items-center justify-between transition-all duration-200 gap-4",
+          "container relative flex items-center justify-between transition-all duration-200 gap-4",
           scrolled ? "h-20" : "h-20 lg:h-28",
         )}
       >
         {/* Logo */}
-        <Link to="/" className="flex items-center flex-shrink-0" aria-label="Keylink Corp">
+        <Link
+          to="/"
+          className="flex items-center flex-shrink-0 lg:basis-[280px]"
+          aria-label="Keylink Corp"
+        >
           <KeylinkLogo className="h-11 w-auto lg:h-20" />
         </Link>
 
-        {/* Desktop Navigation */}
-        <NavigationMenu className="hidden lg:flex flex-1 justify-center">
+        {/* Desktop Navigation (perfectly centered on desktop) */}
+        <NavigationMenu className="hidden lg:flex absolute left-1/2 -translate-x-1/2">
           <NavigationMenuList className="gap-1">
             {megaMenuItems.map((item) => (
               <NavigationMenuItem key={item.title}>
