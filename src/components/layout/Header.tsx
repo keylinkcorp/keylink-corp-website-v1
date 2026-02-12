@@ -208,12 +208,13 @@ export function Header() {
       <div
         className={cn(
           "container flex items-center justify-between transition-all duration-200 gap-4",
-          scrolled ? "h-20" : "h-20 lg:h-28",
+          // Keep enough height when scrolled so the logo never gets clipped
+          scrolled ? "h-20 lg:h-24" : "h-20 lg:h-28",
         )}
       >
         {/* Logo */}
         <Link to="/" className="flex items-center flex-shrink-0" aria-label="Keylink Corp">
-          <KeylinkLogo className="h-11 w-auto lg:h-20" />
+          <KeylinkLogo className={cn("w-auto transition-[height] duration-200", scrolled ? "h-10 lg:h-16" : "h-11 lg:h-20")} />
         </Link>
 
         {/* Desktop Navigation */}
