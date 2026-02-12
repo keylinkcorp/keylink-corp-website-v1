@@ -211,7 +211,7 @@ export function Header() {
       )}>
         {/* Logo */}
         <Link to="/" className="flex items-center flex-shrink-0" aria-label="Keylink Corp">
-          <KeylinkLogo className="h-9 w-auto lg:h-10" />
+          <KeylinkLogo className="h-10 w-auto lg:h-12" />
         </Link>
 
         {/* Desktop Navigation */}
