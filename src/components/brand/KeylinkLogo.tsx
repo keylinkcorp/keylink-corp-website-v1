@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import logoSrc from "@/assets/brand/keylink-logo.svg";
+import logoSrc from "@/assets/brand/keylink-logo-v4.svg";
 
 type KeylinkLogoProps = {
   className?: string;
