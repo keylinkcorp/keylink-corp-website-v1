@@ -9,14 +9,14 @@ type LandingHeaderProps = {
 export function LandingHeader({ onLogoClick }: LandingHeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/70 backdrop-blur-xl">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <button
           type="button"
           onClick={onLogoClick}
           className="inline-flex items-center"
           aria-label="Scroll to top"
         >
-          <KeylinkLogo className="h-8 w-auto md:h-9" />
+          <KeylinkLogo className="h-11 w-auto md:h-14" />
         </button>
 
         <div className="flex items-center gap-2">
