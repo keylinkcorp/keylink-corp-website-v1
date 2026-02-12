@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown, Phone, Mail, ArrowRight, Building2, FileText, Users, Briefcase, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { KeylinkLogo } from "@/components/brand/KeylinkLogo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,6 +12,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+
 
 // Mega menu structure - 4 main pillars
 const megaMenuItems = [
@@ -208,9 +210,8 @@ export function Header() {
         scrolled ? "h-16" : "h-16 lg:h-20"
       )}>
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-2xl lg:text-3xl font-bold text-navy tracking-tight">Keylink</span>
-          <span className="text-2xl lg:text-3xl font-bold text-gold tracking-tight">Corp</span>
+        <Link to="/" className="flex items-center flex-shrink-0" aria-label="Keylink Corp">
+          <KeylinkLogo className="h-9 w-auto lg:h-10" />
         </Link>
 
         {/* Desktop Navigation */}
