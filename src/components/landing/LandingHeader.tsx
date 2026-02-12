@@ -16,7 +16,7 @@ export function LandingHeader({ onLogoClick }: LandingHeaderProps) {
           className="inline-flex items-center"
           aria-label="Scroll to top"
         >
-          <KeylinkLogo className="h-7 w-auto md:h-8" />
+          <KeylinkLogo className="h-8 w-auto md:h-9" />
         </button>
 
         <div className="flex items-center gap-2">

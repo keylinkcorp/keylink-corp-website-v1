@@ -65,7 +65,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <KeylinkLogo onDark className="h-9 w-auto" />
+              <KeylinkLogo onDark className="h-10 w-auto" />
             </div>
             <p className="text-primary-foreground/70 mb-6 max-w-sm">
               Your trusted partner for business setup and corporate services in Bahrain. 
