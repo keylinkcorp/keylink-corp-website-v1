@@ -115,20 +115,20 @@ export function TamkeenSupportSection() {
 
   return (
     <section ref={ref} className="py-28 lg:py-36 bg-primary/[0.02] relative overflow-hidden">
-      {/* Background Pattern */}
-      <div 
-        className="absolute inset-0 -z-10"
-        style={{
-          opacity: 0.7,
-          backgroundImage: `
-            linear-gradient(to right, #e7e5e4 1px, transparent 1px),
-            linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
-          `,
-          backgroundSize: "20px 20px",
-          maskImage: `radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)`,
-          WebkitMaskImage: `radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)`,
-        }}
-      />
+      {/* Background Pattern (radial dots) */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(hsl(var(--border)) 1px, transparent 1px)",
+            backgroundSize: "16px 16px",
+            maskImage:
+              "radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%)",
+          }}
+        />
+      </div>
 
       <div className="container relative">
         {/* Header */}
