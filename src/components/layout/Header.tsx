@@ -74,18 +74,6 @@ const megaMenuItems = [
           { title: "Bank Account Services", href: "/services/bank-account", description: "Corporate banking" },
         ],
       },
-    ],
-    cta: {
-      title: "Scale with confidence",
-      description: "Expert guidance to help your business thrive in Bahrain's competitive market.",
-      buttonText: "Explore Services",
-      href: "/services/business-consulting",
-    },
-  },
-  {
-    title: "Workspace",
-    icon: Users,
-    columns: [
       {
         heading: "Office Solutions",
         links: [
@@ -96,10 +84,10 @@ const megaMenuItems = [
       },
     ],
     cta: {
-      title: "Find your space",
-      description: "From virtual addresses to fully-equipped offices. Flexible options for every business.",
-      buttonText: "View Options",
-      href: "/services/virtual-office",
+      title: "Scale with confidence",
+      description: "Expert guidance to help your business thrive in Bahrain's competitive market.",
+      buttonText: "Explore Services",
+      href: "/services/business-consulting",
     },
   },
   {
