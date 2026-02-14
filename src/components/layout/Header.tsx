@@ -376,6 +376,13 @@ export function Header() {
           </NavigationMenuList>
         </NavigationMenu>
 
+        {/* Desktop CTA */}
+        <Link to="/free-consultation" className="hidden lg:flex flex-shrink-0">
+          <Button className="bg-gold hover:bg-gold-dark text-navy font-semibold px-6 h-12 rounded-xl shadow-sm">
+            Free Consultation
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
 
         {/* Mobile menu button */}
         <button
