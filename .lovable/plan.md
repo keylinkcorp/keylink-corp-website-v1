@@ -1,65 +1,61 @@
+
 Goal
+- Move “Office Solutions” links (Virtual Office, Co-working Space, Business Incubators) into the “Grow Business” dropdown as a third column, and remove the “Workspace” top-level navigation item.
+- Apply the same change on both desktop mega-menu and the mobile hamburger menu (since both are driven by the same `megaMenuItems` data).
 
-- Remove the “Free Consultation” CTA button from the header to make the header feel more minimal, while keeping everything else (logo, navigation, mega menus, mobile menu) working the same.
-
-What’s currently creating the “CTA”
-
-- Desktop header has a dedicated CTA block:
-  - `/* CTA Button */` with `<Button>Free Consultation</Button>` linking to `/free-consultation`
-- Mobile menu has a dedicated CTA block:
-  - `/* Mobile CTA */` with a full-width `<Button>Free Consultation</Button>` linking to `/free-consultation`
-
-Important note (scope)
-
-- This change removes the header CTA only.
-- The mega menu panels (inside each dropdown) still include their own CTA panel driven by `item.cta` (e.g., “Start Now”, “Explore Services”). Those will remain unless you explicitly want them removed too.
-
-Implementation steps (code changes)
-
-1. Remove desktop header CTA button
-
+What I saw in your code (current state)
 - File: `src/components/layout/Header.tsx`
-- Delete the block:
-  - From: `/* CTA Button */` div (currently around lines ~390–398 in the file view)
-  - This removes the “Free Consultation” pill button on desktop.
+- The nav is generated from `megaMenuItems`:
+  - “Grow Business” currently has 2 columns: Consulting, Financial Services
+  - “Workspace” currently has 1 column: Office Solutions (Virtual Office, Co-working Space, Business Incubators)
+- Desktop dropdown column layout already supports 1, 2, or 3+ columns via conditional Tailwind classes.
+- Mobile menu also renders from the same `megaMenuItems`, so updating the data will update mobile automatically.
 
-2. Remove mobile menu CTA button
+Changes to make (no design changes beyond structure)
+1) Remove “Workspace” from the top navigation
+- In `megaMenuItems`, delete the entire object:
+  - `title: "Workspace", icon: Users, columns: [...] , cta: {...}`
+- Result: “Workspace” will no longer appear as a top-level nav item on desktop or mobile.
 
-- File: `src/components/layout/Header.tsx`
-- In the mobile nav section, delete the “Mobile CTA” button portion only:
-  - Remove the `<Link to="/free-consultation"> ... <Button>Free Consultation</Button> ... </Link>`
-  - Keep the “Quick contact” phone link below it so mobile users still have a clear action.
+2) Add “Office Solutions” as a third column inside “Grow Business”
+- In the “Grow Business” item inside `megaMenuItems`, add a third entry to `columns`:
+  - `heading: "Office Solutions"`
+  - `links:` same 3 links you currently have under Workspace:
+    - Virtual Office → `/services/virtual-office`
+    - Co-working Space → `/services/coworking-space`
+    - Business Incubators → `/services/business-incubators`
+- Keep the existing two columns exactly as-is, so Grow Business becomes:
+  - Column 1: Consulting (unchanged)
+  - Column 2: Financial Services (unchanged)
+  - Column 3: Office Solutions (moved)
 
-3. Verify layout doesn’t shift awkwardly
+3) Confirm desktop mega-menu layout still looks correct
+- Because Grow Business will become a 3-column dropdown, verify:
+  - The columns grid uses `grid-cols-3`
+  - The CTA panel remains on the right and the overall mega-menu width remains balanced
+- If the mega-menu feels cramped at `max-w-5xl`, we can optionally bump it to `max-w-6xl` later, but I will not do that unless needed (you asked to keep it minimal and only move links).
 
-- Desktop:
-  - Header row should still align correctly: logo left, nav centered.
-  - No extra empty space at the right (it should now be cleaner).
-- Mobile:
-  - Hamburger remains on the right.
-  - Mobile menu still contains all sections and the quick phone contact.
+4) QA checklist (quick tests in preview)
+Desktop
+- Hover “Grow Business”:
+  - See three columns including “Office Solutions”
+  - All three Office Solutions links route correctly
+- Confirm “Workspace” is gone from the top nav
+- Confirm other dropdowns still open and align with the header (no gaps)
 
-QA checklist (what to test in preview)
+Mobile
+- Open hamburger menu:
+  - Confirm “Workspace” section is gone
+  - Expand “Grow Business”:
+    - Confirm “Office Solutions” appears under it (as its own heading) and links work
 
-- Desktop:
-  - Confirm “Free Consultation” is gone from the header.
-  - Confirm nav dropdowns still open and render correctly.
-- Mobile:
-  - Open hamburger menu and confirm “Free Consultation” button is gone.
-  - Confirm quick phone contact still appears and works.
-- Routes:
-  - Confirm there are no console errors and the header still renders on all pages.
+Edge cases / notes
+- Any pages or SEO schemas are not impacted by this nav change (only navigation structure).
+- If there are any other references to the label “Workspace” elsewhere (e.g., footer), this change won’t touch them unless you request it.
 
-Optional follow-up (if you want even more minimal)
+Files to update
+- `src/components/layout/Header.tsx` (only)
 
-- Reduce header visual weight by:
-  - Removing the top bar (or only showing it before scroll)
-  - Simplifying mega menu CTA panels (remove the navy CTA column inside dropdowns)
-  - Tightening paddings (e.g., nav triggers `px-5 py-3` → smaller)
-  (Only if you confirm you want these next.)
-
-Files to change
-
-- `src/components/layout/Header.tsx`
-
-remove for desktop not for moible or tablet
+Outcome
+- “Office Solutions” lives under “Grow Business” as a third column.
+- “Workspace” is removed from the nav everywhere (desktop + mobile), matching your request.
