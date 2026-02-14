@@ -119,6 +119,7 @@ export function TamkeenSupportSection() {
       <div 
         className="absolute inset-0 -z-10"
         style={{
+          opacity: 0.7,
           backgroundImage: `
             linear-gradient(to right, #e7e5e4 1px, transparent 1px),
             linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
