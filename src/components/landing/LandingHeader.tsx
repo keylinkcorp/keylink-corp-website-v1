@@ -19,7 +19,7 @@ export function LandingHeader({ onLogoClick }: LandingHeaderProps) {
           <KeylinkLogo className="h-11 w-auto md:h-14" />
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="hidden items-center gap-2 md:flex">
           <Button variant="outline" size="sm" asChild>
             <a href="tel:+97317008888">
               <Phone className="mr-2" />
