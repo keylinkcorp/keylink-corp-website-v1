@@ -36,6 +36,7 @@ import VirtualOffice from "./pages/services/VirtualOffice";
 import FreeConsultation from "./pages/FreeConsultation";
 import FreeZoneInBahrain from "./pages/FreeZoneInBahrain";
 import CompanyFormationLanding from "./pages/landing/CompanyFormationLanding";
+import CompanyFormationConsultancyLanding from "./pages/landing/CompanyFormationConsultancyLanding";
 import BLZ from "./pages/free-zone/BLZ";
 import BIIP from "./pages/free-zone/BIIP";
 import BIW from "./pages/free-zone/BIW";
@@ -88,6 +89,10 @@ const App = () => (
           <Route path="/free-zone-in-bahrain/sitra" element={<Sitra />} />
           <Route path="/free-consultation" element={<FreeConsultation />} />
           <Route path="/lp/company-formation" element={<CompanyFormationLanding />} />
+          <Route
+            path="/company-formation-consultancy-bahrain"
+            element={<CompanyFormationConsultancyLanding />}
+          />
 
           {/* Legacy / convenience redirects to avoid 404s */}
           <Route path="/services/visa-services" element={<Navigate to="/services/visa-immigration" replace />} />
