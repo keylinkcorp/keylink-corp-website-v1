@@ -1,73 +1,108 @@
 
 Goal
-- Update the selected “Benefits” section (CompanyFormationConsultancyLanding.tsx around line ~422) to a minimal, modern look by:
-  1) Replacing the current photo background + heavy overlays with a simple SectionBackgroundOverlay pattern.
-  2) Adding a unique icon to each benefits card (different icon per card).
+- Create a modern, minimal multi-step “Cost Calculator” form and place it directly after the hero section on:
+  - /company-formation-consultancy-bahrain (CompanyFormationConsultancyLanding)
+- The calculator should estimate costs based on:
+  - Company type
+  - Visa needs
+  - Office type
+  - Add-ons
+  - Plus the “Other” you selected: we’ll define this as “Business activity category” (so the estimate can show guidance/notes, even if it doesn’t always change the price).
+- On submit, navigate the user to /free-consultation (as you requested).
 
-What I found in your code
-- The selected element is the Benefits section background wrapper in:
-  - src/pages/landing/CompanyFormationConsultancyLanding.tsx (around lines 412–424)
-- It currently uses:
-  - <img src={benefitsBgImage} ... />
-  - overlay-navy-vertical + overlay-gold-radial-center + noise-texture
-- The cards inside Benefits are rendered from a string array and currently show a Check icon on every card.
+What I found in your codebase (reusable patterns)
+- Multi-step wizards already exist and look modern:
+  - src/components/services/spc/SPCCostCalculator.tsx
+  - src/components/services/moa/MOACostCalculator.tsx
+- There is also an existing “formation” calculator used on /services/company-formation and /lp/company-formation:
+  - src/components/services/formation/FormationCostCalculator.tsx
+- CompanyFormationConsultancyLanding already uses your new minimal/pattern direction (SectionBackgroundOverlay etc.) and is the correct place to insert the new calculator section after the hero.
 
-Planned changes (no new dependencies)
-1) Make the Benefits section background minimal (no photo)
-   - Remove the background <img> and the 3 overlay divs used for the photo treatment.
-   - Add <SectionBackgroundOverlay> as the section background layer.
-   - Use a subtle variant for minimal design, likely:
-     - variant="grid-lines" (very clean, modern)
-     - opacity tuned down (around 0.35–0.55)
-     - masked enabled to fade edges (already supported by SectionBackgroundOverlay)
-   - Keep the section readable with a simple base background:
-     - add something like bg-secondary/30 (or keep current section styles if already good)
-   - Result: clean pattern overlay, minimal visual noise, modern feel.
+Design approach (match your current minimalist style)
+- Background: pattern-only overlay (no photo) using SectionBackgroundOverlay, similar to the Benefits section you approved.
+- Card: simple lp-card container, clean spacing, modern typography.
+- Interactions: framer-motion step transitions (same pattern as SPC/WLL/MOA calculators).
+- Icons: use Lucide icons for each option card (tree-shakable static imports).
 
-2) Add icons per Benefits card (different icon per card)
-   - Change the benefits array from just strings to objects:
-     - { label: string, description: string, icon: LucideIconComponent }
-   - Import a small set of Lucide icons at the top of the file (examples that match the text):
-     - “Clear, step-by-step guidance” → Route / ListChecks
-     - “Transparent expectations on timelines” → Clock
-     - “Practical document checklists” → FileText / ClipboardCheck
-     - “Fast response and coordination” → MessageCircle / Headset
-     - “Experience across many activities” → Briefcase / Layers
-     - “Compliance-first planning” → ShieldCheck
-     - “Advice tailored to your goals” → Target
-   - Replace the current <Check .../> per card with <item.icon .../>.
-   - Keep icons minimal:
-     - Put the icon in a small rounded badge (e.g., 36–40px container)
-     - Use subtle background (bg-white/10 or bg-primary-foreground/10 depending on the section’s text color)
-     - Keep stroke and size consistent (size 18–20)
+Calculator UX (multi-step wizard)
+- Step 1: Company type
+  - Options: SPC / WLL / Branch (and optionally “Not sure”)
+- Step 2: Business activity category (your “Other”)
+  - Options like: Professional/Consulting, Trading, Tech/Online, Other
+  - Note: can add small “may require approvals” hints; does not have to change price if you prefer.
+- Step 3: Visa needs
+  - Options: None / 1 investor visa / 2+ visas (or “I’m not sure”)
+- Step 4: Office type
+  - Options: Virtual / Serviced / Private
+- Step 5: Add-ons
+  - Checkbox list: PRO (1 year), Bank support, Accounting setup, etc.
+- Step 6: Summary + CTA
+  - Show estimate range + breakdown (line items) + key notes/disclaimers:
+    - “Government fees are paid to authorities; this is an estimate.”
+    - “Final costs depend on activity approvals, shareholders, and documents.”
+  - Primary button: “Continue to Free Consultation” → navigate to /free-consultation
+  - Secondary: “Start over”
 
-3) Make the cards themselves more minimal (still readable on patterned background)
-   - Keep existing lp-glass-card if it already matches your design system, but simplify:
-     - reduce border intensity, reduce shadow, remove extra glow if any
-     - ensure consistent padding and spacing
-   - If the section text remains “primary-foreground” (light text), ensure cards remain a subtle “glass” on top:
-     - avoid heavy blur; prefer simple border + translucent background for performance and cleanliness.
+Estimation logic (simple, predictable, editable)
+- Use a breakdown-based calculator like SPCCostCalculator:
+  - Base advisory fee (by company type)
+  - Government-fee placeholder line items (optional)
+  - Visa add-ons
+  - Office annual cost (virtual/serviced/private)
+  - Add-ons (PRO/bank/accounting)
+- Output:
+  - total estimate (number)
+  - breakdown array (label + amount)
+  - optional notes (strings) that depend on business activity category or foreign ownership assumptions
 
-Edge cases / safety checks
-- Ensure the icons are statically imported (not dynamic icon maps) to avoid Lucide typing issues and keep bundle tree-shakeable.
-- Verify contrast:
-  - If the Benefits heading uses text-primary-foreground, background should remain dark enough or switch the text back to normal foreground on a light section.
-- Confirm mobile spacing:
-  - Cards should remain 1-column on small screens, current grid already supports it.
+Implementation plan (code changes)
+1) Add a new calculator component
+- Create: src/components/landing/consultancy/ConsultancyCostCalculator.tsx (or similar path consistent with your structure)
+- Copy the successful multi-step patterns from SPCCostCalculator/MOACostCalculator:
+  - state: step, selections, showResult
+  - progress indicator (minimal)
+  - step transitions using AnimatePresence
+  - reusable option-card UI blocks using Tailwind + cn()
+- Add Zod schema only if we collect user details; since your requested action is “go to /free-consultation”, we can skip lead capture entirely and keep it pure UI (recommended for minimal + avoids mailto/toast complexity). If you still want name/email collection later, we can add it as an optional final step.
 
-Files to change
-- src/pages/landing/CompanyFormationConsultancyLanding.tsx
-  - Benefits section background block (remove photo background, add SectionBackgroundOverlay)
-  - Benefits array + mapping (add per-card icons, adjust card layout slightly)
+2) Insert the calculator after the hero in CompanyFormationConsultancyLanding
+- Update: src/pages/landing/CompanyFormationConsultancyLanding.tsx
+- After <CompanyFormationHeroMontage ... /> add:
+  - <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden ...">
+  - <SectionBackgroundOverlay ... />
+  - container + heading (“Start here: get an estimate”)
+  - <ConsultancyCostCalculator onContinue={() => navigate("/free-consultation")} />
+- We will use react-router’s navigation:
+  - import { useNavigate } from "react-router-dom";
+  - or use <Link> in the last step button if simpler.
 
-Quick visual target (what you’ll see after)
-- Benefits section: clean “modern minimal” pattern background, no large photo.
-- Cards: consistent small icon badge + short title + optional concise supporting line, less “busy” feel.
+3) Styling consistency + responsiveness
+- Ensure it matches your current landing LP classes:
+  - section-badge, lp-h2, lp-section-subtitle, lp-card, etc.
+- Make it work well on mobile:
+  - option grids become 1-column
+  - buttons full-width on small screens
 
-After implementation testing checklist
-- Load the landing page and scroll to Benefits
-- Confirm:
-  - Background is pattern-only (no image), looks minimal
-  - Icons show correctly on each card
-  - Readability is good on desktop and mobile
+4) QA / verification
+- Confirm the calculator renders immediately after hero on:
+  - /company-formation-consultancy-bahrain
+- Walk through all steps and confirm:
+  - Next/Back enabled/disabled correctly
+  - Breakdown totals correct
+  - “Continue to Free Consultation” navigates to /free-consultation
   - No console errors
+
+Edge cases / decisions baked in
+- “Other” cost driver: implemented as “Business activity category”
+  - If you later want activity to affect price (e.g., regulated activities), we can add fee modifiers per category.
+- No backend submission
+  - This keeps it fast, clean, and avoids storing leads without a system in place.
+
+Files to be created/edited
+- Create: src/components/landing/consultancy/ConsultancyCostCalculator.tsx
+- Edit: src/pages/landing/CompanyFormationConsultancyLanding.tsx
+
+Acceptance criteria
+- A minimal, modern multi-step calculator appears directly after the hero on /company-formation-consultancy-bahrain.
+- Users can complete steps, see an estimate + breakdown, then proceed to /free-consultation via a clear CTA.
+- Visual style matches your current minimal/pattern overlay direction.
