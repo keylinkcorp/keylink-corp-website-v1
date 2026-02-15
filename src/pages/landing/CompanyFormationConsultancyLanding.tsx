@@ -12,6 +12,7 @@ import { LandingHeader } from "@/components/landing/LandingHeader";
 import { MobileStickyConsultationBar } from "@/components/landing/MobileStickyConsultationBar";
 import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 import { SplitSection } from "@/components/shared/SplitSection";
+import { EditorialImage } from "@/components/shared/EditorialImage";
 
 import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
 
@@ -21,6 +22,11 @@ import testimonial2 from "@/assets/testimonial-2.jpg";
 import howItWorksImage from "@/assets/company-formation/lp/how-it-works-portrait.jpg";
 import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
 import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
+
+import pricingStarterImage from "@/assets/company-formation/consultancy/pricing-starter.webp";
+import pricingCompleteImage from "@/assets/company-formation/consultancy/pricing-complete.webp";
+import pricingPremiumImage from "@/assets/company-formation/consultancy/pricing-premium.webp";
+import benefitsBgImage from "@/assets/company-formation/consultancy/benefits-bg.webp";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
@@ -403,10 +409,23 @@ export default function CompanyFormationConsultancyLanding() {
           </SplitSection>
 
           {/* BENEFITS */}
-          <section className="section-spacing-sm">
-            <div className="container mx-auto px-4 md:px-6">
+          <section className="section-spacing-sm relative overflow-hidden">
+            <div aria-hidden className="absolute inset-0">
+              <img
+                src={benefitsBgImage}
+                alt=""
+                aria-hidden
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 overlay-navy-vertical opacity-90" />
+              <div className="absolute inset-0 overlay-gold-radial-center opacity-35" />
+              <div className="absolute inset-0 noise-texture opacity-[0.20]" />
+            </div>
+
+            <div className="container mx-auto px-4 md:px-6 relative z-10">
               <span className="section-badge">Benefits</span>
-              <h2 className="lp-h2">Why Entrepreneurs Choose Our Consultancy</h2>
+              <h2 className="lp-h2 text-primary-foreground">Why Entrepreneurs Choose Our Consultancy</h2>
 
               <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[
@@ -418,11 +437,11 @@ export default function CompanyFormationConsultancyLanding() {
                   "Compliance-first planning",
                   "Advice tailored to your goals",
                 ].map((b) => (
-                  <div key={b} className="lp-card p-5 sm:p-6 md:p-7 flex gap-3">
+                  <div key={b} className="lp-glass-card p-5 sm:p-6 md:p-7 flex gap-3">
                     <Check className="h-5 w-5 text-accent mt-0.5" />
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{b}</p>
-                      <p className="mt-2 text-sm text-muted-foreground">
+                    <div className="relative">
+                      <p className="text-sm font-semibold text-primary-foreground">{b}</p>
+                      <p className="mt-2 text-sm text-primary-foreground/80">
                         Fast, practical guidance that turns "what do I do next?" into a simple checklist.
                       </p>
                     </div>
@@ -431,11 +450,11 @@ export default function CompanyFormationConsultancyLanding() {
               </div>
 
               {/* Trust signals (every 2–3 sections) */}
-              <div className="mt-6 lp-card-flat bg-muted/20 p-6 md:p-7">
-                <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+              <div className="mt-6 lp-glass-card p-6 md:p-7">
+                <div className="relative flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-foreground">Trusted, responsive, checklist-driven.</p>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm font-semibold text-primary-foreground">Trusted, responsive, checklist-driven.</p>
+                    <p className="text-sm text-primary-foreground/80 mt-1">
                       4.9/5 reviews • 500+ clients supported • Clear next steps from the first call
                     </p>
                   </div>
@@ -461,6 +480,8 @@ export default function CompanyFormationConsultancyLanding() {
                   {
                     title: "Starter Advisory Package",
                     price: "BHD 400",
+                    imageSrc: pricingStarterImage,
+                    imageAlt: "Founder planning next steps during a business setup consultation",
                     items: [
                       "1 focused consultation to confirm activity + next steps",
                       "Tailored checklist for documents and decisions",
@@ -471,6 +492,8 @@ export default function CompanyFormationConsultancyLanding() {
                   {
                     title: "Complete Formation Advisory",
                     price: "BHD 900",
+                    imageSrc: pricingCompleteImage,
+                    imageAlt: "Advisor and founder reviewing a company setup plan together",
                     items: [
                       "Structure + ownership guidance aligned to your activity",
                       "Approvals & licensing pathway overview (typical steps)",
@@ -481,6 +504,8 @@ export default function CompanyFormationConsultancyLanding() {
                   {
                     title: "Premium Business Setup Advisory",
                     price: "BHD 1,800",
+                    imageSrc: pricingPremiumImage,
+                    imageAlt: "Executive planning session for premium business setup guidance",
                     items: [
                       "Priority support and faster turnarounds",
                       "Advanced structuring discussion (as applicable)",
@@ -492,30 +517,40 @@ export default function CompanyFormationConsultancyLanding() {
                   <div
                     key={p.title}
                     className={
-                      "lp-card p-6 sm:p-7 md:p-8 " + (p.featured ? "card-glow border-border/80" : "")
+                      "lp-card overflow-hidden " + (p.featured ? "card-glow border-border/80" : "")
                     }
                   >
-                    <p className="text-sm font-semibold text-foreground">{p.title}</p>
-                    <div className="mt-3 flex items-baseline gap-2">
-                      <div className="text-3xl font-extrabold text-foreground tracking-tight">{p.price}</div>
-                      {p.featured ? (
-                        <span className="text-xs text-muted-foreground">Most popular</span>
-                      ) : null}
+                    <div className="p-6 sm:p-7 md:p-8">
+                      <EditorialImage
+                        src={p.imageSrc}
+                        alt={p.imageAlt}
+                        ratio={16 / 10}
+                        loading="lazy"
+                        overlayStrength={0.5}
+                        className="mb-6"
+                        imgClassName="object-[center_42%]"
+                      />
+
+                      <p className="text-sm font-semibold text-foreground">{p.title}</p>
+                      <div className="mt-3 flex items-baseline gap-2">
+                        <div className="text-3xl font-extrabold text-foreground tracking-tight">{p.price}</div>
+                        {p.featured ? <span className="text-xs text-muted-foreground">Most popular</span> : null}
+                      </div>
+                      <ul className="mt-5 space-y-2">
+                        {p.items.map((i) => (
+                          <li key={i} className="flex gap-2 text-sm text-muted-foreground">
+                            <Check className="h-4 w-4 text-accent mt-0.5" />
+                            <span>{i}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <Button className="mt-6 w-full" onClick={() => scrollToId("book")}>
+                        Get Free Consultation
+                      </Button>
+                      <p className="mt-3 text-xs text-muted-foreground">
+                        Government fees are paid directly to the relevant authorities; this package pricing covers advisory only.
+                      </p>
                     </div>
-                    <ul className="mt-5 space-y-2">
-                      {p.items.map((i) => (
-                        <li key={i} className="flex gap-2 text-sm text-muted-foreground">
-                          <Check className="h-4 w-4 text-accent mt-0.5" />
-                          <span>{i}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Button className="mt-6 w-full" onClick={() => scrollToId("book")}>
-                      Get Free Consultation
-                    </Button>
-                    <p className="mt-3 text-xs text-muted-foreground">
-                      Government fees are paid directly to the relevant authorities; this package pricing covers advisory only.
-                    </p>
                   </div>
                 ))}
               </div>
