@@ -1,131 +1,107 @@
 
-Objective
-- Replace all remaining “Placeholder …” text on `/company-formation-consultancy-bahrain` with polished, conversion-focused, policy-compliant copy that reads like a real Google Ads landing page.
-- Keep the design aligned with `/lp/company-formation` (montage hero + SplitSection rhythm + lp-card surfaces).
-- Update conversion flow to “Form-first” (visible qualified contact form appears before the Calendly embed).
-- Set pricing to your chosen BHD amounts: Starter 400 / Complete 900 / Premium 1,800.
-- Remove WhatsApp CTAs from this landing (per your latest choice), keeping phone + consultation CTAs only.
-- Maintain compliance requirements: disclaimer above fold, no banned terms, footer disclaimer sentence intact.
+Goal
+- Add “real landing page” visuals by:
+  1) Generating and inserting one image per pricing card (3 total).
+  2) Generating and inserting a large background image behind the “Why Entrepreneurs Choose Our Consultancy” (Benefits) section.
+  3) Styling Benefits cards with a glass / blurred overlay look (like your reference), while keeping readability and performance strong.
 
-What I found (current state)
-- `src/pages/landing/CompanyFormationConsultancyLanding.tsx` still contains many “Placeholder” strings across:
-  - Hero lead
-  - Disclaimer paragraph
-  - Section subtitles, benefit supporting lines
-  - Pricing package bullets
-  - Testimonials
-  - FAQ answers (several)
-  - Contact section subtitle + textarea placeholder + final CTA subtitle
-- WhatsApp is still present in the “contact cards” row and likely in the final CTA area (needs removal).
-- Booking section currently renders Calendly first, then contact cards and form (needs “Form-first” restructuring).
-- FAQ background overlay uses a stronger combo (`radial` + `grid-lines`) than `/lp/company-formation` which may contribute to “not matching” feel; we should align it to a softer overlay (ibelick-soft/lines) like the main LP.
+What I found in the current code
+- Pricing cards are rendered inside `src/pages/landing/CompanyFormationConsultancyLanding.tsx` (section “PRICING”) as simple `lp-card` blocks with text + bullets + CTA—no images yet.
+- The Benefits section (“Why Entrepreneurs Choose Our Consultancy”) is currently plain (no background image), and each benefit uses `lp-card` (no glass blur styling).
+- You already have a good “editorial overlay” image wrapper component: `src/components/shared/EditorialImage.tsx` (supports subtle overlays + optional aspect ratio). This is ideal for both pricing-card images and section background treatments.
 
-Decisions already confirmed
-- Copy: AI drafts final copy.
-- Conversion: Form-first.
-- Pricing numbers: 400 / 900 / 1,800 BHD.
-- WhatsApp: Hide.
+Decisions confirmed (from your answers)
+- Pricing images style: Photo style
+- Local cues: Subtle Bahrain cues
+- Benefits section background: Photo background
 
-Implementation plan (code changes)
+Implementation approach (high level)
+A) Generate 4 images (AI-generated, clean corporate, subtle Bahrain cues)
+1) Pricing card images (3)
+   - Aspect ratio: 16:10 (matches your existing LP image usage)
+   - Style: professional business photography, modern office, founders/consultation moments
+   - Subtle Bahrain cues: warm daylight, modern Gulf corporate interiors, very subtle skyline hint through window (no explicit landmark requirement)
+   - No logos, no government visuals, no flags/emblems, no documents that look like official forms.
 
-1) Replace all placeholders with real, compliant copy (single pass + lint pass)
-- In `src/pages/landing/CompanyFormationConsultancyLanding.tsx`, replace:
-  - Hero lead with a crisp, outcome-driven line:
-    - Emphasize “consultation”, “advisory”, “guidance”, “checklist”, “timeline”, “cost drivers”
-    - Avoid banned terms: “Official”, “Government portal”, “Authorized”, “Register”, “Apply”, “Get CR”
-  - Disclaimer text (still above-fold) with a complete, confident version:
-    - “Independent Business Consultancy” title stays
-    - Explicitly states: not a government website/authority; consultancy/advisory/guidance only; CR issued by Bahrain government authorities
-  - Problem subtitle with a specific promise (clarity, sequencing, checklist)
-  - Trust micro-strip copy (remove “Placeholder trust strip:”)
-  - 5-step process subtitle and each step description with practical clarity (what the user gets at each step)
-  - Services accordion bullets with meaningful bullet points for each service (advisory scope language)
-  - Benefits: replace “Placeholder supporting sentence.” with short, believable micro-copy per tile (1 sentence each)
-  - Pricing items: replace placeholder items with real inclusions per package
-  - Testimonials: replace placeholder testimonial quotes with realistic, generic but credible outcomes (no fake company names/logos)
-  - FAQ answers: replace placeholder answers with clean, concise language; keep the “We do not issue CR…” answer as-is
-  - About section: replace placeholder paragraphs with a short positioning statement (independent consultancy, checklist-driven, timeline clarity)
-  - Contact form intro + textarea placeholder: replace with practical instructions (activity, shareholders, location, timeline)
-  - Final CTA section: replace “Placeholder next steps…” with a real “What happens next” line consistent with ad traffic expectations
+   Proposed image themes (one per card)
+   - Starter (BHD 400): “Founder planning next steps” (solo founder reviewing checklist on laptop/tablet)
+   - Complete (BHD 900 / featured): “Advisor + founder reviewing plan together” (collaboration, confident, bright)
+   - Premium (BHD 1,800): “Executive-level planning session” (more premium atmosphere, boardroom, refined)
 
-Quality control
-- Run a project-wide search for banned words specifically on this page:
-  - “Official”, “Government portal”, “Authorized”, “Register”, “Apply”, “Get CR”
-- Also search for literal “Placeholder” occurrences and remove them (except UI component placeholder styling in generic inputs elsewhere).
+2) Benefits background image (1)
+   - Wide image used as a section background (behind glass cards)
+   - Composition: modern business lounge/office environment with warm, elegant lighting
+   - Keep it slightly blurred in CSS (or apply overlay + blur to the background layer) so the cards remain readable.
 
-2) Make the conversion section truly “Form-first” (structure + scroll targets)
-- Update the “BOOKING / CONTACT” section so that:
-  - The qualified contact form and contact methods appear first (above Calendly).
-  - Calendly remains on the page but becomes the secondary option below the form, with a clear heading like “Prefer to book immediately? Book your free consultation”.
-- Ensure all primary CTAs (“Get Free Consultation”) still scroll to the conversion section id `book`.
-  - Keep the `id="book"` anchor above the form container so scroll lands on the form first.
+Image generation details (so results match your references)
+- Prompts will be written to match “Clean Corporate” style:
+  - Photoreal corporate, neutral palette, warm highlights, shallow depth of field
+  - Subtle Bahrain/Gulf cues: modern architecture feel, warm daylight, premium interior materials
+- Sizes:
+  - Pricing images: 960×600 (or 1280×800) WEBP
+  - Benefits background: 1920×1080 WEBP (or 1600×900) to balance quality/perf
+- Output format: WEBP for performance
+- After generation, images will be saved into the project under `src/assets/company-formation/consultancy/` and imported as modules (no base64 stored anywhere).
 
-3) Upgrade the contact form to a “Qualified” landing-page form (7 fields) while keeping no-backend behavior
-Based on your approved template in memory, extend the form from 4 fields to 7 fields:
-- Full name (required)
-- Email (required)
-- Phone (required) (rename label to avoid WhatsApp mention since WhatsApp is hidden)
-- Company activity / business activity (required)
-- Timeline (select) (e.g., “Immediately”, “2–4 weeks”, “1–3 months”, “3+ months”)
-- Budget range (select) (simple ranges; keep neutral)
-- Residency (select): “Bahrain resident” / “Overseas”
-- Optional message/notes (textarea) (optional or required; we can keep required if you want qualification strict—recommend optional to reduce friction)
+B) Add images to pricing cards (layout update)
+- Update the Pricing map in `src/pages/landing/CompanyFormationConsultancyLanding.tsx`:
+  - Add an image block at the top of each card:
+    - Use `EditorialImage` with `ratio={16/10}`
+    - Use a slightly reduced overlay strength (e.g., 0.45–0.55) to keep text readable while staying consistent with the site’s navy/gold toning.
+  - Keep the featured card glow behavior intact.
+  - Ensure images are responsive and don’t shift layout (AspectRatio already helps).
 
-Submission behavior (no backend)
-- Keep `mailto:` generation, but improve it:
-  - Subject: “Free consultation request — Company Formation Consultancy (Bahrain)”
-  - Body includes all fields formatted clearly
-- Keep the toast, but adjust copy to feel professional:
-  - “Email draft prepared” / “Your email app will open to send your request.”
+C) Add a background image behind Benefits + convert benefit cards to “glass blur”
+- In Benefits section:
+  1) Add an absolutely positioned background image layer (using `<img>` or `EditorialImage` in a “background mode”), then add a dark gradient overlay to preserve contrast.
+  2) Update the benefits card className from `lp-card` to a new glass style, for example:
+     - `bg-background/10`
+     - `border-white/15`
+     - `backdrop-blur-xl`
+     - `shadow-[0_12px_40px_rgba(0,0,0,0.25)]`
+     - Keep text colors adjusted for dark background (e.g., headings text-white, body text-white/80).
 
-4) Remove WhatsApp from this landing everywhere
-- In `CompanyFormationConsultancyLanding.tsx`:
-  - Remove the WhatsApp card from the contact methods row.
-  - Remove any WhatsApp buttons in the final CTA cluster.
-- In the hero:
-  - Already set `showWhatsApp={false}`; keep that.
-- In mobile sticky bar:
-  - Current `MobileStickyConsultationBar` is phone + consultation only, so it’s fine; update phone label to “Call for consultation” (compliance phrasing).
+- To keep changes maintainable:
+  - Add a reusable CSS utility class in `src/index.css`, e.g. `.lp-glass-card`, that applies the glass blur look.
+  - Optionally add `.lp-glass-section` for consistent background overlays (gradient + optional noise).
 
-5) Set real pricing numbers (BHD 400 / 900 / 1,800) and tighten package positioning
-- Update pricing array:
-  - Starter Advisory Package: “BHD 400”
-  - Complete Formation Advisory (featured): “BHD 900”
-  - Premium Business Setup Advisory: “BHD 1,800”
-- Package bullets will be rewritten to sound concrete but advisory-only (no “we submit/apply/register” language).
-- Keep the “Government fees are paid directly…” line and add a short “What’s included” clarity sentence.
+D) Accessibility + performance
+- Provide meaningful `alt` text for pricing card images (short, descriptive).
+- Mark the Benefits background image as decorative (empty alt and `aria-hidden`) because it’s purely aesthetic.
+- Ensure “prefers-reduced-transparency” isn’t required, but we’ll keep contrast strong (cards readable even if blur is not supported).
+- Lazy-load non-hero imagery where possible.
 
-6) Improve “match /lp/company-formation” feel by aligning the FAQ section styling
-- Replace the heavier FAQ background overlay combination with the same overlay approach used across `/lp/company-formation`:
-  - Prefer `SectionBackgroundOverlay variant="ibelick-soft"` or `ibelick-lines` with masked true and opacity ~0.8–0.9.
-- Keep the FAQ accordion card styling as `lp-card p-3 md:p-4` (already consistent).
+Files that will change (implementation)
+- `src/pages/landing/CompanyFormationConsultancyLanding.tsx`
+  - Import the new generated images
+  - Insert images into pricing cards
+  - Add Benefits section background layer
+  - Swap benefit cards to glass style classes
+- `src/index.css`
+  - Add `lp-glass-card` (and possibly `lp-glass-card--light` if we want a variant)
+- (New assets)
+  - `src/assets/company-formation/consultancy/pricing-starter.webp`
+  - `src/assets/company-formation/consultancy/pricing-complete.webp`
+  - `src/assets/company-formation/consultancy/pricing-premium.webp`
+  - `src/assets/company-formation/consultancy/benefits-bg.webp`
 
-7) Trust signals cadence: ensure they appear every 2–3 sections with real text
-- Keep existing trust strips and make them real:
-  - After Problem: a trust strip (already present)
-  - After Benefits: a trust strip (already present)
-  - Add/ensure one near Pricing or Testimonials if needed (short line + CTA)
+Step-by-step execution (what I’ll do after you approve)
+1) Generate 4 photoreal images using the AI image generation workflow (photo style, subtle Bahrain cues).
+2) Add the images into `src/assets/company-formation/consultancy/` and import them in the landing page.
+3) Implement pricing-card images (top media block with consistent rounding and overlays).
+4) Implement Benefits photo background + add overlay gradient + apply glass blur to benefit cards.
+5) QA in preview at:
+   - Desktop: spacing, readability, featured pricing card still stands out
+   - Mobile: cards remain readable, background not overpowering, sticky bottom CTA remains visible above phone UI chrome
+6) Quick content compliance check:
+   - No new banned words introduced in headings/captions
+   - No “government/authority” visuals or “official-looking documents” in imagery prompts/results
 
-8) Final compliance + UX QA (quick checklist)
-- Above fold on mobile:
-  - Hero visible and disclaimer banner clearly visible immediately below hero (no large spacing pushing it down).
-- CTA count:
-  - Verify “Get Free Consultation” (or equivalent) appears 5+ times and all scroll to `#book`.
-- Mobile:
-  - Sticky bar shows “Free consultation” + “Call for consultation”
-  - Tel link uses `tel:+97317008888`
-- Footer:
-  - Confirm footer disclaimer sentence is present exactly:
-    - “We are not a government website or authority. CR issued by Bahrain government only.”
-- Ensure no banned words exist on the page content.
+Acceptance criteria (what you should see)
+- Each pricing tier card has a high-quality photo header consistent with the site’s editorial overlays.
+- The Benefits section has a professional background photo and the benefit tiles look glassy/blurred like your reference, while still matching your brand styling.
+- Text remains readable (high contrast) and page performance remains good (WEBP, responsive sizing).
 
-Files to change
-- Primary: `src/pages/landing/CompanyFormationConsultancyLanding.tsx`
-- Possibly small tweak: `src/components/landing/MobileStickyConsultationBar.tsx` (phone label only)
-- No need to touch `/lp/company-formation` files.
-
-Deliverables you’ll see in preview
-- The same `/lp/company-formation` design language, but with fully-real copy (no placeholders).
-- A visible, qualified “Form-first” lead capture section that improves Google Ads landing-page quality score signals (form presence + relevance).
-- Clean compliance posture with repeated advisory-only language and no restricted terms.
-- Pricing displayed as BHD 400 / 900 / 1,800 with clear inclusions and advisory-only disclaimers.
+Notes / constraints
+- The uploaded images you provided will be used as visual references only; we’ll generate unique on-brand images rather than embedding those screenshots.
+- Images will be stored as assets (not in any database), and imported normally in React for optimal bundling and caching.
