@@ -15,9 +15,38 @@ import heroImage from "@/assets/formation-hero-professional-portrait.jpg";
 
 type CompanyFormationHeroMontageProps = {
   onBookClick: () => void;
+  /** Optional overrides to reuse the same hero montage for adjacent landing pages. */
+  badgeText?: string;
+  title?: string;
+  titleSuffix?: string;
+  lead?: string;
+  bullets?: Array<{ icon: typeof Check; text: string }>;
+  primaryCtaLabel?: string;
+  /** If provided, renders a phone CTA button next to the primary CTA. */
+  phoneCta?: { href: string; label: string };
+  /** If true, show WhatsApp CTA button. Defaults to true (original LP behavior). */
+  showWhatsApp?: boolean;
+  /** Optional short social proof line shown under the review strip. */
+  socialProofLine?: string;
 };
 
-export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHeroMontageProps) {
+export function CompanyFormationHeroMontage({
+  onBookClick,
+  badgeText = "Google Ads Offer • Free 30‑minute consultation",
+  title = "Company Formation in Bahrain",
+  titleSuffix = " (2026)",
+  lead =
+    "A premium, clear setup experience—100% foreign ownership guidance, transparent costs, and a realistic timeline.",
+  bullets = [
+    { icon: Check, text: "3–7 business days (typical) for many setups" },
+    { icon: Shield, text: "MOIC/LMRA guidance and compliance support" },
+    { icon: FileText, text: "Transparent checklist + clear next steps" },
+  ],
+  primaryCtaLabel = "Get started",
+  phoneCta,
+  showWhatsApp = true,
+  socialProofLine,
+}: CompanyFormationHeroMontageProps) {
   return (
     <section className="relative overflow-hidden">
       {/* Calm background (no decorative blobs) */}
@@ -30,25 +59,18 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
             <div>
               <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs text-muted-foreground tracking-tight">
                 <Sparkles className="h-4 w-4 text-accent" />
-                Google Ads Offer • Free 30‑minute consultation
+                {badgeText}
               </p>
 
               <h1 className="lp-h1 lp-hero-title text-balance">
-                Company Formation in Bahrain
-                <span className="text-accent"> (2026)</span>
+                {title}
+                {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
               </h1>
 
-              <p className="mt-5 lp-lead max-w-[56ch]">
-                A premium, clear setup experience—100% foreign ownership guidance, transparent costs, and a realistic
-                timeline.
-              </p>
+              <p className="mt-5 lp-lead max-w-[56ch]">{lead}</p>
 
               <ul className="mt-7 space-y-3 text-sm">
-                {[
-                  { icon: Check, text: "3–7 business days (typical) for many setups" },
-                  { icon: Shield, text: "MOIC/LMRA guidance and compliance support" },
-                  { icon: FileText, text: "Transparent checklist + clear next steps" },
-                ].map((item) => (
+                {bullets.map((item) => (
                   <li key={item.text} className="flex items-start gap-3 text-foreground/90">
                     <item.icon className="mt-0.5 h-4 w-4 text-accent" />
                     {item.text}
@@ -58,25 +80,33 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
 
               <div className="mt-7 flex flex-col sm:flex-row gap-3">
                 <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
-                  Get started
+                  {primaryCtaLabel}
                 </Button>
 
-                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
-                  <a href="https://wa.me/97317008888">
-                    <MessageCircle className="mr-2" />
-                    WhatsApp
-                  </a>
-                </Button>
+                {phoneCta ? (
+                  <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                    <a href={phoneCta.href}>
+                      <Phone className="mr-2" />
+                      {phoneCta.label}
+                    </a>
+                  </Button>
+                ) : null}
 
-                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
-                  <a href="tel:+97317008888">
-                    <Phone className="mr-2" />
-                    Call
-                  </a>
-                </Button>
+                {showWhatsApp ? (
+                  <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                    <a href="https://wa.me/97317008888">
+                      <MessageCircle className="mr-2" />
+                      WhatsApp
+                    </a>
+                  </Button>
+                ) : null}
               </div>
 
               <HeroReviewStrip className="mt-5" />
+
+              {socialProofLine ? (
+                <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p>
+              ) : null}
 
               <p className="mt-3 text-xs text-muted-foreground">
                 Free • No obligation • You’ll get a cost breakdown + document checklist
@@ -108,7 +138,6 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -116,3 +145,4 @@ export function CompanyFormationHeroMontage({ onBookClick }: CompanyFormationHer
     </section>
   );
 }
+

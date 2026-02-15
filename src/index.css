@@ -70,6 +70,11 @@
     --gold-light: 41 50% 70%;
     --gold-dark: 41 55% 48%;
 
+    /* Semantic: Compliance / disclaimer surfaces (warm, high-contrast) */
+    --warning: 41 100% 92%;
+    --warning-foreground: 204 100% 15%;
+    --warning-border: 41 70% 80%;
+
     /* Custom: Trustpilot Green (#00B67A) */
     --trustpilot: 160 100% 36%;
 
