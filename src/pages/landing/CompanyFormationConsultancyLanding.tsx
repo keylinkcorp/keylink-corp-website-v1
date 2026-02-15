@@ -44,6 +44,7 @@ import pricingStarterImage from "@/assets/company-formation/consultancy/pricing-
 import pricingCompleteImage from "@/assets/company-formation/consultancy/pricing-complete.webp";
 import pricingPremiumImage from "@/assets/company-formation/consultancy/pricing-premium.webp";
 import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy.jpg";
+import costCalculatorPortraitImage from "@/assets/company-formation/consultancy/cost-calculator-portrait.jpg";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
@@ -200,16 +201,34 @@ export default function CompanyFormationConsultancyLanding() {
           <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden bg-secondary/30">
             <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
             <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <span className="section-badge">Cost calculator</span>
-              <h2 className="lp-h2">Start here: get an estimate</h2>
-              <p className="lp-section-subtitle max-w-2xl">
-                Answer a few questions to see a simple cost breakdown, then continue to your free consultation.
-              </p>
+              <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
+                <div className="lg:col-span-5">
+                  <div className="lp-card p-3 sm:p-4">
+                    <EditorialImage
+                      src={costCalculatorPortraitImage}
+                      alt="Business consultant reviewing costs and paperwork"
+                      ratio={3 / 4}
+                      loading="eager"
+                      overlayStrength={0.55}
+                      imgClassName="object-[center_40%]"
+                    />
+                  </div>
+                </div>
 
-              <div className="mt-8">
-                <ConsultancyCostCalculator onContinue={() => navigate("/free-consultation")} />
+                <div className="lg:col-span-7">
+                  <span className="section-badge">Cost calculator</span>
+                  <h2 className="lp-h2">Start here: get an estimate</h2>
+                  <p className="lp-section-subtitle max-w-2xl">
+                    Answer a few questions to see a simple cost breakdown, then continue to your free consultation.
+                  </p>
+
+                  <div className="mt-8">
+                    <ConsultancyCostCalculator onContinue={() => navigate("/free-consultation")} />
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
           </section>
 
           {/* PROBLEM */}
