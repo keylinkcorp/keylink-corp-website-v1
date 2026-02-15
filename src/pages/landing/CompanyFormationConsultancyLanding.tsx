@@ -43,6 +43,7 @@ import testimonialsImage from "@/assets/company-formation/lp/testimonials-portra
 import pricingStarterImage from "@/assets/company-formation/consultancy/pricing-starter.webp";
 import pricingCompleteImage from "@/assets/company-formation/consultancy/pricing-complete.webp";
 import pricingPremiumImage from "@/assets/company-formation/consultancy/pricing-premium.webp";
+import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy.jpg";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
@@ -671,16 +672,30 @@ export default function CompanyFormationConsultancyLanding() {
           {/* ABOUT */}
           <section className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
-              <span className="section-badge">About</span>
-              <h2 className="lp-h2">About Our Business Setup Consultancy</h2>
-              <div className="mt-6 lp-card p-6 sm:p-7 md:p-8">
-                <p className="text-sm text-muted-foreground">
-                  We’re an independent business consultancy focused on helping founders make confident setup decisions.
-                  Our work is checklist-driven: you get clarity on options, cost drivers, timelines, and what to prepare next.
-                </p>
-                <p className="mt-4 text-sm text-muted-foreground">
-                  We are not affiliated with any government authority and we do not issue Commercial Registration (CR).
-                </p>
+              <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+                <div>
+                  <span className="section-badge">About</span>
+                  <h2 className="lp-h2">About Our Business Setup Consultancy</h2>
+
+                  <div className="mt-6 lp-card p-6 sm:p-7 md:p-8">
+                    <p className="text-sm text-muted-foreground">
+                      We’re an independent business consultancy focused on helping founders make confident setup decisions.
+                      Our work is checklist-driven: you get clarity on options, cost drivers, timelines, and what to prepare next.
+                    </p>
+                    <p className="mt-4 text-sm text-muted-foreground">
+                      We are not affiliated with any government authority and we do not issue Commercial Registration (CR).
+                    </p>
+                  </div>
+                </div>
+
+                <div className="lp-card p-3 sm:p-4 md:p-5">
+                  <EditorialImage
+                    src={aboutConsultancyImage}
+                    alt="Business setup consultancy meeting with checklist review"
+                    ratio={4 / 3}
+                    overlayStrength={0.35}
+                  />
+                </div>
               </div>
             </div>
           </section>
