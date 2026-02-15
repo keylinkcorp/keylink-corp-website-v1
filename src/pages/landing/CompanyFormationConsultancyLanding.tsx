@@ -1,6 +1,22 @@
 import { useEffect, useMemo } from "react";
 
-import { Check, Clock, FileText, HelpCircle, Mail, Phone, Shield, Sparkles, Star } from "lucide-react";
+import {
+  Check,
+  Clock,
+  ClipboardList,
+  FileText,
+  HelpCircle,
+  Layers,
+  Mail,
+  MessageSquareText,
+  Phone,
+  Route,
+  Shield,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Target,
+} from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -26,7 +42,6 @@ import testimonialsImage from "@/assets/company-formation/lp/testimonials-portra
 import pricingStarterImage from "@/assets/company-formation/consultancy/pricing-starter.webp";
 import pricingCompleteImage from "@/assets/company-formation/consultancy/pricing-complete.webp";
 import pricingPremiumImage from "@/assets/company-formation/consultancy/pricing-premium.webp";
-import benefitsBgImage from "@/assets/company-formation/consultancy/benefits-bg.webp";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
@@ -409,52 +424,69 @@ export default function CompanyFormationConsultancyLanding() {
           </SplitSection>
 
           {/* BENEFITS */}
-          <section className="section-spacing-sm relative overflow-hidden">
-            <div aria-hidden className="absolute inset-0">
-              <img
-                src={benefitsBgImage}
-                alt=""
-                aria-hidden
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 overlay-navy-vertical opacity-90" />
-              <div className="absolute inset-0 overlay-gold-radial-center opacity-35" />
-              <div className="absolute inset-0 noise-texture opacity-[0.20]" />
-            </div>
+          <section className="section-spacing-sm relative overflow-hidden bg-secondary/30">
+            <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
               <span className="section-badge">Benefits</span>
-              <h2 className="lp-h2 text-primary-foreground">Why Entrepreneurs Choose Our Consultancy</h2>
+              <h2 className="lp-h2">Why Entrepreneurs Choose Our Consultancy</h2>
 
               <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[
-                  "Clear, step-by-step guidance",
-                  "Transparent expectations on timelines",
-                  "Practical document checklists",
-                  "Fast response and coordination",
-                  "Experience across many activities",
-                  "Compliance-first planning",
-                  "Advice tailored to your goals",
-                ].map((b) => (
-                  <div key={b} className="lp-glass-card p-5 sm:p-6 md:p-7 flex gap-3">
-                    <Check className="h-5 w-5 text-accent mt-0.5" />
+                  {
+                    label: "Clear, step-by-step guidance",
+                    desc: "Fast, practical guidance that turns \"what do I do next?\" into a simple checklist.",
+                    Icon: Route,
+                  },
+                  {
+                    label: "Transparent expectations on timelines",
+                    desc: "Know what typically takes time—and what you can prepare early to avoid delays.",
+                    Icon: Clock,
+                  },
+                  {
+                    label: "Practical document checklists",
+                    desc: "A tailored checklist so documents are prepared in the right order, with fewer surprises.",
+                    Icon: ClipboardList,
+                  },
+                  {
+                    label: "Fast response and coordination",
+                    desc: "Responsive support to keep the plan moving and reduce back-and-forth.",
+                    Icon: MessageSquareText,
+                  },
+                  {
+                    label: "Experience across many activities",
+                    desc: "Clear trade-offs across common business activities—so your setup matches your reality.",
+                    Icon: Layers,
+                  },
+                  {
+                    label: "Compliance-first planning",
+                    desc: "Guidance on typical approvals and checkpoints to keep your setup predictable.",
+                    Icon: ShieldCheck,
+                  },
+                  {
+                    label: "Advice tailored to your goals",
+                    desc: "A practical plan aligned to your shareholders, activity, and timeline—not generic advice.",
+                    Icon: Target,
+                  },
+                ].map(({ label, desc, Icon }) => (
+                  <div key={label} className="lp-card p-5 sm:p-6 md:p-7 flex gap-3">
+                    <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/15 bg-muted/20">
+                      <Icon className="h-5 w-5 text-accent" />
+                    </span>
                     <div className="relative">
-                      <p className="text-sm font-semibold text-primary-foreground">{b}</p>
-                      <p className="mt-2 text-sm text-primary-foreground/80">
-                        Fast, practical guidance that turns "what do I do next?" into a simple checklist.
-                      </p>
+                      <p className="text-sm font-semibold text-foreground">{label}</p>
+                      <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* Trust signals (every 2–3 sections) */}
-              <div className="mt-6 lp-glass-card p-6 md:p-7">
+              <div className="mt-6 lp-card p-6 md:p-7">
                 <div className="relative flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-primary-foreground">Trusted, responsive, checklist-driven.</p>
-                    <p className="text-sm text-primary-foreground/80 mt-1">
+                    <p className="text-sm font-semibold text-foreground">Trusted, responsive, checklist-driven.</p>
+                    <p className="text-sm text-muted-foreground mt-1">
                       4.9/5 reviews • 500+ clients supported • Clear next steps from the first call
                     </p>
                   </div>
