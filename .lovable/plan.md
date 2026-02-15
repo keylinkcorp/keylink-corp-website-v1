@@ -1,107 +1,131 @@
 
-Problem recap (what’s “not matching /lp/company-formation”)
-- The new `/company-formation-consultancy-bahrain` page is currently built as a generic stacked landing with cards and pattern overlays.
-- The existing `/lp/company-formation` look/feel is driven by:
-  - A very specific hero: left copy + right image montage (portrait image with overlay gradients and a bottom “Free call” strip).
-  - A consistent “SplitSection” rhythm with sticky portrait images and calmer spacing.
-  - Reused “company-formation” section components (Trust bar, call value block, pricing section styling).
-- Your clarified preferences: reuse existing images + use the same montage hero.
+Objective
+- Replace all remaining “Placeholder …” text on `/company-formation-consultancy-bahrain` with polished, conversion-focused, policy-compliant copy that reads like a real Google Ads landing page.
+- Keep the design aligned with `/lp/company-formation` (montage hero + SplitSection rhythm + lp-card surfaces).
+- Update conversion flow to “Form-first” (visible qualified contact form appears before the Calendly embed).
+- Set pricing to your chosen BHD amounts: Starter 400 / Complete 900 / Premium 1,800.
+- Remove WhatsApp CTAs from this landing (per your latest choice), keeping phone + consultation CTAs only.
+- Maintain compliance requirements: disclaimer above fold, no banned terms, footer disclaimer sentence intact.
 
-What I will change (high-level)
-1) Make the consultancy page reuse the same hero montage layout as `/lp/company-formation`
-- Replace the consultancy page’s current hero layout with the existing `CompanyFormationHeroMontage` component (same image, same overlay, same montage composition).
-- Update only the copy and CTA labels inside that hero to match the consultancy requirements:
-  - H1: “Company Formation Consultancy in Bahrain”
-  - Primary CTA: “Get Free Consultation” (scroll to booking)
-  - Secondary CTA: “Call +97317008888” (tel: link)
-  - Keep the hero trust strip style consistent (the current montage uses `HeroReviewStrip`; we will keep it or swap to a consultancy-friendly trust row while preserving the same layout).
+What I found (current state)
+- `src/pages/landing/CompanyFormationConsultancyLanding.tsx` still contains many “Placeholder” strings across:
+  - Hero lead
+  - Disclaimer paragraph
+  - Section subtitles, benefit supporting lines
+  - Pricing package bullets
+  - Testimonials
+  - FAQ answers (several)
+  - Contact section subtitle + textarea placeholder + final CTA subtitle
+- WhatsApp is still present in the “contact cards” row and likely in the final CTA area (needs removal).
+- Booking section currently renders Calendly first, then contact cards and form (needs “Form-first” restructuring).
+- FAQ background overlay uses a stronger combo (`radial` + `grid-lines`) than `/lp/company-formation` which may contribute to “not matching” feel; we should align it to a softer overlay (ibelick-soft/lines) like the main LP.
 
-2) Move the disclaimer into a prominent “below-hero” compliance banner (yellow/orange)
-- Remove the disclaimer card currently sitting inside the hero grid.
-- Add a full-width disclaimer box immediately after the hero section, with:
-  - Background: amber/orange tint (e.g., `bg-amber-100/80` + `border-amber-200`), high contrast, and clear icon/title.
-  - Title: “Independent Business Consultancy”
-  - Body: placeholder disclaimer text (until you paste final), plus the required “we do not issue CR” clarification.
-- Ensure “above fold” on mobile:
-  - Adjust hero vertical padding slightly (reduce bottom padding) so the disclaimer banner appears without needing meaningful scrolling on common mobile heights.
+Decisions already confirmed
+- Copy: AI drafts final copy.
+- Conversion: Form-first.
+- Pricing numbers: 400 / 900 / 1,800 BHD.
+- WhatsApp: Hide.
 
-3) Rebuild the section layout rhythm to mirror `/lp/company-formation` (SplitSection-driven)
-To visually match, I’ll restructure most sections to use `SplitSection` with sticky images, alternating left/right, and the same background variants used in `/lp/company-formation`.
+Implementation plan (code changes)
 
-Planned mapping (keeps your required section order/content, but uses the same layout system):
-- Problem section:
-  - Use `SplitSection` with a portrait image on the right (reuse an existing portrait asset already used on `/lp/company-formation` to keep the same art direction).
-  - Left side: 6 pain points in a 2-column list on desktop (1-col mobile).
-- Solution section (5-step process):
-  - Use `SplitSection` (image on left) with “Step cards” styled like existing LP step cards (same `lp-card` styling, step number tokens if appropriate).
-- Services section:
-  - Keep the accordion UI (works well), but wrap inside `SplitSection` so it matches the page rhythm and spacing.
-- Benefits section:
-  - Use `SplitSection` + grid benefits, matching `lp-card` density and spacing.
-- Pricing section:
-  - Reuse styling patterns from `CompanyFormationPricingSection` (visual style, spacing, featured card glow), but keep your consultancy package names and temporary BHD placeholders.
-- Testimonials:
-  - Reuse the existing “banner image + overlay + testimonial cards” composition from `/lp/company-formation` (already proven).
-- FAQ:
-  - Keep the same accordion style and keep JSON-LD FAQ schema, but update typography and container styling to match the `lp-card p-3 md:p-4` pattern used in `/lp/company-formation`.
+1) Replace all placeholders with real, compliant copy (single pass + lint pass)
+- In `src/pages/landing/CompanyFormationConsultancyLanding.tsx`, replace:
+  - Hero lead with a crisp, outcome-driven line:
+    - Emphasize “consultation”, “advisory”, “guidance”, “checklist”, “timeline”, “cost drivers”
+    - Avoid banned terms: “Official”, “Government portal”, “Authorized”, “Register”, “Apply”, “Get CR”
+  - Disclaimer text (still above-fold) with a complete, confident version:
+    - “Independent Business Consultancy” title stays
+    - Explicitly states: not a government website/authority; consultancy/advisory/guidance only; CR issued by Bahrain government authorities
+  - Problem subtitle with a specific promise (clarity, sequencing, checklist)
+  - Trust micro-strip copy (remove “Placeholder trust strip:”)
+  - 5-step process subtitle and each step description with practical clarity (what the user gets at each step)
+  - Services accordion bullets with meaningful bullet points for each service (advisory scope language)
+  - Benefits: replace “Placeholder supporting sentence.” with short, believable micro-copy per tile (1 sentence each)
+  - Pricing items: replace placeholder items with real inclusions per package
+  - Testimonials: replace placeholder testimonial quotes with realistic, generic but credible outcomes (no fake company names/logos)
+  - FAQ answers: replace placeholder answers with clean, concise language; keep the “We do not issue CR…” answer as-is
+  - About section: replace placeholder paragraphs with a short positioning statement (independent consultancy, checklist-driven, timeline clarity)
+  - Contact form intro + textarea placeholder: replace with practical instructions (activity, shareholders, location, timeline)
+  - Final CTA section: replace “Placeholder next steps…” with a real “What happens next” line consistent with ad traffic expectations
 
-4) Make mobile click-to-call stronger (without breaking existing header design rules)
-Current `LandingHeader` hides call/WhatsApp on mobile (by design). To satisfy your requirement clearly:
-- Add a page-specific mobile “Call” button:
-  - Option A (recommended): a sticky bottom mobile CTA bar (Call + Book) that only appears on this route and only on small screens.
-  - Option B: add an optional prop to `LandingHeader` (e.g., `showMobileCallCta`) to show a compact “Call” button on mobile for this landing only.
-- We’ll keep CTA wording compliant (“Call for consultation” if we need a label).
+Quality control
+- Run a project-wide search for banned words specifically on this page:
+  - “Official”, “Government portal”, “Authorized”, “Register”, “Apply”, “Get CR”
+- Also search for literal “Placeholder” occurrences and remove them (except UI component placeholder styling in generic inputs elsewhere).
 
-5) Align background overlays and card surfaces to match the calmer /lp feel
-Right now the consultancy page uses multiple overlay variants (dots, grids, radial) more aggressively than `/lp/company-formation`.
-- Reduce to the same overlay cadence used in `/lp/company-formation`:
-  - Hero: calm `bg-muted/20` (as in montage component).
-  - Major sections: `ibelick-soft` / `ibelick-lines` sparingly.
-- Keep `lp-card`/`lp-card-flat` everywhere (no additional shadows), matching `index.css` definitions.
+2) Make the conversion section truly “Form-first” (structure + scroll targets)
+- Update the “BOOKING / CONTACT” section so that:
+  - The qualified contact form and contact methods appear first (above Calendly).
+  - Calendly remains on the page but becomes the secondary option below the form, with a clear heading like “Prefer to book immediately? Book your free consultation”.
+- Ensure all primary CTAs (“Get Free Consultation”) still scroll to the conversion section id `book`.
+  - Keep the `id="book"` anchor above the form container so scroll lands on the form first.
 
-Concrete implementation steps (files)
-1) Update `src/pages/landing/CompanyFormationConsultancyLanding.tsx`
-- Replace the HERO section with `CompanyFormationHeroMontage` (modified to accept custom title/subtitle/cta labels), or create a new `CompanyFormationConsultancyHeroMontage` that copies the structure of the existing montage hero but uses your consultancy copy.
-- Insert a new disclaimer banner section immediately after hero (amber/orange styling).
-- Refactor sections into `SplitSection` blocks to match `/lp/company-formation` layout rhythm.
-- Reuse existing assets (hero portrait and the portrait images already imported in `CompanyFormationLanding.tsx`) for consistent visuals.
-- Keep:
-  - noindex meta
-  - canonical
-  - query-param merge into Calendly URL
-  - FAQ JSON-LD injection
+3) Upgrade the contact form to a “Qualified” landing-page form (7 fields) while keeping no-backend behavior
+Based on your approved template in memory, extend the form from 4 fields to 7 fields:
+- Full name (required)
+- Email (required)
+- Phone (required) (rename label to avoid WhatsApp mention since WhatsApp is hidden)
+- Company activity / business activity (required)
+- Timeline (select) (e.g., “Immediately”, “2–4 weeks”, “1–3 months”, “3+ months”)
+- Budget range (select) (simple ranges; keep neutral)
+- Residency (select): “Bahrain resident” / “Overseas”
+- Optional message/notes (textarea) (optional or required; we can keep required if you want qualification strict—recommend optional to reduce friction)
 
-2) Add/adjust supporting components (minimal, reuse-first)
-- If needed: extend `CompanyFormationHeroMontage` to accept props for:
-  - headline text
-  - subheadline text
-  - primary CTA label
-  - secondary CTA label/href
-  - optional trust strip variant
-  This keeps the hero visually identical while letting us change content cleanly.
-- Add one of:
-  - a small `MobileStickyCtas` component used only on this new route, or
-  - a prop on `LandingHeader` for mobile call CTA display.
+Submission behavior (no backend)
+- Keep `mailto:` generation, but improve it:
+  - Subject: “Free consultation request — Company Formation Consultancy (Bahrain)”
+  - Body includes all fields formatted clearly
+- Keep the toast, but adjust copy to feel professional:
+  - “Email draft prepared” / “Your email app will open to send your request.”
 
-3) Visual QA checklist (what we’ll verify in preview)
-- Above the fold:
-  - Montage hero looks the same as `/lp/company-formation` (same image treatment, same spacing).
-  - Disclaimer banner appears immediately below hero and is clearly yellow/orange.
-- Layout rhythm:
-  - Sections feel like `/lp/company-formation` (SplitSection spacing, sticky images on md+).
-- Requirements:
-  - CTAs: at least 5 “Consultation” CTAs, all scroll to booking.
-  - Mobile: tap-to-call is present and prominent (hero and/or sticky bar).
-  - FAQ: 8 questions + schema present.
-  - Footer disclaimer includes the required exact sentence.
-- Copy compliance:
-  - No banned words appear anywhere (“Official”, “Government portal”, “Authorized”, “Register”, “Apply”, “Get CR”).
+4) Remove WhatsApp from this landing everywhere
+- In `CompanyFormationConsultancyLanding.tsx`:
+  - Remove the WhatsApp card from the contact methods row.
+  - Remove any WhatsApp buttons in the final CTA cluster.
+- In the hero:
+  - Already set `showWhatsApp={false}`; keep that.
+- In mobile sticky bar:
+  - Current `MobileStickyConsultationBar` is phone + consultation only, so it’s fine; update phone label to “Call for consultation” (compliance phrasing).
 
-Small clarification I’ll apply automatically (no need for you to answer)
-- Since you asked for placeholders, I will keep placeholder body copy, but I will ensure CTA labels, disclaimer heading, footer disclaimer line, and the H1 are exact and compliant (these are structural requirements, not “optional copy”).
+5) Set real pricing numbers (BHD 400 / 900 / 1,800) and tighten package positioning
+- Update pricing array:
+  - Starter Advisory Package: “BHD 400”
+  - Complete Formation Advisory (featured): “BHD 900”
+  - Premium Business Setup Advisory: “BHD 1,800”
+- Package bullets will be rewritten to sound concrete but advisory-only (no “we submit/apply/register” language).
+- Keep the “Government fees are paid directly…” line and add a short “What’s included” clarity sentence.
 
-Estimated change impact
-- Medium refactor of the consultancy page structure, but largely by reusing existing components (`CompanyFormationHeroMontage`, `SplitSection`, existing images, existing card classes), so it will converge quickly to the `/lp/company-formation` look.
+6) Improve “match /lp/company-formation” feel by aligning the FAQ section styling
+- Replace the heavier FAQ background overlay combination with the same overlay approach used across `/lp/company-formation`:
+  - Prefer `SectionBackgroundOverlay variant="ibelick-soft"` or `ibelick-lines` with masked true and opacity ~0.8–0.9.
+- Keep the FAQ accordion card styling as `lp-card p-3 md:p-4` (already consistent).
 
-After approval
-- I’ll implement the refactor and then open the preview on `/company-formation-consultancy-bahrain` so you can compare side-by-side with `/lp/company-formation` visually.
+7) Trust signals cadence: ensure they appear every 2–3 sections with real text
+- Keep existing trust strips and make them real:
+  - After Problem: a trust strip (already present)
+  - After Benefits: a trust strip (already present)
+  - Add/ensure one near Pricing or Testimonials if needed (short line + CTA)
+
+8) Final compliance + UX QA (quick checklist)
+- Above fold on mobile:
+  - Hero visible and disclaimer banner clearly visible immediately below hero (no large spacing pushing it down).
+- CTA count:
+  - Verify “Get Free Consultation” (or equivalent) appears 5+ times and all scroll to `#book`.
+- Mobile:
+  - Sticky bar shows “Free consultation” + “Call for consultation”
+  - Tel link uses `tel:+97317008888`
+- Footer:
+  - Confirm footer disclaimer sentence is present exactly:
+    - “We are not a government website or authority. CR issued by Bahrain government only.”
+- Ensure no banned words exist on the page content.
+
+Files to change
+- Primary: `src/pages/landing/CompanyFormationConsultancyLanding.tsx`
+- Possibly small tweak: `src/components/landing/MobileStickyConsultationBar.tsx` (phone label only)
+- No need to touch `/lp/company-formation` files.
+
+Deliverables you’ll see in preview
+- The same `/lp/company-formation` design language, but with fully-real copy (no placeholders).
+- A visible, qualified “Form-first” lead capture section that improves Google Ads landing-page quality score signals (form presence + relevance).
+- Clean compliance posture with repeated advisory-only language and no restricted terms.
+- Pricing displayed as BHD 400 / 900 / 1,800 with clear inclusions and advisory-only disclaimers.
