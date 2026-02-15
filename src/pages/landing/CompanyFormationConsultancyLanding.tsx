@@ -192,28 +192,6 @@ export default function CompanyFormationConsultancyLanding() {
             socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
           />
 
-          {/* DISCLAIMER (must be visible above fold) */}
-          <section aria-label="Independent business consultancy disclaimer" className="relative">
-            <div className="container mx-auto px-4 md:px-6 -mt-6 md:-mt-8 relative z-10">
-              <div className="lp-card p-5 md:p-6 bg-warning text-warning-foreground border-warning-border">
-                <div className="flex items-start gap-3">
-                  <Shield className="h-5 w-5 text-accent mt-0.5" />
-                  <div>
-                    <p className="text-sm font-semibold text-warning-foreground">
-                      Independent Business Consultancy
-                    </p>
-                    <p className="mt-2 text-sm text-warning-foreground/90">
-                      We provide independent consultation, advisory, and guidance related to business setup in Bahrain.
-                      We are not a government website, authority, or portal.
-                    </p>
-                    <p className="mt-3 text-sm text-warning-foreground/90">
-                      We do not issue Commercial Registration (CR). CR is issued by Bahrain government authorities only.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
 
           {/* PROBLEM */}
           <SplitSection
