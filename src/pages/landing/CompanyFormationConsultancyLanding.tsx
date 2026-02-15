@@ -229,7 +229,6 @@ export default function CompanyFormationConsultancyLanding() {
               </div>
             </div>
           </section>
-          </section>
 
           {/* PROBLEM */}
           <SplitSection
