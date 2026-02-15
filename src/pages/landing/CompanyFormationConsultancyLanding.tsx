@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Check,
@@ -26,6 +27,7 @@ import { CalendlyBooking } from "@/components/consultation/CalendlyBooking";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { MobileStickyConsultationBar } from "@/components/landing/MobileStickyConsultationBar";
+import { ConsultancyCostCalculator } from "@/components/landing/consultancy/ConsultancyCostCalculator";
 import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 import { SplitSection } from "@/components/shared/SplitSection";
 import { EditorialImage } from "@/components/shared/EditorialImage";
@@ -109,6 +111,8 @@ const FAQS: FaqItem[] = [
 ];
 
 export default function CompanyFormationConsultancyLanding() {
+  const navigate = useNavigate();
+
   const calendlyUrl = useMemo(() => {
     if (typeof window === "undefined") return CALENDLY_BASE_URL;
     return mergeQueryParams(CALENDLY_BASE_URL, window.location.search);
@@ -192,6 +196,21 @@ export default function CompanyFormationConsultancyLanding() {
             socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
           />
 
+          {/* COST CALCULATOR */}
+          <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden bg-secondary/30">
+            <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
+            <div className="container mx-auto px-4 md:px-6 relative z-10">
+              <span className="section-badge">Cost calculator</span>
+              <h2 className="lp-h2">Start here: get an estimate</h2>
+              <p className="lp-section-subtitle max-w-2xl">
+                Answer a few questions to see a simple cost breakdown, then continue to your free consultation.
+              </p>
+
+              <div className="mt-8">
+                <ConsultancyCostCalculator onContinue={() => navigate("/free-consultation")} />
+              </div>
+            </div>
+          </section>
 
           {/* PROBLEM */}
           <SplitSection
