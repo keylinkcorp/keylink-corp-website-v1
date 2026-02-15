@@ -15,10 +15,23 @@ import {
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
+
 import { CalendlyBooking } from "@/components/consultation/CalendlyBooking";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
+import { MobileStickyConsultationBar } from "@/components/landing/MobileStickyConsultationBar";
 import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
+import { SplitSection } from "@/components/shared/SplitSection";
+
+import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
+
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial2 from "@/assets/testimonial-2.jpg";
+
+import howItWorksImage from "@/assets/company-formation/lp/how-it-works-portrait.jpg";
+import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
+import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
@@ -152,64 +165,40 @@ export default function CompanyFormationConsultancyLanding() {
         <LandingHeader onLogoClick={() => scrollToId("top")} />
 
         <main id="top" className="flex-1">
-          {/* HERO */}
-          <section className="relative overflow-hidden">
-            <SectionBackgroundOverlay variant="dots" opacity={1} masked={false} className="opacity-60" />
-            <div className="container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-8">
-              <div className="grid lg:grid-cols-12 gap-10 items-start">
-                <div className="lg:col-span-7">
-                  <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs text-muted-foreground tracking-tight">
-                    <Sparkles className="h-4 w-4 text-accent" />
-                    Free consultation • Independent advisory
-                  </p>
+          <CompanyFormationHeroMontage
+            onBookClick={() => scrollToId("book")}
+            badgeText="Free consultation • Independent business consultancy"
+            title="Company Formation Consultancy in Bahrain"
+            titleSuffix=""
+            lead="Placeholder sub-headline: Independent guidance, clear next steps, and a practical checklist—so you can proceed confidently."
+            bullets={[
+              { icon: Check, text: "Consultation-first: clear plan before you spend" },
+              { icon: Shield, text: "Guidance on approvals and compliance steps" },
+              { icon: FileText, text: "Tailored checklist + realistic timeline" },
+            ]}
+            primaryCtaLabel="Get Free Consultation"
+            phoneCta={{ href: "tel:+97317008888", label: "Call +97317008888" }}
+            showWhatsApp={false}
+            socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
+          />
 
-                  <h1 className="mt-4 lp-h1 lp-hero-title text-balance">Company Formation Consultancy in Bahrain</h1>
-                  <p className="mt-5 lp-lead max-w-[60ch]">
-                    Placeholder sub-headline: Structured guidance, clear next steps, and a practical checklist to help you
-                    start confidently.
-                  </p>
-
-                  <div className="mt-7 flex flex-col sm:flex-row gap-3">
-                    <Button size="lg" className="w-full sm:w-auto" onClick={() => scrollToId("book")}>
-                      Get Free Consultation
-                    </Button>
-                    <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
-                      <a href="tel:+97317008888">
-                        <Phone className="mr-2" />
-                        Call +97317008888
-                      </a>
-                    </Button>
-                  </div>
-
-                  <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {["4.9/5 Google Reviews", "500+ clients", "10+ years", "Licensed consultants"].map((t) => (
-                      <div key={t} className="lp-card-flat bg-muted/20 p-3">
-                        <div className="text-sm font-semibold text-foreground">{t}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <p className="mt-3 text-xs text-muted-foreground">
-                    Free • No obligation • You’ll get a document checklist + recommended next steps
-                  </p>
-                </div>
-
-                <div className="lg:col-span-5">
-                  <div className="lp-card p-5 sm:p-6 md:p-7 noise-texture">
-                    <div className="flex items-start gap-3">
-                      <Shield className="h-5 w-5 text-accent mt-0.5" />
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">Independent Business Consultancy</p>
-                        <p className="mt-2 text-sm text-muted-foreground">
-                          Placeholder disclaimer (replace with your exact approved text): We are not a government website
-                          or authority. We provide independent consultancy and guidance only.
-                        </p>
-                        <p className="mt-3 text-sm text-muted-foreground">
-                          We do not issue Commercial Registration (CR). CR is issued by Bahrain government authorities
-                          only.
-                        </p>
-                      </div>
-                    </div>
+          {/* DISCLAIMER (must be visible above fold) */}
+          <section aria-label="Independent business consultancy disclaimer" className="relative">
+            <div className="container mx-auto px-4 md:px-6 -mt-6 md:-mt-8 relative z-10">
+              <div className="lp-card p-5 md:p-6 bg-warning text-warning-foreground border-warning-border">
+                <div className="flex items-start gap-3">
+                  <Shield className="h-5 w-5 text-accent mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-warning-foreground">
+                      Independent Business Consultancy
+                    </p>
+                    <p className="mt-2 text-sm text-warning-foreground/90">
+                      Placeholder disclaimer text: We provide independent consultation, advisory, and guidance services.
+                      We are not affiliated with any government authority.
+                    </p>
+                    <p className="mt-3 text-sm text-warning-foreground/90">
+                      We do not issue Commercial Registration (CR). CR is issued by Bahrain government authorities only.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -217,138 +206,192 @@ export default function CompanyFormationConsultancyLanding() {
           </section>
 
           {/* PROBLEM */}
-          <section className="section-spacing-sm relative overflow-hidden">
-            <SectionBackgroundOverlay variant="ibelick-soft" opacity={0.9} masked />
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <span className="section-badge">Common blockers</span>
-              <h2 className="lp-h2">Starting a Business in Bahrain? Here’s What You’re Facing:</h2>
-              <p className="mt-4 lp-section-subtitle">
-                Placeholder: A few of the most common friction points we help you navigate—without guesswork.
-              </p>
+          <SplitSection
+            badge="Common blockers"
+            title="Starting a Business in Bahrain? Here’s What You’re Facing"
+            subtitle="Placeholder: The most common friction points we help you navigate—with clear advisory guidance and a practical checklist."
+            useLpHeadings
+            imageSrc={howItWorksImage}
+            imageAlt="Consultant explaining options and requirements"
+            imagePosition="right"
+            imageSticky
+            variant="subtle"
+            backgroundVariant="ibelick-soft"
+            overlayOpacity={0.9}
+            overlayMasked
+            imageRatio={16 / 10}
+            imageOverlayStrength={0.55}
+            imageImgClassName="object-[center_35%]"
+          >
+            <div className="grid md:grid-cols-2 gap-4">
+              {[
+                "Unclear activity approvals and licensing steps",
+                "Confusing documentation requirements",
+                "Uncertain timelines and sequencing",
+                "Inconsistent information across sources",
+                "Office/address decisions affecting costs",
+                "Visa planning and compliance considerations",
+              ].map((t) => (
+                <div key={t} className="lp-card p-5 sm:p-6 md:p-7 flex gap-3">
+                  <HelpCircle className="h-5 w-5 text-accent mt-0.5" />
+                  <div className="text-sm text-foreground/90">{t}</div>
+                </div>
+              ))}
+            </div>
 
-              <div className="mt-8 grid md:grid-cols-2 gap-4">
-                {[
-                  "Unclear activity approvals and licensing steps",
-                  "Confusing documentation requirements",
-                  "Uncertain timelines and sequencing",
-                  "Inconsistent information across sources",
-                  "Office/address decisions affecting costs",
-                  "Visa planning and compliance considerations",
-                ].map((t) => (
-                  <div key={t} className="lp-card p-5 sm:p-6 md:p-7 flex gap-3">
-                    <HelpCircle className="h-5 w-5 text-accent mt-0.5" />
-                    <div className="text-sm text-foreground/90">{t}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 lp-card-flat bg-muted/20 p-6 md:p-7">
-                <p className="text-sm font-semibold text-foreground">You need expert guidance, not guesswork.</p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Trust strip: Clear checklist • Transparent quote • Fast response
-                </p>
+            <div className="mt-6 lp-card-flat bg-muted/20 p-6 md:p-7">
+              <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Get clarity in one free consultation.</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Placeholder trust strip: Clear checklist • Transparent next steps • Fast response
+                  </p>
+                </div>
+                <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
               </div>
             </div>
-          </section>
+          </SplitSection>
 
-          {/* SOLUTION */}
-          <section className="section-spacing-sm">
-            <div className="container mx-auto px-4 md:px-6">
-              <span className="section-badge">Our approach</span>
-              <h2 className="lp-h2">How Our Company Formation Consultancy Works</h2>
-              <p className="mt-4 lp-section-subtitle">
-                We provide advisory and guidance. You submit through the appropriate channels. Authorities issue CR.
-              </p>
-
-              <div className="mt-8 grid gap-4">
-                {[
-                  { icon: Check, title: "1) Free consultation", desc: "Placeholder: We learn your goals and activity." },
-                  { icon: FileText, title: "2) Checklist + structure", desc: "Placeholder: We outline the best setup." },
-                  { icon: Shield, title: "3) Compliance path", desc: "Placeholder: Approvals and licensing guidance." },
-                  { icon: Clock, title: "4) Timeline planning", desc: "Placeholder: Sequencing and realistic ETA." },
-                  { icon: Sparkles, title: "5) Coordination", desc: "Placeholder: Support services coordination." },
-                ].map((s) => (
-                  <div key={s.title} className="lp-card p-5 sm:p-6 md:p-7">
+          {/* SOLUTION (5-step process) */}
+          <SplitSection
+            badge="Our approach"
+            title="A 5‑Step Consultancy Process (Consultation → Checklist → Guidance)"
+            subtitle="We provide independent advisory and guidance; authorities issue the CR. Placeholder: We keep the process clear and conversion-focused."
+            useLpHeadings
+            imageSrc={bookingImage}
+            imageAlt="Consultation booking and checklist preview"
+            imagePosition="left"
+            imageSticky
+            variant="default"
+            backgroundVariant="ibelick-lines"
+            overlayOpacity={0.8}
+            overlayMasked
+            imageRatio={16 / 10}
+            imageOverlayStrength={0.55}
+            imageImgClassName="object-[center_45%]"
+          >
+            <div className="grid gap-4">
+              {[
+                { icon: Check, title: "1) Free consultation", desc: "Placeholder: We understand your activity and goals." },
+                { icon: FileText, title: "2) Checklist + structure", desc: "Placeholder: You get a clear checklist and recommended setup." },
+                { icon: Shield, title: "3) Compliance guidance", desc: "Placeholder: We map approvals, licensing, and requirements." },
+                { icon: Clock, title: "4) Timeline planning", desc: "Placeholder: We sequence steps and set realistic expectations." },
+                { icon: Sparkles, title: "5) Coordination", desc: "Placeholder: We coordinate support services where relevant." },
+              ].map((s, idx) => (
+                <div key={s.title} className="lp-card p-5 sm:p-6 md:p-7">
+                  <div className="flex items-start justify-between gap-6">
                     <div className="flex items-start gap-3">
                       <s.icon className="h-5 w-5 text-accent mt-0.5" />
                       <div>
-                        <p className="text-sm font-semibold text-foreground">{s.title}</p>
+                        <p className="text-sm text-muted-foreground">Step {idx + 1}</p>
+                        <p className="mt-1 text-sm font-semibold text-foreground">{s.title}</p>
                         <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
                       </div>
                     </div>
+                    <div className="hidden sm:flex step-number">{idx + 1}</div>
                   </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
+              <Button variant="outline" asChild>
+                <a href="tel:+97317008888">
+                  <Phone className="mr-2" />
+                  Call for consultation
+                </a>
+              </Button>
+            </div>
+          </SplitSection>
+
+          {/* SERVICES */}
+          <SplitSection
+            badge="Services"
+            title="Business Setup Advisory Services in Bahrain"
+            subtitle="Placeholder: Choose the support you need—then we align everything into a clear advisory plan."
+            useLpHeadings
+            imageSrc={testimonialsImage}
+            imageAlt="Professional advisory meeting"
+            imagePosition="right"
+            imageSticky
+            variant="subtle"
+            backgroundVariant="ibelick-soft"
+            overlayOpacity={0.9}
+            overlayMasked
+            imageRatio={16 / 10}
+            imageOverlayStrength={0.55}
+            imageImgClassName="object-[center_40%]"
+          >
+            <div className="lp-card p-3 md:p-4">
+              <Accordion type="single" collapsible>
+                {[
+                  {
+                    k: "a",
+                    title: "Company Formation Advisory",
+                    bullets: [
+                      "Placeholder: structure selection",
+                      "Placeholder: activity mapping",
+                      "Placeholder: cost drivers",
+                    ],
+                  },
+                  {
+                    k: "b",
+                    title: "CR Submission Guidance",
+                    bullets: [
+                      "Placeholder: document readiness",
+                      "Placeholder: sequencing",
+                      "Placeholder: review before submission",
+                    ],
+                  },
+                  {
+                    k: "c",
+                    title: "Licensing & Regulatory Advisory",
+                    bullets: [
+                      "Placeholder: approvals",
+                      "Placeholder: regulated activities",
+                      "Placeholder: compliance checkpoints",
+                    ],
+                  },
+                  {
+                    k: "d",
+                    title: "Corporate Structuring Consultation",
+                    bullets: [
+                      "Placeholder: SPC/WLL/branch guidance",
+                      "Placeholder: shareholder considerations",
+                    ],
+                  },
+                  {
+                    k: "e",
+                    title: "Support Services Coordination",
+                    bullets: [
+                      "Placeholder: PRO coordination",
+                      "Placeholder: accounting options",
+                      "Placeholder: bank account support",
+                    ],
+                  },
+                ].map((s) => (
+                  <AccordionItem key={s.k} value={s.k}>
+                    <AccordionTrigger className="text-sm font-semibold">{s.title}</AccordionTrigger>
+                    <AccordionContent>
+                      <ul className="mt-2 space-y-2">
+                        {s.bullets.map((b) => (
+                          <li key={b} className="flex gap-2 text-sm text-muted-foreground">
+                            <Check className="h-4 w-4 text-accent mt-0.5" />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </div>
-
-              <div className="mt-6 flex">
-                <Button onClick={() => scrollToId("book")}>Start Your Free Consultation</Button>
-              </div>
+              </Accordion>
             </div>
-          </section>
 
-          {/* SERVICES (ACCORDION) */}
-          <section className="section-spacing-sm relative overflow-hidden bg-secondary/40">
-            <SectionBackgroundOverlay variant="radial" opacity={1} masked={false} className="opacity-55" />
-            <SectionBackgroundOverlay variant="grid-lines" opacity={0.45} masked />
-
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <span className="section-badge">Services</span>
-              <h2 className="lp-h2">Our Business Setup Advisory Services in Bahrain</h2>
-              <p className="mt-4 lp-section-subtitle">
-                Placeholder: Pick what you need—our team will align the steps into a clear plan.
-              </p>
-
-              <div className="mt-8 lp-card p-3 md:p-4">
-                <Accordion type="single" collapsible>
-                  {[
-                    {
-                      k: "a",
-                      title: "Company Formation Advisory",
-                      bullets: ["Placeholder: structure selection", "Placeholder: activity mapping", "Placeholder: cost drivers"],
-                    },
-                    {
-                      k: "b",
-                      title: "CR Application Guidance",
-                      bullets: ["Placeholder: document readiness", "Placeholder: sequencing", "Placeholder: review before submission"],
-                    },
-                    {
-                      k: "c",
-                      title: "Licensing & Regulatory Advisory",
-                      bullets: ["Placeholder: approvals", "Placeholder: regulated activities", "Placeholder: compliance checkpoints"],
-                    },
-                    {
-                      k: "d",
-                      title: "Corporate Structuring Consultation",
-                      bullets: ["Placeholder: SPC/WLL/branch guidance", "Placeholder: shareholder considerations"],
-                    },
-                    {
-                      k: "e",
-                      title: "Support Services Coordination",
-                      bullets: ["Placeholder: PRO coordination", "Placeholder: accounting options", "Placeholder: bank account support"],
-                    },
-                  ].map((s) => (
-                    <AccordionItem key={s.k} value={s.k}>
-                      <AccordionTrigger className="text-sm font-semibold">{s.title}</AccordionTrigger>
-                      <AccordionContent>
-                        <ul className="mt-2 space-y-2">
-                          {s.bullets.map((b) => (
-                            <li key={b} className="flex gap-2 text-sm text-muted-foreground">
-                              <Check className="h-4 w-4 text-accent mt-0.5" />
-                              <span>{b}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-
-              <div className="mt-6">
-                <Button onClick={() => scrollToId("book")}>Get Custom Quote for Your Business</Button>
-              </div>
+            <div className="mt-6">
+              <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
             </div>
-          </section>
+          </SplitSection>
 
           {/* BENEFITS */}
           <section className="section-spacing-sm">
@@ -376,12 +419,17 @@ export default function CompanyFormationConsultancyLanding() {
                 ))}
               </div>
 
-              <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-                {["Advisory-only", "Clear checklist", "Transparent quote", "Click-to-call"].map((t) => (
-                  <div key={t} className="lp-card-flat bg-muted/20 p-3">
-                    <div className="text-sm font-semibold text-foreground">{t}</div>
+              {/* Trust signals (every 2–3 sections) */}
+              <div className="mt-6 lp-card-flat bg-muted/20 p-6 md:p-7">
+                <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">Social proof + fast response.</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Placeholder: 4.9/5 reviews • 500+ clients • Clear checklist
+                    </p>
                   </div>
-                ))}
+                  <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
+                </div>
               </div>
             </div>
           </section>
@@ -439,10 +487,11 @@ export default function CompanyFormationConsultancyLanding() {
                         </li>
                       ))}
                     </ul>
-                    <Button className="mt-6 w-full" onClick={() => scrollToId("book")}>
-                      Request Detailed Quote
+                    <Button className="mt-6 w-full" onClick={() => scrollToId("book")}
+                    >
+                      Request Advisory Quote
                     </Button>
-                    <p className="mt-3 text-xs text-muted-foreground">Request a quote for exact pricing.</p>
+                    <p className="mt-3 text-xs text-muted-foreground">Book a free consultation for exact pricing.</p>
                   </div>
                 ))}
               </div>
@@ -512,7 +561,7 @@ export default function CompanyFormationConsultancyLanding() {
               </div>
 
               <div className="mt-6">
-                <Button onClick={() => scrollToId("book")}>Get Your Free Company Formation Checklist</Button>
+                <Button onClick={() => scrollToId("book")}>Get Free Consultation Checklist</Button>
               </div>
             </div>
           </section>
@@ -552,21 +601,132 @@ export default function CompanyFormationConsultancyLanding() {
 
             <div className="container mx-auto px-4 md:px-6">
               <div className="mt-6 grid md:grid-cols-3 gap-4">
-                {[{ icon: Phone, label: "Phone", value: "+973 1700 8888", href: "tel:+97317008888" }, { icon: Mail, label: "Email", value: "info@keylinkcorp.com", href: "mailto:info@keylinkcorp.com" }, { icon: MessageCircle, label: "WhatsApp", value: "+973 1700 8888", href: "https://wa.me/97317008888" }].map(
-                  (c) => (
-                    <a
-                      key={c.label}
-                      href={c.href}
-                      className="lp-card p-5 sm:p-6 md:p-7 flex items-start gap-3 hover:shadow-[0_8px_32px_hsl(var(--navy)/0.10)] transition-shadow"
+                {[
+                  { icon: Phone, label: "Phone", value: "+973 1700 8888", href: "tel:+97317008888" },
+                  { icon: Mail, label: "Email", value: "info@keylinkcorp.com", href: "mailto:info@keylinkcorp.com" },
+                  {
+                    icon: MessageCircle,
+                    label: "WhatsApp",
+                    value: "+973 1700 8888",
+                    href: "https://wa.me/97317008888",
+                  },
+                ].map((c) => (
+                  <a
+                    key={c.label}
+                    href={c.href}
+                    className="lp-card p-5 sm:p-6 md:p-7 flex items-start gap-3 hover:shadow-[0_8px_32px_hsl(var(--navy)/0.10)] transition-shadow"
+                  >
+                    <c.icon className="h-5 w-5 text-accent mt-0.5" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">{c.label}</p>
+                      <p className="text-sm font-semibold text-foreground">{c.value}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              {/* Contact form (no backend; sends via mail client) */}
+              <div className="mt-8 lp-card p-6 sm:p-7 md:p-8">
+                <div className="max-w-2xl">
+                  <span className="section-badge">Contact</span>
+                  <h2 className="lp-h2">Request Advisory Guidance</h2>
+                  <p className="mt-4 lp-section-subtitle">
+                    Placeholder: Prefer a message instead of booking? Send your details—our team will respond.
+                  </p>
+                </div>
+
+                <form
+                  className="mt-8 grid gap-4"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const form = e.currentTarget;
+                    const data = new FormData(form);
+                    const name = String(data.get("name") ?? "");
+                    const email = String(data.get("email") ?? "");
+                    const phone = String(data.get("phone") ?? "");
+                    const message = String(data.get("message") ?? "");
+
+                    const subject = encodeURIComponent("Consultation request (Bahrain consultancy)");
+                    const body = encodeURIComponent(
+                      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
+                    );
+
+                    toast({
+                      title: "Request prepared",
+                      description: "Your email app will open to send your consultation request.",
+                    });
+
+                    window.location.href = `mailto:info@keylinkcorp.com?subject=${subject}&body=${body}`;
+                    form.reset();
+                  }}
+                >
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium" htmlFor="cfc-name">
+                        Full name
+                      </label>
+                      <input
+                        id="cfc-name"
+                        name="name"
+                        className="h-11 rounded-md border border-input bg-background px-3 text-sm"
+                        placeholder="Your name"
+                        required
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium" htmlFor="cfc-email">
+                        Email
+                      </label>
+                      <input
+                        id="cfc-email"
+                        name="email"
+                        type="email"
+                        className="h-11 rounded-md border border-input bg-background px-3 text-sm"
+                        placeholder="you@company.com"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-2">
+                    <label className="text-sm font-medium" htmlFor="cfc-phone">
+                      Phone (WhatsApp preferred)
+                    </label>
+                    <input
+                      id="cfc-phone"
+                      name="phone"
+                      className="h-11 rounded-md border border-input bg-background px-3 text-sm"
+                      placeholder="+973 XXXX XXXX"
+                    />
+                  </div>
+
+                  <div className="grid gap-2">
+                    <label className="text-sm font-medium" htmlFor="cfc-message">
+                      What do you need guidance on?
+                    </label>
+                    <textarea
+                      id="cfc-message"
+                      name="message"
+                      className="min-h-[120px] rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      placeholder="Placeholder: Activity, shareholders, timeline, visa needs..."
+                      required
+                    />
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button type="submit" size="lg" className="w-full sm:w-auto">
+                      Request consultation
+                    </Button>
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto" type="button" onClick={() => scrollToId("book")}
                     >
-                      <c.icon className="h-5 w-5 text-accent mt-0.5" />
-                      <div>
-                        <p className="text-xs text-muted-foreground">{c.label}</p>
-                        <p className="text-sm font-semibold text-foreground">{c.value}</p>
-                      </div>
-                    </a>
-                  )
-                )}
+                      Book free consultation
+                    </Button>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground">
+                    By submitting, you’re requesting independent consultation/advisory guidance.
+                  </p>
+                </form>
               </div>
             </div>
           </section>
@@ -594,13 +754,14 @@ export default function CompanyFormationConsultancyLanding() {
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-                    <Button size="lg" className="w-full sm:w-auto" onClick={() => scrollToId("book")}>
-                      Start Your Free Consultation Now
+                    <Button size="lg" className="w-full sm:w-auto" onClick={() => scrollToId("book")}
+                    >
+                      Get Free Consultation
                     </Button>
                     <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
                       <a href="tel:+97317008888">
                         <Phone className="mr-2" />
-                        Call
+                        Call for consultation
                       </a>
                     </Button>
                   </div>
@@ -626,6 +787,12 @@ export default function CompanyFormationConsultancyLanding() {
             </div>
           </section>
         </main>
+
+        <MobileStickyConsultationBar
+          onConsultationClick={() => scrollToId("book")}
+          phoneHref="tel:+97317008888"
+          phoneLabel="Call for consultation"
+        />
 
         <LandingFooter />
       </div>
