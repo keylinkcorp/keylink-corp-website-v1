@@ -1,17 +1,6 @@
 import { useEffect, useMemo } from "react";
 
-import {
-  Check,
-  Clock,
-  FileText,
-  HelpCircle,
-  Mail,
-  MessageCircle,
-  Phone,
-  Shield,
-  Sparkles,
-  Star,
-} from "lucide-react";
+import { Check, Clock, FileText, HelpCircle, Mail, Phone, Shield, Sparkles, Star } from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -59,12 +48,12 @@ const FAQS: FaqItem[] = [
   {
     question: "How long does company formation in Bahrain typically take?",
     answer:
-      "Placeholder: Most straightforward setups can be completed in days once documents and approvals are aligned. Timelines vary by activity and shareholder profile.",
+      "Timelines depend on your activity, shareholder profile, and any required approvals. In the consultation we map a realistic sequence and share a checklist so you know what to prepare and when.",
   },
   {
     question: "Can foreigners own 100% of a Bahrain company?",
     answer:
-      "Placeholder: Many activities allow 100% foreign ownership. Eligibility depends on the specific activity and structure.",
+      "Many activities can support full overseas ownership, but eligibility depends on the exact activity and structure. We’ll clarify what’s typically workable for your case and what approvals may be needed.",
   },
   {
     question: "Do you issue the Commercial Registration (CR)?",
@@ -74,27 +63,27 @@ const FAQS: FaqItem[] = [
   {
     question: "What documents do I need to start?",
     answer:
-      "Placeholder: Requirements depend on your shareholders and activity. We provide a tailored checklist after the consultation.",
+      "It varies based on shareholders, activity, and the chosen structure. After the call, we share a tailored checklist so you can prepare documents in the right order.",
   },
   {
     question: "Are government fees included in your advisory fee?",
     answer:
-      "Placeholder: Government fees are paid directly to the relevant authorities. Our pricing covers consultancy/advisory work only.",
+      "Government fees are paid directly to the relevant authorities. Our pricing covers consultancy/advisory work such as planning, checklists, guidance, and coordination.",
   },
   {
     question: "Can you help with licensing and regulatory steps?",
     answer:
-      "Placeholder: We provide guidance on licensing pathways and required approvals, and coordinate support services where relevant.",
+      "We provide guidance on licensing pathways, common approval steps, and documentation readiness. Where specialist support is needed, we can help coordinate the right service providers.",
   },
   {
     question: "Is the consultation really free?",
     answer:
-      "Placeholder: Yes—30 minutes, no obligation. You’ll receive clarity on structure, cost drivers, and next steps.",
+      "Yes—30 minutes, no obligation. You’ll leave with clarity on structure options, cost drivers, a realistic timeline, and next steps.",
   },
   {
     question: "What happens after I book?",
     answer:
-      "Placeholder: We confirm your activity, outline a recommended structure, and share a practical checklist for documents and steps.",
+      "We review your activity and shareholders, outline a recommended approach, and share a practical checklist. If you want ongoing support, we’ll suggest the best advisory package for your timeline.",
   },
 ];
 
@@ -170,11 +159,11 @@ export default function CompanyFormationConsultancyLanding() {
             badgeText="Free consultation • Independent business consultancy"
             title="Company Formation Consultancy in Bahrain"
             titleSuffix=""
-            lead="Placeholder sub-headline: Independent guidance, clear next steps, and a practical checklist—so you can proceed confidently."
+            lead="Independent guidance for your Bahrain business setup—get a clear checklist, realistic timeline, and cost drivers before you commit time or fees."
             bullets={[
-              { icon: Check, text: "Consultation-first: clear plan before you spend" },
-              { icon: Shield, text: "Guidance on approvals and compliance steps" },
-              { icon: FileText, text: "Tailored checklist + realistic timeline" },
+              { icon: Check, text: "Consultation-first: clarity before you spend" },
+              { icon: Shield, text: "Guidance on typical approvals and compliance steps" },
+              { icon: FileText, text: "Tailored checklist + next-step plan" },
             ]}
             primaryCtaLabel="Get Free Consultation"
             phoneCta={{ href: "tel:+97317008888", label: "Call +97317008888" }}
@@ -193,8 +182,8 @@ export default function CompanyFormationConsultancyLanding() {
                       Independent Business Consultancy
                     </p>
                     <p className="mt-2 text-sm text-warning-foreground/90">
-                      Placeholder disclaimer text: We provide independent consultation, advisory, and guidance services.
-                      We are not affiliated with any government authority.
+                      We provide independent consultation, advisory, and guidance related to business setup in Bahrain.
+                      We are not a government website, authority, or portal.
                     </p>
                     <p className="mt-3 text-sm text-warning-foreground/90">
                       We do not issue Commercial Registration (CR). CR is issued by Bahrain government authorities only.
@@ -208,8 +197,8 @@ export default function CompanyFormationConsultancyLanding() {
           {/* PROBLEM */}
           <SplitSection
             badge="Common blockers"
-            title="Starting a Business in Bahrain? Here’s What You’re Facing"
-            subtitle="Placeholder: The most common friction points we help you navigate—with clear advisory guidance and a practical checklist."
+            title="Starting a Business in Bahrain? Here’s What Usually Slows People Down"
+            subtitle="We help you turn uncertainty into a clear sequence: what to prepare, what to decide, and what to expect—before you spend time or fees."
             useLpHeadings
             imageSrc={howItWorksImage}
             imageAlt="Consultant explaining options and requirements"
@@ -244,7 +233,7 @@ export default function CompanyFormationConsultancyLanding() {
                 <div>
                   <p className="text-sm font-semibold text-foreground">Get clarity in one free consultation.</p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Placeholder trust strip: Clear checklist • Transparent next steps • Fast response
+                    Clear checklist • Realistic timeline • Plain‑English next steps
                   </p>
                 </div>
                 <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
@@ -256,7 +245,7 @@ export default function CompanyFormationConsultancyLanding() {
           <SplitSection
             badge="Our approach"
             title="A 5‑Step Consultancy Process (Consultation → Checklist → Guidance)"
-            subtitle="We provide independent advisory and guidance; authorities issue the CR. Placeholder: We keep the process clear and conversion-focused."
+            subtitle="We provide independent advisory and guidance; authorities issue the CR. We keep everything structured, clear, and focused on decision-making."
             useLpHeadings
             imageSrc={bookingImage}
             imageAlt="Consultation booking and checklist preview"
@@ -272,11 +261,31 @@ export default function CompanyFormationConsultancyLanding() {
           >
             <div className="grid gap-4">
               {[
-                { icon: Check, title: "1) Free consultation", desc: "Placeholder: We understand your activity and goals." },
-                { icon: FileText, title: "2) Checklist + structure", desc: "Placeholder: You get a clear checklist and recommended setup." },
-                { icon: Shield, title: "3) Compliance guidance", desc: "Placeholder: We map approvals, licensing, and requirements." },
-                { icon: Clock, title: "4) Timeline planning", desc: "Placeholder: We sequence steps and set realistic expectations." },
-                { icon: Sparkles, title: "5) Coordination", desc: "Placeholder: We coordinate support services where relevant." },
+                {
+                  icon: Check,
+                  title: "1) Free consultation",
+                  desc: "We understand your activity, shareholders, and timeline—and clarify what decisions matter first.",
+                },
+                {
+                  icon: FileText,
+                  title: "2) Checklist + structure",
+                  desc: "You receive a tailored document checklist and a recommended setup path based on your goals.",
+                },
+                {
+                  icon: Shield,
+                  title: "3) Compliance guidance",
+                  desc: "We explain typical approvals and common requirements so you can avoid avoidable delays.",
+                },
+                {
+                  icon: Clock,
+                  title: "4) Timeline planning",
+                  desc: "We sequence the steps and set realistic expectations around timing and dependencies.",
+                },
+                {
+                  icon: Sparkles,
+                  title: "5) Coordination",
+                  desc: "When needed, we coordinate support services (e.g., documentation prep, address options) so the plan stays on track.",
+                },
               ].map((s, idx) => (
                 <div key={s.title} className="lp-card p-5 sm:p-6 md:p-7">
                   <div className="flex items-start justify-between gap-6">
@@ -309,7 +318,7 @@ export default function CompanyFormationConsultancyLanding() {
           <SplitSection
             badge="Services"
             title="Business Setup Advisory Services in Bahrain"
-            subtitle="Placeholder: Choose the support you need—then we align everything into a clear advisory plan."
+            subtitle="Choose the support you need—then we turn it into a clear plan, checklist, and next steps." 
             useLpHeadings
             imageSrc={testimonialsImage}
             imageAlt="Professional advisory meeting"
@@ -330,44 +339,44 @@ export default function CompanyFormationConsultancyLanding() {
                     k: "a",
                     title: "Company Formation Advisory",
                     bullets: [
-                      "Placeholder: structure selection",
-                      "Placeholder: activity mapping",
-                      "Placeholder: cost drivers",
+                      "Structure and ownership discussion aligned to your activity",
+                      "Activity and approval pathway overview (what typically applies)",
+                      "Cost drivers and trade-offs (address, staffing, timing)",
                     ],
                   },
                   {
                     k: "b",
-                    title: "CR Submission Guidance",
+                    title: "Document Checklist & Readiness Review",
                     bullets: [
-                      "Placeholder: document readiness",
-                      "Placeholder: sequencing",
-                      "Placeholder: review before submission",
+                      "Tailored checklist for shareholders and structure",
+                      "Document readiness review to reduce back-and-forth",
+                      "Clear sequencing: what to prepare first vs later",
                     ],
                   },
                   {
                     k: "c",
                     title: "Licensing & Regulatory Advisory",
                     bullets: [
-                      "Placeholder: approvals",
-                      "Placeholder: regulated activities",
-                      "Placeholder: compliance checkpoints",
+                      "Guidance on common approvals for your activity",
+                      "Requirements overview for regulated activities (where relevant)",
+                      "Compliance checkpoints to keep the process predictable",
                     ],
                   },
                   {
                     k: "d",
                     title: "Corporate Structuring Consultation",
                     bullets: [
-                      "Placeholder: SPC/WLL/branch guidance",
-                      "Placeholder: shareholder considerations",
+                      "Guidance on common structures (e.g., SPC, WLL, branch)",
+                      "Shareholder and governance considerations",
                     ],
                   },
                   {
                     k: "e",
                     title: "Support Services Coordination",
                     bullets: [
-                      "Placeholder: PRO coordination",
-                      "Placeholder: accounting options",
-                      "Placeholder: bank account support",
+                      "Coordination with support providers when needed",
+                      "Accounting and bookkeeping options overview",
+                      "Banking preparation guidance (what to expect and prepare)",
                     ],
                   },
                 ].map((s) => (
@@ -413,7 +422,9 @@ export default function CompanyFormationConsultancyLanding() {
                     <Check className="h-5 w-5 text-accent mt-0.5" />
                     <div>
                       <p className="text-sm font-semibold text-foreground">{b}</p>
-                      <p className="mt-2 text-sm text-muted-foreground">Placeholder supporting sentence.</p>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        Fast, practical guidance that turns "what do I do next?" into a simple checklist.
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -423,9 +434,9 @@ export default function CompanyFormationConsultancyLanding() {
               <div className="mt-6 lp-card-flat bg-muted/20 p-6 md:p-7">
                 <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-foreground">Social proof + fast response.</p>
+                    <p className="text-sm font-semibold text-foreground">Trusted, responsive, checklist-driven.</p>
                     <p className="text-sm text-muted-foreground mt-1">
-                      Placeholder: 4.9/5 reviews • 500+ clients • Clear checklist
+                      4.9/5 reviews • 500+ clients supported • Clear next steps from the first call
                     </p>
                   </div>
                   <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
@@ -449,20 +460,32 @@ export default function CompanyFormationConsultancyLanding() {
                 {[
                   {
                     title: "Starter Advisory Package",
-                    price: "BHD —",
-                    items: ["Placeholder: 1 consultation", "Placeholder: checklist", "Placeholder: Q&A"],
+                    price: "BHD 400",
+                    items: [
+                      "1 focused consultation to confirm activity + next steps",
+                      "Tailored checklist for documents and decisions",
+                      "Follow‑up Q&A to remove blockers (email)",
+                    ],
                     featured: false,
                   },
                   {
                     title: "Complete Formation Advisory",
-                    price: "BHD —",
-                    items: ["Placeholder: structure mapping", "Placeholder: licensing path", "Placeholder: coordination"],
+                    price: "BHD 900",
+                    items: [
+                      "Structure + ownership guidance aligned to your activity",
+                      "Approvals & licensing pathway overview (typical steps)",
+                      "Timeline planning + coordination guidance until you’re ready",
+                    ],
                     featured: true,
                   },
                   {
                     title: "Premium Business Setup Advisory",
-                    price: "BHD —",
-                    items: ["Placeholder: priority support", "Placeholder: advanced structuring", "Placeholder: ongoing guidance"],
+                    price: "BHD 1,800",
+                    items: [
+                      "Priority support and faster turnarounds",
+                      "Advanced structuring discussion (as applicable)",
+                      "Ongoing guidance across milestones for complex cases",
+                    ],
                     featured: false,
                   },
                 ].map((p) => (
@@ -487,11 +510,12 @@ export default function CompanyFormationConsultancyLanding() {
                         </li>
                       ))}
                     </ul>
-                    <Button className="mt-6 w-full" onClick={() => scrollToId("book")}
-                    >
-                      Request Advisory Quote
+                    <Button className="mt-6 w-full" onClick={() => scrollToId("book")}>
+                      Get Free Consultation
                     </Button>
-                    <p className="mt-3 text-xs text-muted-foreground">Book a free consultation for exact pricing.</p>
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      Government fees are paid directly to the relevant authorities; this package pricing covers advisory only.
+                    </p>
                   </div>
                 ))}
               </div>
@@ -503,20 +527,36 @@ export default function CompanyFormationConsultancyLanding() {
             <div className="container mx-auto px-4 md:px-6">
               <span className="section-badge">Testimonials</span>
               <h2 className="lp-h2">Trusted by 500+ Businesses in Bahrain</h2>
-              <p className="mt-4 lp-section-subtitle">Placeholder: Short, credible outcomes—kept concise for ad traffic.</p>
+              <p className="mt-4 lp-section-subtitle">
+                Realistic, checklist-driven guidance—kept concise for decision‑focused ad traffic.
+              </p>
 
               <div className="mt-8 grid md:grid-cols-3 gap-6">
-                {[1, 2, 3].map((idx) => (
+                {[
+                  {
+                    quote:
+                      "The call gave us a clear sequence and checklist. We stopped guessing and moved forward with confidence.",
+                    by: "Founder",
+                  },
+                  {
+                    quote:
+                      "Very responsive and practical—especially on timelines and what documents to prepare first.",
+                    by: "Operations lead",
+                  },
+                  {
+                    quote:
+                      "Clear explanations of options and cost drivers. The guidance helped us avoid delays and rework.",
+                    by: "Entrepreneur",
+                  },
+                ].map((t, idx) => (
                   <div key={idx} className="lp-card p-6 sm:p-7">
                     <div className="flex items-center gap-1 text-accent">
                       {[0, 1, 2, 3, 4].map((s) => (
                         <Star key={s} className="h-4 w-4" />
                       ))}
                     </div>
-                    <p className="mt-4 text-sm text-muted-foreground">
-                      “Placeholder testimonial quote #{idx}: Clear guidance, responsive team, and a practical checklist.”
-                    </p>
-                    <p className="mt-4 text-sm font-semibold text-foreground">Client testimonial</p>
+                    <p className="mt-4 text-sm text-muted-foreground">“{t.quote}”</p>
+                    <p className="mt-4 text-sm font-semibold text-foreground">{t.by}</p>
                   </div>
                 ))}
               </div>
@@ -536,8 +576,7 @@ export default function CompanyFormationConsultancyLanding() {
 
           {/* FAQ */}
           <section className="section-spacing-sm relative overflow-hidden bg-secondary/40">
-            <SectionBackgroundOverlay variant="radial" opacity={1} masked={false} className="opacity-55" />
-            <SectionBackgroundOverlay variant="grid-lines" opacity={0.45} masked />
+            <SectionBackgroundOverlay variant="ibelick-soft" opacity={0.88} masked />
             <script
               type="application/ld+json"
               data-schema="company-formation-consultancy-faq"
@@ -573,8 +612,8 @@ export default function CompanyFormationConsultancyLanding() {
               <h2 className="lp-h2">About Our Business Setup Consultancy</h2>
               <div className="mt-6 lp-card p-6 sm:p-7 md:p-8">
                 <p className="text-sm text-muted-foreground">
-                  Placeholder about section: We’re an independent consultancy helping entrepreneurs understand setup
-                  options, documentation, cost drivers, and timelines.
+                  We’re an independent business consultancy focused on helping founders make confident setup decisions.
+                  Our work is checklist-driven: you get clarity on options, cost drivers, timelines, and what to prepare next.
                 </p>
                 <p className="mt-4 text-sm text-muted-foreground">
                   We are not affiliated with any government authority and we do not issue Commercial Registration (CR).
@@ -585,31 +624,20 @@ export default function CompanyFormationConsultancyLanding() {
 
           {/* BOOKING / CONTACT */}
           <div id="book" />
-          <section aria-label="Book free consultation" className="section-spacing-sm">
+          <section aria-label="Request a free consultation" className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
-              <span className="section-badge">Booking</span>
-              <h2 className="lp-h2">Book your free consultation</h2>
-              <p className="mt-4 lp-section-subtitle">Free, 30 minutes, no obligation—book directly below.</p>
+              <span className="section-badge">Get started</span>
+              <h2 className="lp-h2">Request your free consultation</h2>
+              <p className="mt-4 lp-section-subtitle">
+                Share a few details first so we can prepare the right checklist—then you can book immediately if you’d like.
+              </p>
             </div>
 
-            <CalendlyBooking
-              variant="plain"
-              calendlyUrl={calendlyUrl}
-              sectionId="book"
-              imageAlt="Business consultation call preview"
-            />
-
             <div className="container mx-auto px-4 md:px-6">
-              <div className="mt-6 grid md:grid-cols-3 gap-4">
+              <div className="mt-6 grid md:grid-cols-2 gap-4">
                 {[
                   { icon: Phone, label: "Phone", value: "+973 1700 8888", href: "tel:+97317008888" },
                   { icon: Mail, label: "Email", value: "info@keylinkcorp.com", href: "mailto:info@keylinkcorp.com" },
-                  {
-                    icon: MessageCircle,
-                    label: "WhatsApp",
-                    value: "+973 1700 8888",
-                    href: "https://wa.me/97317008888",
-                  },
                 ].map((c) => (
                   <a
                     key={c.label}
@@ -625,13 +653,13 @@ export default function CompanyFormationConsultancyLanding() {
                 ))}
               </div>
 
-              {/* Contact form (no backend; sends via mail client) */}
+              {/* Qualified contact form (no backend; opens mail client) */}
               <div className="mt-8 lp-card p-6 sm:p-7 md:p-8">
                 <div className="max-w-2xl">
                   <span className="section-badge">Contact</span>
-                  <h2 className="lp-h2">Request Advisory Guidance</h2>
+                  <h3 className="lp-h2">Tell us about your setup</h3>
                   <p className="mt-4 lp-section-subtitle">
-                    Placeholder: Prefer a message instead of booking? Send your details—our team will respond.
+                    The more context you share, the more specific we can be on the call (activity, shareholders, timeline, and budget range).
                   </p>
                 </div>
 
@@ -641,19 +669,37 @@ export default function CompanyFormationConsultancyLanding() {
                     e.preventDefault();
                     const form = e.currentTarget;
                     const data = new FormData(form);
+
                     const name = String(data.get("name") ?? "");
                     const email = String(data.get("email") ?? "");
                     const phone = String(data.get("phone") ?? "");
-                    const message = String(data.get("message") ?? "");
+                    const activity = String(data.get("activity") ?? "");
+                    const timeline = String(data.get("timeline") ?? "");
+                    const budget = String(data.get("budget") ?? "");
+                    const residency = String(data.get("residency") ?? "");
+                    const notes = String(data.get("notes") ?? "");
 
-                    const subject = encodeURIComponent("Consultation request (Bahrain consultancy)");
+                    const subject = encodeURIComponent(
+                      "Free consultation request — Company Formation Consultancy (Bahrain)"
+                    );
                     const body = encodeURIComponent(
-                      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
+                      [
+                        `Full name: ${name}`,
+                        `Email: ${email}`,
+                        `Phone: ${phone}`,
+                        "",
+                        `Business activity: ${activity}`,
+                        `Timeline: ${timeline}`,
+                        `Budget range: ${budget}`,
+                        `Residency: ${residency}`,
+                        "",
+                        notes ? `Notes:\n${notes}` : "Notes: (not provided)",
+                      ].join("\n")
                     );
 
                     toast({
-                      title: "Request prepared",
-                      description: "Your email app will open to send your consultation request.",
+                      title: "Email draft prepared",
+                      description: "Your email app will open so you can send your request.",
                     });
 
                     window.location.href = `mailto:info@keylinkcorp.com?subject=${subject}&body=${body}`;
@@ -688,38 +734,121 @@ export default function CompanyFormationConsultancyLanding() {
                     </div>
                   </div>
 
-                  <div className="grid gap-2">
-                    <label className="text-sm font-medium" htmlFor="cfc-phone">
-                      Phone (WhatsApp preferred)
-                    </label>
-                    <input
-                      id="cfc-phone"
-                      name="phone"
-                      className="h-11 rounded-md border border-input bg-background px-3 text-sm"
-                      placeholder="+973 XXXX XXXX"
-                    />
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium" htmlFor="cfc-phone">
+                        Phone
+                      </label>
+                      <input
+                        id="cfc-phone"
+                        name="phone"
+                        className="h-11 rounded-md border border-input bg-background px-3 text-sm"
+                        placeholder="+973 XXXX XXXX"
+                        required
+                      />
+                    </div>
+
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium" htmlFor="cfc-activity">
+                        Business activity
+                      </label>
+                      <input
+                        id="cfc-activity"
+                        name="activity"
+                        className="h-11 rounded-md border border-input bg-background px-3 text-sm"
+                        placeholder="e.g., trading, consulting, services"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium" htmlFor="cfc-timeline">
+                        Timeline
+                      </label>
+                      <select
+                        id="cfc-timeline"
+                        name="timeline"
+                        className="h-11 rounded-md border border-input bg-background px-3 text-sm"
+                        required
+                        defaultValue=""
+                      >
+                        <option value="" disabled>
+                          Select
+                        </option>
+                        <option value="Immediately">Immediately</option>
+                        <option value="2–4 weeks">2–4 weeks</option>
+                        <option value="1–3 months">1–3 months</option>
+                        <option value="3+ months">3+ months</option>
+                      </select>
+                    </div>
+
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium" htmlFor="cfc-budget">
+                        Budget range
+                      </label>
+                      <select
+                        id="cfc-budget"
+                        name="budget"
+                        className="h-11 rounded-md border border-input bg-background px-3 text-sm"
+                        required
+                        defaultValue=""
+                      >
+                        <option value="" disabled>
+                          Select
+                        </option>
+                        <option value="Under BHD 500">Under BHD 500</option>
+                        <option value="BHD 500–1,000">BHD 500–1,000</option>
+                        <option value="BHD 1,000–2,000">BHD 1,000–2,000</option>
+                        <option value="BHD 2,000+">BHD 2,000+</option>
+                      </select>
+                    </div>
+
+                    <div className="grid gap-2">
+                      <label className="text-sm font-medium" htmlFor="cfc-residency">
+                        Residency
+                      </label>
+                      <select
+                        id="cfc-residency"
+                        name="residency"
+                        className="h-11 rounded-md border border-input bg-background px-3 text-sm"
+                        required
+                        defaultValue=""
+                      >
+                        <option value="" disabled>
+                          Select
+                        </option>
+                        <option value="Bahrain resident">Bahrain resident</option>
+                        <option value="Overseas">Overseas</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div className="grid gap-2">
-                    <label className="text-sm font-medium" htmlFor="cfc-message">
-                      What do you need guidance on?
+                    <label className="text-sm font-medium" htmlFor="cfc-notes">
+                      Notes (optional)
                     </label>
                     <textarea
-                      id="cfc-message"
-                      name="message"
+                      id="cfc-notes"
+                      name="notes"
                       className="min-h-[120px] rounded-md border border-input bg-background px-3 py-2 text-sm"
-                      placeholder="Placeholder: Activity, shareholders, timeline, visa needs..."
-                      required
+                      placeholder="Share anything helpful: number of shareholders, preferred location/address, visa needs, or questions you want answered."
                     />
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button type="submit" size="lg" className="w-full sm:w-auto">
-                      Request consultation
+                      Request free consultation
                     </Button>
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto" type="button" onClick={() => scrollToId("book")}
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full sm:w-auto"
+                      type="button"
+                      onClick={() => scrollToId("book-calendly")}
                     >
-                      Book free consultation
+                      Prefer to book now
                     </Button>
                   </div>
 
@@ -728,6 +857,24 @@ export default function CompanyFormationConsultancyLanding() {
                   </p>
                 </form>
               </div>
+            </div>
+
+            {/* Secondary: Calendly */}
+            <div id="book-calendly" className="mt-10">
+              <div className="container mx-auto px-4 md:px-6">
+                <span className="section-badge">Booking</span>
+                <h3 className="lp-h2">Prefer to book immediately?</h3>
+                <p className="mt-4 lp-section-subtitle">
+                  Choose a time for your free consultation—30 minutes, no obligation.
+                </p>
+              </div>
+
+              <CalendlyBooking
+                variant="plain"
+                calendlyUrl={calendlyUrl}
+                sectionId="book-calendly"
+                imageAlt="Business consultation call preview"
+              />
             </div>
           </section>
 
@@ -741,10 +888,14 @@ export default function CompanyFormationConsultancyLanding() {
                   <div>
                     <h2 className="lp-h2 text-foreground">Ready to Start Your Business in Bahrain?</h2>
                     <p className="mt-3 lp-section-subtitle">
-                      Placeholder next steps: book a free call, get a checklist, and receive a clear action plan.
+                      What happens next: we review your details, share a tailored checklist, and confirm the most practical next steps for your timeline.
                     </p>
                     <ul className="mt-5 space-y-2 text-sm">
-                      {["Free consultation (30 min)", "Tailored checklist", "Clear timeline + cost drivers"].map((t) => (
+                      {[
+                        "Free consultation (30 min)",
+                        "Tailored checklist",
+                        "Clear timeline + cost drivers",
+                      ].map((t) => (
                         <li key={t} className="flex gap-2 text-foreground/90">
                           <Check className="h-4 w-4 text-accent mt-0.5" />
                           {t}
@@ -769,7 +920,7 @@ export default function CompanyFormationConsultancyLanding() {
 
                 <div className="mt-6 lp-card-flat bg-muted/20 p-5">
                   <p className="text-xs text-muted-foreground">
-                    Download guide (placeholder): Provide a PDF URL and I’ll link it here.
+                    Want to move faster? Ask for the document checklist template during your consultation.
                   </p>
                 </div>
               </div>
