@@ -1,113 +1,125 @@
 
-## Goal (what you asked)
-- Remove the **Pricing** section (all prices) from **/company-formation-consultancy-bahrain**
-- Make the whole landing page feel **more typographic**: bigger headings/body, more whitespace, cleaner hierarchy
-- **Reduce icons** (especially repeated checkmarks) so the page looks less “busy”
+## What you want (interpreting your last message + screenshot)
+- Use “real icons” (Lucide, but minimal) and change the card layout to:
+  - icon at the top
+  - text underneath
+- Apply this style specifically to:
+  - “Common blockers” cards
+  - “Benefits” cards
+- Keep the design minimal (less visual noise)
+- Put the call-to-action as **one CTA under the grid** (not inside each card)
 
-## What I found in your code (why this is straightforward)
-- The Pricing section is a self-contained block in:
-  - `src/pages/landing/CompanyFormationConsultancyLanding.tsx` around **lines ~514–606**
-  - It imports 3 pricing images and hardcoded “BHD …” values.
-- Icons are used in multiple patterns:
-  - Hero bullets use icons via `CompanyFormationHeroMontage` bullets prop
-  - Many lists use `<Check />` as a bullet icon
-  - “Benefits” cards show big icon badges per card
-- Typography is mostly controlled by reusable classes like:
-  - `lp-h2`, `lp-section-subtitle`, `section-badge`, plus text sizes inside `lp-card`
-
-## Implementation plan (sequenced)
-
-### 1) Remove Pricing section (and related imports)
-1. Delete the entire JSX block:
-   - `/* PRICING */` section starting near line ~514 through its closing `</section>` near ~605.
-2. Remove unused imports at the top:
-   - `pricingStarterImage`, `pricingCompleteImage`, `pricingPremiumImage`
-3. Ensure there are no references left that keep those assets “alive” in the bundle.
-
-**Result:** No pricing/cards/prices shown anywhere on the consultancy landing page.
+Your screenshot shows a calm grid of rounded cards with a tiny marker on top-left and clean typography. We’ll match that feel while still using minimal Lucide icons.
 
 ---
 
-### 2) Typography “full pass” (bigger, cleaner, more editorial)
-We’ll make the page feel more premium by adjusting typography in two layers:
+## Where in the code this lives
+File:
+- `src/pages/landing/CompanyFormationConsultancyLanding.tsx`
 
-#### A) Global-ish LP typography tokens (preferred if already centralized)
-- Search for where `lp-h2`, `lp-section-subtitle`, `section-badge`, and `lp-card` text sizes are defined:
-  - likely in a shared CSS/Tailwind layer (e.g., `src/index.css`, `src/styles/*.css`, or a `tailwind` layer file).
-- Increase sizes and line-heights consistently:
-  - `lp-h2`: bump up (e.g., from ~text-3xl to ~text-4xl on desktop)
-  - `lp-section-subtitle`: bump slightly (e.g., text-base → text-lg)
-  - Card body text: bump slightly and increase leading for readability
+Sections to update:
+1) **Common blockers** grid (inside the `SplitSection` labeled “Common blockers”)
+   - Currently: horizontal layout (`flex gap-3`) with a `HelpCircle` icon to the left and text beside it.
+2) **Benefits** grid
+   - Currently: horizontal layout with an icon badge on the left and text to the right.
 
-#### B) Local adjustments within `CompanyFormationConsultancyLanding.tsx` (if tokens aren’t centralized)
-- Increase:
-  - section titles (`lp-h2`)
-  - subtitles (`lp-section-subtitle`)
-  - card paragraphs currently using `text-sm`
-- Add slightly more vertical rhythm:
-  - more `mt-*` spacing between headings/subtitles/cards, without changing layout structure.
-
-**Result:** Bigger type, fewer tiny text blocks, easier scanning.
+We will *not* touch Pricing (already removed), the calculator, or other sections unless needed for consistency.
 
 ---
 
-### 3) Reduce icons (especially repeated checkmarks)
-You selected “Reduce checkmark icons”, so we’ll keep the design consistent but less icon-heavy:
+## Implementation approach (what I will change)
 
-#### A) Replace “Check icon bullet lists” with typographic bullets
-Places to change:
-- Services accordion bullets currently render as:
-  - `<Check className="h-4 w-4 ..."/>`
-- Pricing list also uses Check icons (but pricing will be removed anyway)
-- Final CTA list uses check icons
+### 1) Common blockers cards → icon-top + text-bottom (minimal)
+Current:
+- Each card: `lp-card ... flex gap-3`
+- Icon: `<HelpCircle className="h-5 w-5 ..."/>`
+- Text: `text-sm ...`
 
-Approach:
-- For dense lists, switch to:
-  - simple `•` bullets (text-only) or
-  - subtle left border / dot marker using CSS (no lucide icons)
-- Keep icons only where they add meaning (e.g., phone/email contact cards).
+Planned update:
+- Switch each card to a vertical layout:
+  - `flex flex-col` (or no flex; just stacked elements)
+- Replace the left icon with a small, subtle icon container at the top:
+  - a small rounded container (not big badge), e.g. `h-9 w-9 rounded-full border ... bg-muted/20`
+  - icon inside with restrained sizing, e.g. `h-4 w-4 text-accent`
+- Increase the text size + line-height to match the editorial direction:
+  - move from `text-sm` to `text-base` (or rely on the `.cfc-typography` overrides)
+- Optional: make the card padding slightly more generous for breathing room (without becoming huge)
 
-#### B) Benefits section: keep structure but make it more typographic
-Currently each benefit has a big icon badge.
-Options (we’ll implement the cleanest one consistent with your request):
-- Remove the icon badge entirely, and instead:
-  - emphasize benefit title with stronger weight + size
-  - add a small numeric index (01, 02, 03…) or a thin accent rule
-This keeps the grid visually interesting without icons.
+Icon choice:
+- Instead of using the same `HelpCircle` for every item (feels repetitive), we’ll map each blocker to a distinct but minimal icon (example set):
+  - approvals/licensing → `FileText` or `ClipboardList`
+  - documentation → `FileText`
+  - timelines → `Clock`
+  - inconsistent info → `Layers` or `MessageSquareText`
+  - office/address cost drivers → `Route`
+  - visas/compliance → `Shield` / `ShieldCheck`
+This keeps “real icons” while staying minimal and consistent.
 
-#### C) Hero montage bullets
-The hero component expects icons in the bullets array.
-We’ll adjust by either:
-- Passing a minimal icon set (1 icon only) and making remaining bullets text-only (if component supports), or
-- Changing the hero component usage/presentation to reduce icon prominence (smaller/less saturated), depending on how `CompanyFormationHeroMontage` is implemented.
-(We’ll inspect that component and pick the non-breaking approach.)
-
-**Result:** The page feels calmer and more “consultancy/editorial” rather than “icon UI kit”.
-
----
-
-### 4) Final integrity pass (to avoid TS/JSX errors)
-Given you recently hit JSX tag mismatch errors, after edits we’ll do a quick structural check:
-- Ensure every `<section>`, `<div>`, `<main>` is properly balanced
-- Ensure TypeScript has no unused imports after removing pricing/icons
-- Verify the page renders on:
-  - desktop
-  - mobile (the sticky consultation bar shouldn’t overlap important CTA areas)
+### 2) CTA placement for the blockers grid
+You chose: “One CTA under grid”.
+- Keep (or slightly refine) the existing CTA block already under that grid (`lp-card-flat ... Button`).
+- Ensure spacing looks intentional after the card layout change (likely increase top margin a bit).
 
 ---
 
-## Acceptance checklist (what you’ll verify in Preview)
-1. Pricing section is completely gone (no “Pricing” badge, no package cards, no BHD numbers).
-2. Headings and body text feel noticeably bigger and easier to read.
-3. Fewer icons overall; no repetitive checkmark icons in lists.
-4. Layout still looks clean on mobile (no overflow, no awkward spacing).
-5. Cost calculator multi-step flow still works end-to-end and the “continue” redirect still goes to `/free-consultation`.
+### 3) Benefits cards → icon-top + text-bottom (minimal)
+Current:
+- Card is horizontal: icon badge at left, text right.
 
-## Files likely to be changed
-- `src/pages/landing/CompanyFormationConsultancyLanding.tsx` (remove pricing block, simplify icon-heavy lists, local typography where needed)
-- Potentially a shared style file (only if `lp-h2` / `lp-section-subtitle` are defined centrally and we want consistent scaling across sections on this page)
+Planned update:
+- Change each benefit card to stacked layout:
+  - top: minimal icon container (same style as blockers for consistency)
+  - below: title (slightly larger/stronger)
+  - below: description (clean, readable)
+- Keep grid as-is (`md:grid-cols-2 lg:grid-cols-3`), but adjust card padding + spacing to look more typographic:
+  - e.g. `gap-2` internal spacing, slightly larger title, calmer muted description.
 
-## Notes / trade-offs
-- You said “This page only”, so we’ll scope typography changes to this page unless typography tokens are global; if tokens are global, we’ll implement page-scoped overrides instead (so other pages remain unchanged).
-- We will keep a small number of functional icons (phone/email) where they improve clarity.
+We will keep Lucide icons but make them uniform:
+- same size for all
+- same container shape
+- same accent color
+- no oversized badges
+
+---
+
+### 4) Reduce visual noise further (minimal polish)
+To keep the page “minimal”:
+- Ensure icons don’t appear in too many places at once:
+  - We’ll leave existing functional icons (phone icon inside button) as-is.
+  - In the Common blockers + Benefits sections we’ll standardize icon style and keep them small.
+- Align typography:
+  - Use consistent title sizes within cards
+  - Ensure paragraphs don’t drop back to `text-sm` accidentally (the `.cfc-typography` wrapper already helps)
+
+---
+
+## Safety / TypeScript considerations (to avoid icon typing issues)
+- When we store icons in arrays, we’ll use a stable type like:
+  - `Icon: LucideIcon` (imported type) or `typeof Check` pattern already used in your hero component.
+- We’ll avoid mixing incompatible icon-like values (prevents the TS2786/TS2322 issues noted in your tool context).
+
+---
+
+## Step-by-step edit checklist (what I’ll do in Default mode)
+1) Update “Common blockers” items array to include an `Icon` per item (or build a separate mapping).
+2) Refactor the blockers card JSX to stacked layout:
+   - icon container on top
+   - text beneath
+3) Keep the single CTA under the blockers grid; adjust spacing if needed.
+4) Refactor the Benefits card JSX to stacked layout:
+   - icon container on top
+   - label + desc beneath
+5) Quick pass to remove any unused Lucide imports (since we’ll introduce a couple new icons and maybe remove `HelpCircle` usage in that grid).
+6) Sanity-check the page in preview:
+   - desktop + mobile widths
+   - ensure spacing and alignment look like your screenshot inspiration (minimal, calm, typographic)
+
+---
+
+## What you should verify after I implement
+- The “Common blockers” grid visually matches the screenshot style:
+  - icon at top, text below, minimal
+- The Benefits cards are now more editorial (less “icon UI kit” feel)
+- No layout regressions on mobile (cards wrap nicely, spacing looks balanced)
+- CTAs remain clear and not duplicated inside cards
 
