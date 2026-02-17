@@ -4,8 +4,8 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { EditorialImage } from "@/components/shared/EditorialImage";
 import {
   SectionBackgroundOverlay,
-  type SectionOverlayVariant,
-} from "@/components/shared/SectionBackgroundOverlay";
+  type SectionOverlayVariant } from
+"@/components/shared/SectionBackgroundOverlay";
 
 type SplitSectionProps = {
   badge?: string;
@@ -99,16 +99,16 @@ export function SplitSection({
   imageOverlayStrength,
   stackedImageRatio,
   stackedImageHeightClassName =
-    "h-[32vh] sm:h-[30vh] md:h-[25vh] min-h-[220px] md:min-h-[240px]",
+  "h-[32vh] sm:h-[30vh] md:h-[25vh] min-h-[220px] md:min-h-[240px]"
 }: SplitSectionProps) {
   const isSubtle = variant === "subtle";
   const resolvedOverlay: SectionOverlayVariant =
-    backgroundVariant ?? (isSubtle ? "ibelick-lines" : "ibelick-soft");
+  backgroundVariant ?? (isSubtle ? "ibelick-lines" : "ibelick-soft");
   const isCenter = align === "center";
   const headingClass = cn(
     "text-balance",
     useLpHeadings ? "lp-h2" : "",
-    headerSize === "compact" ? "text-2xl md:text-3xl" : "",
+    headerSize === "compact" ? "text-2xl md:text-3xl" : ""
   );
 
   const resolvedBadgeClassName = badgeClassName ?? "section-badge";
@@ -129,199 +129,199 @@ export function SplitSection({
     9: "lg:col-span-9",
     10: "lg:col-span-10",
     11: "lg:col-span-11",
-    12: "lg:col-span-12",
+    12: "lg:col-span-12"
   };
 
   const resolvedContentColSpanLg = colSpanLgClassMap[contentColSpanLg] ??
-    "lg:col-span-6";
+  "lg:col-span-6";
   const resolvedImageColSpanLg = colSpanLgClassMap[imageColSpanLg] ??
-    "lg:col-span-6";
+  "lg:col-span-6";
 
-  const Header = (
-    <header
-      className={cn(
-        "mb-8 md:mb-10",
-        isCenter ? "text-center" : "text-left",
-        headerClassName,
-      )}
-    >
+  const Header =
+  <header
+    className={cn(
+      "mb-8 md:mb-10",
+      isCenter ? "text-center" : "text-left",
+      headerClassName
+    )}>
+
       {badge ? <p className={resolvedBadgeClassName}>{badge}</p> : null}
       <h2
-        className={cn(
-          badge ? resolvedTitleTopMargin : "",
-          headingClass,
-          titleClassName,
-        )}
-      >
+      className={cn(
+        badge ? resolvedTitleTopMargin : "",
+        headingClass,
+        titleClassName
+      )}>
+
         {title}
       </h2>
-      {subtitle ? (
-        <p
-          className={cn(
-            resolvedSubtitleTopMargin,
-            "text-lg leading-relaxed max-w-3xl",
-            isCenter ? "mx-auto" : "",
-            leadClassName,
-            subtitleClassName,
-          )}
-        >
+      {subtitle ?
+    <p
+      className={cn(
+        resolvedSubtitleTopMargin,
+        "text-lg leading-relaxed max-w-3xl",
+        isCenter ? "mx-auto" : "",
+        leadClassName,
+        subtitleClassName
+      )}>
+
           {subtitle}
-        </p>
-      ) : null}
-    </header>
-  );
+        </p> :
+    null}
+    </header>;
+
 
   return (
     <section
       className={cn(
         "section-spacing relative",
         imageSticky ? "overflow-visible" : "overflow-hidden",
-        isSubtle ? "bg-secondary/40" : "bg-background",
-      )}
-    >
+        isSubtle ? "bg-secondary/40" : "bg-background"
+      )}>
+
       <SectionBackgroundOverlay
         variant={resolvedOverlay}
         opacity={overlayOpacity}
-        masked={overlayMasked}
-      />
+        masked={overlayMasked} />
+
 
       <div className="container relative z-10">
-        {layout === "stacked" ? (
-          <div className="max-w-6xl mx-auto">
+        {layout === "stacked" ?
+        <div className="max-w-6xl mx-auto">
             <div className={cn(imageClassName)}>
-              {useEditorialImage ? (
-                typeof stackedImageRatio === "number" ? (
-                  <EditorialImage
-                    src={imageSrc}
-                    alt={imageAlt}
-                    ratio={stackedImageRatio}
-                    overlayStrength={imageOverlayStrength}
-                    className={cn("w-full")}
-                    imgClassName={cn(imageImgClassName)}
-                  />
-                ) : (
-                  <div className={stackedImageHeightClassName}>
+              {useEditorialImage ?
+            typeof stackedImageRatio === "number" ?
+            <EditorialImage
+              src={imageSrc}
+              alt={imageAlt}
+              ratio={stackedImageRatio}
+              overlayStrength={imageOverlayStrength}
+              className={cn("w-full")}
+              imgClassName={cn(imageImgClassName)} /> :
+
+
+            <div className={stackedImageHeightClassName}>
                     <EditorialImage
-                      src={imageSrc}
-                      alt={imageAlt}
-                      ratio={undefined}
-                      overlayStrength={imageOverlayStrength}
-                      className={cn("h-full", "w-full")}
-                      imgClassName={cn("h-full", imageImgClassName)}
-                    />
-                  </div>
-                )
-              ) : (
-                <div
-                  className={cn(
-                    imageFrame === "flat"
-                      ? "rounded-2xl border border-border/30 bg-card overflow-hidden"
-                      : "card-elevated overflow-hidden",
-                    typeof stackedImageRatio === "number"
-                      ? ""
-                      : stackedImageHeightClassName,
-                  )}
-                >
-                  {typeof stackedImageRatio === "number" ? (
-                    <AspectRatio ratio={stackedImageRatio}>
+                src={imageSrc}
+                alt={imageAlt}
+                ratio={undefined}
+                overlayStrength={imageOverlayStrength}
+                className={cn("h-full", "w-full")}
+                imgClassName={cn("h-full", imageImgClassName)} />
+
+                  </div> :
+
+
+            <div
+              className={cn(
+                imageFrame === "flat" ?
+                "rounded-2xl border border-border/30 bg-card overflow-hidden" :
+                "card-elevated overflow-hidden",
+                typeof stackedImageRatio === "number" ?
+                "" :
+                stackedImageHeightClassName
+              )}>
+
+                  {typeof stackedImageRatio === "number" ?
+              <AspectRatio ratio={stackedImageRatio}>
                       <img
-                        src={imageSrc}
-                        alt={imageAlt}
-                        loading="lazy"
-                        className={cn(
-                          "h-full w-full object-cover",
-                          imageImgClassName,
-                        )}
-                      />
-                    </AspectRatio>
-                  ) : (
-                    <img
-                      src={imageSrc}
-                      alt={imageAlt}
-                      loading="lazy"
-                      className={cn("h-full w-full object-cover", imageImgClassName)}
-                    />
-                  )}
+                  src={imageSrc}
+                  alt={imageAlt}
+                  loading="lazy"
+                  className={cn(
+                    "h-full w-full object-cover",
+                    imageImgClassName
+                  )} />
+
+                    </AspectRatio> :
+
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                loading="lazy"
+                className={cn("h-full w-full object-cover", imageImgClassName)} />
+
+              }
                 </div>
-              )}
+            }
             </div>
 
-            {!hideImageCaption ? (
-              <div className="mt-3 text-xs text-muted-foreground">
+            {!hideImageCaption ?
+          <div className="mt-3 text-xs text-muted-foreground">
                 No logos, no watermarks — images are illustrative.
-              </div>
-            ) : null}
+              </div> :
+          null}
 
             <div className="mt-8">
               {Header}
               {children}
             </div>
-          </div>
-        ) : (
-          <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-12 items-start">
+          </div> :
+
+        <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-12 items-start">
             <div
-              className={cn(
-                resolvedContentColSpanLg,
-                imagePosition === "left" ? "lg:order-2" : "lg:order-1",
-              )}
-            >
+            className={cn(
+              resolvedContentColSpanLg,
+              imagePosition === "left" ? "lg:order-2" : "lg:order-1"
+            )}>
+
               {Header}
               {children}
             </div>
 
             <div
-              className={cn(
-                resolvedImageColSpanLg,
-                imagePosition === "left" ? "lg:order-1" : "lg:order-2",
-                imageSticky
-                  ? cn(
-                      "md:sticky md:self-start",
-                      imageStickyTopClassName ?? "md:top-24",
-                    )
-                  : "",
-              )}
-            >
+            className={cn(
+              resolvedImageColSpanLg,
+              imagePosition === "left" ? "lg:order-1" : "lg:order-2",
+              imageSticky ?
+              cn(
+                "md:sticky md:self-start",
+                imageStickyTopClassName ?? "md:top-24"
+              ) :
+              ""
+            )}>
+
               <div className={cn(imageClassName)}>
-                {useEditorialImage ? (
-                  <EditorialImage
-                    src={imageSrc}
-                    alt={imageAlt}
-                    ratio={imageRatio}
-                    overlayStrength={imageOverlayStrength}
-                    imgClassName={imageImgClassName}
-                  />
-                ) : (
-                  <div
-                    className={cn(
-                      imageFrame === "flat"
-                        ? "rounded-2xl border border-border/30 bg-card overflow-hidden"
-                        : "card-elevated overflow-hidden",
-                    )}
-                  >
+                {useEditorialImage ?
+              <EditorialImage
+                src={imageSrc}
+                alt={imageAlt}
+                ratio={imageRatio}
+                overlayStrength={imageOverlayStrength}
+                imgClassName={imageImgClassName} /> :
+
+
+              <div
+                className={cn(
+                  imageFrame === "flat" ?
+                  "rounded-2xl border border-border/30 bg-card overflow-hidden" :
+                  "card-elevated overflow-hidden"
+                )}>
+
                     <AspectRatio ratio={imageRatio}>
                       <img
-                        src={imageSrc}
-                        alt={imageAlt}
-                        loading="lazy"
-                        className={cn(
-                          "h-full w-full object-cover",
-                          imageImgClassName,
-                        )}
-                      />
+                    src={imageSrc}
+                    alt={imageAlt}
+                    loading="lazy"
+                    className={cn(
+                      "h-full w-full object-cover",
+                      imageImgClassName
+                    )} />
+
                     </AspectRatio>
                   </div>
-                )}
+              }
               </div>
 
-              {!hideImageCaption ? (
-                <div className="mt-3 text-xs text-muted-foreground">
-                  No logos, no watermarks — images are illustrative.
-                </div>
-              ) : null}
+              {!hideImageCaption ?
+            <div className="mt-3 text-xs text-muted-foreground">
+                  ​
+                </div> :
+            null}
             </div>
           </div>
-        )}
+        }
       </div>
-    </section>
-  );
+    </section>);
+
 }
