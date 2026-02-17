@@ -6,7 +6,6 @@ import {
   Clock,
   ClipboardList,
   FileText,
-  HelpCircle,
   Layers,
   Mail,
   MessageSquareText,
@@ -17,6 +16,7 @@ import {
   Sparkles,
   Star,
   Target,
+  type LucideIcon,
 } from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -106,6 +106,20 @@ const FAQS: FaqItem[] = [
     answer:
       "We review your activity and shareholders, outline a recommended approach, and share a practical checklist. If you want ongoing support, we’ll suggest the best advisory package for your timeline.",
   },
+];
+
+type IconCardItem = {
+  title: string;
+  Icon: LucideIcon;
+};
+
+const COMMON_BLOCKERS: IconCardItem[] = [
+  { title: "Unclear activity approvals and licensing steps", Icon: FileText },
+  { title: "Confusing documentation requirements", Icon: ClipboardList },
+  { title: "Uncertain timelines and sequencing", Icon: Clock },
+  { title: "Inconsistent information across sources", Icon: Layers },
+  { title: "Office/address decisions affecting costs", Icon: Route },
+  { title: "Visa planning and compliance considerations", Icon: Shield },
 ];
 
 export default function CompanyFormationConsultancyLanding() {
@@ -246,26 +260,21 @@ export default function CompanyFormationConsultancyLanding() {
             imageImgClassName="object-[center_35%]"
           >
             <div className="grid md:grid-cols-2 gap-4">
-              {[
-                "Unclear activity approvals and licensing steps",
-                "Confusing documentation requirements",
-                "Uncertain timelines and sequencing",
-                "Inconsistent information across sources",
-                "Office/address decisions affecting costs",
-                "Visa planning and compliance considerations",
-              ].map((t) => (
-                <div key={t} className="lp-card p-5 sm:p-6 md:p-7 flex gap-3">
-                  <HelpCircle className="h-5 w-5 text-accent mt-0.5" />
-                  <div className="text-sm text-foreground/90">{t}</div>
+              {COMMON_BLOCKERS.map(({ title, Icon }) => (
+                <div key={title} className="lp-card p-5 sm:p-6 md:p-7">
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/20 bg-muted/10">
+                    <Icon className="h-4 w-4 text-accent" />
+                  </span>
+                  <p className="mt-3 text-base leading-relaxed text-foreground/90">{title}</p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 lp-card-flat bg-muted/20 p-6 md:p-7">
+            <div className="mt-7 lp-card-flat bg-muted/20 p-6 md:p-7">
               <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-foreground">Get clarity in one free consultation.</p>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-base font-semibold text-foreground">Get clarity in one free consultation.</p>
+                  <p className="mt-1 text-base text-muted-foreground">
                     Clear checklist • Realistic timeline • Plain‑English next steps
                   </p>
                 </div>
@@ -482,13 +491,13 @@ export default function CompanyFormationConsultancyLanding() {
                     Icon: Target,
                   },
                 ].map(({ label, desc, Icon }) => (
-                  <div key={label} className="lp-card p-5 sm:p-6 md:p-7 flex gap-3">
-                    <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/15 bg-muted/20">
-                      <Icon className="h-5 w-5 text-accent" />
+                  <div key={label} className="lp-card p-5 sm:p-6 md:p-7">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/20 bg-muted/10">
+                      <Icon className="h-4 w-4 text-accent" />
                     </span>
-                    <div className="relative">
-                      <p className="text-sm font-semibold text-foreground">{label}</p>
-                      <p className="mt-2 text-sm text-muted-foreground">{desc}</p>
+                    <div className="mt-3">
+                      <p className="text-base font-semibold leading-snug text-foreground">{label}</p>
+                      <p className="mt-2 text-base leading-relaxed text-muted-foreground">{desc}</p>
                     </div>
                   </div>
                 ))}
