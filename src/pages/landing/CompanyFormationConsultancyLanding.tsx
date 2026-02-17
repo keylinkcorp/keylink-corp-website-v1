@@ -40,9 +40,6 @@ import howItWorksImage from "@/assets/company-formation/lp/how-it-works-portrait
 import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
 import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
 
-import pricingStarterImage from "@/assets/company-formation/consultancy/pricing-starter.webp";
-import pricingCompleteImage from "@/assets/company-formation/consultancy/pricing-complete.webp";
-import pricingPremiumImage from "@/assets/company-formation/consultancy/pricing-premium.webp";
 import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy.jpg";
 import costCalculatorPortraitImage from "@/assets/company-formation/consultancy/cost-calculator-portrait.jpg";
 
@@ -176,7 +173,7 @@ export default function CompanyFormationConsultancyLanding() {
 
   return (
     <div className="min-h-screen bg-muted/20">
-      <div className="mx-auto min-h-screen max-w-[1120px] bg-background md:border-x md:border-border/60">
+      <div className="cfc-typography mx-auto min-h-screen max-w-[1120px] bg-background md:border-x md:border-border/60">
         <LandingHeader onLogoClick={() => scrollToId("top")} />
 
         <main id="top" className="flex-1">
@@ -417,13 +414,14 @@ export default function CompanyFormationConsultancyLanding() {
                   },
                 ].map((s) => (
                   <AccordionItem key={s.k} value={s.k}>
-                    <AccordionTrigger className="text-sm font-semibold">{s.title}</AccordionTrigger>
+                    <AccordionTrigger className="text-base font-semibold leading-snug">
+                      {s.title}
+                    </AccordionTrigger>
                     <AccordionContent>
-                      <ul className="mt-2 space-y-2">
+                      <ul className="mt-3 space-y-2 list-disc pl-5">
                         {s.bullets.map((b) => (
-                          <li key={b} className="flex gap-2 text-sm text-muted-foreground">
-                            <Check className="h-4 w-4 text-accent mt-0.5" />
-                            <span>{b}</span>
+                          <li key={b} className="text-base text-muted-foreground leading-relaxed">
+                            {b}
                           </li>
                         ))}
                       </ul>
@@ -511,98 +509,6 @@ export default function CompanyFormationConsultancyLanding() {
             </div>
           </section>
 
-          {/* PRICING */}
-          <section className="section-spacing-sm relative overflow-hidden">
-            <SectionBackgroundOverlay variant="ibelick-lines" opacity={0.8} masked />
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <span className="section-badge">Pricing</span>
-              <h2 className="lp-h2">Transparent Company Formation Consultancy Pricing</h2>
-              <p className="mt-4 lp-section-subtitle">
-                Government fees are paid directly to the relevant authorities. Our pricing is for consultancy/advisory
-                services only.
-              </p>
-
-              <div className="mt-8 grid lg:grid-cols-3 gap-6">
-                {[
-                  {
-                    title: "Starter Advisory Package",
-                    price: "BHD 400",
-                    imageSrc: pricingStarterImage,
-                    imageAlt: "Founder planning next steps during a business setup consultation",
-                    items: [
-                      "1 focused consultation to confirm activity + next steps",
-                      "Tailored checklist for documents and decisions",
-                      "Follow‑up Q&A to remove blockers (email)",
-                    ],
-                    featured: false,
-                  },
-                  {
-                    title: "Complete Formation Advisory",
-                    price: "BHD 900",
-                    imageSrc: pricingCompleteImage,
-                    imageAlt: "Advisor and founder reviewing a company setup plan together",
-                    items: [
-                      "Structure + ownership guidance aligned to your activity",
-                      "Approvals & licensing pathway overview (typical steps)",
-                      "Timeline planning + coordination guidance until you’re ready",
-                    ],
-                    featured: true,
-                  },
-                  {
-                    title: "Premium Business Setup Advisory",
-                    price: "BHD 1,800",
-                    imageSrc: pricingPremiumImage,
-                    imageAlt: "Executive planning session for premium business setup guidance",
-                    items: [
-                      "Priority support and faster turnarounds",
-                      "Advanced structuring discussion (as applicable)",
-                      "Ongoing guidance across milestones for complex cases",
-                    ],
-                    featured: false,
-                  },
-                ].map((p) => (
-                  <div
-                    key={p.title}
-                    className={
-                      "lp-card overflow-hidden " + (p.featured ? "card-glow border-border/80" : "")
-                    }
-                  >
-                    <div className="p-6 sm:p-7 md:p-8">
-                      <EditorialImage
-                        src={p.imageSrc}
-                        alt={p.imageAlt}
-                        ratio={16 / 10}
-                        loading="lazy"
-                        overlayStrength={0.5}
-                        className="mb-6"
-                        imgClassName="object-[center_42%]"
-                      />
-
-                      <p className="text-sm font-semibold text-foreground">{p.title}</p>
-                      <div className="mt-3 flex items-baseline gap-2">
-                        <div className="text-3xl font-extrabold text-foreground tracking-tight">{p.price}</div>
-                        {p.featured ? <span className="text-xs text-muted-foreground">Most popular</span> : null}
-                      </div>
-                      <ul className="mt-5 space-y-2">
-                        {p.items.map((i) => (
-                          <li key={i} className="flex gap-2 text-sm text-muted-foreground">
-                            <Check className="h-4 w-4 text-accent mt-0.5" />
-                            <span>{i}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <Button className="mt-6 w-full" onClick={() => scrollToId("book")}>
-                        Get Free Consultation
-                      </Button>
-                      <p className="mt-3 text-xs text-muted-foreground">
-                        Government fees are paid directly to the relevant authorities; this package pricing covers advisory only.
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
 
           {/* TESTIMONIALS */}
           <section className="section-spacing-sm">
@@ -782,16 +688,13 @@ export default function CompanyFormationConsultancyLanding() {
                     <p className="mt-3 lp-section-subtitle">
                       What happens next: we review your details, share a tailored checklist, and confirm the most practical next steps for your timeline.
                     </p>
-                    <ul className="mt-5 space-y-2 text-sm">
+                    <ul className="mt-6 space-y-2 list-disc pl-5 text-base text-foreground/90">
                       {[
                         "Free consultation (30 min)",
                         "Tailored checklist",
                         "Clear timeline + cost drivers",
                       ].map((t) => (
-                        <li key={t} className="flex gap-2 text-foreground/90">
-                          <Check className="h-4 w-4 text-accent mt-0.5" />
-                          {t}
-                        </li>
+                        <li key={t}>{t}</li>
                       ))}
                     </ul>
                   </div>
