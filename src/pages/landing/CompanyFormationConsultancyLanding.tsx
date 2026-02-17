@@ -262,8 +262,8 @@ export default function CompanyFormationConsultancyLanding() {
             <div className="grid md:grid-cols-2 gap-4">
               {COMMON_BLOCKERS.map(({ title, Icon }) => (
                 <div key={title} className="lp-card p-5 sm:p-6 md:p-7">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/20 bg-muted/10">
-                    <Icon className="h-4 w-4 text-accent" />
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
+                    <Icon className="h-5 w-5 text-accent" />
                   </span>
                   <p className="mt-3 text-base leading-relaxed text-foreground/90">{title}</p>
                 </div>
@@ -492,8 +492,8 @@ export default function CompanyFormationConsultancyLanding() {
                   },
                 ].map(({ label, desc, Icon }) => (
                   <div key={label} className="lp-card p-5 sm:p-6 md:p-7">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/20 bg-muted/10">
-                      <Icon className="h-4 w-4 text-accent" />
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
+                      <Icon className="h-5 w-5 text-accent" />
                     </span>
                     <div className="mt-3">
                       <p className="text-base font-semibold leading-snug text-foreground">{label}</p>
