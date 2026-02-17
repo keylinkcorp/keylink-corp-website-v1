@@ -330,10 +330,12 @@ export default function CompanyFormationConsultancyLanding() {
                 },
               ].map((s, idx) => (
                 <div key={s.title} className="lp-card p-5 sm:p-6 md:p-7">
-                  <div className="flex items-start justify-between gap-6">
-                    <div className="flex items-start gap-3">
-                      <s.icon className="h-5 w-5 text-accent mt-0.5" />
-                      <div>
+                    <div className="flex items-start justify-between gap-6">
+                      <div className="flex items-start gap-4">
+                        <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
+                          <s.icon className="h-5 w-5 text-accent" />
+                        </span>
+                        <div>
                         <p className="text-sm text-muted-foreground">Step {idx + 1}</p>
                         <p className="mt-1 text-sm font-semibold text-foreground">{s.title}</p>
                         <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
