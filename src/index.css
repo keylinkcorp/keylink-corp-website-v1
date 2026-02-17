@@ -185,6 +185,31 @@
     @apply text-lg leading-relaxed max-w-2xl;
   }
 
+  /* Page-scoped typography scale override (used only when wrapper class is present) */
+  .cfc-typography .section-badge {
+    @apply text-base mb-5;
+  }
+
+  .cfc-typography .lp-h2 {
+    @apply text-3xl sm:text-4xl md:text-[3rem] leading-[1.08];
+    letter-spacing: -0.02em;
+  }
+
+  .cfc-typography .lp-section-subtitle {
+    @apply text-xl leading-relaxed;
+  }
+
+  .cfc-typography .lp-card p,
+  .cfc-typography .lp-card .text-sm,
+  .cfc-typography .lp-card-flat .text-sm,
+  .cfc-typography .lp-card-flat p {
+    @apply text-base leading-relaxed;
+  }
+
+  .cfc-typography .step-number {
+    @apply w-14 h-14 text-xl;
+  }
+
   /* LP-only surfaces (remove “hard shadow” feel) */
   .lp-card {
     @apply bg-card rounded-2xl border border-border/60 shadow-none;
