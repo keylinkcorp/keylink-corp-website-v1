@@ -27,6 +27,7 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { MobileStickyConsultationBar } from "@/components/landing/MobileStickyConsultationBar";
 import { ConsultancyCostCalculator } from "@/components/landing/consultancy/ConsultancyCostCalculator";
+import { CompanyLogosTicker } from "@/components/landing/CompanyLogosTicker";
 import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 import { SplitSection } from "@/components/shared/SplitSection";
 import { EditorialImage } from "@/components/shared/EditorialImage";
@@ -207,6 +208,8 @@ export default function CompanyFormationConsultancyLanding() {
             showWhatsApp={false}
             socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
           />
+
+          <CompanyLogosTicker />
 
           {/* COST CALCULATOR */}
           <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden bg-secondary/30">
