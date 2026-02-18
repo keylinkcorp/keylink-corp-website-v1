@@ -37,6 +37,7 @@ import FreeConsultation from "./pages/FreeConsultation";
 import FreeZoneInBahrain from "./pages/FreeZoneInBahrain";
 import CompanyFormationLanding from "./pages/landing/CompanyFormationLanding";
 import CompanyFormationConsultancyLanding from "./pages/landing/CompanyFormationConsultancyLanding";
+import CompanyFormationConsultancyLandingV2 from "./pages/landing/CompanyFormationConsultancyLandingV2";
 import BLZ from "./pages/free-zone/BLZ";
 import BIIP from "./pages/free-zone/BIIP";
 import BIW from "./pages/free-zone/BIW";
@@ -92,6 +93,10 @@ const App = () => (
           <Route
             path="/company-formation-consultancy-bahrain"
             element={<CompanyFormationConsultancyLanding />}
+          />
+          <Route
+            path="/lp/company-formation-consultancy-v2"
+            element={<CompanyFormationConsultancyLandingV2 />}
           />
 
           {/* Legacy / convenience redirects to avoid 404s */}
