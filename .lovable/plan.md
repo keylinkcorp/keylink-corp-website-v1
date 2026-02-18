@@ -1,83 +1,74 @@
 
-## Goal
-Redesign the hero for **/lp/company-formation-consultancy-modern** so that:
-- The hero section appears **after the company logos ticker**
-- The hero has **no image/montage**
-- The hero content is **center-aligned** (full-width centered layout)
-- Keep existing content elements (badge, title, lead, bullets, CTAs, review strip, disclaimers), just reorganized and restyled for a centered hero
+Goal (confirmed)
+- Make `/lp/company-formation-consultancy-modern` a 1:1 copy of the original page `/company-formation-consultancy-bahrain` (V1) in design, sections, header/footer, and mobile sticky bar.
+- Do this using the “last-known-good” V1 layout (restore to just before the last breaking change), then copy that restored V1 into Modern.
+- Keep Modern’s meta tags unique (canonical/robots/FAQ JSON-LD markers), even though the layout matches V1.
 
-## What I found in your codebase
-- Route `/lp/company-formation-consultancy-modern` renders `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`.
-- That page currently renders:
-  1) `<CompanyFormationHeroMontage ... />`
-  2) `<CompanyLogosTicker />`
-- `CompanyFormationHeroMontage` (`src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`) is a shared hero used by multiple landing pages and contains a **left text column + right image montage**.
-- You want this redesign **only for the modern page**, so we should **not** change `CompanyFormationHeroMontage` globally.
+Why this is needed (what I found in code)
+- `/company-formation-consultancy-bahrain` is implemented in `src/pages/landing/CompanyFormationConsultancyLanding.tsx` and uses:
+  - `LandingHeader` + `LandingFooter`
+  - More complex split-section layout (`SplitSection`, `EditorialImage`, multiple sections)
+  - `MobileStickyConsultationBar`
+- `/lp/company-formation-consultancy-modern` is currently implemented in `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx` and (right now) matches V2 structure (uses `ConsultancyV2Header` + `ConsultancyV2Footer`, “outcome strip” sections, etc.), not V1.
+- Therefore, the correct approach is:
+  1) Restore V1 to the last-good state (so we have the correct V1 source to copy)
+  2) Then overwrite Modern page component to match that restored V1 component structure and UI
 
-## Implementation approach (safe + isolated)
-Create a **new hero component** used only by the modern landing page, rather than modifying the shared montage hero:
-- New component: `CompanyFormationHeroCentered.tsx` (placed alongside the existing hero in `src/pages/landing/company-formation/`)
-- Update `CompanyFormationConsultancyLandingModern.tsx` to:
-  - Render `<CompanyLogosTicker />` first
-  - Render the new centered hero after it
-  - Keep the rest of the page unchanged
+Constraints / Important note
+- You are requesting a true “restore” point (“just before last change”). The safest and most accurate way is to use Lovable’s History Restore first (so we’re copying the correct version, not today’s broken file).
+- With Lovable’s message-based revert: restoring cannot be undone (later changes get archived). We will step back carefully.
 
-This avoids unintended design changes to:
-- `/lp/company-formation`
-- `/lp/company-formation-consultancy-v2`
-- `/company-formation-consultancy-bahrain`
-…which all reuse `CompanyFormationHeroMontage`.
+Implementation steps (what I will do once we switch to implementation mode)
+Phase A — Restore V1 (source of truth)
+1) Open History and locate the last message/edit that broke `/company-formation-consultancy-bahrain`.
+2) Click Restore on the message immediately before that breaking change.
+3) Validate that V1 is back to the expected layout:
+   - Desktop + mobile: header, hero, split sections, spacing, and CTA behavior
+   - Check that calculator → continue → booking still works
 
-## Detailed UI behavior (new centered hero)
-The new hero will:
-- Use a clean background similar to the existing hero (`bg-muted/20`, subtle border/overlay allowed)
-- Center everything: `text-center`, `mx-auto`, and a constrained width for readability (e.g. `max-w-3xl`)
-- Keep the same content props as the montage hero so you can reuse the current values:
-  - badgeText, title, titleSuffix, lead, bullets, primaryCtaLabel, phoneCta, showWhatsApp, socialProofLine, onBookClick
-- Layout order (top to bottom):
-  1) Badge pill
-  2) H1 title (+ accent suffix if provided)
-  3) Lead paragraph
-  4) Bullets list (centered; on desktop can switch to 2-column if desired, but default will be single column for clean symmetry)
-  5) CTAs row centered (same CTA logic you already have)
-  6) HeroReviewStrip centered
-  7) socialProofLine (optional)
-  8) final disclaimer line (“Free • No obligation …”)
+Phase B — Copy restored V1 into Modern (target)
+4) Update `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx` to be a clone of the restored V1 page:
+   - Use the same imports/components as V1:
+     - `LandingHeader`, `LandingFooter`
+     - `SplitSection`, `EditorialImage` and the same images
+     - Same section order and content blocks
+     - Same `MobileStickyConsultationBar` behavior
+     - Same CTA scroll targets/IDs (e.g., `top`, `book`, and any others V1 uses)
+   - Keep Modern-specific meta unique:
+     - `data-lp="company-formation-consultancy-modern"` markers
+     - canonical should remain Modern URL (e.g. `/lp/company-formation-consultancy-modern`)
+     - robots noindex follow (as you’ve been using)
+     - FAQ JSON-LD script should keep a Modern-specific `data-lp` attribute to avoid collisions
 
-## Files to change
-1) **Create** `src/pages/landing/company-formation/CompanyFormationHeroCentered.tsx`
-   - Copy the “copy” portion of `CompanyFormationHeroMontage`
-   - Remove all montage/image code
-   - Apply centered layout classes
+5) Ensure Modern does not accidentally keep V2-only pieces:
+   - Remove `ConsultancyV2Header`, `ConsultancyV2Footer`, V2 outcome strip sections, etc.
+   - Make sure the hero props match the V1 copy exactly (V1 uses `CompanyFormationHeroMontage` too, but with V1 copy/CTAs)
 
-2) **Edit** `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-   - Replace current order:
-     - `CompanyFormationHeroMontage` then `CompanyLogosTicker`
-   - With new order:
-     - `CompanyLogosTicker` then `CompanyFormationHeroCentered`
-   - Ensure `onBookClick={() => scrollToId("book")}` still points to the correct section.
+Phase C — QA (must pass)
+6) Side-by-side QA checklist (V1 vs Modern)
+   - Open `/company-formation-consultancy-bahrain` and `/lp/company-formation-consultancy-modern`:
+     - Confirm the header/nav looks identical (LandingHeader)
+     - Confirm hero, typography, spacing identical
+     - Confirm all sections and order match (SplitSections, services accordion, testimonials, booking, FAQs, etc.)
+     - Confirm mobile sticky consultation bar matches
+7) Regression checks
+   - Confirm `/lp/company-formation-consultancy-v2` is unchanged
+   - Confirm other landing routes still render correctly
 
-3) **No changes** to:
-   - `CompanyFormationHeroMontage.tsx` (to avoid global redesign)
-   - `CompanyLogosTicker.tsx` (logos stay as-is)
+Files involved
+- Restore via History: affects whatever file(s) were changed in the breaking message (likely includes `src/pages/landing/CompanyFormationConsultancyLanding.tsx` and possibly shared components).
+- Code change for the copy step (post-restore):
+  - `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx` (primary)
+  - Potentially shared assets/import paths if Modern currently references V2-only assets
 
-## Acceptance checklist (what you will verify in preview)
-- On `/lp/company-formation-consultancy-modern`:
-  - Logos ticker appears first
-  - New hero appears immediately after ticker
-  - Hero has no image
-  - All hero content is centered
-  - Buttons still work and scroll to booking section
-  - Looks good on mobile and desktop (no overflow; bullets and CTAs wrap nicely)
+Expected outcome
+- `/company-formation-consultancy-bahrain` returns to its last-known-good original layout (by restore).
+- `/lp/company-formation-consultancy-modern` becomes an exact replica of that restored V1 layout and behavior, while keeping Modern’s SEO/meta identifiers unique.
 
-## Technical notes / edge cases
-- Ensure the hero section has enough top spacing after the ticker to avoid feeling cramped (e.g. `pt-10 pb-12`).
-- If we keep the “sticky header”, make sure the scroll target (`book`) is not hidden under it. (If it is, we can add `scroll-mt-*` to the booking section anchor in a later pass.)
-- Keep accessibility:
-  - One `<h1>` on the page
-  - Proper `aria-label` for the section
-  - Keep meaningful alt text out since we remove the image
+Risks / how we mitigate
+- Risk: Restoring in History might also roll back some unrelated recent improvements.
+  - Mitigation: Restore only one message back at a time; immediately verify the target page; if too much is lost, restore a different (closer) message.
+- Risk: V1 uses several shared components (SplitSection / images). If any of those were altered in the breaking change, they will be fixed automatically by the restore before we copy.
 
-## Estimated effort
-Small change: 1 new component + 1 page update.
-
+User action needed before I implement
+- Perform the Restore step first (History → restore to just before the breaking change). After the restore is done and you confirm `/company-formation-consultancy-bahrain` looks correct again, I will clone that restored V1 layout into `/lp/company-formation-consultancy-modern` as described above.
