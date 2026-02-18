@@ -32,8 +32,7 @@ import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundO
 import { SplitSection } from "@/components/shared/SplitSection";
 import { EditorialImage } from "@/components/shared/EditorialImage";
 
-import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/CompanyFormationHeroMontage";
-
+import { CompanyFormationHeroCentered } from "@/pages/landing/company-formation/CompanyFormationHeroCentered";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 
@@ -206,7 +205,9 @@ export default function CompanyFormationConsultancyLandingModern() {
         <LandingHeader onLogoClick={() => scrollToId("top")} />
 
         <main id="top" className="flex-1">
-          <CompanyFormationHeroMontage
+          <CompanyLogosTicker />
+
+          <CompanyFormationHeroCentered
             onBookClick={() => scrollToId("book")}
             badgeText="Free consultation • Independent business consultancy"
             title="Company Formation Consultancy in Bahrain"
@@ -222,8 +223,6 @@ export default function CompanyFormationConsultancyLandingModern() {
             showWhatsApp={false}
             socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
           />
-
-          <CompanyLogosTicker />
 
           {/* COST CALCULATOR */}
           <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden bg-secondary/30">
