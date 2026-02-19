@@ -1,91 +1,91 @@
 
-## Goal
-1) Make the FAQ section display in two columns on desktop, with smaller FAQ text.
-2) Redesign the final CTA section to match the look/structure of your reference image (clean centered card, icon badge, big headline with one accent word), while keeping your current CTA wording and keeping two buttons.
+## What you want
+On **/lp/company-formation-consultancy-modern**:
+- **Every section divider/border should span the full viewport width** (full-bleed horizontal lines).
+- **The actual content should stay inside a centered “frame”** (max-width), so the page doesn’t feel full-width.
 
-## What I found in your code
-- The selected FAQ block is in: `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx` around lines ~734–756.
-  - It renders a single Radix accordion and maps `FAQS` (defined near the top of the same file).
-- The “FINAL CTA” section is in the same file around lines ~758–798.
-- LP styling helpers exist in `src/index.css` (e.g., `.lp-card`, `.lp-card-flat`) and are reused across landing pages.
+You confirmed the border style is: **Full-width top/bottom lines**, and scope is: **Only this landing page**.
 
-## FAQ changes (two columns + smaller text)
-### Approach (based on your choice: “CSS columns flow”)
-We will keep one Accordion, but place the *items* inside a `columns-1 md:columns-2` container so FAQ items flow top-to-bottom in the first column then continue in the second column.
+## What I found in the current page
+File: `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
 
-### Implementation details
-1) In `CompanyFormationConsultancyLandingModern.tsx` FAQ section:
-   - Wrap the mapped `<AccordionItem />` list with a div that uses Tailwind columns:
-     - `className="columns-1 md:columns-2 md:gap-6"`
-   - Add `break-inside-avoid` to each `<AccordionItem>` so an item doesn’t split between columns:
-     - `className="break-inside-avoid"`
-2) Make FAQ question/answer text smaller:
-   - Update `AccordionTrigger` to use a smaller font:
-     - e.g. `text-sm md:text-[13px] font-medium`
-   - Update `AccordionContent` to be smaller as well:
-     - e.g. `text-xs md:text-[13px] leading-relaxed text-muted-foreground`
-3) Spacing tweaks for readability in columns:
-   - Add per-item vertical spacing (since columns remove flex “space-y” behavior):
-     - e.g. apply `mb-2 md:mb-3` on each AccordionItem, or add `py` padding within trigger/content.
+Right now the page does this:
+- Hero + ticker + sticky nav are already largely “full width”.
+- After that, the rest of the content is wrapped in a single framed container:
+  - `mx-auto ... md:border-x ...` (so the *frame* exists)
+  - But the **section separators/borders are not full-bleed**, because everything is inside the frame wrapper.
 
-### Edge cases / notes
-- Radix Accordion “single” behavior will still work; opening an item in the left column won’t break layout.
-- When an item expands, the column height changes; that’s expected with CSS columns. If you later prefer a more stable layout, we can switch to two separate accordions (left/right arrays) instead.
+So we need to change the layout strategy: keep the frame for content, but draw section borders **outside** that frame.
 
-## CTA redesign (match reference image style, keep your copy, keep two buttons)
-### Visual targets from your image
-- Large rounded card with a thin border
-- Very clean, centered layout
-- Small “badge icon” floating at the top
-- Headline with one accent-colored word
-- Short supporting line
-- Primary button emphasized; secondary button optional but present (you chose two buttons)
+## Implementation approach (page-only, minimal disruption)
+### 1) Remove the “one big frame” wrapper
+Currently there is a wrapper like:
+- `div className={cn("mx-auto ... md:border-x ...", FRAME_MAX_W_CLASS)}`
+that contains many sections.
 
-### Implementation details
-1) Replace the current FINAL CTA inner layout (currently left text + right buttons) with a centered layout:
-   - Center align text and buttons: `text-center`, `mx-auto`, constrained width like `max-w-3xl`.
-2) Add a small top icon badge:
-   - Use an existing Lucide icon already imported (e.g., `ShieldCheck` or `Sparkles`) inside a rounded square:
-     - outer: `w-12 h-12 rounded-2xl border bg-background/80 backdrop-blur flex items-center justify-center`
-     - inner: `w-5 h-5 text-accent`
-   - Position: centered, slightly overlapping the card top (translate up) similar to screenshot.
-3) Headline styling:
-   - Keep your wording: “Ready to Start Your Business in Bahrain?”
-   - Apply accent color to one word (e.g., “Business” or “Bahrain”) by splitting into spans:
-     - `Ready to Start Your <span className="text-accent">Business</span> in Bahrain?`
-4) Supporting copy:
-   - Keep your existing paragraph but make it tighter and centered.
-5) Buttons:
-   - Keep two buttons but style to match the reference:
-     - Primary: larger pill button, accent background (use your existing button class approach; if `.btn-gold` exists elsewhere we can reuse it; otherwise keep the default primary with rounded-full + padding tweaks).
-     - Secondary: outline pill button, same height.
-   - Place buttons centered and stacked on mobile:
-     - `flex flex-col sm:flex-row gap-3 justify-center`
-6) Background/decoration:
-   - Keep `SectionBackgroundOverlay` but reduce visual noise so it matches the clean reference:
-     - lower opacity and/or switch to a simpler overlay variant already used in the project (we’ll pick from existing variants in `SectionBackgroundOverlay`).
-   - Ensure the card border and rounded corners match the screenshot:
-     - `rounded-[32px]` (or `rounded-3xl`) + `border border-border/60`.
+We will replace that with a “section wrapper” pattern so **each section** can:
+- Render a full-bleed border line
+- Still place content inside a framed inner container
 
-### Optional (if you want it even closer)
-- Add subtle corner strokes using pseudo-elements; however that’s extra CSS. We’ll first try to match using existing overlays + border.
+### 2) Introduce a small local helper component inside the same file
+Inside `CompanyFormationConsultancyLandingModern.tsx`, add a small helper (no new files) like:
 
-## Files to change
-- `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-  - FAQ section: add CSS columns wrapper + reduce font sizes.
-  - Final CTA section: restructure markup to centered layout, add icon badge, highlight one word, restyle buttons.
-- Potentially `src/index.css` (only if we need a reusable CTA helper class; otherwise we’ll keep it all Tailwind in the component).
+- `FullBleedSection`
+  - Outer element: `section` (or `div`) that is `relative` and has `border-b border-border/60` (and optionally `border-t` for the first one if desired)
+  - Add a dedicated full-bleed border line using an absolutely positioned element:
+    - `absolute left-1/2 -translate-x-1/2 w-screen border-b border-border/60 bottom-0`
+  - Inner “frame”: `div className={cn("mx-auto", FRAME_MAX_W_CLASS, "md:border-x md:border-border/60 bg-background")}`
+  - Then inside that: existing `container mx-auto px-4 md:px-6 ...`
 
-## Acceptance checklist (what you’ll see in preview)
-- FAQ:
-  - On desktop: two columns of FAQs inside the same card.
-  - On mobile: single column.
-  - Question + answer text noticeably smaller and easier to scan.
-- CTA:
-  - Centered card with top icon badge.
-  - Headline uses your wording with one accent-colored word.
-  - Two centered buttons; primary looks stronger and closer to the reference.
-  - Overall clean, minimal look similar to the screenshot.
+This guarantees:
+- The horizontal border is truly **full viewport width**
+- The content stays within the framed max-width
+- The vertical frame borders can remain (only on md+), but the user’s key request (full-width section border) is satisfied
 
-## Quick question I’ll decide during implementation (no need for more input unless you care)
-- Which word to highlight in accent color in the CTA headline (I’ll default to “Business” unless you specify “Bahrain”).
+### 3) Apply the wrapper to each major section block
+We’ll update these blocks (at minimum):
+- Cost calculator section
+- Blockers SplitSection
+- Approach SplitSection
+- Services SplitSection
+- Testimonials section
+- About section
+- Booking/Contact section
+- FAQs section
+- Final CTA section
+
+For `SplitSection` usage:
+- Keep `SplitSection` as-is for layout
+- Wrap each `SplitSection` call inside `FullBleedSection` so the border is full width, but the `SplitSection` content remains framed.
+
+For plain `<section>` blocks (Testimonials/FAQs/CTA):
+- Replace their outer `<section ...>` with `<FullBleedSection ...>` and keep the existing inner `container` markup (or let the wrapper provide the frame + container and simplify).
+
+### 4) Keep existing sticky header/nav behavior intact
+- `LandingHeader layout="framed"` already correctly keeps header content framed with full-width bottom border line.
+- `LandingStickyNav` currently renders a `border-b` in a full-width background area; we’ll keep it, but ensure it visually aligns with the new full-bleed section borders (same `border-border/60`).
+
+### 5) Visual consistency rules (so it matches your reference look)
+- Use the same border token everywhere: `border-border/60`
+- Ensure full-bleed borders align exactly with viewport edges using `w-screen` + `left-1/2 -translate-x-1/2`
+- Ensure sections don’t “double-border” where two sections touch:
+  - Prefer only `border-b` on each section, and optionally a single top border at the start of the framed content region
+
+## Files that will change
+- `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx` (only)
+
+## Acceptance checks (what you should see)
+- On desktop:
+  - Each section is separated by a **full-width horizontal border line** that spans edge-to-edge.
+  - Content remains in a centered max-width frame (does not expand to full width).
+- On mobile:
+  - Same full-width borders.
+  - Content remains padded and readable.
+- No layout regressions in:
+  - Sticky header
+  - Sticky in-page nav
+  - SplitSection image/text alignment
+
+## Notes / trade-offs
+- This approach avoids creating global layout changes and keeps the change isolated to this landing page.
+- If later you want this pattern reused across multiple landing pages, we can promote `FullBleedSection` into a shared component—right now we’ll keep it local as requested.
