@@ -1,142 +1,179 @@
 
-## Goal
-Increase the framed/container width of the landing page at `/lp/company-formation-consultancy-modern` from **1120px** to **1260px**, while keeping the **same border behavior and full-bleed lines** (header bottom border and logo ticker top/bottom borders remain full width).
-
-You confirmed:
-- Apply to **this page only**
-- Borders should keep the **same look, just wider** (borders move outward with the frame)
-- Hero should also **align to 1260px**
+## Goal (what will improve)
+Make `/lp/company-formation-consultancy-modern` feel more modern + corporate and increase conversions with the primary KPI: **more cost calculator completions**, while also:
+- Making the **hero dot-grid overlay clearly visible** (like your reference snippet)
+- Adding **stronger social proof**
+- Adding a **sticky section nav** (Calculator / Blockers / Services / Book)
+- Keeping the existing 1260px framed layout + borders behavior unchanged
 
 ---
 
-## What’s currently enforcing 1120px
-The “1120px frame” is hardcoded in multiple places:
+## What I observed in the current page
+### Strengths
+- Clear hero headline + 3 bullets + strong CTA cluster.
+- The page already has a good structure: Calculator → Blockers → Approach → Services → Reviews → Book → FAQs → Final CTA.
+- The frame width is already aligned to 1260px for this page and for header/ticker/hero centered layout.
 
-1) **Header frame**
-- `src/components/landing/LandingHeader.tsx`
-  - In `layout="framed"` it uses: `mx-auto max-w-[1120px] ...`
+### Main conversion friction (calculator completions)
+- The hero’s primary CTA goes to booking (“Get Free Consultation”) rather than “Start calculator” (your KPI).
+- The calculator section is first in the framed content, but there isn’t a “guided path” from hero → calculator (users may bounce before reaching it).
+- Social proof is present, but not strongly connected to the calculator step (where we want people to act).
 
-2) **Logo ticker frame**
-- `src/components/landing/CompanyLogosTicker.tsx`
-  - Inner frame uses: `mx-auto max-w-[1120px] border-x ... overflow-hidden`
+### Hero overlay visibility
+- The current hero overlay is implemented as an `absolute inset-0` pattern using `hsl(var(--border)_/_0.7)` with opacity.
+- Your reference overlay uses a very explicit light dot grid on a white background:
+  - `bg-white`
+  - `bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]`
+  - `[background-size:16px_16px]`
+  - strong radial mask
 
-3) **Hero internal alignment**
+We should match that pattern more literally, but keep it theme-safe and readable.
+
+---
+
+## Decisions already locked (from your answers)
+- Primary goal: **More calculator completes**
+- Audience: **Mixed**
+- Tone: **Corporate**
+- Priorities: **Stronger overlay + more social proof + sticky nav**
+
+---
+
+## Implementation approach (high-impact, low-risk changes)
+We’ll do the upgrade in 3 layers:
+
+1) **Hero & top-of-page conversion direction**
+   - Make the hero’s primary path “Start calculator” (or “Get estimate”) and keep “Book free consultation” as secondary.
+   - Keep phone/WhatsApp for corporate credibility, but de-emphasize them as “support channels” rather than the main next step.
+
+2) **Sticky navigation for clarity**
+   - Add a slim sticky in-page nav (desktop + mobile-friendly) just below the main header (or inside the framed area) with anchors:
+     - Calculator, Blockers, Approach, Services, Reviews, Book
+   - Use existing `scrollToId()` smooth scroll.
+   - Highlight the active section as user scrolls (simple IntersectionObserver) to increase perceived polish.
+
+3) **Social proof where it matters (near calculator)**
+   - Add a compact “Trust strip” above the calculator form:
+     - “4.9/5 Google Reviews”, “500+ clients”, “Independent consultancy”
+     - optionally include a mini row of logo icons or reuse the existing logo ticker impression with smaller static logos in-frame.
+   - Add “What you’ll get” micro-list next to calculator to reduce uncertainty.
+
+---
+
+## Detailed change list (what will change on the page)
+
+### A) Hero overlay: make the dot-grid visibly match your reference
+**File:** `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+
+- Replace the current single overlay div with a two-layer structure that mirrors:
+  - base background (white / background)
+  - dot-grid overlay with clear color token
+  - radial mask to fade edges
+- Ensure visibility across light backgrounds:
+  - use a dot color equivalent to `#e5e7eb` (Tailwind gray-200) or a theme token that maps similarly.
+  - add a slightly higher opacity only in the hero area (but keep it subtle).
+
+Acceptance criteria:
+- On desktop, dots are clearly visible behind the hero headline (like your screenshot expectation).
+- On mobile, no moiré issues and still subtle.
+
+---
+
+### B) Hero CTA: re-route to calculator completions (primary KPI)
+**File:** `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+
+- Add section IDs:
+  - `id="calculator"` on cost calculator section
+  - `id="blockers"`, `id="approach"`, `id="services"`, `id="reviews"`, `id="book"`
+- Update hero CTAs:
+  - Primary CTA: “Start cost calculator” → `scrollToId("calculator")`
+  - Secondary CTA: “Book free consultation” → `scrollToId("book")`
+  - Keep phone and WhatsApp as tertiary (outline) actions or move them slightly below.
+
+Acceptance criteria:
+- Clicking the main hero button scrolls to the calculator section reliably.
+- Users still have a clear path to booking.
+
+---
+
+### C) Add sticky section nav (corporate, clean, framed)
+**File:** `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx` (page-only)
+
+- Build a small `LandingStickyNav` component inside the page (no shared refactor needed):
+  - `position: sticky; top: 80px` (below the main header height)
+  - Inside the 1260px frame, with the same border treatment as the page (thin border, background blur optional)
+  - Buttons/links for: Calculator / Blockers / Approach / Services / Reviews / Book
+  - Active state on scroll:
+    - use IntersectionObserver to set `activeSection`
+    - apply corporate style: underline or subtle pill highlight
+
+Acceptance criteria:
+- Nav stays visible while scrolling through framed content.
+- No overlap with MobileStickyConsultationBar at the bottom.
+- Works on small screens without wrapping badly (horizontal scroll area if needed).
+
+---
+
+### D) Social proof placement upgrade near calculator (to drive completion)
+**File:** `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+
+- In the calculator section, add a compact trust + benefit panel:
+  - “Trusted by 500+ clients” / “4.9/5 Google Reviews”
+  - “Independent consultancy (not government)”
+  - “Takes ~60 seconds”
+- Optionally add a small row of logos (static) inside the frame for corporate credibility (not the animated ticker, just 4–6).
+  - If we reuse existing logo assets, no new images required.
+
+Acceptance criteria:
+- Calculator section looks more “decision-safe” and more corporate.
+- The proof doesn’t overpower the calculator UI.
+
+---
+
+### E) Corporate tone refinements (copy + hierarchy, not redesigning everything)
+**File:** `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+
+Small copy and hierarchy tweaks aligned to corporate tone:
+- Reduce “salesy” phrasing, keep direct clarity.
+- Add “What you’ll get” microheader near calculator and booking.
+- Keep disclaimers present (already good).
+
+Acceptance criteria:
+- Page reads more formal and “consultancy-like” without losing clarity.
+
+---
+
+## Files to modify
 - `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
-  - Centered variant uses: `max-w-[1120px]` for the main content container and the media panel container.
-
-4) **This page’s framed body wrapper**
 - `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-  - After the ticker: `max-w-[1120px] bg-background md:border-x ...`
 
-If we only change one of these, borders and content alignment will look “off” (e.g., header frame still narrower than body, or hero narrower than ticker).
-
----
-
-## Implementation approach (page-only, minimal risk)
-Because you want this change for **this page only**, the cleanest approach is to make the shared components accept an optional “frame width” override, without changing the default behavior for other pages.
-
-### 1) Introduce a shared constant for this page (1260px)
-In `CompanyFormationConsultancyLandingModern.tsx` we’ll define something like:
-- `const FRAME_MAX_W_CLASS = "max-w-[1260px]";`
-
-Then we’ll pass it to the components that support it (after step 2 and 3 below) and apply it to the page wrapper.
-
-Why: prevents typos and ensures the header/ticker/hero/body all match exactly.
+(Optionally, if we decide to standardize an overlay variant rather than inline classes:)
+- `src/components/shared/SectionBackgroundOverlay.tsx` (only if needed)
 
 ---
 
-## Code changes (by file)
+## QA checklist (end-to-end)
+1) Desktop:
+- Hero overlay dots are clearly visible.
+- Primary hero CTA scrolls to calculator; secondary scrolls to book.
+- Sticky nav highlights correct section as you scroll.
 
-### A) `src/components/landing/LandingHeader.tsx`
-Add a new optional prop to control the framed container width:
+2) Mobile:
+- Sticky nav remains usable (no cramped wrapping).
+- No horizontal scrolling introduced by nav.
+- MobileStickyConsultationBar still works and doesn’t cover important content.
 
-- New prop (optional):
-  - `frameMaxWidthClassName?: string` (default undefined)
-- When `layout === "framed"`, instead of hardcoding `max-w-[1120px]`, use:
-  - `frameMaxWidthClassName ?? "max-w-[1120px]"`
-
-This keeps all other pages unchanged unless they explicitly pass the prop.
-
-**Border behavior stays the same**:
-- Header bottom border remains full width (it’s on the `<header>` already).
-- Side borders remain on md+ as currently implemented (`md:border-x ...`) unless you want that changed later.
-
----
-
-### B) `src/components/landing/CompanyLogosTicker.tsx`
-Add a new optional prop to control the ticker’s inner framed width:
-
-- New prop (optional):
-  - `frameMaxWidthClassName?: string` (default undefined)
-- Replace `max-w-[1120px]` with:
-  - `frameMaxWidthClassName ?? "max-w-[1120px]"`
-
-This preserves:
-- Full-bleed top/bottom borders (outer section)
-- Clipped scrolling logos (inner frame `overflow-hidden`)
-- Side borders always visible (you already chose this; we keep it)
+3) Conversion path:
+- User can go: Hero → Calculator → Continue → Book smoothly.
+- All CTAs scroll to correct anchors.
 
 ---
 
-### C) `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
-Add an optional prop to control hero internal max width (centered variant):
+## Rollout strategy (safe iterations)
+To keep changes controlled and measurable:
+1) Implement **hero overlay + hero CTA to calculator** first (fast, high impact).
+2) Add **sticky nav** next.
+3) Add **calculator-area social proof** last and tune density.
 
-- New prop (optional):
-  - `contentMaxWidthClassName?: string` (or `frameMaxWidthClassName?: string`)
-- Replace both instances of `max-w-[1120px]` in the centered variant with:
-  - `contentMaxWidthClassName ?? "max-w-[1120px]"`
+If you want, we can A/B-like test by keeping copy changes minimal in the first pass and focusing on navigation + CTA routing + proof placement.
 
-This ensures:
-- The centered hero copy block stays centered but is aligned to the wider 1260px frame.
-- The hero image panel container aligns to the same width.
-
-We will keep the internal text max widths (like `max-w-[860px]` for copy) unless you want those expanded too; widening those can reduce readability.
-
----
-
-### D) `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-Apply 1260px to the framed wrapper and pass width overrides into header/ticker/hero:
-
-1) Update the framed wrapper after ticker:
-- Change `max-w-[1120px]` → `max-w-[1260px]`
-
-2) Update header call:
-- `LandingHeader layout="framed" ... frameMaxWidthClassName={FRAME_MAX_W_CLASS}`
-
-3) Update ticker call:
-- `<CompanyLogosTicker frameMaxWidthClassName={FRAME_MAX_W_CLASS} />`
-
-4) Update hero montage call:
-- `<CompanyFormationHeroMontage ... contentMaxWidthClassName={FRAME_MAX_W_CLASS} />`
-
-Result: header frame, hero alignment, ticker frame, and the entire framed body are all exactly 1260px and visually consistent.
-
----
-
-## QA / Visual verification checklist (what to test)
-1) Desktop
-- Confirm header framed background/borders align with the body frame (no “step-in”).
-- Confirm hero content and hero media panel align to the new 1260px frame.
-- Confirm logo ticker inner frame width matches the body frame.
-
-2) Mobile
-- Ensure no horizontal scroll appears.
-- Ensure ticker still clips correctly and side borders show as before.
-
-3) Sections using `SplitSection`
-- Confirm “Common blockers”, “Our approach”, “Services”, etc. still look correct with the wider frame (they use `container` internally; widening the outer frame should still feel cohesive).
-
----
-
-## Notes / edge cases
-- Tailwind `container` has its own max widths; however, your frame strategy is based on explicit `max-w-[…px]` wrappers and border frames. We’re keeping that model and simply widening the frame.
-- Other landing pages will remain 1120px because the default max width stays `max-w-[1120px]` unless overridden.
-- If you later decide “all framed landing pages should be 1260px”, we can centralize the frame width into a single design token (e.g., a shared constant or Tailwind theme extension) and remove the overrides.
-
----
-
-## Files to be modified
-- `src/components/landing/LandingHeader.tsx`
-- `src/components/landing/CompanyLogosTicker.tsx`
-- `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
-- `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
