@@ -284,8 +284,8 @@ export default function CompanyFormationConsultancyLandingModern() {
               <ul className="divide-y divide-border/40">
                 {COMMON_BLOCKERS.map(({ title, Icon }) => (
                   <li key={title} className="flex gap-3 px-5 py-4 sm:px-6 sm:py-5">
-                    <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full border border-border/30 bg-muted/20 shrink-0">
-                      <Icon className="h-4 w-4 text-muted-foreground" />
+                    <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/30 bg-muted/20 shrink-0">
+                      <Icon className="h-5 w-5 text-muted-foreground" />
                     </span>
                     <p className="text-base font-medium leading-relaxed text-foreground/90">{title}</p>
                   </li>
