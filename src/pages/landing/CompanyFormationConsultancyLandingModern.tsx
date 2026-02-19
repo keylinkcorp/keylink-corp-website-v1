@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -128,6 +129,8 @@ const COMMON_BLOCKERS: IconCardItem[] = [
 export default function CompanyFormationConsultancyLandingModern() {
   const navigate = useNavigate();
 
+  const FRAME_MAX_W_CLASS = "max-w-[1260px]";
+
   const calendlyUrl = useMemo(() => {
     if (typeof window === "undefined") return CALENDLY_BASE_URL;
     return mergeQueryParams(CALENDLY_BASE_URL, window.location.search);
@@ -205,11 +208,16 @@ export default function CompanyFormationConsultancyLandingModern() {
   return (
     <div className="min-h-screen bg-muted/20 cfc-typography">
       {/* Full-width sticky header with full-width bottom border */}
-      <LandingHeader layout="framed" onLogoClick={() => scrollToId("top")} />
+      <LandingHeader
+        layout="framed"
+        frameMaxWidthClassName={FRAME_MAX_W_CLASS}
+        onLogoClick={() => scrollToId("top")}
+      />
       <main id="top" className="flex-1">
         {/* Full-width hero (no side frame borders) */}
         <CompanyFormationHeroMontage
           variant="centered"
+          contentMaxWidthClassName={FRAME_MAX_W_CLASS}
           imageSrc={consultancyHeroImage}
           onBookClick={() => scrollToId("book")}
           badgeText="Free consultation • Independent business consultancy"
@@ -228,10 +236,10 @@ export default function CompanyFormationConsultancyLandingModern() {
         />
 
         {/* Logos ticker: full-width borders, framed logos */}
-        <CompanyLogosTicker />
+        <CompanyLogosTicker frameMaxWidthClassName={FRAME_MAX_W_CLASS} />
 
         {/* Framed content starts AFTER the ticker */}
-        <div className="mx-auto min-h-screen max-w-[1120px] bg-background md:border-x md:border-border/60">
+        <div className={cn("mx-auto min-h-screen bg-background md:border-x md:border-border/60", FRAME_MAX_W_CLASS)}>
           {/* COST CALCULATOR */}
           <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden bg-secondary/30">
             <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />

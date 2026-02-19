@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 import versedag from "@/assets/company-logos/versedag.png";
 import cbre from "@/assets/company-logos/cbre.png";
 import braxtone from "@/assets/company-logos/braxtone.png";
@@ -20,14 +22,21 @@ const logos = [
   { name: "Nimble", src: nimble, alt: "Nimble logo" },
 ];
 
-export function CompanyLogosTicker() {
+type CompanyLogosTickerProps = {
+  /** Optional max-width override for the framed ticker container. */
+  frameMaxWidthClassName?: string;
+};
+
+export function CompanyLogosTicker({ frameMaxWidthClassName }: CompanyLogosTickerProps) {
+  const framedMaxW = frameMaxWidthClassName ?? "max-w-[1120px]";
+
   return (
     <section
       aria-label="Company logos"
       className="relative border-y border-border/60"
     >
       {/* Framed ticker (clips the scroll inside the frame) */}
-      <div className="mx-auto max-w-[1120px] border-x border-border/60 bg-muted/10 overflow-hidden">
+      <div className={cn("mx-auto border-x border-border/60 bg-muted/10 overflow-hidden", framedMaxW)}>
         <div className="relative py-6">
           {/* Fade edges (kept inside the framed layout) */}
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-r from-muted/10 to-transparent z-10" />
