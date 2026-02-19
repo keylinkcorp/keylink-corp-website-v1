@@ -265,6 +265,8 @@ export default function CompanyFormationConsultancyLandingModern() {
             title="Starting a Business in Bahrain? Here’s What Usually Slows People Down"
             subtitle="We help you turn uncertainty into a clear sequence: what to prepare, what to decide, and what to expect—before you spend time or fees."
             useLpHeadings
+            align="center"
+            headerPlacement="top"
             imageSrc={howItWorksImage}
             imageAlt="Consultant explaining options and requirements"
             imagePosition="right"
@@ -278,15 +280,17 @@ export default function CompanyFormationConsultancyLandingModern() {
             imageOverlayStrength={0.55}
             imageImgClassName="object-[center_35%]"
           >
-            <div className="grid md:grid-cols-2 gap-4">
-              {COMMON_BLOCKERS.map(({ title, Icon }) => (
-                <div key={title} className="lp-card p-5 sm:p-6 md:p-7">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
-                    <Icon className="h-5 w-5 text-accent" />
-                  </span>
-                  <p className="mt-3 text-base leading-relaxed text-foreground/90">{title}</p>
-                </div>
-              ))}
+            <div className="rounded-2xl border border-border/30 bg-card/40 backdrop-blur-sm">
+              <ul className="divide-y divide-border/40">
+                {COMMON_BLOCKERS.map(({ title, Icon }) => (
+                  <li key={title} className="flex gap-3 px-5 py-4 sm:px-6 sm:py-5">
+                    <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full border border-border/30 bg-muted/20 shrink-0">
+                      <Icon className="h-4 w-4 text-muted-foreground" />
+                    </span>
+                    <p className="text-base font-medium leading-relaxed text-foreground/90">{title}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             <div className="mt-7 lp-card-flat bg-muted/20 p-6 md:p-7">

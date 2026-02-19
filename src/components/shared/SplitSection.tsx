@@ -23,6 +23,8 @@ type SplitSectionProps = {
   subtitleTopMarginClassName?: string;
   align?: "left" | "center";
   headerSize?: "default" | "compact";
+  /** Where to render the header (badge/title/subtitle). Defaults to inside the content column. */
+  headerPlacement?: "column" | "top";
   /** Apply LP-specific calmer heading scale (does not affect global typography). */
   useLpHeadings?: boolean;
   leadClassName?: string;
@@ -81,6 +83,7 @@ export function SplitSection({
   subtitleTopMarginClassName,
   align = "left",
   headerSize = "default",
+  headerPlacement = "column",
   useLpHeadings = false,
   leadClassName,
   hideImageCaption = false,
@@ -121,6 +124,9 @@ export function SplitSection({
   const resolvedBadgeClassName = badgeClassName ?? "section-badge";
   const resolvedTitleTopMargin = titleTopMarginClassName ?? "mt-3";
   const resolvedSubtitleTopMargin = subtitleTopMarginClassName ?? "mt-4";
+
+  const renderHeaderOnTop = headerPlacement === "top";
+  const renderHeaderInColumn = !renderHeaderOnTop;
 
   const useEditorialImage = imageTreatment !== "none";
 
@@ -226,8 +232,10 @@ export function SplitSection({
 
 
       <div className="container relative z-10">
+        {renderHeaderOnTop ? <div className="max-w-6xl mx-auto">{Header}</div> : null}
+
         {layout === "stacked" ?
-        <div className="max-w-6xl mx-auto">
+         <div className="max-w-6xl mx-auto">
             <div className={cn(imageClassName)}>
               {useEditorialImage ?
             typeof stackedImageRatio === "number" ?
@@ -293,7 +301,7 @@ export function SplitSection({
           null}
 
             <div className="mt-8">
-              {Header}
+              {renderHeaderInColumn ? Header : null}
               {children}
             </div>
           </div> :
@@ -307,7 +315,7 @@ export function SplitSection({
               imagePosition === "left" ? "lg:order-2" : "lg:order-1"
             )}>
 
-              {Header}
+              {renderHeaderInColumn ? Header : null}
               {children}
             </div>
 
