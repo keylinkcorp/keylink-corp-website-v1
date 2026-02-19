@@ -318,6 +318,8 @@ export default function CompanyFormationConsultancyLandingModern() {
             title="A 5‑Step Consultancy Process (Consultation → Checklist → Guidance)"
             subtitle="We provide independent advisory and guidance; authorities issue the CR. We keep everything structured, clear, and focused on decision-making."
             useLpHeadings
+            align="center"
+            headerPlacement="top"
             imageSrc={bookingImage}
             imageAlt="Consultation booking and checklist preview"
             imagePosition="left"
