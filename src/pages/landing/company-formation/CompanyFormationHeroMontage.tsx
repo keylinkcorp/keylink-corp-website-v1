@@ -6,12 +6,9 @@ import {
   Phone,
   Shield,
   Sparkles,
-  Play,
 } from "lucide-react";
 
 import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
-import { EditorialImage } from "@/components/shared/EditorialImage";
-import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 import { Button } from "@/components/ui/button";
 
 import heroImage from "@/assets/formation-hero-professional-portrait.jpg";
@@ -31,16 +28,6 @@ type CompanyFormationHeroMontageProps = {
   showWhatsApp?: boolean;
   /** Optional short social proof line shown under the review strip. */
   socialProofLine?: string;
-
-  /** If true, show a centered mock media panel beneath the hero. Defaults to false. */
-  showMockPanel?: boolean;
-  /** Optional CTA displayed in the mock panel header row. */
-  mockPanelCta?: { label: string; onClick: () => void };
-  /** Optional image shown in the mock panel. */
-  mockPanelImageSrc?: string;
-  mockPanelImageAlt?: string;
-  /** Optional short line shown above the mock panel (kept minimal). */
-  mockPanelEyebrow?: string;
 };
 
 export function CompanyFormationHeroMontage({
@@ -59,35 +46,18 @@ export function CompanyFormationHeroMontage({
   phoneCta,
   showWhatsApp = true,
   socialProofLine,
-  showMockPanel = false,
-  mockPanelCta,
-  mockPanelImageSrc,
-  mockPanelImageAlt = "Preview of the company formation checklist and calculator",
-  mockPanelEyebrow = "Preview",
 }: CompanyFormationHeroMontageProps) {
   return (
     <section className="relative overflow-hidden">
-      {/* MagicUI-inspired light background layers */}
-      <div aria-hidden className="absolute inset-0 bg-secondary/50" />
-      <div aria-hidden className="absolute inset-0 mesh-gradient-gold opacity-60" />
-      <SectionBackgroundOverlay
-        variant="grid-lines"
-        opacity={0.35}
-        masked
-        className="mix-blend-multiply"
-      />
-      <div
-        aria-hidden
-        className="absolute -top-24 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full blur-3xl"
-        style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.18) 0%, transparent 70%)" }}
-      />
+      {/* Calm background (no decorative blobs) */}
+      <div aria-hidden className="absolute inset-0 bg-muted/20" />
 
-      <div className="relative container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-10 md:pb-12">
+      <div className="relative container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-12 md:pb-16">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           {/* Copy */}
           <div className="lg:col-span-6">
             <div>
-              <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 backdrop-blur-sm px-3 py-1 text-xs text-muted-foreground tracking-tight">
+              <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs text-muted-foreground tracking-tight">
                 <Sparkles className="h-4 w-4 text-accent" />
                 {badgeText}
               </p>
@@ -134,7 +104,9 @@ export function CompanyFormationHeroMontage({
 
               <HeroReviewStrip className="mt-5" />
 
-              {socialProofLine ? <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p> : null}
+              {socialProofLine ? (
+                <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p>
+              ) : null}
 
               <p className="mt-3 text-xs text-muted-foreground">
                 Free • No obligation • You’ll get a cost breakdown + document checklist
@@ -169,70 +141,6 @@ export function CompanyFormationHeroMontage({
             </div>
           </div>
         </div>
-
-        {showMockPanel ? (
-          <div className="mt-10 md:mt-12">
-            <div className="mx-auto max-w-4xl">
-              <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background/70 backdrop-blur-sm">
-                {/* inner highlight */}
-                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-border/50" />
-                <div aria-hidden className="absolute inset-0 noise-texture opacity-[0.35]" />
-
-                <div className="relative p-4 sm:p-5">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                    <div>
-                      <p className="text-xs text-muted-foreground">{mockPanelEyebrow}</p>
-                      <p className="mt-1 text-sm font-semibold text-foreground">
-                        See how the checklist + calculator works
-                      </p>
-                    </div>
-
-                    {mockPanelCta ? (
-                      <Button variant="outline" size="sm" onClick={mockPanelCta.onClick}>
-                        {mockPanelCta.label}
-                      </Button>
-                    ) : null}
-                  </div>
-
-                  <div className="mt-4">
-                    {mockPanelImageSrc ? (
-                      <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card">
-                        <EditorialImage
-                          src={mockPanelImageSrc}
-                          alt={mockPanelImageAlt}
-                          ratio={16 / 10}
-                          overlayStrength={0.35}
-                          imgClassName="object-[center_40%]"
-                        />
-
-                        {/* play decoration */}
-                        <div
-                          aria-hidden
-                          className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                        >
-                          <div className="rounded-full border border-border/60 bg-background/75 backdrop-blur-sm p-4 shadow-[0_14px_50px_hsl(var(--navy)/0.10)]">
-                            <Play className="h-6 w-6 text-accent" />
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="rounded-2xl border border-border/60 bg-muted/20 p-10 text-center text-sm text-muted-foreground">
-                        Media preview
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mt-4 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
-                    <p className="text-xs text-muted-foreground">
-                      Static preview (no video) • Fast loading
-                    </p>
-                    <p className="text-xs text-muted-foreground">Scroll-friendly • No popups</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : null}
       </div>
     </section>
   );

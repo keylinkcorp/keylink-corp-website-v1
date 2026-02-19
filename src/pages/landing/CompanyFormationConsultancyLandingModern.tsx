@@ -221,20 +221,12 @@ export default function CompanyFormationConsultancyLandingModern() {
             phoneCta={{ href: "tel:+97317008888", label: "Call +97317008888" }}
             showWhatsApp={false}
             socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
-            showMockPanel
-            mockPanelCta={{ label: "Explore calculator", onClick: () => scrollToId("calculator") }}
-            mockPanelImageSrc={costCalculatorPortraitImage}
-            mockPanelImageAlt="Preview of the cost calculator and checklist"
           />
 
           <CompanyLogosTicker />
 
           {/* COST CALCULATOR */}
-          <section
-            id="calculator"
-            aria-label="Cost calculator"
-            className="section-spacing-sm relative overflow-hidden bg-secondary/30"
-          >
+          <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden bg-secondary/30">
             <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
             <div className="container mx-auto px-4 md:px-6 relative z-10">
               <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
@@ -258,18 +250,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                     Answer a few questions to see a simple cost breakdown, then continue to your free consultation.
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {["Instant estimate", "Plain-English", "No obligation"].map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-border/50 bg-background/70 px-3 py-1 text-xs text-muted-foreground"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-7">
+                  <div className="mt-8">
                     <ConsultancyCostCalculator onContinue={() => navigate("/free-consultation")} />
                   </div>
                 </div>
@@ -554,71 +535,6 @@ export default function CompanyFormationConsultancyLandingModern() {
             </div>
           </section>
 
-          {/* FEATURE GRID */}
-          <section className="section-spacing-sm relative overflow-hidden">
-            <SectionBackgroundOverlay variant="dots" opacity={0.55} masked />
-
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <span className="section-badge">What you get</span>
-              <h2 className="lp-h2">A clearer setup—without the guesswork</h2>
-              <p className="mt-4 lp-section-subtitle">
-                A structured, checklist-driven approach designed for decision-making. No fluff.
-              </p>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {[
-                  {
-                    label: "Tailored checklist",
-                    desc: "Get a document checklist aligned to your activity and shareholders.",
-                    Icon: ClipboardList,
-                  },
-                  {
-                    label: "Sequenced next steps",
-                    desc: "Know what to do first, what can wait, and what depends on approvals.",
-                    Icon: Route,
-                  },
-                  {
-                    label: "Cost driver clarity",
-                    desc: "Understand what impacts your fees and what choices change the numbers.",
-                    Icon: Layers,
-                  },
-                  {
-                    label: "Compliance checkpoints",
-                    desc: "Guidance on common approvals and documentation readiness.",
-                    Icon: ShieldCheck,
-                  },
-                  {
-                    label: "Fast responses",
-                    desc: "Keep momentum with clear communication and coordinated next steps.",
-                    Icon: MessageSquareText,
-                  },
-                  {
-                    label: "Timeline realism",
-                    desc: "Plan around realistic timelines so your launch stays predictable.",
-                    Icon: Clock,
-                  },
-                ].map(({ label, desc, Icon }) => (
-                  <div key={label} className="lp-card p-6 md:p-7">
-                    <div className="flex items-start gap-4">
-                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
-                        <Icon className="h-5 w-5 text-accent" />
-                      </span>
-                      <div>
-                        <p className="text-base font-semibold text-foreground">{label}</p>
-                        <p className="mt-1 text-base text-muted-foreground leading-relaxed">{desc}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
-                <Button variant="outline" onClick={() => scrollToId("calculator")}>Explore calculator</Button>
-              </div>
-            </div>
-          </section>
-
           {/* TESTIMONIALS */}
           <section className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
@@ -784,15 +700,8 @@ export default function CompanyFormationConsultancyLandingModern() {
           <section className="section-spacing-sm relative overflow-hidden">
             <SectionBackgroundOverlay variant="ibelick-soft" opacity={0.85} masked />
             <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background/70 backdrop-blur-sm p-7 sm:p-8 md:p-10">
+              <div className="relative overflow-hidden lp-card p-7 sm:p-8 md:p-10">
                 <div aria-hidden className="absolute inset-0 overlay-gold-radial-center opacity-35" />
-                <div
-                  aria-hidden
-                  className="absolute -top-24 left-1/2 h-[520px] w-[980px] -translate-x-1/2 rounded-full blur-3xl"
-                  style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.22) 0%, transparent 68%)" }}
-                />
-                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-border/50" />
-
                 <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                   <div>
                     <h2 className="lp-h2 text-foreground">Ready to Start Your Business in Bahrain?</h2>
@@ -820,7 +729,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-2xl border border-border/60 bg-muted/20 p-5">
+                <div className="mt-6 lp-card-flat bg-muted/20 p-5">
                   <p className="text-xs text-muted-foreground">
                     Want to move faster? Ask for the document checklist template during your consultation.
                   </p>

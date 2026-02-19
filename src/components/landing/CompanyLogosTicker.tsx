@@ -24,41 +24,28 @@ export function CompanyLogosTicker() {
   return (
     <section
       aria-label="Company logos"
-      className="relative overflow-hidden border-y border-border/60 bg-secondary/40"
+      className="relative overflow-hidden border-y border-border/60 bg-muted/10"
     >
       {/* Fade edges */}
-      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-secondary/40 to-transparent z-10" />
-      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-secondary/40 to-transparent z-10" />
+      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/10 to-transparent z-10" />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/10 to-transparent z-10" />
 
-      <div className="relative container mx-auto px-4 md:px-6 py-8">
-        <div className="flex items-baseline justify-between gap-6">
-          <div>
-            <p className="text-xs font-medium text-muted-foreground">Trusted by teams in Bahrain</p>
-            <p className="mt-1 text-sm font-semibold text-foreground">Real businesses. Real setups.</p>
-          </div>
-          <p className="hidden md:block text-xs text-muted-foreground">Logos scroll on hover pause</p>
-        </div>
-
-        <div className="mt-5 relative overflow-hidden rounded-2xl border border-border/60 bg-background/70 backdrop-blur-sm">
-          <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-border/50" />
-          <div className="relative py-5">
-            <div className="flex items-center gap-12 md:gap-16 logo-ticker">
-              {[...logos, ...logos].map((logo, index) => (
-                <div
-                  key={`${logo.name}-${index}`}
-                  className="flex-shrink-0 flex items-center justify-center h-10 md:h-12"
-                >
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    loading="lazy"
-                    className="h-7 md:h-8 w-auto object-contain grayscale opacity-60 contrast-125"
-                    draggable={false}
-                  />
-                </div>
-              ))}
+      <div className="relative py-6">
+        <div className="flex items-center gap-12 md:gap-16 logo-ticker">
+          {[...logos, ...logos].map((logo, index) => (
+            <div
+              key={`${logo.name}-${index}`}
+              className="flex-shrink-0 flex items-center justify-center h-10 md:h-12"
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                loading="lazy"
+                className="h-7 md:h-8 w-auto object-contain grayscale opacity-60 contrast-125"
+                draggable={false}
+              />
             </div>
-          </div>
+          ))}
         </div>
       </div>
 
