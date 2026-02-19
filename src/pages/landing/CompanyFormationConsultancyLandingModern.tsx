@@ -212,6 +212,36 @@ export default function CompanyFormationConsultancyLandingModern() {
 
   const FRAME_MAX_W_CLASS = "max-w-[1260px]";
 
+  function FullBleedSection({
+    children,
+    className,
+    withTopBorder,
+  }: {
+    children: React.ReactNode;
+    className?: string;
+    withTopBorder?: boolean;
+  }) {
+    return (
+      <div className={cn("relative", className)}>
+        {withTopBorder ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-0 h-0 w-screen -translate-x-1/2 border-t border-border/60"
+          />
+        ) : null}
+
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 bottom-0 h-0 w-screen -translate-x-1/2 border-b border-border/60"
+        />
+
+        <div className={cn("mx-auto bg-background md:border-x md:border-border/60", FRAME_MAX_W_CLASS)}>
+          {children}
+        </div>
+      </div>
+    );
+  }
+
   const calendlyUrl = useMemo(() => {
     if (typeof window === "undefined") return CALENDLY_BASE_URL;
     return mergeQueryParams(CALENDLY_BASE_URL, window.location.search);
@@ -319,7 +349,7 @@ export default function CompanyFormationConsultancyLandingModern() {
         <LandingStickyNav frameMaxWidthClassName={FRAME_MAX_W_CLASS} />
 
         {/* Framed content starts AFTER the ticker */}
-        <div className={cn("mx-auto min-h-screen bg-background md:border-x md:border-border/60", FRAME_MAX_W_CLASS)}>
+        <FullBleedSection withTopBorder>
           {/* COST CALCULATOR */}
           <section
             id="calculator"
@@ -370,9 +400,11 @@ export default function CompanyFormationConsultancyLandingModern() {
               </div>
             </div>
           </section>
+        </FullBleedSection>
 
-          {/* PROBLEM */}
-          <div id="blockers" className="scroll-mt-32" />
+        {/* PROBLEM */}
+        <div id="blockers" className="scroll-mt-32" />
+        <FullBleedSection>
           <SplitSection
             badge="Common blockers"
             title="Starting a Business in Bahrain? Here’s What Usually Slows People Down"
@@ -410,17 +442,17 @@ export default function CompanyFormationConsultancyLandingModern() {
               <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
                 <div>
                   <p className="text-base font-semibold text-foreground">Get clarity in one free consultation.</p>
-                  <p className="mt-1 text-base text-muted-foreground">
-                    Clear checklist • Realistic timeline • Plain‑English next steps
-                  </p>
+                  <p className="mt-1 text-base text-muted-foreground">Clear checklist • Realistic timeline • Plain‑English next steps</p>
                 </div>
                 <Button onClick={() => scrollToId("book")}>Book free consultation</Button>
               </div>
             </div>
           </SplitSection>
+        </FullBleedSection>
 
-          {/* SOLUTION (5-step process) */}
-          <div id="approach" className="scroll-mt-32" />
+        {/* SOLUTION (5-step process) */}
+        <div id="approach" className="scroll-mt-32" />
+        <FullBleedSection>
           <SplitSection
             badge="Our approach"
             title="A 5‑Step Consultancy Process (Consultation → Checklist → Guidance)"
@@ -495,14 +527,14 @@ export default function CompanyFormationConsultancyLandingModern() {
                   Call for consultation
                 </a>
               </Button>
-              <Button variant="outline" onClick={() => scrollToId("calculator")}>
-                Back to calculator
-              </Button>
+              <Button variant="outline" onClick={() => scrollToId("calculator")}>Back to calculator</Button>
             </div>
           </SplitSection>
+        </FullBleedSection>
 
-          {/* SERVICES */}
-          <div id="services" className="scroll-mt-32" />
+        {/* SERVICES */}
+        <div id="services" className="scroll-mt-32" />
+        <FullBleedSection>
           <SplitSection
             badge="Services"
             title="Business Setup Advisory Services in Bahrain"
@@ -598,9 +630,11 @@ export default function CompanyFormationConsultancyLandingModern() {
               </Accordion>
             </div>
           </SplitSection>
+        </FullBleedSection>
 
-          {/* TESTIMONIALS */}
-          <div id="reviews" className="scroll-mt-32" />
+        {/* TESTIMONIALS */}
+        <div id="reviews" className="scroll-mt-32" />
+        <FullBleedSection>
           <section aria-label="Testimonials" className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
               <div className="max-w-3xl">
@@ -644,8 +678,10 @@ export default function CompanyFormationConsultancyLandingModern() {
               </div>
             </div>
           </section>
+        </FullBleedSection>
 
-          {/* ABOUT */}
+        {/* ABOUT */}
+        <FullBleedSection>
           <section className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
@@ -680,16 +716,17 @@ export default function CompanyFormationConsultancyLandingModern() {
               </div>
             </div>
           </section>
+        </FullBleedSection>
 
-          {/* BOOKING / CONTACT */}
-          <div id="book" className="scroll-mt-32" />
+        {/* BOOKING / CONTACT */}
+        <div id="book" className="scroll-mt-32" />
+        <FullBleedSection>
           <section aria-label="Request a free consultation" className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
               <span className="section-badge">Get started</span>
               <h2 className="lp-h2">Request your free consultation</h2>
               <p className="mt-4 lp-section-subtitle">
-                Share a few details first so we can prepare the right checklist—then you can book immediately if you’d
-                like.
+                Share a few details first so we can prepare the right checklist—then you can book immediately if you’d like.
               </p>
             </div>
 
@@ -730,8 +767,10 @@ export default function CompanyFormationConsultancyLandingModern() {
               />
             </div>
           </section>
+        </FullBleedSection>
 
-          {/* FAQs */}
+        {/* FAQs */}
+        <FullBleedSection>
           <section aria-label="FAQs" className="section-spacing-sm bg-muted/10">
             <div className="container mx-auto px-4 md:px-6">
               <div className="max-w-3xl">
@@ -760,8 +799,10 @@ export default function CompanyFormationConsultancyLandingModern() {
               </div>
             </div>
           </section>
+        </FullBleedSection>
 
-          {/* FINAL CTA */}
+        {/* FINAL CTA */}
+        <FullBleedSection>
           <section className="section-spacing-sm relative overflow-hidden">
             <SectionBackgroundOverlay variant="radial" opacity={1} masked />
             <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -781,8 +822,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                   </h2>
 
                   <p className="mt-4 text-base md:text-lg text-muted-foreground">
-                    What happens next: we review your details, share a tailored checklist, and confirm the most practical
-                    next steps for your timeline.
+                    What happens next: we review your details, share a tailored checklist, and confirm the most practical next steps for your timeline.
                   </p>
 
                   <ul className="mt-7 flex flex-wrap justify-center gap-2">
@@ -822,8 +862,10 @@ export default function CompanyFormationConsultancyLandingModern() {
               </div>
             </div>
           </section>
+        </FullBleedSection>
 
-          {/* FOOTER DISCLAIMER (page-specific) */}
+        {/* FOOTER DISCLAIMER (page-specific) */}
+        <FullBleedSection>
           <section className="pb-10">
             <div className="container mx-auto px-4 md:px-6">
               <div className="lp-card-flat bg-muted/20 p-5">
@@ -833,15 +875,15 @@ export default function CompanyFormationConsultancyLandingModern() {
               </div>
             </div>
           </section>
+        </FullBleedSection>
 
-          <MobileStickyConsultationBar
-            onConsultationClick={() => scrollToId("book")}
-            phoneHref="tel:+97317008888"
-            phoneLabel="Call for consultation"
-          />
+        <MobileStickyConsultationBar
+          onConsultationClick={() => scrollToId("book")}
+          phoneHref="tel:+97317008888"
+          phoneLabel="Call for consultation"
+        />
 
-          <LandingFooter />
-        </div>
+        <LandingFooter />
       </main>
     </div>
   );
