@@ -9,7 +9,9 @@ import {
 } from "lucide-react";
 
 import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
+import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 import heroImage from "@/assets/formation-hero-professional-portrait.jpg";
 
@@ -28,6 +30,8 @@ type CompanyFormationHeroMontageProps = {
   showWhatsApp?: boolean;
   /** Optional short social proof line shown under the review strip. */
   socialProofLine?: string;
+  /** Layout variant. Defaults to the original split layout for backwards compatibility. */
+  variant?: "split" | "centered";
 };
 
 export function CompanyFormationHeroMontage({
@@ -46,7 +50,99 @@ export function CompanyFormationHeroMontage({
   phoneCta,
   showWhatsApp = true,
   socialProofLine,
+  variant = "split",
 }: CompanyFormationHeroMontageProps) {
+  if (variant === "centered") {
+    return (
+      <section className="relative overflow-hidden">
+        <div aria-hidden className="absolute inset-0 bg-muted/20" />
+        <SectionBackgroundOverlay variant="dots" opacity={0.65} masked />
+
+        <div className="relative container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-10 md:pb-14">
+          {/* Copy */}
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
+              <Sparkles className="h-4 w-4 text-accent" />
+              {badgeText}
+            </p>
+
+            <h1 className="lp-h1 lp-hero-title text-balance">
+              {title}
+              {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
+            </h1>
+
+            <p className="mt-5 lp-lead mx-auto max-w-[62ch]">{lead}</p>
+
+            <ul className="mt-7 mx-auto grid gap-3 text-sm max-w-[58ch]">
+              {bullets.map((item) => (
+                <li key={item.text} className="flex items-start gap-3 text-left text-foreground/90">
+                  <item.icon className="mt-0.5 h-4 w-4 text-accent" />
+                  {item.text}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-7 flex flex-col sm:flex-row justify-center gap-3">
+              <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
+                {primaryCtaLabel}
+              </Button>
+
+              {phoneCta ? (
+                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                  <a href={phoneCta.href}>
+                    <Phone className="mr-2" />
+                    {phoneCta.label}
+                  </a>
+                </Button>
+              ) : null}
+
+              {showWhatsApp ? (
+                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                  <a href="https://wa.me/97317008888">
+                    <MessageCircle className="mr-2" />
+                    WhatsApp
+                  </a>
+                </Button>
+              ) : null}
+            </div>
+
+            <HeroReviewStrip className="mt-6 justify-center" />
+
+            {socialProofLine ? <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p> : null}
+
+            <p className="mt-3 text-xs text-muted-foreground">
+              Free • No obligation • You’ll get a cost breakdown + document checklist
+            </p>
+          </div>
+
+          {/* Media panel */}
+          <div className="mt-10 md:mt-12 mx-auto max-w-5xl">
+            <div className="relative rounded-3xl overflow-hidden lp-card-flat border border-border/60 bg-background">
+              <img
+                src={heroImage}
+                alt="Business consultation for company formation in Bahrain"
+                className="w-full h-[320px] md:h-[460px] object-cover"
+                loading="eager"
+                fetchPriority="high"
+              />
+              <div className="absolute inset-0 overlay-navy-vertical" />
+
+              <div className="absolute bottom-5 left-5 right-5">
+                <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-accent" />
+                    <span className="text-sm text-foreground font-medium">Free 30‑minute call • Google Meet</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">Same‑page booking</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative overflow-hidden">
       {/* Calm background (no decorative blobs) */}
@@ -84,7 +180,7 @@ export function CompanyFormationHeroMontage({
                 </Button>
 
                 {phoneCta ? (
-                  <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                  <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
                     <a href={phoneCta.href}>
                       <Phone className="mr-2" />
                       {phoneCta.label}
@@ -93,7 +189,7 @@ export function CompanyFormationHeroMontage({
                 ) : null}
 
                 {showWhatsApp ? (
-                  <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                  <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
                     <a href="https://wa.me/97317008888">
                       <MessageCircle className="mr-2" />
                       WhatsApp
@@ -104,9 +200,7 @@ export function CompanyFormationHeroMontage({
 
               <HeroReviewStrip className="mt-5" />
 
-              {socialProofLine ? (
-                <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p>
-              ) : null}
+              {socialProofLine ? <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p> : null}
 
               <p className="mt-3 text-xs text-muted-foreground">
                 Free • No obligation • You’ll get a cost breakdown + document checklist
