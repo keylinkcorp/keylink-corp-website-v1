@@ -1,83 +1,85 @@
 
 Goal
-- On the route `/lp/company-formation-consultancy-modern`, make the image/media appear before the text content on mobile for these sections:
-  - Hero section
-  - Common blockers
-  - Services
-  - About
-- Desktop layout must remain unchanged.
+- Update ONLY the Header + Hero on `/lp/company-formation-consultancy-modern` to feel like the reference (Apify-style): clean, centered, airy hero with subtle dot-grid background.
+- Keep all other sections exactly the same.
+- Header should remain sticky, but have no bottom border.
 
-What I found in the codebase (current behavior)
-1) Hero
-- Implemented via `CompanyFormationHeroMontage` (not `SplitSection`).
-- Layout: `grid lg:grid-cols-12 ...` with two children:
-  - Copy column: `lg:col-span-6`
-  - Image/montage column: `lg:col-span-6`
-- On mobile, the DOM order is copy first, image second, so copy appears first.
+What I learned from the codebase
+- This page uses:
+  - `LandingHeader` (currently has `border-b border-border/60`)
+  - `CompanyFormationHeroMontage` for the hero
+- The hero component is likely reused on other company-formation pages, so changes should be opt-in to avoid altering other routes unintentionally.
 
-2) Common blockers (SplitSection)
-- Uses `<SplitSection ... badge="Common blockers" imagePosition="right" ... />`
-- Currently, without a `mobileOrder` override, mobile stays “content first” due to DOM order.
+Decisions confirmed from you (via questions)
+- Hero layout: “Centered + keep image”
+- Header buttons: “Call + WhatsApp (no border)”
 
-3) Services (SplitSection)
-- Uses `<SplitSection ... badge="Services" imagePosition="right" ... />`
-- Same behavior as above.
+Implementation approach (opt-in, minimal blast radius)
+1) Make the header border optional (borderless just for this page)
+- Update `src/components/landing/LandingHeader.tsx`
+  - Add a prop like: `borderless?: boolean`
+  - If `borderless` is true: remove `border-b border-border/60` from the header classes.
+  - Default stays unchanged so other pages keep their current header styling.
+- Update `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+  - Change usage to: `<LandingHeader borderless onLogoClick={...} />`
+  - Result: only this page gets the borderless header.
 
-4) About
-- This section is not a SplitSection. It’s a custom `grid lg:grid-cols-2`.
-- On mobile, DOM order is content first, then the `EditorialImage`, so content appears first.
+2) Add a “centered hero” variant to CompanyFormationHeroMontage (don’t break other pages)
+- Update `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+  - Add a prop like: `variant?: "split" | "centered"` (default `"split"` to preserve existing behavior elsewhere).
+  - Implement `"centered"` layout:
+    - Center-align badge, headline, lead, and bullet list (or keep bullets but centered and constrained width).
+    - Center CTA row (primary button + Call + WhatsApp), matching the clean “hero controls” feel.
+    - Keep the existing hero image, but present it as a centered “media panel” below the copy:
+      - A single rounded card/panel with shadow and subtle border.
+      - Keep overlay gradient if needed for contrast.
+    - Add a subtle background inspired by the screenshot:
+      - Light background + dot-grid overlay with a gentle mask/fade (top/bottom) so it doesn’t look noisy.
+      - Keep it static (no scroll/entrance animations), consistent with your “static landing page” constraint.
 
-Key decision confirmed
-- You confirmed: “Always image first (mobile)” for these sections (even if imagePosition is right on desktop).
+3) Apply the new hero variant ONLY on the modern consultancy landing page
+- Update `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+  - Pass `variant="centered"` to `CompanyFormationHeroMontage`.
+  - No other sections touched.
 
-Implementation approach (what will change)
-A) Common blockers + Services (SplitSection instances)
-- For both SplitSection blocks in `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`:
-  - Add: `mobileOrder="image-first"`
-- This uses the existing `SplitSection` API already implemented:
-  - On mobile (below lg): image column gets `order-1`, content column gets `order-2`
-  - On desktop (lg+): existing `lg:order-*` logic still ensures the intended `imagePosition="right"` layout remains unchanged.
+Visual behavior targets (what you’ll see)
+Header
+- Sticky header remains.
+- No bottom border line.
+- Still shows Logo + (Call + WhatsApp) on desktop per current behavior.
 
-B) Hero section (CompanyFormationHeroMontage)
-- Update `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx` to explicitly control order on mobile only:
-  - Add `order-*` classes to the two main grid children:
-    - Copy wrapper: `order-2 lg:order-1`
-    - Image wrapper: `order-1 lg:order-2`
-- This ensures:
-  - Mobile: image first, then copy
-  - Desktop: copy left, image right (same as now)
-
-C) About section (custom grid)
-- Update the About section markup inside `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`:
-  - Apply order classes to the two grid children:
-    - Text/content column wrapper: `order-2 lg:order-1`
-    - Image wrapper: `order-1 lg:order-2`
-- This ensures:
-  - Mobile: About image first, then About text
-  - Desktop: About text left, image right (same as now)
+Hero (centered)
+- Large centered headline.
+- Centered subtitle/lead with comfortable max width.
+- Centered CTA row.
+- Image appears as a centered panel beneath copy (especially similar to the screenshot’s “main panel” area).
+- Background gets a subtle dot-grid texture like the reference, but using your existing brand tokens and light MagicUI-style aesthetic.
 
 Files to change
-1) `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
-- Add responsive `order-*` classes to swap the two columns on mobile only.
+- `src/components/landing/LandingHeader.tsx`
+  - Add `borderless?: boolean` prop and conditional classNames.
+- `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+  - Add `variant?: "split" | "centered"` prop.
+  - Add centered layout rendering branch and background treatment.
+- `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+  - Set `LandingHeader borderless`
+  - Set hero `variant="centered"`
 
-2) `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-- Common blockers SplitSection: add `mobileOrder="image-first"`
-- Services SplitSection: add `mobileOrder="image-first"`
-- About section: add `order-*` classes to swap columns on mobile only
+QA checklist (end-to-end)
+1) Route: `/lp/company-formation-consultancy-modern`
+- Desktop:
+  - Header has no border; CTA buttons still present.
+  - Hero is centered and looks like the reference style; image panel sits below.
+  - Other sections (Cost calculator, Common blockers, Services, About, etc.) remain unchanged.
+- Mobile:
+  - Header sticky, no border.
+  - Hero copy and CTAs centered; image panel below.
+  - Ensure spacing doesn’t feel cramped and no horizontal overflow.
 
-Verification checklist (end-to-end)
-1) Mobile viewport (e.g. 390x844)
-- Hero: image/montage appears above hero text and CTA buttons.
-- Common blockers: the SplitSection image appears above the blockers card grid.
-- Services: the SplitSection image appears above the accordion/services content.
-- About: the About image appears above the About text card.
+2) Regression check (other routes that use `LandingHeader` or `CompanyFormationHeroMontage`)
+- Confirm other pages still show the bordered header (default).
+- Confirm other pages still use the existing hero “split” layout (default), unless we explicitly opt them into `variant="centered"`.
 
-2) Desktop viewport (lg+)
-- Hero remains: text left, image right.
-- Common blockers: image stays on the right (as designed by `imagePosition="right"`).
-- Services: image stays on the right.
-- About remains: text left, image right.
-
-Edge cases / notes
-- This change is intentionally scoped to the modern consultancy landing route and the shared hero component; it won’t globally change other pages unless they reuse `CompanyFormationHeroMontage` (if they do, we can add an opt-in prop like `mobileMediaFirst?: boolean` to avoid affecting other pages).
-- The SplitSection `mobileOrder="image-first"` is opt-in per section, so it’s safe and targeted.
+Potential edge cases / notes
+- If the centered hero makes the page feel “too tall,” we can tighten vertical padding (pt/pb) only in the centered variant.
+- If you later want the hero to include a “search bar” control like the screenshot, we can add an optional prop for that without disturbing the current CTA layout.
