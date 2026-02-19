@@ -24,7 +24,7 @@ export function CompanyLogosTicker() {
   return (
     <section
       aria-label="Company logos"
-      className="relative overflow-hidden border-y border-border/60 bg-muted/10"
+      className="relative overflow-hidden border-y border-border/60 bg-muted/10 w-screen ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]"
     >
       {/* Fade edges */}
       <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/10 to-transparent z-10" />
