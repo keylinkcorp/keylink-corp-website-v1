@@ -58,87 +58,87 @@ export function CompanyFormationHeroMontage({
         <div aria-hidden className="absolute inset-0 bg-muted/20" />
         <SectionBackgroundOverlay variant="radial" opacity={0.9} masked />
 
-        <div className="relative mx-auto max-w-[1120px] px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16">
-          {/* Copy */}
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
-              <Sparkles className="h-[22px] w-[22px] text-accent" />
-              {badgeText}
-            </p>
+          <div className="relative mx-auto max-w-[1120px] px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16">
+            {/* Copy */}
+            <div className="mx-auto max-w-[860px] text-center">
+              <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
+                <Sparkles className="h-[22px] w-[22px] text-accent" />
+                {badgeText}
+              </p>
 
-            <h1 className="lp-h1 lp-hero-title text-balance">
-              {title}
-              {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
-            </h1>
+              <h1 className="lp-h1 lp-hero-title text-balance">
+                {title}
+                {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
+              </h1>
 
-            <p className="mt-5 lp-lead mx-auto max-w-[62ch]">{lead}</p>
+              <p className="mt-5 lp-lead mx-auto max-w-[68ch]">{lead}</p>
 
-            <ul className="mt-8 mx-auto grid gap-3 text-sm max-w-[58ch]">
-              {bullets.map((item) => (
-                <li key={item.text} className="flex items-start gap-3 text-left text-foreground/90">
-                  <item.icon className="mt-0.5 h-[22px] w-[22px] text-accent" />
-                  {item.text}
-                </li>
-              ))}
-            </ul>
+              <ul className="mt-8 mx-auto grid max-w-[640px] gap-3 text-left text-sm">
+                {bullets.map((item) => (
+                  <li key={item.text} className="flex items-start gap-3 text-foreground/90">
+                    <item.icon className="mt-0.5 h-[22px] w-[22px] text-accent" />
+                    <span className="leading-relaxed">{item.text}</span>
+                  </li>
+                ))}
+              </ul>
 
-            <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-center gap-3">
-              <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
-                {primaryCtaLabel}
-              </Button>
-
-              {phoneCta ? (
-                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                  <a href={phoneCta.href}>
-                    <Phone className="mr-2 h-[22px] w-[22px]" />
-                    {phoneCta.label}
-                  </a>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+                <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
+                  {primaryCtaLabel}
                 </Button>
-              ) : null}
 
-              {showWhatsApp ? (
-                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                  <a href="https://wa.me/97317008888">
-                    <MessageCircle className="mr-2 h-[22px] w-[22px]" />
-                    WhatsApp
-                  </a>
-                </Button>
-              ) : null}
+                {phoneCta ? (
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+                    <a href={phoneCta.href}>
+                      <Phone className="mr-2 h-[22px] w-[22px]" />
+                      {phoneCta.label}
+                    </a>
+                  </Button>
+                ) : null}
+
+                {showWhatsApp ? (
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+                    <a href="https://wa.me/97317008888">
+                      <MessageCircle className="mr-2 h-[22px] w-[22px]" />
+                      WhatsApp
+                    </a>
+                  </Button>
+                ) : null}
+              </div>
+
+              <HeroReviewStrip className="mt-8 justify-center" />
+
+              {socialProofLine ? <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p> : null}
+
+              <p className="mt-3 text-xs text-muted-foreground">
+                Free • No obligation • You’ll get a cost breakdown + document checklist
+              </p>
             </div>
 
-            <HeroReviewStrip className="mt-7 justify-center" />
+            {/* Media panel */}
+            <div className="mt-10 md:mt-12 mx-auto max-w-[1120px]">
+              <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background lp-card-flat">
+                <img
+                  src={heroImage}
+                  alt="Business consultation for company formation in Bahrain"
+                  className="h-[320px] w-full object-cover md:h-[460px]"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+                <div className="absolute inset-0 overlay-navy-vertical" />
 
-            {socialProofLine ? <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p> : null}
-
-            <p className="mt-3 text-xs text-muted-foreground">
-              Free • No obligation • You’ll get a cost breakdown + document checklist
-            </p>
-          </div>
-
-          {/* Media panel */}
-          <div className="mt-10 md:mt-12 mx-auto max-w-5xl">
-            <div className="relative rounded-3xl overflow-hidden lp-card-flat border border-border/60 bg-background">
-              <img
-                src={heroImage}
-                alt="Business consultation for company formation in Bahrain"
-                className="w-full h-[320px] md:h-[460px] object-cover"
-                loading="eager"
-                fetchPriority="high"
-              />
-              <div className="absolute inset-0 overlay-navy-vertical" />
-
-              <div className="absolute bottom-5 left-5 right-5">
-                <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-[22px] w-[22px] text-accent" />
-                    <span className="text-sm text-foreground font-medium">Free 30‑minute call • Google Meet</span>
+                <div className="absolute bottom-5 left-5 right-5">
+                  <div className="lp-card-flat flex items-center justify-between gap-3 bg-background/90 p-3 backdrop-blur-sm md:p-4">
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-[22px] w-[22px] text-accent" />
+                      <span className="text-sm font-medium text-foreground">Free 30‑minute call • Google Meet</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">Same‑page booking</span>
                   </div>
-                  <span className="text-xs text-muted-foreground">Same‑page booking</span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
       </section>
     );
   }
