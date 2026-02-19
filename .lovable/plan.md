@@ -1,92 +1,93 @@
 
 Goal
-- Update the “Common blockers” section layout to match the reference screenshot style while keeping all existing text/content the same.
-- Keep every other section on the page unchanged (Services, About, etc.).
-- Preserve existing responsive behavior (image first on mobile; on desktop keep the intended two-column layout).
+- Make the hero area feel “full width” (no left/right side borders visible around the hero) while keeping the rest of the landing page in the current bordered layout.
+- Keep the header bottom border full width (edge-to-edge across the screen), not limited to the bordered content container.
+- Keep content (text, buttons, hero image) the same; this is layout-only.
 
-What you’re asking for (based on the screenshot + selected element)
-- A section with:
-  1) A large, centered headline at the top (spanning the section width).
-  2) Under it, a two-column layout:
-     - Left column: a clean vertical list of blockers with thin dividers (not individual “cards”).
-     - Right column: the existing image.
-- Content should remain exactly the same (same title/subtitle and same blocker item text).
+What’s happening now (why the hero looks bordered)
+- In `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`, the whole page content sits inside:
+  - `max-w-[1120px] bg-background md:border-x md:border-border/60`
+- Because the hero and header are inside that wrapper, the vertical borders are visible around them.
+- `LandingHeader` currently supports `borderless`, but the header itself is still “inside” the bordered wrapper, so even if it has a border-b, it’s not full width.
 
-What I found in the codebase (current state)
-- The “Common blockers” section is implemented in:
-  - `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-  - It uses the shared `SplitSection` component (`src/components/shared/SplitSection.tsx`)
-- The current blockers list is rendered as a grid of `lp-card` items (each blocker is a separate card), which doesn’t match the reference.
-- `SplitSection` currently renders its Header (badge/title/subtitle) inside the content column only; it cannot render a centered, full-width header above both columns.
+Target layout behavior
+1) Header
+- Header stays sticky.
+- Header’s bottom border goes full width (spans the viewport), not just inside the 1120px bordered container.
+- Header content (logo + buttons) stays centered with the usual container padding.
 
-Implementation approach (minimal blast radius)
-A) Extend SplitSection to support “full-width header on top” (opt-in)
-- File: `src/components/shared/SplitSection.tsx`
-- Add a new optional prop:
-  - `headerPlacement?: "column" | "top"` (default: `"column"` to preserve all existing sections)
-- Behavior:
-  - `"column"` (default): current behavior unchanged.
-  - `"top"`: render the existing Header block above the section’s inner layout (so it spans both columns), then render the two-column content/image beneath.
-- This is opt-in and will only affect sections where we explicitly set `headerPlacement="top"`.
+2) Hero section
+- Hero background/section spans full width.
+- The hero area is visually not “inside” the left/right bordered frame.
+- Hero content remains centered and aligned with the rest of the page content width.
 
-B) Update only the Common blockers section instance to use the new header placement + divider list style
-- File: `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-- On the “Common blockers” `<SplitSection ...>`:
-  1) Set:
-     - `headerPlacement="top"`
-     - `align="center"` (so the title/subtitle are centered like the reference)
-  2) Replace the current `COMMON_BLOCKERS.map(...)` card grid with a “divider list” layout:
-     - A single container (left column content area) with:
-       - Each blocker rendered as a row with:
-         - Title text (same as now)
-         - Optional small helper text is not added (to keep content identical)
-       - A thin `border-b` divider between items
-       - Cleaner typography + spacing similar to the screenshot
-     - Keep the CTA block (“Get clarity in one free consultation…”) exactly as-is, just positioned beneath the list with the same button.
+3) All other sections
+- Keep the current “framed” look (max width + left/right borders on md+).
+- No changes to content, ordering, icons, or section internals besides necessary wrappers.
 
-C) Keep all other sections the same
-- No changes to:
-  - Services section
-  - About section
-  - Hero/header (already adjusted earlier)
-  - Any other SplitSection instances unless explicitly targeted
+Implementation approach (minimal, predictable)
+A) Restructure the top-level layout wrapper in `CompanyFormationConsultancyLandingModern.tsx`
+- Split the page into three conceptual layers:
+  1. Full-width header (sticky, with full-width border-b).
+  2. Full-width hero (no side borders).
+  3. Bordered “page frame” wrapper that contains everything after the hero (and keeps the existing borders).
 
-Design details to match the reference (without changing content)
-- The Common blockers list will look like:
-  - Left column:
-    - Item title in semibold
-    - Light divider lines (`border-border/40` or similar)
-    - Comfortable vertical spacing
-    - No card background, no rounded card borders
-  - Right column:
-    - Same image treatment currently provided by `EditorialImage` through `SplitSection`
-- Section header:
-  - Centered title and subtitle above the two columns
-  - Badge can remain (centered) to keep content consistent
+Concretely:
+- Move `<LandingHeader />` out of the bordered wrapper so its border spans `w-full`.
+- Render `<CompanyFormationHeroMontage ... />` outside the bordered wrapper too (so it doesn’t inherit `md:border-x`).
+- Keep the bordered wrapper for the rest of the sections (logos ticker, cost calculator, SplitSections, booking, footer, sticky bar, etc.) so they retain the framed look.
+
+B) Ensure header bottom border is actually on
+- In `CompanyFormationConsultancyLandingModern.tsx`, stop passing `borderless` to `LandingHeader` (or explicitly pass `borderless={false}`).
+- This will restore the header’s `border-b border-border/60` styling.
+- Because the header will now be outside the max-width bordered wrapper, that border will be full-width as requested.
+
+C) Keep content alignment consistent (so hero content still lines up)
+- `CompanyFormationHeroMontage` already uses `container mx-auto px-4 md:px-6`.
+- The bordered wrapper is `max-w-[1120px]` which may not exactly match Tailwind’s `container` width at all breakpoints.
+- To avoid “hero content feels shifted vs other sections”, we’ll do one of these (choose the least disruptive once we inspect the rest of the page structure after line ~411):
+  Option 1 (preferred): Make the bordered wrapper use the same container rhythm
+  - Use a structure like:
+    - Full-width section wrappers
+    - Inside each: `div className="container ..."` for alignment
+    - And apply the border frame to a single shared element that uses `max-w` aligned to the container.
+  Option 2 (minimal code churn): Keep existing `max-w-[1120px]` frame for non-hero sections, and adjust hero to visually match by:
+  - Keeping hero content container as-is
+  - Accepting a small difference if it’s not noticeable
+  - If noticeable, add a “frame width” utility wrapper used by both hero and framed sections (a shared `max-w-[1120px] mx-auto` inner wrapper), without reworking every section.
+
+D) Make hero “remove border both side” visually obvious
+- Since the previous frame added vertical borders, once hero is outside that frame it will naturally have no side borders.
+- If there’s still an unwanted “boxed” feel due to hero media panel borders (`border border-border/60` inside the hero montage), we will not remove them unless you want that too. Your request sounds like the page frame borders, not the hero card border. If you meant also remove the hero media panel border, we can do that as a follow-up toggle (keeps rest of page unchanged).
 
 Files to change
-1) `src/components/shared/SplitSection.tsx`
-- Add `headerPlacement` prop
-- Adjust render logic so Header can optionally be rendered above the split/stacked layouts when `headerPlacement="top"`
+1) `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+- Main change: restructure wrappers so:
+  - `LandingHeader` renders full width (outside the bordered frame)
+  - `CompanyFormationHeroMontage` renders full width (outside the bordered frame)
+  - The bordered frame wrapper starts after hero (and wraps the rest)
+- Ensure header uses bottom border (remove `borderless` prop usage)
 
-2) `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-- Update the “Common blockers” SplitSection instance only:
-  - Add `headerPlacement="top"` and `align="center"`
-  - Change blockers UI from card grid to a divider list while keeping the exact same blocker text
+2) (Only if needed) `src/components/landing/LandingHeader.tsx`
+- Likely no change required, because it already uses `w-full` and has border-b logic.
+- Only adjust if we discover a dependency on being inside the `cfc-typography` wrapper, or if we want the header background/backdrop to match the framed area in a specific way.
 
 QA checklist (end-to-end)
-1) On `/lp/company-formation-consultancy-modern`
-- Desktop:
-  - “Common blockers” heading is centered and spans full width (like the reference)
-  - Below it, left side shows a divider list (not cards), right side shows the image
-  - No other sections visually change
-- Mobile:
-  - Image stays above content (since this section is already configured with `mobileOrder="image-first"`)
-  - Divider list is readable and not clipped; no horizontal overflow
+- On `/lp/company-formation-consultancy-modern`:
+  1) Header:
+     - Sticky behavior still works.
+     - Bottom border spans the full viewport width.
+     - Logo + buttons remain centered and aligned.
+  2) Hero:
+     - No left/right “frame borders” visible around the hero section.
+     - Content (title, bullets, CTAs, image) remains unchanged.
+  3) Other sections:
+     - The framed border (md:border-x) still appears for the rest of the landing page.
+     - No regressions in spacing, backgrounds, or overlays.
+  4) Mobile:
+     - No horizontal overflow.
+     - Visual hierarchy remains: header → hero → rest.
 
-2) Regression check
-- Verify other pages/sections using `SplitSection` still render exactly the same (because `headerPlacement` defaults to `"column"`)
-
-Potential edge cases / notes
-- If centering the header affects spacing too much, we can tune only this instance with `headerClassName`, `titleClassName`, and `subtitleClassName` props (without impacting global styling).
-- If you want the left list to include short descriptions later, we can extend `COMMON_BLOCKERS` to include a description field; for now we’ll keep content identical as requested.
+Potential edge cases / things I’ll watch for
+- If `cfc-typography` styles are needed for the hero typography, we must ensure the hero still inherits them. If `cfc-typography` is currently applied only on the framed wrapper, we may need to apply `cfc-typography` at a higher level (full page wrapper) while applying borders only to the framed container.
+- If `MobileStickyConsultationBar` assumes a certain parent structure, ensure it still renders correctly when wrapper changes.
