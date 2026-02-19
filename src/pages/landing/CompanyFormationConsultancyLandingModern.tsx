@@ -741,11 +741,17 @@ export default function CompanyFormationConsultancyLandingModern() {
               </div>
 
               <div className="mt-8 lp-card p-2 md:p-3">
-                <Accordion type="single" collapsible>
+                <Accordion type="single" collapsible className="columns-1 md:columns-2 md:gap-6">
                   {FAQS.map((f, idx) => (
-                    <AccordionItem key={f.question} value={`faq-${idx}`}>
-                      <AccordionTrigger className="px-4 md:px-5">{f.question}</AccordionTrigger>
-                      <AccordionContent className="px-4 md:px-5 text-sm text-muted-foreground">
+                    <AccordionItem
+                      key={f.question}
+                      value={`faq-${idx}`}
+                      className="break-inside-avoid mb-2 md:mb-3"
+                    >
+                      <AccordionTrigger className="px-4 md:px-5 py-3 text-sm md:text-[13px] font-medium">
+                        {f.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 md:px-5 text-xs md:text-[13px] leading-relaxed text-muted-foreground">
                         {f.answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -757,41 +763,61 @@ export default function CompanyFormationConsultancyLandingModern() {
 
           {/* FINAL CTA */}
           <section className="section-spacing-sm relative overflow-hidden">
-            <SectionBackgroundOverlay variant="ibelick-soft" opacity={0.85} masked />
+            <SectionBackgroundOverlay variant="radial" opacity={1} masked />
             <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <div className="relative overflow-hidden lp-card p-7 sm:p-8 md:p-10">
-                <div aria-hidden className="absolute inset-0 overlay-gold-radial-center opacity-35" />
-                <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-                  <div>
-                    <h2 className="lp-h2 text-foreground">Ready to Start Your Business in Bahrain?</h2>
-                    <p className="mt-3 lp-section-subtitle">
-                      What happens next: we review your details, share a tailored checklist, and confirm the most practical
-                      next steps for your timeline.
-                    </p>
-                    <ul className="mt-6 space-y-2 list-disc pl-5 text-base text-foreground/90">
-                      {["Free consultation (30 min)", "Tailored checklist", "Clear timeline + cost drivers"].map((t) => (
-                        <li key={t}>{t}</li>
-                      ))}
-                    </ul>
-                  </div>
+              <div className="relative overflow-hidden lp-card p-7 sm:p-9 md:p-12 text-center">
+                <div aria-hidden className="absolute inset-0 overlay-gold-radial-center opacity-25" />
 
-                  <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-                    <Button size="lg" className="w-full sm:w-auto" onClick={() => scrollToId("book")}>
+                {/* Icon badge */}
+                <div className="relative mx-auto mb-5 w-fit">
+                  <div className="mx-auto -mt-14 h-14 w-14 rounded-2xl border border-border/60 bg-background/80 backdrop-blur flex items-center justify-center shadow-sm">
+                    <Sparkles className="h-6 w-6 text-accent" />
+                  </div>
+                </div>
+
+                <div className="relative mx-auto max-w-3xl">
+                  <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
+                    Ready to Start Your <span className="text-accent">Business</span> in Bahrain?
+                  </h2>
+
+                  <p className="mt-4 text-base md:text-lg text-muted-foreground">
+                    What happens next: we review your details, share a tailored checklist, and confirm the most practical
+                    next steps for your timeline.
+                  </p>
+
+                  <ul className="mt-7 flex flex-wrap justify-center gap-2">
+                    {["Free consultation (30 min)", "Tailored checklist", "Clear timeline + cost drivers"].map((t) => (
+                      <li
+                        key={t}
+                        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-4 py-2 text-xs md:text-sm text-foreground/90 backdrop-blur-sm"
+                      >
+                        <Check className="h-4 w-4 text-accent" />
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto rounded-full h-12 px-8"
+                      onClick={() => scrollToId("book")}
+                    >
                       Get Free Consultation
                     </Button>
-                    <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto rounded-full h-12 px-8" asChild>
                       <a href="tel:+97317008888">
-                        <Phone className="mr-2 h-[22px] w-[22px]" />
+                        <Phone className="mr-2 h-5 w-5" />
                         Call for consultation
                       </a>
                     </Button>
                   </div>
-                </div>
 
-                <div className="mt-6 lp-card-flat bg-muted/20 p-5">
-                  <p className="text-xs text-muted-foreground">
-                    Want to move faster? Ask for the document checklist template during your consultation.
-                  </p>
+                  <div className="mt-8 lp-card-flat bg-muted/20 p-5">
+                    <p className="text-xs text-muted-foreground">
+                      Want to move faster? Ask for the document checklist template during your consultation.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
