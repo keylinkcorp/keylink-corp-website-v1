@@ -56,9 +56,9 @@ export function CompanyFormationHeroMontage({
     return (
       <section className="relative overflow-hidden">
         <div aria-hidden className="absolute inset-0 bg-muted/20" />
-        <SectionBackgroundOverlay variant="dots" opacity={0.65} masked />
+        <SectionBackgroundOverlay variant="radial" opacity={0.9} masked />
 
-        <div className="relative container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-10 md:pb-14">
+        <div className="relative mx-auto max-w-[1120px] px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16">
           {/* Copy */}
           <div className="mx-auto max-w-3xl text-center">
             <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
@@ -73,7 +73,7 @@ export function CompanyFormationHeroMontage({
 
             <p className="mt-5 lp-lead mx-auto max-w-[62ch]">{lead}</p>
 
-            <ul className="mt-7 mx-auto grid gap-3 text-sm max-w-[58ch]">
+            <ul className="mt-8 mx-auto grid gap-3 text-sm max-w-[58ch]">
               {bullets.map((item) => (
                 <li key={item.text} className="flex items-start gap-3 text-left text-foreground/90">
                   <item.icon className="mt-0.5 h-[22px] w-[22px] text-accent" />
@@ -82,13 +82,13 @@ export function CompanyFormationHeroMontage({
               ))}
             </ul>
 
-            <div className="mt-7 flex flex-col sm:flex-row justify-center gap-3">
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-center gap-3">
               <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
                 {primaryCtaLabel}
               </Button>
 
               {phoneCta ? (
-                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                   <a href={phoneCta.href}>
                     <Phone className="mr-2 h-[22px] w-[22px]" />
                     {phoneCta.label}
@@ -97,7 +97,7 @@ export function CompanyFormationHeroMontage({
               ) : null}
 
               {showWhatsApp ? (
-                <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                   <a href="https://wa.me/97317008888">
                     <MessageCircle className="mr-2 h-[22px] w-[22px]" />
                     WhatsApp
@@ -106,7 +106,7 @@ export function CompanyFormationHeroMontage({
               ) : null}
             </div>
 
-            <HeroReviewStrip className="mt-6 justify-center" />
+            <HeroReviewStrip className="mt-7 justify-center" />
 
             {socialProofLine ? <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p> : null}
 
