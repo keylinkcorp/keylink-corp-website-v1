@@ -309,6 +309,7 @@ export default function CompanyFormationConsultancyLandingModern() {
             imageSrc={bookingImage}
             imageAlt="Consultation booking and checklist preview"
             imagePosition="left"
+            mobileOrder="follow-imagePosition"
             imageSticky
             variant="default"
             backgroundVariant="ibelick-lines"
