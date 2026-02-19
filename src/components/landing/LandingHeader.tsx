@@ -1,14 +1,22 @@
 import { Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { KeylinkLogo } from "@/components/brand/KeylinkLogo";
+import { cn } from "@/lib/utils";
 
 type LandingHeaderProps = {
   onLogoClick?: () => void;
+  /** If true, removes the bottom border (opt-in per page). */
+  borderless?: boolean;
 };
 
-export function LandingHeader({ onLogoClick }: LandingHeaderProps) {
+export function LandingHeader({ onLogoClick, borderless = false }: LandingHeaderProps) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/70 backdrop-blur-xl">
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full bg-background/70 backdrop-blur-xl",
+        borderless ? "border-b-0" : "border-b border-border/60",
+      )}
+    >
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <button
           type="button"

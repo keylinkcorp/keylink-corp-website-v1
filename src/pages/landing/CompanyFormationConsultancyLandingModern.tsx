@@ -203,10 +203,11 @@ export default function CompanyFormationConsultancyLandingModern() {
   return (
     <div className="min-h-screen bg-muted/20">
       <div className="cfc-typography mx-auto min-h-screen max-w-[1120px] bg-background md:border-x md:border-border/60">
-        <LandingHeader onLogoClick={() => scrollToId("top")} />
+        <LandingHeader borderless onLogoClick={() => scrollToId("top")} />
 
         <main id="top" className="flex-1">
           <CompanyFormationHeroMontage
+            variant="centered"
             onBookClick={() => scrollToId("book")}
             badgeText="Free consultation • Independent business consultancy"
             title="Company Formation Consultancy in Bahrain"
@@ -219,7 +220,7 @@ export default function CompanyFormationConsultancyLandingModern() {
             ]}
             primaryCtaLabel="Get Free Consultation"
             phoneCta={{ href: "tel:+97317008888", label: "Call +97317008888" }}
-            showWhatsApp={false}
+            showWhatsApp
             socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
           />
 
