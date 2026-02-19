@@ -1,65 +1,83 @@
 
 Goal
-- On mobile (below lg), for selected SplitSection instances, stack with the image first and the content second when imagePosition="left" (and keep content first when imagePosition="right"), i.e. “follow imagePosition” for mobile order.
-- Apply only to specific sections you choose, not globally.
+- On the route `/lp/company-formation-consultancy-modern`, make the image/media appear before the text content on mobile for these sections:
+  - Hero section
+  - Common blockers
+  - Services
+  - About
+- Desktop layout must remain unchanged.
 
-What’s happening now (root cause)
-- SplitSection renders DOM order as: content column first, image column second.
-- It only uses order utilities at the lg breakpoint:
-  - content: lg:order-2 when imagePosition="left" else lg:order-1
-  - image:   lg:order-1 when imagePosition="left" else lg:order-2
-- Because there is no non-lg “order-*”, mobile keeps the DOM order (content first), even when imagePosition="left".
+What I found in the codebase (current behavior)
+1) Hero
+- Implemented via `CompanyFormationHeroMontage` (not `SplitSection`).
+- Layout: `grid lg:grid-cols-12 ...` with two children:
+  - Copy column: `lg:col-span-6`
+  - Image/montage column: `lg:col-span-6`
+- On mobile, the DOM order is copy first, image second, so copy appears first.
 
-Proposed solution (minimal, pattern-friendly)
-1) Add an explicit prop to SplitSection to control mobile stacking order without affecting existing usages:
-   - New prop (example name): mobileOrder?: "default" | "follow-imagePosition" | "image-first" | "content-first"
-   - Default: "default" (keeps current behavior so existing pages don’t change)
+2) Common blockers (SplitSection)
+- Uses `<SplitSection ... badge="Common blockers" imagePosition="right" ... />`
+- Currently, without a `mobileOrder` override, mobile stays “content first” due to DOM order.
 
-2) Implement responsive order classes in SplitSection for split layout only:
-   - Compute two class names for each column:
-     - Base (mobile) order classes based on mobileOrder + imagePosition
-     - Desktop (lg) order classes based on imagePosition (keep existing)
-   - Resulting behavior:
-     - mobileOrder="default": no base order classes (current behavior)
-     - mobileOrder="follow-imagePosition":
-       - if imagePosition="left": image gets order-1, content gets order-2 on mobile
-       - if imagePosition="right": content order-1, image order-2 on mobile (same as today, but explicit)
-     - (Optional) mobileOrder="image-first": image order-1, content order-2 regardless of imagePosition
-     - (Optional) mobileOrder="content-first": content order-1, image order-2 regardless of imagePosition
+3) Services (SplitSection)
+- Uses `<SplitSection ... badge="Services" imagePosition="right" ... />`
+- Same behavior as above.
 
-3) Enable it only where you want it (your choice: “Only specific sections”)
-   - Update the specific <SplitSection ... /> calls to pass mobileOrder="follow-imagePosition".
-   - Likely candidates on /lp/company-formation-consultancy-modern (based on current code):
-     - The “Our approach” section already has imagePosition="left" and would benefit immediately.
-     - Any other sections on that page with imagePosition="left" (and any future ones you add).
+4) About
+- This section is not a SplitSection. It’s a custom `grid lg:grid-cols-2`.
+- On mobile, DOM order is content first, then the `EditorialImage`, so content appears first.
 
-Files to touch
-- src/components/shared/SplitSection.tsx
-  - Add the new prop to SplitSectionProps
-  - Add computed class logic for mobile order
-  - Apply classes to the two main grid columns (content wrapper div + image wrapper div)
-- src/pages/landing/CompanyFormationConsultancyLandingModern.tsx
-  - Add mobileOrder="follow-imagePosition" to only the SplitSection instances you want to change
+Key decision confirmed
+- You confirmed: “Always image first (mobile)” for these sections (even if imagePosition is right on desktop).
 
-How you’ll specify “only specific sections”
-- After implementing the prop, we will update just the SplitSection blocks you confirm (e.g., “Our approach” only; or “Our approach + Pricing-style sections”, etc.).
-- If you name the sections by their badges/titles, that’s enough for precise targeting.
+Implementation approach (what will change)
+A) Common blockers + Services (SplitSection instances)
+- For both SplitSection blocks in `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`:
+  - Add: `mobileOrder="image-first"`
+- This uses the existing `SplitSection` API already implemented:
+  - On mobile (below lg): image column gets `order-1`, content column gets `order-2`
+  - On desktop (lg+): existing `lg:order-*` logic still ensures the intended `imagePosition="right"` layout remains unchanged.
 
-Acceptance criteria (what you should see)
-- On mobile:
-  - For the chosen SplitSection instances:
-    - If imagePosition="left": image appears above content.
-    - If imagePosition="right": content remains above image (unless you later choose “image-first”).
-- On desktop (lg+):
-  - No visual changes to current left/right layout.
-- No changes to other pages/sections unless explicitly opted in with the new prop.
+B) Hero section (CompanyFormationHeroMontage)
+- Update `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx` to explicitly control order on mobile only:
+  - Add `order-*` classes to the two main grid children:
+    - Copy wrapper: `order-2 lg:order-1`
+    - Image wrapper: `order-1 lg:order-2`
+- This ensures:
+  - Mobile: image first, then copy
+  - Desktop: copy left, image right (same as now)
 
-Potential edge cases / notes
-- This change should only affect layout="split". Stacked layout already renders image above content by design.
-- If any section relies on the current DOM order for screen readers (rare here), we’ll keep “default” for those sections.
+C) About section (custom grid)
+- Update the About section markup inside `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`:
+  - Apply order classes to the two grid children:
+    - Text/content column wrapper: `order-2 lg:order-1`
+    - Image wrapper: `order-1 lg:order-2`
+- This ensures:
+  - Mobile: About image first, then About text
+  - Desktop: About text left, image right (same as now)
 
-Next input needed from you (to apply “only specific sections” correctly)
-- Tell me which SplitSection sections should change on /lp/company-formation-consultancy-modern:
-  - Option A: Only “Our approach”
-  - Option B: “Our approach” + any other “imagePosition=left” sections on that page
-  - Option C: You’ll list them by badge/title
+Files to change
+1) `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+- Add responsive `order-*` classes to swap the two columns on mobile only.
+
+2) `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+- Common blockers SplitSection: add `mobileOrder="image-first"`
+- Services SplitSection: add `mobileOrder="image-first"`
+- About section: add `order-*` classes to swap columns on mobile only
+
+Verification checklist (end-to-end)
+1) Mobile viewport (e.g. 390x844)
+- Hero: image/montage appears above hero text and CTA buttons.
+- Common blockers: the SplitSection image appears above the blockers card grid.
+- Services: the SplitSection image appears above the accordion/services content.
+- About: the About image appears above the About text card.
+
+2) Desktop viewport (lg+)
+- Hero remains: text left, image right.
+- Common blockers: image stays on the right (as designed by `imagePosition="right"`).
+- Services: image stays on the right.
+- About remains: text left, image right.
+
+Edge cases / notes
+- This change is intentionally scoped to the modern consultancy landing route and the shared hero component; it won’t globally change other pages unless they reuse `CompanyFormationHeroMontage` (if they do, we can add an opt-in prop like `mobileMediaFirst?: boolean` to avoid affecting other pages).
+- The SplitSection `mobileOrder="image-first"` is opt-in per section, so it’s safe and targeted.
