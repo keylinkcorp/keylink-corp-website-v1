@@ -1,113 +1,142 @@
 
-## What you want (based on your screenshot + message)
-1) **Hero section**: all hero content (badge, H1, lead, bullets, CTAs, reviews) should feel **fully centered** and use a **radial dot background overlay** like the snippet you provided.  
-2) **Company logos ticker**: the **top/bottom border lines must be full width** (edge-to-edge), while the **logos remain clipped inside the framed container**; additionally you want the **left/right frame borders visible on mobile too** (“side borders always”).
+## Goal
+Increase the framed/container width of the landing page at `/lp/company-formation-consultancy-modern` from **1120px** to **1260px**, while keeping the **same border behavior and full-bleed lines** (header bottom border and logo ticker top/bottom borders remain full width).
+
+You confirmed:
+- Apply to **this page only**
+- Borders should keep the **same look, just wider** (borders move outward with the frame)
+- Hero should also **align to 1260px**
 
 ---
 
-## Key findings from the codebase (current state)
-### Hero (centered variant)
-File: `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
-- The “centered” hero is already largely centered (`text-center`), but:
-  - The bullet list is intentionally `text-left` for readability.
-  - The background overlay currently uses `SectionBackgroundOverlay variant="radial"` (gradient-style), not the dot-grid overlay you pasted.
+## What’s currently enforcing 1120px
+The “1120px frame” is hardcoded in multiple places:
 
-### Logos ticker
-File: `src/components/landing/CompanyLogosTicker.tsx`
-- Outer `<section>` has `border-y`, so the **top/bottom border is full width** already.
-- Inner framed container uses:
-  - `max-w-[1120px]`
-  - `overflow-hidden` (good: clips the moving logos)
-  - **Side borders currently only show on md+** due to `md:border-x ...`
+1) **Header frame**
+- `src/components/landing/LandingHeader.tsx`
+  - In `layout="framed"` it uses: `mx-auto max-w-[1120px] ...`
 
-So the remaining change is: **make side borders always visible**, and ensure the fade edges / padding still look good on small screens.
-
----
-
-## Implementation approach (what I will change)
-
-### A) Hero: make content fully centered + add your dot overlay
-In `CompanyFormationHeroMontage.tsx` (centered variant only):
-1) **Replace / supplement the current background overlay** with the dot radial-mask overlay you provided:
-   - Add a background wrapper like:
-     ```html
-     <div className="relative h-full w-full bg-white">
-       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-     </div>
-     ```
-   - Adapt it to Tailwind + tokens:
-     - Use `bg-background` instead of `bg-white`
-     - Use `hsl(var(--border) / …)` or `hsl(var(--foreground) / …)` for the dot color to match theme
-     - Keep it decorative (`aria-hidden`, pointer-events none)
-
-2) **Center the bullet list** (per your answer: “Fully centered bullets”):
-   - Change the bullet `<ul>` from `text-left` to a centered layout:
-     - `text-center`
-     - Each bullet item becomes `justify-center` (icon and text centered as a unit)
-     - Use `inline-flex`/`flex` with `items-center` and ensure wrapping looks good on mobile.
-   - Ensure spacing matches your screenshot: tighter vertical rhythm, consistent icon alignment.
-
-3) **Minor centering polish**
-   - Ensure the badge, H1 max-width, and lead max-width align visually centered (they already mostly do).
-   - Make sure `HeroReviewStrip` alignment uses its `align="center"` prop (right now it’s using className hacks); we’ll use the component prop so it’s consistent and easier to maintain.
-
-4) **Bottom image panel**
-   - You previously asked to “change the image”; the page already uses `imageSrc={consultancyHeroImage}`.  
-   - In this planning step, I will not generate images (read-only mode), but in implementation I will:
-     - Keep the new consultation image
-     - Improve how it sits under the hero copy by slightly adjusting crop/height and overlay strength if needed so it feels “premium” and not harsh.
-
-### B) Logos ticker: keep full-width border, clip inside frame, show side borders on mobile
-In `src/components/landing/CompanyLogosTicker.tsx`:
-1) Change the framed container border from `md:border-x ...` to `border-x ...` so it always shows.
-2) Keep `overflow-hidden` on the framed container so logos remain clipped inside.
-3) Adjust fade edges width responsively:
-   - On mobile, reduce from `w-10` to `w-6` so it doesn’t eat too much space.
-4) Ensure the inner padding (`padding-inline: 1.25rem`) doesn’t cause the ticker to “touch” the borders on mobile:
-   - Reduce padding slightly on small screens via CSS or Tailwind utility (e.g., `px-4 sm:px-5` equivalent).
-5) Quick check that nothing introduces horizontal scrolling on mobile (common when combining border + overflow + animated content).
-
----
-
-## Files I will edit (no new dependencies)
-- `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
-  - Center bullets fully
-  - Add the dot-grid radial mask overlay background
-  - Use `HeroReviewStrip align="center"` (and remove any redundant centering classes)
-  - Minor spacing/crop polish for the media panel if needed
-
+2) **Logo ticker frame**
 - `src/components/landing/CompanyLogosTicker.tsx`
-  - Side borders always visible (`border-x` instead of `md:border-x`)
-  - Mobile fade edge widths and padding adjustments
+  - Inner frame uses: `mx-auto max-w-[1120px] border-x ... overflow-hidden`
+
+3) **Hero internal alignment**
+- `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+  - Centered variant uses: `max-w-[1120px]` for the main content container and the media panel container.
+
+4) **This page’s framed body wrapper**
+- `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+  - After the ticker: `max-w-[1120px] bg-background md:border-x ...`
+
+If we only change one of these, borders and content alignment will look “off” (e.g., header frame still narrower than body, or hero narrower than ticker).
 
 ---
 
-## Acceptance checklist (what you should see after)
-### Hero
-- Badge, title, lead, bullets, CTAs, review strip: visually centered as one block (like your screenshot).
-- Bullet lines: centered (icon + text centered), with good wrapping on mobile.
-- Background: subtle dot-grid overlay with a radial mask fade (no harsh patterns).
+## Implementation approach (page-only, minimal risk)
+Because you want this change for **this page only**, the cleanest approach is to make the shared components accept an optional “frame width” override, without changing the default behavior for other pages.
 
-### Logos ticker
-- Top/bottom border: full width across the viewport.
-- Left/right frame borders: visible even on mobile.
-- Logos: always clipped inside the frame (never drawing outside).
-- No horizontal scroll on mobile.
-- Hover-to-pause still works on desktop.
+### 1) Introduce a shared constant for this page (1260px)
+In `CompanyFormationConsultancyLandingModern.tsx` we’ll define something like:
+- `const FRAME_MAX_W_CLASS = "max-w-[1260px]";`
+
+Then we’ll pass it to the components that support it (after step 2 and 3 below) and apply it to the page wrapper.
+
+Why: prevents typos and ensures the header/ticker/hero/body all match exactly.
 
 ---
 
-## Testing plan (I’ll do this after implementation; you can also verify)
-1) Desktop: /lp/company-formation-consultancy-modern
-   - Confirm hero alignment matches the reference.
-   - Hover the logos ticker: animation pauses.
-2) Mobile (390px width)
-   - Confirm side borders visible on the ticker.
-   - Confirm no horizontal overflow and logos are clipped.
-3) Check “prefers-reduced-motion” (ticker stops animating).
+## Code changes (by file)
+
+### A) `src/components/landing/LandingHeader.tsx`
+Add a new optional prop to control the framed container width:
+
+- New prop (optional):
+  - `frameMaxWidthClassName?: string` (default undefined)
+- When `layout === "framed"`, instead of hardcoding `max-w-[1120px]`, use:
+  - `frameMaxWidthClassName ?? "max-w-[1120px]"`
+
+This keeps all other pages unchanged unless they explicitly pass the prop.
+
+**Border behavior stays the same**:
+- Header bottom border remains full width (it’s on the `<header>` already).
+- Side borders remain on md+ as currently implemented (`md:border-x ...`) unless you want that changed later.
+
+---
+
+### B) `src/components/landing/CompanyLogosTicker.tsx`
+Add a new optional prop to control the ticker’s inner framed width:
+
+- New prop (optional):
+  - `frameMaxWidthClassName?: string` (default undefined)
+- Replace `max-w-[1120px]` with:
+  - `frameMaxWidthClassName ?? "max-w-[1120px]"`
+
+This preserves:
+- Full-bleed top/bottom borders (outer section)
+- Clipped scrolling logos (inner frame `overflow-hidden`)
+- Side borders always visible (you already chose this; we keep it)
+
+---
+
+### C) `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+Add an optional prop to control hero internal max width (centered variant):
+
+- New prop (optional):
+  - `contentMaxWidthClassName?: string` (or `frameMaxWidthClassName?: string`)
+- Replace both instances of `max-w-[1120px]` in the centered variant with:
+  - `contentMaxWidthClassName ?? "max-w-[1120px]"`
+
+This ensures:
+- The centered hero copy block stays centered but is aligned to the wider 1260px frame.
+- The hero image panel container aligns to the same width.
+
+We will keep the internal text max widths (like `max-w-[860px]` for copy) unless you want those expanded too; widening those can reduce readability.
+
+---
+
+### D) `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
+Apply 1260px to the framed wrapper and pass width overrides into header/ticker/hero:
+
+1) Update the framed wrapper after ticker:
+- Change `max-w-[1120px]` → `max-w-[1260px]`
+
+2) Update header call:
+- `LandingHeader layout="framed" ... frameMaxWidthClassName={FRAME_MAX_W_CLASS}`
+
+3) Update ticker call:
+- `<CompanyLogosTicker frameMaxWidthClassName={FRAME_MAX_W_CLASS} />`
+
+4) Update hero montage call:
+- `<CompanyFormationHeroMontage ... contentMaxWidthClassName={FRAME_MAX_W_CLASS} />`
+
+Result: header frame, hero alignment, ticker frame, and the entire framed body are all exactly 1260px and visually consistent.
+
+---
+
+## QA / Visual verification checklist (what to test)
+1) Desktop
+- Confirm header framed background/borders align with the body frame (no “step-in”).
+- Confirm hero content and hero media panel align to the new 1260px frame.
+- Confirm logo ticker inner frame width matches the body frame.
+
+2) Mobile
+- Ensure no horizontal scroll appears.
+- Ensure ticker still clips correctly and side borders show as before.
+
+3) Sections using `SplitSection`
+- Confirm “Common blockers”, “Our approach”, “Services”, etc. still look correct with the wider frame (they use `container` internally; widening the outer frame should still feel cohesive).
 
 ---
 
 ## Notes / edge cases
-- “Fully centered bullets” can look less readable for long bullet text; I’ll keep line length controlled (max width) so it still feels premium and not messy.
-- The dot overlay will be implemented with Tailwind arbitrary values; this is already consistent with your provided snippet and won’t add dependencies.
+- Tailwind `container` has its own max widths; however, your frame strategy is based on explicit `max-w-[…px]` wrappers and border frames. We’re keeping that model and simply widening the frame.
+- Other landing pages will remain 1120px because the default max width stays `max-w-[1120px]` unless overridden.
+- If you later decide “all framed landing pages should be 1260px”, we can centralize the frame width into a single design token (e.g., a shared constant or Tailwind theme extension) and remove the overrides.
+
+---
+
+## Files to be modified
+- `src/components/landing/LandingHeader.tsx`
+- `src/components/landing/CompanyLogosTicker.tsx`
+- `src/pages/landing/company-formation/CompanyFormationHeroMontage.tsx`
+- `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
