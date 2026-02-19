@@ -24,6 +24,8 @@ type CompanyFormationHeroMontageProps = {
   lead?: string;
   bullets?: Array<{ icon: typeof Check; text: string }>;
   primaryCtaLabel?: string;
+  /** Optional hero image override (defaults to the shared formation portrait). */
+  imageSrc?: string;
   /** If provided, renders a phone CTA button next to the primary CTA. */
   phoneCta?: { href: string; label: string };
   /** If true, show WhatsApp CTA button. Defaults to true (original LP behavior). */
@@ -47,6 +49,7 @@ export function CompanyFormationHeroMontage({
     { icon: FileText, text: "Transparent checklist + clear next steps" },
   ],
   primaryCtaLabel = "Get started",
+  imageSrc = heroImage,
   phoneCta,
   showWhatsApp = true,
   socialProofLine,
@@ -66,7 +69,7 @@ export function CompanyFormationHeroMontage({
                 {badgeText}
               </p>
 
-              <h1 className="lp-h1 lp-hero-title text-balance">
+              <h1 className="lp-h1 lp-hero-title text-balance mx-auto">
                 {title}
                 {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
               </h1>
@@ -119,7 +122,7 @@ export function CompanyFormationHeroMontage({
             <div className="mt-10 md:mt-12 mx-auto max-w-[1120px]">
               <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background lp-card-flat">
                 <img
-                  src={heroImage}
+                  src={imageSrc}
                   alt="Business consultation for company formation in Bahrain"
                   className="h-[320px] w-full object-cover md:h-[460px]"
                   loading="eager"
@@ -214,7 +217,7 @@ export function CompanyFormationHeroMontage({
               {/* Main */}
               <div className="relative rounded-3xl overflow-hidden lp-card-flat">
                 <img
-                  src={heroImage}
+                  src={imageSrc}
                   alt="Business consultation for company formation in Bahrain"
                   className="w-full h-[340px] md:h-[460px] object-cover"
                   loading="eager"

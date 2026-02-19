@@ -44,6 +44,8 @@ import testimonialsImage from "@/assets/company-formation/lp/testimonials-portra
 import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy.jpg";
 import costCalculatorPortraitImage from "@/assets/company-formation/consultancy/cost-calculator-portrait.jpg";
 
+import consultancyHeroImage from "@/assets/formation-hero-consultation-16x9.jpg";
+
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
 
@@ -208,6 +210,7 @@ export default function CompanyFormationConsultancyLandingModern() {
         {/* Full-width hero (no side frame borders) */}
         <CompanyFormationHeroMontage
           variant="centered"
+          imageSrc={consultancyHeroImage}
           onBookClick={() => scrollToId("book")}
           badgeText="Free consultation • Independent business consultancy"
           title="Company Formation Consultancy in Bahrain"
@@ -224,10 +227,11 @@ export default function CompanyFormationConsultancyLandingModern() {
           socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
         />
 
-        {/* Framed content starts AFTER the hero */}
-        <div className="mx-auto min-h-screen max-w-[1120px] bg-background md:border-x md:border-border/60">
-          <CompanyLogosTicker />
+        {/* Logos ticker: full-width borders, framed logos */}
+        <CompanyLogosTicker />
 
+        {/* Framed content starts AFTER the ticker */}
+        <div className="mx-auto min-h-screen max-w-[1120px] bg-background md:border-x md:border-border/60">
           {/* COST CALCULATOR */}
           <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden bg-secondary/30">
             <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
