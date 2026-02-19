@@ -47,7 +47,7 @@ export function HeroReviewStrip({ align = "left", className }: HeroReviewStripPr
         <div className="flex flex-col">
           <div className="flex items-center gap-0.5">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="h-4 w-4 fill-gold text-gold" aria-hidden="true" />
+              <Star key={i} className="h-[22px] w-[22px] fill-gold text-gold" aria-hidden="true" />
             ))}
             <span className="text-sm font-semibold text-primary ml-1.5">4.9</span>
           </div>
@@ -72,17 +72,17 @@ export function HeroReviewStrip({ align = "left", className }: HeroReviewStripPr
           ))}
         </div>
 
-        <div className="flex flex-col">
-          <div className="flex items-center gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className="h-4 w-4 fill-trustpilot text-trustpilot"
-                aria-hidden="true"
-              />
-            ))}
-            <span className="text-sm font-semibold text-primary ml-1.5">4.8</span>
-          </div>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className="h-[22px] w-[22px] fill-trustpilot text-trustpilot"
+                  aria-hidden="true"
+                />
+              ))}
+              <span className="text-sm font-semibold text-primary ml-1.5">4.8</span>
+            </div>
           <span className="text-xs text-muted-foreground">Trustpilot</span>
         </div>
       </div>

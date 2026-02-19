@@ -30,13 +30,13 @@ export function LandingHeader({ onLogoClick, borderless = false }: LandingHeader
         <div className="hidden items-center gap-2 md:flex">
           <Button variant="outline" size="sm" asChild>
             <a href="tel:+97317008888">
-              <Phone className="mr-2" />
+              <Phone className="mr-2 h-[22px] w-[22px]" />
               Call
             </a>
           </Button>
           <Button size="sm" asChild>
             <a href="https://wa.me/97317008888">
-              <MessageCircle className="mr-2" />
+              <MessageCircle className="mr-2 h-[22px] w-[22px]" />
               WhatsApp
             </a>
           </Button>

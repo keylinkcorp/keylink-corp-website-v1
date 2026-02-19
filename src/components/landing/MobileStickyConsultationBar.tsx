@@ -18,12 +18,12 @@ export function MobileStickyConsultationBar({
       <div className="container mx-auto px-4 py-3">
         <div className="grid grid-cols-2 gap-3">
           <Button size="lg" className="w-full" onClick={onConsultationClick}>
-            <Calendar className="mr-2" />
+            <Calendar className="mr-2 h-[22px] w-[22px]" />
             Free consultation
           </Button>
           <Button variant="outline" size="lg" className="w-full" asChild>
             <a href={phoneHref}>
-              <Phone className="mr-2" />
+              <Phone className="mr-2 h-[22px] w-[22px]" />
               {phoneLabel}
             </a>
           </Button>
