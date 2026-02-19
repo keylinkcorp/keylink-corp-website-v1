@@ -34,6 +34,8 @@ type CompanyFormationHeroMontageProps = {
   socialProofLine?: string;
   /** Layout variant. Defaults to the original split layout for backwards compatibility. */
   variant?: "split" | "centered";
+  /** Optional max-width override used by the centered variant containers. */
+  contentMaxWidthClassName?: string;
 };
 
 export function CompanyFormationHeroMontage({
@@ -54,7 +56,10 @@ export function CompanyFormationHeroMontage({
   showWhatsApp = true,
   socialProofLine,
   variant = "split",
+  contentMaxWidthClassName,
 }: CompanyFormationHeroMontageProps) {
+  const centeredMaxW = contentMaxWidthClassName ?? "max-w-[1120px]";
+
   if (variant === "centered") {
     return (
       <section className="relative overflow-hidden">
@@ -65,7 +70,7 @@ export function CompanyFormationHeroMontage({
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(hsl(var(--border)_/_0.55)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(0_0%_0%)_70%,transparent_100%)] opacity-[0.35]"
         />
 
-        <div className="relative mx-auto max-w-[1120px] px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16">
+        <div className={cn("relative mx-auto px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16", centeredMaxW)}>
           {/* Copy */}
           <div className="mx-auto max-w-[860px] text-center">
             <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
@@ -128,7 +133,7 @@ export function CompanyFormationHeroMontage({
           </div>
 
           {/* Media panel */}
-          <div className="mt-10 md:mt-12 mx-auto max-w-[1120px]">
+          <div className={cn("mt-10 md:mt-12 mx-auto", centeredMaxW)}>
             <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background lp-card-flat">
               <img
                 src={imageSrc}

@@ -14,14 +14,21 @@ type LandingHeaderProps = {
    *   while the bottom border line remains full-bleed.
    */
   layout?: "full" | "framed";
+  /**
+   * Optional max-width override for the framed container.
+   * Defaults to `max-w-[1120px]` to preserve existing pages.
+   */
+  frameMaxWidthClassName?: string;
 };
 
 export function LandingHeader({
   onLogoClick,
   borderless = false,
   layout = "full",
+  frameMaxWidthClassName,
 }: LandingHeaderProps) {
   const isFramed = layout === "framed";
+  const framedMaxW = frameMaxWidthClassName ?? "max-w-[1120px]";
 
   return (
     <header
@@ -35,7 +42,10 @@ export function LandingHeader({
       <div
         className={cn(
           isFramed
-            ? "mx-auto max-w-[1120px] md:border-x md:border-border/60 bg-background/70 backdrop-blur-xl"
+            ? cn(
+                "mx-auto md:border-x md:border-border/60 bg-background/70 backdrop-blur-xl",
+                framedMaxW,
+              )
             : "w-full",
         )}
       >
