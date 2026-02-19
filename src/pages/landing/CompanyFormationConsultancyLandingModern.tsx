@@ -203,8 +203,7 @@ export default function CompanyFormationConsultancyLandingModern() {
   return (
     <div className="min-h-screen bg-muted/20 cfc-typography">
       {/* Full-width sticky header with full-width bottom border */}
-      <LandingHeader onLogoClick={() => scrollToId("top")} />
-
+      <LandingHeader layout="framed" onLogoClick={() => scrollToId("top")} />
       <main id="top" className="flex-1">
         {/* Full-width hero (no side frame borders) */}
         <CompanyFormationHeroMontage
