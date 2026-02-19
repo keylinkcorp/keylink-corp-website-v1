@@ -1,7 +1,8 @@
 # Welcome to your Lovable project
 
 > Test note: sync verified ✅
-
+>
+> Test note 2: README edit synced (2026-02-19)
 ## Project info
 
 **URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
