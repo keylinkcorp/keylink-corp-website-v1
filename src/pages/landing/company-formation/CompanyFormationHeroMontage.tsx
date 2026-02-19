@@ -58,90 +58,99 @@ export function CompanyFormationHeroMontage({
   if (variant === "centered") {
     return (
       <section className="relative overflow-hidden">
-        <div aria-hidden className="absolute inset-0 bg-muted/20" />
-        <SectionBackgroundOverlay variant="radial" opacity={0.9} masked />
+        {/* Background */}
+        <div aria-hidden className="absolute inset-0 bg-background" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(hsl(var(--border)_/_0.55)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(0_0%_0%)_70%,transparent_100%)] opacity-[0.35]"
+        />
 
-          <div className="relative mx-auto max-w-[1120px] px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16">
-            {/* Copy */}
-            <div className="mx-auto max-w-[860px] text-center">
-              <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
-                <Sparkles className="h-[22px] w-[22px] text-accent" />
-                {badgeText}
-              </p>
+        <div className="relative mx-auto max-w-[1120px] px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16">
+          {/* Copy */}
+          <div className="mx-auto max-w-[860px] text-center">
+            <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
+              <Sparkles className="h-[22px] w-[22px] text-accent" />
+              {badgeText}
+            </p>
 
-              <h1 className="lp-h1 lp-hero-title text-balance mx-auto">
-                {title}
-                {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
-              </h1>
+            <h1 className="lp-h1 lp-hero-title text-balance mx-auto">
+              {title}
+              {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
+            </h1>
 
-              <p className="mt-5 lp-lead mx-auto max-w-[68ch]">{lead}</p>
+            <p className="mt-5 lp-lead mx-auto max-w-[68ch]">{lead}</p>
 
-              <ul className="mt-8 mx-auto grid max-w-[640px] gap-3 text-left text-sm">
-                {bullets.map((item) => (
-                  <li key={item.text} className="flex items-start gap-3 text-foreground/90">
-                    <item.icon className="mt-0.5 h-[22px] w-[22px] text-accent" />
-                    <span className="leading-relaxed">{item.text}</span>
-                  </li>
-                ))}
-              </ul>
+            <ul className="mt-8 mx-auto flex max-w-[700px] flex-col items-center gap-3 text-center text-sm">
+              {bullets.map((item) => (
+                <li
+                  key={item.text}
+                  className="flex w-full flex-col items-center justify-center gap-2 text-foreground/90 sm:flex-row sm:gap-3"
+                >
+                  <item.icon className="h-[22px] w-[22px] text-accent" />
+                  <span className="leading-relaxed sm:max-w-[54ch]">{item.text}</span>
+                </li>
+              ))}
+            </ul>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
-                <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
-                  {primaryCtaLabel}
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+              <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
+                {primaryCtaLabel}
+              </Button>
+
+              {phoneCta ? (
+                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+                  <a href={phoneCta.href}>
+                    <Phone className="mr-2 h-[22px] w-[22px]" />
+                    {phoneCta.label}
+                  </a>
                 </Button>
+              ) : null}
 
-                {phoneCta ? (
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                    <a href={phoneCta.href}>
-                      <Phone className="mr-2 h-[22px] w-[22px]" />
-                      {phoneCta.label}
-                    </a>
-                  </Button>
-                ) : null}
-
-                {showWhatsApp ? (
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                    <a href="https://wa.me/97317008888">
-                      <MessageCircle className="mr-2 h-[22px] w-[22px]" />
-                      WhatsApp
-                    </a>
-                  </Button>
-                ) : null}
-              </div>
-
-              <HeroReviewStrip className="mt-8 justify-center" />
-
-              {socialProofLine ? <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p> : null}
-
-              <p className="mt-3 text-xs text-muted-foreground">
-                Free • No obligation • You’ll get a cost breakdown + document checklist
-              </p>
+              {showWhatsApp ? (
+                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+                  <a href="https://wa.me/97317008888">
+                    <MessageCircle className="mr-2 h-[22px] w-[22px]" />
+                    WhatsApp
+                  </a>
+                </Button>
+              ) : null}
             </div>
 
-            {/* Media panel */}
-            <div className="mt-10 md:mt-12 mx-auto max-w-[1120px]">
-              <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background lp-card-flat">
-                <img
-                  src={imageSrc}
-                  alt="Business consultation for company formation in Bahrain"
-                  className="h-[320px] w-full object-cover md:h-[460px]"
-                  loading="eager"
-                  fetchPriority="high"
-                />
-                <div className="absolute inset-0 overlay-navy-vertical" />
+            <HeroReviewStrip align="center" className="mt-8" />
 
-                <div className="absolute bottom-5 left-5 right-5">
-                  <div className="lp-card-flat flex items-center justify-between gap-3 bg-background/90 p-3 backdrop-blur-sm md:p-4">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-[22px] w-[22px] text-accent" />
-                      <span className="text-sm font-medium text-foreground">Free 30‑minute call • Google Meet</span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">Same‑page booking</span>
+            {socialProofLine ? (
+              <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p>
+            ) : null}
+
+            <p className="mt-3 text-xs text-muted-foreground">
+              Free • No obligation • You’ll get a cost breakdown + document checklist
+            </p>
+          </div>
+
+          {/* Media panel */}
+          <div className="mt-10 md:mt-12 mx-auto max-w-[1120px]">
+            <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background lp-card-flat">
+              <img
+                src={imageSrc}
+                alt="Business consultation for company formation in Bahrain"
+                className="h-[320px] w-full object-cover md:h-[460px]"
+                loading="eager"
+                fetchPriority="high"
+              />
+              <div className="absolute inset-0 overlay-navy-vertical" />
+
+              <div className="absolute bottom-5 left-5 right-5">
+                <div className="lp-card-flat flex items-center justify-between gap-3 bg-background/90 p-3 backdrop-blur-sm md:p-4">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-[22px] w-[22px] text-accent" />
+                    <span className="text-sm font-medium text-foreground">Free 30‑minute call • Google Meet</span>
                   </div>
+                  <span className="text-xs text-muted-foreground">Same‑page booking</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </section>
     );
   }
