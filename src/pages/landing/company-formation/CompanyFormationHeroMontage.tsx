@@ -55,7 +55,7 @@ export function CompanyFormationHeroMontage({
       <div className="relative container mx-auto px-4 md:px-6 pt-10 md:pt-14 pb-12 md:pb-16">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           {/* Copy */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-6 order-2 lg:order-1">
             <div>
               <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs text-muted-foreground tracking-tight">
                 <Sparkles className="h-4 w-4 text-accent" />
@@ -115,7 +115,7 @@ export function CompanyFormationHeroMontage({
           </div>
 
           {/* Montage */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-6 order-1 lg:order-2">
             <div className="relative">
               {/* Main */}
               <div className="relative rounded-3xl overflow-hidden lp-card-flat">
