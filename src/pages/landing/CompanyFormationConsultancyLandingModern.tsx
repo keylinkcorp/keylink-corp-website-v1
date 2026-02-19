@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 
@@ -68,6 +68,87 @@ function mergeQueryParams(baseUrl: string, search: string) {
 }
 
 type FaqItem = { question: string; answer: string };
+
+type LandingNavItem = {
+  id: "calculator" | "blockers" | "approach" | "services" | "reviews" | "book";
+  label: string;
+};
+
+const LANDING_NAV: LandingNavItem[] = [
+  { id: "calculator", label: "Calculator" },
+  { id: "blockers", label: "Blockers" },
+  { id: "approach", label: "Approach" },
+  { id: "services", label: "Services" },
+  { id: "reviews", label: "Reviews" },
+  { id: "book", label: "Book" },
+];
+
+function LandingStickyNav({ frameMaxWidthClassName }: { frameMaxWidthClassName: string }) {
+  const [active, setActive] = useState<LandingNavItem["id"]>("calculator");
+
+  useEffect(() => {
+    const ids = LANDING_NAV.map((i) => i.id);
+    const nodes = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    if (!nodes.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the most "visible" entry to avoid rapid switching.
+        const best = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
+
+        const nextId = best?.target?.id as LandingNavItem["id"] | undefined;
+        if (nextId) setActive(nextId);
+      },
+      {
+        // Account for header + sticky nav height.
+        root: null,
+        rootMargin: "-120px 0px -65% 0px",
+        threshold: [0.15, 0.35, 0.55],
+      },
+    );
+
+    nodes.forEach((n) => observer.observe(n));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="sticky z-30 top-[72px] md:top-[84px]">
+      <div className={cn("mx-auto", frameMaxWidthClassName)}>
+        <div className="border-b border-border/60 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+          <div className="container mx-auto px-4 md:px-6">
+            <nav aria-label="Section navigation" className="-mx-2 flex items-center gap-1 overflow-x-auto py-2">
+              {LANDING_NAV.map((item) => {
+                const isActive = active === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => scrollToId(item.id)}
+                    className={cn(
+                      "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                      isActive
+                        ? "bg-accent/15 text-foreground"
+                        : "text-muted-foreground hover:bg-muted/40 hover:text-foreground",
+                    )}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const FAQS: FaqItem[] = [
   {
@@ -157,13 +238,13 @@ export default function CompanyFormationConsultancyLandingModern() {
     if (metaDescription) {
       metaDescription.setAttribute(
         "content",
-        "Start with a simple cost calculator, then book a free 30-minute consultation for Bahrain company formation guidance."
+        "Start with a simple cost calculator, then book a free 30-minute consultation for Bahrain company formation guidance.",
       );
     }
 
     // NOTE: Unique identifiers so we don't collide with other LP routes.
     let robots = document.querySelector(
-      'meta[name="robots"][data-lp="company-formation-consultancy-modern"]'
+      'meta[name="robots"][data-lp="company-formation-consultancy-modern"]',
     ) as HTMLMetaElement | null;
     if (!robots) {
       robots = document.createElement("meta");
@@ -174,7 +255,7 @@ export default function CompanyFormationConsultancyLandingModern() {
     robots.setAttribute("content", "noindex, follow");
 
     let canonical = document.querySelector(
-      'link[rel="canonical"][data-lp="company-formation-consultancy-modern"]'
+      'link[rel="canonical"][data-lp="company-formation-consultancy-modern"]',
     ) as HTMLLinkElement | null;
     if (!canonical) {
       canonical = document.createElement("link");
@@ -186,7 +267,7 @@ export default function CompanyFormationConsultancyLandingModern() {
 
     // Add FAQ JSON-LD (unique marker to avoid collisions)
     let ld = document.querySelector(
-      'script[type="application/ld+json"][data-lp="cfc-modern-faq"]'
+      'script[type="application/ld+json"][data-lp="cfc-modern-faq"]',
     ) as HTMLScriptElement | null;
     if (!ld) {
       ld = document.createElement("script");
@@ -208,18 +289,14 @@ export default function CompanyFormationConsultancyLandingModern() {
   return (
     <div className="min-h-screen bg-muted/20 cfc-typography">
       {/* Full-width sticky header with full-width bottom border */}
-      <LandingHeader
-        layout="framed"
-        frameMaxWidthClassName={FRAME_MAX_W_CLASS}
-        onLogoClick={() => scrollToId("top")}
-      />
+      <LandingHeader layout="framed" frameMaxWidthClassName={FRAME_MAX_W_CLASS} onLogoClick={() => scrollToId("top")} />
       <main id="top" className="flex-1">
         {/* Full-width hero (no side frame borders) */}
         <CompanyFormationHeroMontage
           variant="centered"
           contentMaxWidthClassName={FRAME_MAX_W_CLASS}
           imageSrc={consultancyHeroImage}
-          onBookClick={() => scrollToId("book")}
+          onBookClick={() => scrollToId("calculator")}
           badgeText="Free consultation • Independent business consultancy"
           title="Company Formation Consultancy in Bahrain"
           titleSuffix=""
@@ -229,7 +306,7 @@ export default function CompanyFormationConsultancyLandingModern() {
             { icon: Shield, text: "Guidance on typical approvals and compliance steps" },
             { icon: FileText, text: "Tailored checklist + next-step plan" },
           ]}
-          primaryCtaLabel="Get Free Consultation"
+          primaryCtaLabel="Start cost calculator"
           phoneCta={{ href: "tel:+97317008888", label: "Call +97317008888" }}
           showWhatsApp
           socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
@@ -238,10 +315,17 @@ export default function CompanyFormationConsultancyLandingModern() {
         {/* Logos ticker: full-width borders, framed logos */}
         <CompanyLogosTicker frameMaxWidthClassName={FRAME_MAX_W_CLASS} />
 
+        {/* Sticky in-page navigation (framed) */}
+        <LandingStickyNav frameMaxWidthClassName={FRAME_MAX_W_CLASS} />
+
         {/* Framed content starts AFTER the ticker */}
         <div className={cn("mx-auto min-h-screen bg-background md:border-x md:border-border/60", FRAME_MAX_W_CLASS)}>
           {/* COST CALCULATOR */}
-          <section aria-label="Cost calculator" className="section-spacing-sm relative overflow-hidden bg-secondary/30">
+          <section
+            id="calculator"
+            aria-label="Cost calculator"
+            className="section-spacing-sm relative overflow-hidden bg-secondary/30 scroll-mt-32"
+          >
             <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
             <div className="container mx-auto px-4 md:px-6 relative z-10">
               <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
@@ -265,7 +349,21 @@ export default function CompanyFormationConsultancyLandingModern() {
                     Answer a few questions to see a simple cost breakdown, then continue to your free consultation.
                   </p>
 
-                  <div className="mt-8">
+                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                    {["Takes ~60 seconds", "Checklist-driven guidance", "Independent consultancy"].map((t) => (
+                      <div key={t} className="rounded-xl border border-border/30 bg-card/40 px-4 py-3">
+                        <p className="text-xs font-medium text-foreground/90">{t}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 lp-card-flat bg-muted/20 p-5">
+                    <p className="text-xs text-muted-foreground">
+                      Trusted by 500+ clients • 4.9/5 reviews • You’ll see a cost range + key drivers (then you can book).
+                    </p>
+                  </div>
+
+                  <div className="mt-7">
                     <ConsultancyCostCalculator onContinue={() => navigate("/free-consultation")} />
                   </div>
                 </div>
@@ -274,6 +372,7 @@ export default function CompanyFormationConsultancyLandingModern() {
           </section>
 
           {/* PROBLEM */}
+          <div id="blockers" className="scroll-mt-32" />
           <SplitSection
             badge="Common blockers"
             title="Starting a Business in Bahrain? Here’s What Usually Slows People Down"
@@ -315,12 +414,13 @@ export default function CompanyFormationConsultancyLandingModern() {
                     Clear checklist • Realistic timeline • Plain‑English next steps
                   </p>
                 </div>
-                <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
+                <Button onClick={() => scrollToId("book")}>Book free consultation</Button>
               </div>
             </div>
           </SplitSection>
 
           {/* SOLUTION (5-step process) */}
+          <div id="approach" className="scroll-mt-32" />
           <SplitSection
             badge="Our approach"
             title="A 5‑Step Consultancy Process (Consultation → Checklist → Guidance)"
@@ -395,10 +495,14 @@ export default function CompanyFormationConsultancyLandingModern() {
                   Call for consultation
                 </a>
               </Button>
+              <Button variant="outline" onClick={() => scrollToId("calculator")}>
+                Back to calculator
+              </Button>
             </div>
           </SplitSection>
 
           {/* SERVICES */}
+          <div id="services" className="scroll-mt-32" />
           <SplitSection
             badge="Services"
             title="Business Setup Advisory Services in Bahrain"
@@ -496,12 +600,19 @@ export default function CompanyFormationConsultancyLandingModern() {
           </SplitSection>
 
           {/* TESTIMONIALS */}
+          <div id="reviews" className="scroll-mt-32" />
           <section aria-label="Testimonials" className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
               <div className="max-w-3xl">
                 <span className="section-badge">Reviews</span>
                 <h2 className="lp-h2">Clarity-first guidance (what clients say)</h2>
                 <p className="lp-section-subtitle">Independent advisory, structured checklists, and realistic expectations.</p>
+              </div>
+
+              <div className="mt-6 lp-card-flat bg-muted/20 p-5">
+                <p className="text-xs text-muted-foreground">
+                  Social proof helps, but the fastest path is still the calculator. If you’re early-stage, start with the estimate—then book.
+                </p>
               </div>
 
               <div className="mt-8 grid gap-4 lg:grid-cols-2">
@@ -552,6 +663,10 @@ export default function CompanyFormationConsultancyLandingModern() {
                       We are not affiliated with any government authority and we do not issue Commercial Registration (CR).
                     </p>
                   </div>
+
+                  <div className="mt-6">
+                    <Button variant="outline" onClick={() => scrollToId("calculator")}>Back to calculator</Button>
+                  </div>
                 </div>
 
                 <div className="order-1 lg:order-2 lp-card p-3 sm:p-4 md:p-5">
@@ -567,7 +682,7 @@ export default function CompanyFormationConsultancyLandingModern() {
           </section>
 
           {/* BOOKING / CONTACT */}
-          <div id="book" />
+          <div id="book" className="scroll-mt-32" />
           <section aria-label="Request a free consultation" className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
               <span className="section-badge">Get started</span>
