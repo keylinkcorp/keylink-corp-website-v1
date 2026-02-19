@@ -34,6 +34,12 @@ type SplitSectionProps = {
   /** Layout mode: split (two-column) or stacked (image full-width on top, content below). */
   layout?: "split" | "stacked";
   imagePosition?: "left" | "right";
+  /**
+   * Controls column order below `lg` for split layout.
+   * - default: keep current behavior (content first, image second)
+   * - follow-imagePosition: if imagePosition="left" => image first; if "right" => content first
+   */
+  mobileOrder?: "default" | "follow-imagePosition" | "image-first" | "content-first";
   /** Desktop split layout column spans (lg+). Defaults to 6/6. */
   contentColSpanLg?: number;
   imageColSpanLg?: number;
@@ -83,6 +89,7 @@ export function SplitSection({
   imageAlt,
   layout = "split",
   imagePosition = "right",
+  mobileOrder = "default",
   contentColSpanLg = 6,
   imageColSpanLg = 6,
   imageSticky = false,
@@ -99,11 +106,11 @@ export function SplitSection({
   imageOverlayStrength,
   stackedImageRatio,
   stackedImageHeightClassName =
-  "h-[32vh] sm:h-[30vh] md:h-[25vh] min-h-[220px] md:min-h-[240px]"
+    "h-[32vh] sm:h-[30vh] md:h-[25vh] min-h-[220px] md:min-h-[240px]"
 }: SplitSectionProps) {
   const isSubtle = variant === "subtle";
   const resolvedOverlay: SectionOverlayVariant =
-  backgroundVariant ?? (isSubtle ? "ibelick-lines" : "ibelick-soft");
+    backgroundVariant ?? (isSubtle ? "ibelick-lines" : "ibelick-soft");
   const isCenter = align === "center";
   const headingClass = cn(
     "text-balance",
@@ -132,10 +139,43 @@ export function SplitSection({
     12: "lg:col-span-12"
   };
 
-  const resolvedContentColSpanLg = colSpanLgClassMap[contentColSpanLg] ??
-  "lg:col-span-6";
-  const resolvedImageColSpanLg = colSpanLgClassMap[imageColSpanLg] ??
-  "lg:col-span-6";
+  const resolvedContentColSpanLg = colSpanLgClassMap[contentColSpanLg] ?? "lg:col-span-6";
+  const resolvedImageColSpanLg = colSpanLgClassMap[imageColSpanLg] ?? "lg:col-span-6";
+
+  const desktopContentOrder = imagePosition === "left" ? "lg:order-2" : "lg:order-1";
+  const desktopImageOrder = imagePosition === "left" ? "lg:order-1" : "lg:order-2";
+
+  const shouldApplyMobileOrder = layout === "split" && mobileOrder !== "default";
+
+  const mobileContentOrder = (() => {
+    if (!shouldApplyMobileOrder) return "";
+
+    switch (mobileOrder) {
+      case "follow-imagePosition":
+        return imagePosition === "left" ? "order-2" : "order-1";
+      case "image-first":
+        return "order-2";
+      case "content-first":
+        return "order-1";
+      default:
+        return "";
+    }
+  })();
+
+  const mobileImageOrder = (() => {
+    if (!shouldApplyMobileOrder) return "";
+
+    switch (mobileOrder) {
+      case "follow-imagePosition":
+        return imagePosition === "left" ? "order-1" : "order-2";
+      case "image-first":
+        return "order-1";
+      case "content-first":
+        return "order-2";
+      default:
+        return "";
+    }
+  })();
 
   const Header =
   <header
@@ -262,6 +302,8 @@ export function SplitSection({
             <div
             className={cn(
               resolvedContentColSpanLg,
+              mobileContentOrder,
+              desktopContentOrder,
               imagePosition === "left" ? "lg:order-2" : "lg:order-1"
             )}>
 
@@ -272,6 +314,8 @@ export function SplitSection({
             <div
             className={cn(
               resolvedImageColSpanLg,
+              mobileImageOrder,
+              desktopImageOrder,
               imagePosition === "left" ? "lg:order-1" : "lg:order-2",
               imageSticky ?
               cn(
