@@ -27,11 +27,11 @@ export function CompanyLogosTicker() {
       className="relative border-y border-border/60"
     >
       {/* Framed ticker (clips the scroll inside the frame) */}
-      <div className="mx-auto max-w-[1120px] md:border-x md:border-border/60 bg-muted/10 overflow-hidden">
+      <div className="mx-auto max-w-[1120px] border-x border-border/60 bg-muted/10 overflow-hidden">
         <div className="relative py-6">
           {/* Fade edges (kept inside the framed layout) */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-muted/10 to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-muted/10 to-transparent z-10" />
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-r from-muted/10 to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-l from-muted/10 to-transparent z-10" />
 
           <div className="flex items-center gap-12 md:gap-16 logo-ticker">
             {[...logos, ...logos].map((logo, index) => (
@@ -61,7 +61,10 @@ export function CompanyLogosTicker() {
           width: max-content;
           animation: cfc_logo_scroll 30s linear infinite;
           will-change: transform;
-          padding-inline: 1.25rem;
+          padding-inline: 1rem;
+        }
+        @media (min-width: 640px) {
+          .logo-ticker { padding-inline: 1.25rem; }
         }
         .logo-ticker:hover {
           animation-play-state: paused;
