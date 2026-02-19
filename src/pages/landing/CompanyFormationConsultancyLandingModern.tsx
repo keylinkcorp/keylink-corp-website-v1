@@ -415,30 +415,49 @@ export default function CompanyFormationConsultancyLandingModern() {
                     title: "Company Formation Advisory",
                     bullets: [
                       "Structure and ownership discussion aligned to your activity",
-                      "Typical approvals and sequencing guidance",
-                      "Document checklist and readiness review",
+                      "Activity and approval pathway overview (what typically applies)",
+                      "Cost drivers and trade-offs (address, staffing, timing)",
                     ],
                     Icon: Target,
                   },
                   {
                     k: "b",
-                    title: "Licensing + Compliance Guidance",
+                    title: "Document Checklist & Readiness Review",
                     bullets: [
-                      "Clarify expected compliance steps",
-                      "Avoid common documentation mistakes",
-                      "Coordinate specialists when needed",
+                      "Tailored checklist for shareholders and structure",
+                      "Document readiness review to reduce back-and-forth",
+                      "Clear sequencing: what to prepare first vs later",
+                    ],
+                    Icon: ClipboardList,
+                  },
+                  {
+                    k: "c",
+                    title: "Licensing & Regulatory Advisory",
+                    bullets: [
+                      "Guidance on common approvals for your activity",
+                      "Requirements overview for regulated activities (where relevant)",
+                      "Compliance checkpoints to keep the process predictable",
                     ],
                     Icon: ShieldCheck,
                   },
                   {
-                    k: "c",
-                    title: "Visa Planning Support",
+                    k: "d",
+                    title: "Corporate Structuring Consultation",
                     bullets: [
-                      "Understand typical visa pathways",
-                      "Sequence steps to reduce delays",
-                      "Compliance-first guidance",
+                      "Guidance on common structures (e.g., SPC, WLL, branch)",
+                      "Shareholder and governance considerations",
                     ],
-                    Icon: Route,
+                    Icon: Layers,
+                  },
+                  {
+                    k: "e",
+                    title: "Support Services Coordination",
+                    bullets: [
+                      "Coordination with support providers when needed",
+                      "Accounting and bookkeeping options overview",
+                      "Banking preparation guidance (what to expect and prepare)",
+                    ],
+                    Icon: MessageSquareText,
                   },
                 ].map((s) => (
                   <AccordionItem key={s.k} value={s.k}>
