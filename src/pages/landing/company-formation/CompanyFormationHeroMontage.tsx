@@ -142,7 +142,6 @@ export function CompanyFormationHeroMontage({
                 loading="eager"
                 fetchPriority="high"
               />
-              <div className="absolute inset-0 overlay-navy-vertical" />
 
               <div className="absolute bottom-5 left-5 right-5">
                 <div className="lp-card-flat flex items-center justify-between gap-3 bg-background/90 p-3 backdrop-blur-sm md:p-4">
@@ -237,7 +236,7 @@ export function CompanyFormationHeroMontage({
                   loading="eager"
                   fetchPriority="high"
                 />
-                <div className="absolute inset-0 overlay-navy-vertical" />
+                
 
               <div className="absolute bottom-5 left-5 right-5">
                 <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
