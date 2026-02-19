@@ -67,7 +67,7 @@ export function CompanyFormationHeroMontage({
         <div aria-hidden className="absolute inset-0 bg-background" />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(hsl(var(--border)_/_0.55)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(0_0%_0%)_70%,transparent_100%)] opacity-[0.35]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(hsl(var(--border)_/_0.7)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(0_0%_0%)_70%,transparent_100%)] opacity-60"
         />
 
         <div className={cn("relative mx-auto px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16", centeredMaxW)}>
