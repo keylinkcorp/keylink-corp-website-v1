@@ -22,30 +22,33 @@ const logos = [
 
 export function CompanyLogosTicker() {
   return (
-    	<section
-      	aria-label="Company logos"
-      	className="relative overflow-hidden border-y border-border/60 bg-muted/10"
-    	>
-      	{/* Fade edges (kept inside the framed layout) */}
-      	<div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-muted/10 to-transparent z-10" />
-      	<div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-muted/10 to-transparent z-10" />
+    <section
+      aria-label="Company logos"
+      className="relative border-y border-border/60"
+    >
+      {/* Framed ticker (clips the scroll inside the frame) */}
+      <div className="mx-auto max-w-[1120px] md:border-x md:border-border/60 bg-muted/10 overflow-hidden">
+        <div className="relative py-6">
+          {/* Fade edges (kept inside the framed layout) */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-muted/10 to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-muted/10 to-transparent z-10" />
 
-      <div className="relative py-6">
-        <div className="flex items-center gap-12 md:gap-16 logo-ticker">
-          {[...logos, ...logos].map((logo, index) => (
-            <div
-              key={`${logo.name}-${index}`}
-              className="flex-shrink-0 flex items-center justify-center h-10 md:h-12"
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                loading="lazy"
-                className="h-7 md:h-8 w-auto object-contain grayscale opacity-60 contrast-125"
-                draggable={false}
-              />
-            </div>
-          ))}
+          <div className="flex items-center gap-12 md:gap-16 logo-ticker">
+            {[...logos, ...logos].map((logo, index) => (
+              <div
+                key={`${logo.name}-${index}`}
+                className="flex-shrink-0 flex items-center justify-center h-10 md:h-12"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  loading="lazy"
+                  className="h-7 md:h-8 w-auto object-contain grayscale opacity-60 contrast-125"
+                  draggable={false}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
