@@ -284,8 +284,8 @@ export default function CompanyFormationConsultancyLandingModern() {
               <ul className="divide-y divide-border/40">
                 {COMMON_BLOCKERS.map(({ title, Icon }) => (
                   <li key={title} className="flex gap-3 px-5 py-4 sm:px-6 sm:py-5">
-                    <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/30 bg-muted/20 shrink-0">
-                      <Icon className="h-5 w-5 text-muted-foreground" />
+                    <span className="mt-1 inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/30 bg-muted/20 shrink-0">
+                      <Icon className="h-[22px] w-[22px] text-muted-foreground" />
                     </span>
                     <p className="text-base font-medium leading-relaxed text-foreground/90">{title}</p>
                   </li>
@@ -357,7 +357,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                   <div className="flex items-start justify-between gap-6">
                     <div className="flex items-start gap-4">
                       <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
-                        <s.icon className="h-5 w-5 text-accent" />
+                        <s.icon className="h-[22px] w-[22px] text-accent" />
                       </span>
                       <div>
                         <p className="text-sm text-muted-foreground">Step {idx + 1}</p>
@@ -518,7 +518,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                 ].map(({ label, desc, Icon }) => (
                   <div key={label} className="lp-card p-5 sm:p-6 md:p-7">
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
-                      <Icon className="h-5 w-5 text-accent" />
+                      <Icon className="h-[22px] w-[22px] text-accent" />
                     </span>
                     <div className="mt-3">
                       <p className="text-base font-semibold leading-snug text-foreground">{label}</p>
@@ -571,11 +571,11 @@ export default function CompanyFormationConsultancyLandingModern() {
                   },
                 ].map((t, idx) => (
                   <div key={idx} className="lp-card p-6 sm:p-7">
-                    <div className="flex items-center gap-1 text-accent">
-                      {[0, 1, 2, 3, 4].map((s) => (
-                        <Star key={s} className="h-4 w-4" />
-                      ))}
-                    </div>
+                  <div className="flex items-center gap-1 text-accent">
+                    {[0, 1, 2, 3, 4].map((s) => (
+                      <Star key={s} className="h-[22px] w-[22px]" />
+                    ))}
+                  </div>
                     <p className="mt-4 text-sm text-muted-foreground">“{t.quote}”</p>
                     <p className="mt-4 text-sm font-semibold text-foreground">{t.by}</p>
                   </div>
@@ -650,7 +650,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                     href={c.href}
                     className="lp-card p-5 sm:p-6 md:p-7 flex items-start gap-3 hover:shadow-[0_8px_32px_hsl(var(--navy)/0.10)] transition-shadow"
                   >
-                    <c.icon className="h-5 w-5 text-accent mt-0.5" />
+                    <c.icon className="h-[22px] w-[22px] text-accent mt-0.5" />
                     <div>
                       <p className="text-xs text-muted-foreground">{c.label}</p>
                       <p className="text-sm font-semibold text-foreground">{c.value}</p>
@@ -703,12 +703,12 @@ export default function CompanyFormationConsultancyLandingModern() {
                     <Button size="lg" className="w-full sm:w-auto" onClick={() => scrollToId("book")}>
                       Get Free Consultation
                     </Button>
-                    <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
-                      <a href="tel:+97317008888">
-                        <Phone className="mr-2" />
-                        Call for consultation
-                      </a>
-                    </Button>
+                      <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                       <a href="tel:+97317008888">
+                         <Phone className="mr-2 h-[22px] w-[22px]" />
+                         Call for consultation
+                       </a>
+                     </Button>
                   </div>
                 </div>
 

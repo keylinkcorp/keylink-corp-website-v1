@@ -62,7 +62,7 @@ export function CompanyFormationHeroMontage({
           {/* Copy */}
           <div className="mx-auto max-w-3xl text-center">
             <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
-              <Sparkles className="h-4 w-4 text-accent" />
+              <Sparkles className="h-[22px] w-[22px] text-accent" />
               {badgeText}
             </p>
 
@@ -76,7 +76,7 @@ export function CompanyFormationHeroMontage({
             <ul className="mt-7 mx-auto grid gap-3 text-sm max-w-[58ch]">
               {bullets.map((item) => (
                 <li key={item.text} className="flex items-start gap-3 text-left text-foreground/90">
-                  <item.icon className="mt-0.5 h-4 w-4 text-accent" />
+                  <item.icon className="mt-0.5 h-[22px] w-[22px] text-accent" />
                   {item.text}
                 </li>
               ))}
@@ -90,7 +90,7 @@ export function CompanyFormationHeroMontage({
               {phoneCta ? (
                 <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
                   <a href={phoneCta.href}>
-                    <Phone className="mr-2" />
+                    <Phone className="mr-2 h-[22px] w-[22px]" />
                     {phoneCta.label}
                   </a>
                 </Button>
@@ -99,7 +99,7 @@ export function CompanyFormationHeroMontage({
               {showWhatsApp ? (
                 <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
                   <a href="https://wa.me/97317008888">
-                    <MessageCircle className="mr-2" />
+                    <MessageCircle className="mr-2 h-[22px] w-[22px]" />
                     WhatsApp
                   </a>
                 </Button>
@@ -130,7 +130,7 @@ export function CompanyFormationHeroMontage({
               <div className="absolute bottom-5 left-5 right-5">
                 <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-accent" />
+                    <Clock className="h-[22px] w-[22px] text-accent" />
                     <span className="text-sm text-foreground font-medium">Free 30‑minute call • Google Meet</span>
                   </div>
                   <span className="text-xs text-muted-foreground">Same‑page booking</span>
@@ -154,7 +154,7 @@ export function CompanyFormationHeroMontage({
           <div className="lg:col-span-6 order-2 lg:order-1">
             <div>
               <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs text-muted-foreground tracking-tight">
-                <Sparkles className="h-4 w-4 text-accent" />
+                <Sparkles className="h-[22px] w-[22px] text-accent" />
                 {badgeText}
               </p>
 
@@ -168,7 +168,7 @@ export function CompanyFormationHeroMontage({
               <ul className="mt-7 space-y-3 text-sm">
                 {bullets.map((item) => (
                   <li key={item.text} className="flex items-start gap-3 text-foreground/90">
-                    <item.icon className="mt-0.5 h-4 w-4 text-accent" />
+                    <item.icon className="mt-0.5 h-[22px] w-[22px] text-accent" />
                     {item.text}
                   </li>
                 ))}
@@ -182,7 +182,7 @@ export function CompanyFormationHeroMontage({
                 {phoneCta ? (
                   <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
                     <a href={phoneCta.href}>
-                      <Phone className="mr-2" />
+                      <Phone className="mr-2 h-[22px] w-[22px]" />
                       {phoneCta.label}
                     </a>
                   </Button>
@@ -191,7 +191,7 @@ export function CompanyFormationHeroMontage({
                 {showWhatsApp ? (
                   <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
                     <a href="https://wa.me/97317008888">
-                      <MessageCircle className="mr-2" />
+                      <MessageCircle className="mr-2 h-[22px] w-[22px]" />
                       WhatsApp
                     </a>
                   </Button>
@@ -222,15 +222,15 @@ export function CompanyFormationHeroMontage({
                 />
                 <div className="absolute inset-0 overlay-navy-vertical" />
 
-                <div className="absolute bottom-5 left-5 right-5">
-                  <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-accent" />
-                      <span className="text-sm text-foreground font-medium">Free 30‑minute call • Google Meet</span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">Same‑page booking</span>
+              <div className="absolute bottom-5 left-5 right-5">
+                <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-[22px] w-[22px] text-accent" />
+                    <span className="text-sm text-foreground font-medium">Free 30‑minute call • Google Meet</span>
                   </div>
+                  <span className="text-xs text-muted-foreground">Same‑page booking</span>
                 </div>
+              </div>
               </div>
             </div>
           </div>
