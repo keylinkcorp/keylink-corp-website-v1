@@ -157,9 +157,9 @@ export default function CompanyFormationConsultancyLandingModern() {
     }
 
     // NOTE: Unique identifiers so we don't collide with other LP routes.
-    let robots = document.querySelector('meta[name="robots"][data-lp="company-formation-consultancy-modern"]') as
-      | HTMLMetaElement
-      | null;
+    let robots = document.querySelector(
+      'meta[name="robots"][data-lp="company-formation-consultancy-modern"]'
+    ) as HTMLMetaElement | null;
     if (!robots) {
       robots = document.createElement("meta");
       robots.setAttribute("name", "robots");
@@ -168,9 +168,9 @@ export default function CompanyFormationConsultancyLandingModern() {
     }
     robots.setAttribute("content", "noindex, follow");
 
-    let canonical = document.querySelector('link[rel="canonical"][data-lp="company-formation-consultancy-modern"]') as
-      | HTMLLinkElement
-      | null;
+    let canonical = document.querySelector(
+      'link[rel="canonical"][data-lp="company-formation-consultancy-modern"]'
+    ) as HTMLLinkElement | null;
     if (!canonical) {
       canonical = document.createElement("link");
       canonical.setAttribute("rel", "canonical");
@@ -180,9 +180,9 @@ export default function CompanyFormationConsultancyLandingModern() {
     canonical.setAttribute("href", "https://keylinkcorp.com/lp/company-formation-consultancy-modern");
 
     // Add FAQ JSON-LD (unique marker to avoid collisions)
-    let ld = document.querySelector('script[type="application/ld+json"][data-lp="cfc-modern-faq"]') as
-      | HTMLScriptElement
-      | null;
+    let ld = document.querySelector(
+      'script[type="application/ld+json"][data-lp="cfc-modern-faq"]'
+    ) as HTMLScriptElement | null;
     if (!ld) {
       ld = document.createElement("script");
       ld.type = "application/ld+json";
@@ -201,29 +201,32 @@ export default function CompanyFormationConsultancyLandingModern() {
   }, [faqJsonLd]);
 
   return (
-    <div className="min-h-screen bg-muted/20">
-      <div className="cfc-typography mx-auto min-h-screen max-w-[1120px] bg-background md:border-x md:border-border/60">
-        <LandingHeader borderless onLogoClick={() => scrollToId("top")} />
+    <div className="min-h-screen bg-muted/20 cfc-typography">
+      {/* Full-width sticky header with full-width bottom border */}
+      <LandingHeader onLogoClick={() => scrollToId("top")} />
 
-        <main id="top" className="flex-1">
-          <CompanyFormationHeroMontage
-            variant="centered"
-            onBookClick={() => scrollToId("book")}
-            badgeText="Free consultation • Independent business consultancy"
-            title="Company Formation Consultancy in Bahrain"
-            titleSuffix=""
-            lead="Independent guidance for your Bahrain business setup—get a clear checklist, realistic timeline, and cost drivers before you commit time or fees."
-            bullets={[
-              { icon: Check, text: "Consultation-first: clarity before you spend" },
-              { icon: Shield, text: "Guidance on typical approvals and compliance steps" },
-              { icon: FileText, text: "Tailored checklist + next-step plan" },
-            ]}
-            primaryCtaLabel="Get Free Consultation"
-            phoneCta={{ href: "tel:+97317008888", label: "Call +97317008888" }}
-            showWhatsApp
-            socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
-          />
+      <main id="top" className="flex-1">
+        {/* Full-width hero (no side frame borders) */}
+        <CompanyFormationHeroMontage
+          variant="centered"
+          onBookClick={() => scrollToId("book")}
+          badgeText="Free consultation • Independent business consultancy"
+          title="Company Formation Consultancy in Bahrain"
+          titleSuffix=""
+          lead="Independent guidance for your Bahrain business setup—get a clear checklist, realistic timeline, and cost drivers before you commit time or fees."
+          bullets={[
+            { icon: Check, text: "Consultation-first: clarity before you spend" },
+            { icon: Shield, text: "Guidance on typical approvals and compliance steps" },
+            { icon: FileText, text: "Tailored checklist + next-step plan" },
+          ]}
+          primaryCtaLabel="Get Free Consultation"
+          phoneCta={{ href: "tel:+97317008888", label: "Call +97317008888" }}
+          showWhatsApp
+          socialProofLine="4.9/5 reviews • 500+ clients supported • Response within 1 business day"
+        />
 
+        {/* Framed content starts AFTER the hero */}
+        <div className="mx-auto min-h-screen max-w-[1120px] bg-background md:border-x md:border-border/60">
           <CompanyLogosTicker />
 
           {/* COST CALCULATOR */}
@@ -375,7 +378,7 @@ export default function CompanyFormationConsultancyLandingModern() {
               <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
               <Button variant="outline" asChild>
                 <a href="tel:+97317008888">
-                  <Phone className="mr-2" />
+                  <Phone className="mr-2 h-[22px] w-[22px]" />
                   Call for consultation
                 </a>
               </Button>
@@ -409,53 +412,47 @@ export default function CompanyFormationConsultancyLandingModern() {
                     title: "Company Formation Advisory",
                     bullets: [
                       "Structure and ownership discussion aligned to your activity",
-                      "Activity and approval pathway overview (what typically applies)",
-                      "Cost drivers and trade-offs (address, staffing, timing)",
+                      "Typical approvals and sequencing guidance",
+                      "Document checklist and readiness review",
                     ],
+                    Icon: Target,
                   },
                   {
                     k: "b",
-                    title: "Document Checklist & Readiness Review",
+                    title: "Licensing + Compliance Guidance",
                     bullets: [
-                      "Tailored checklist for shareholders and structure",
-                      "Document readiness review to reduce back-and-forth",
-                      "Clear sequencing: what to prepare first vs later",
+                      "Clarify expected compliance steps",
+                      "Avoid common documentation mistakes",
+                      "Coordinate specialists when needed",
                     ],
+                    Icon: ShieldCheck,
                   },
                   {
                     k: "c",
-                    title: "Licensing & Regulatory Advisory",
+                    title: "Visa Planning Support",
                     bullets: [
-                      "Guidance on common approvals for your activity",
-                      "Requirements overview for regulated activities (where relevant)",
-                      "Compliance checkpoints to keep the process predictable",
+                      "Understand typical visa pathways",
+                      "Sequence steps to reduce delays",
+                      "Compliance-first guidance",
                     ],
-                  },
-                  {
-                    k: "d",
-                    title: "Corporate Structuring Consultation",
-                    bullets: [
-                      "Guidance on common structures (e.g., SPC, WLL, branch)",
-                      "Shareholder and governance considerations",
-                    ],
-                  },
-                  {
-                    k: "e",
-                    title: "Support Services Coordination",
-                    bullets: [
-                      "Coordination with support providers when needed",
-                      "Accounting and bookkeeping options overview",
-                      "Banking preparation guidance (what to expect and prepare)",
-                    ],
+                    Icon: Route,
                   },
                 ].map((s) => (
                   <AccordionItem key={s.k} value={s.k}>
-                    <AccordionTrigger className="text-base font-semibold leading-snug">{s.title}</AccordionTrigger>
+                    <AccordionTrigger className="text-left">
+                      <span className="inline-flex items-center gap-3">
+                        <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
+                          <s.Icon className="h-[22px] w-[22px] text-accent" />
+                        </span>
+                        <span>{s.title}</span>
+                      </span>
+                    </AccordionTrigger>
                     <AccordionContent>
-                      <ul className="mt-3 space-y-2 list-disc pl-5">
+                      <ul className="mt-3 space-y-2">
                         {s.bullets.map((b) => (
-                          <li key={b} className="text-base text-muted-foreground leading-relaxed">
-                            {b}
+                          <li key={b} className="flex items-start gap-3 text-sm text-muted-foreground">
+                            <Check className="mt-0.5 h-[22px] w-[22px] text-accent" />
+                            <span>{b}</span>
                           </li>
                         ))}
                       </ul>
@@ -464,132 +461,42 @@ export default function CompanyFormationConsultancyLandingModern() {
                 ))}
               </Accordion>
             </div>
-
-            <div className="mt-6">
-              <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
-            </div>
           </SplitSection>
 
-          {/* BENEFITS */}
-          <section className="section-spacing-sm relative overflow-hidden bg-secondary/30">
-            <SectionBackgroundOverlay variant="grid-lines" opacity={0.5} masked />
+          {/* TESTIMONIALS */}
+          <section aria-label="Testimonials" className="section-spacing-sm">
+            <div className="container mx-auto px-4 md:px-6">
+              <div className="max-w-3xl">
+                <span className="section-badge">Reviews</span>
+                <h2 className="lp-h2">Clarity-first guidance (what clients say)</h2>
+                <p className="lp-section-subtitle">Independent advisory, structured checklists, and realistic expectations.</p>
+              </div>
 
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <span className="section-badge">Benefits</span>
-              <h2 className="lp-h2">Why Entrepreneurs Choose Our Consultancy</h2>
-
-              <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {[
-                  {
-                    label: "Clear, step-by-step guidance",
-                    desc: 'Fast, practical guidance that turns "what do I do next?" into a simple checklist.',
-                    Icon: Route,
-                  },
-                  {
-                    label: "Transparent expectations on timelines",
-                    desc: "Know what typically takes time—and what you can prepare early to avoid delays.",
-                    Icon: Clock,
-                  },
-                  {
-                    label: "Practical document checklists",
-                    desc: "A tailored checklist so documents are prepared in the right order, with fewer surprises.",
-                    Icon: ClipboardList,
-                  },
-                  {
-                    label: "Fast response and coordination",
-                    desc: "Responsive support to keep the plan moving and reduce back-and-forth.",
-                    Icon: MessageSquareText,
-                  },
-                  {
-                    label: "Experience across many activities",
-                    desc: "Clear trade-offs across common business activities—so your setup matches your reality.",
-                    Icon: Layers,
-                  },
-                  {
-                    label: "Compliance-first planning",
-                    desc: "Guidance on typical approvals and checkpoints to keep your setup predictable.",
-                    Icon: ShieldCheck,
-                  },
-                  {
-                    label: "Advice tailored to your goals",
-                    desc: "A practical plan aligned to your shareholders, activity, and timeline—not generic advice.",
-                    Icon: Target,
-                  },
-                ].map(({ label, desc, Icon }) => (
-                  <div key={label} className="lp-card p-5 sm:p-6 md:p-7">
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
-                      <Icon className="h-[22px] w-[22px] text-accent" />
-                    </span>
-                    <div className="mt-3">
-                      <p className="text-base font-semibold leading-snug text-foreground">{label}</p>
-                      <p className="mt-2 text-base leading-relaxed text-muted-foreground">{desc}</p>
+              <div className="mt-8 grid gap-4 lg:grid-cols-2">
+                {[testimonial1, testimonial2].map((img, idx) => (
+                  <div key={img} className="lp-card p-6 md:p-7">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-1">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star key={i} className="h-[22px] w-[22px] text-accent" />
+                          ))}
+                        </div>
+                        <p className="mt-4 text-sm text-muted-foreground">
+                          {idx === 0
+                            ? "The checklist and sequencing made everything much clearer. We knew what to prepare first and avoided delays."
+                            : "Practical and direct. Clear next steps, realistic timeline, and helpful coordination when we needed it."}
+                        </p>
+                        <p className="mt-4 text-sm font-semibold text-foreground">Client review</p>
+                      </div>
+                      <img
+                        src={img}
+                        alt="Client testimonial portrait"
+                        className="h-20 w-20 rounded-2xl object-cover"
+                        loading="lazy"
+                      />
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Trust signals (every 2–3 sections) */}
-              <div className="mt-6 lp-card p-6 md:p-7">
-                <div className="relative flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">Trusted, responsive, checklist-driven.</p>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      4.9/5 reviews • 500+ clients supported • Clear next steps from the first call
-                    </p>
-                  </div>
-                  <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* TESTIMONIALS */}
-          <section className="section-spacing-sm">
-            <div className="container mx-auto px-4 md:px-6">
-              <span className="section-badge">Testimonials</span>
-              <h2 className="lp-h2">Trusted by 500+ Businesses in Bahrain</h2>
-              <p className="mt-4 lp-section-subtitle">
-                Realistic, checklist-driven guidance—kept concise for decision‑focused ad traffic.
-              </p>
-
-              <div className="mt-8 grid md:grid-cols-3 gap-6">
-                {[
-                  {
-                    quote:
-                      "The call gave us a clear sequence and checklist. We stopped guessing and moved forward with confidence.",
-                    by: "Founder",
-                  },
-                  {
-                    quote:
-                      "Very responsive and practical—especially on timelines and what documents to prepare first.",
-                    by: "Operations lead",
-                  },
-                  {
-                    quote:
-                      "Clear explanations of options and cost drivers. The guidance helped us avoid delays and rework.",
-                    by: "Entrepreneur",
-                  },
-                ].map((t, idx) => (
-                  <div key={idx} className="lp-card p-6 sm:p-7">
-                  <div className="flex items-center gap-1 text-accent">
-                    {[0, 1, 2, 3, 4].map((s) => (
-                      <Star key={s} className="h-[22px] w-[22px]" />
-                    ))}
-                  </div>
-                    <p className="mt-4 text-sm text-muted-foreground">“{t.quote}”</p>
-                    <p className="mt-4 text-sm font-semibold text-foreground">{t.by}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {["No obligation", "Fast response", "Clear checklist", "Advisory-only"].map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-border/40 bg-background px-3 py-1 text-xs text-muted-foreground"
-                  >
-                    {t}
-                  </span>
                 ))}
               </div>
             </div>
@@ -665,9 +572,7 @@ export default function CompanyFormationConsultancyLandingModern() {
               <div className="container mx-auto px-4 md:px-6">
                 <span className="section-badge">Booking</span>
                 <h3 className="lp-h2">Prefer to book immediately?</h3>
-                <p className="mt-4 lp-section-subtitle">
-                  Choose a time for your free consultation—30 minutes, no obligation.
-                </p>
+                <p className="mt-4 lp-section-subtitle">Choose a time for your free consultation—30 minutes, no obligation.</p>
               </div>
 
               <CalendlyBooking
@@ -676,6 +581,30 @@ export default function CompanyFormationConsultancyLandingModern() {
                 sectionId="book-calendly"
                 imageAlt="Business consultation call preview"
               />
+            </div>
+          </section>
+
+          {/* FAQs */}
+          <section aria-label="FAQs" className="section-spacing-sm bg-muted/10">
+            <div className="container mx-auto px-4 md:px-6">
+              <div className="max-w-3xl">
+                <span className="section-badge">FAQs</span>
+                <h2 className="lp-h2">Common questions</h2>
+                <p className="lp-section-subtitle">Short, direct answers—then we personalize it on the call.</p>
+              </div>
+
+              <div className="mt-8 lp-card p-2 md:p-3">
+                <Accordion type="single" collapsible>
+                  {FAQS.map((f, idx) => (
+                    <AccordionItem key={f.question} value={`faq-${idx}`}>
+                      <AccordionTrigger className="px-4 md:px-5">{f.question}</AccordionTrigger>
+                      <AccordionContent className="px-4 md:px-5 text-sm text-muted-foreground">
+                        {f.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
             </div>
           </section>
 
@@ -703,12 +632,12 @@ export default function CompanyFormationConsultancyLandingModern() {
                     <Button size="lg" className="w-full sm:w-auto" onClick={() => scrollToId("book")}>
                       Get Free Consultation
                     </Button>
-                      <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
-                       <a href="tel:+97317008888">
-                         <Phone className="mr-2 h-[22px] w-[22px]" />
-                         Call for consultation
-                       </a>
-                     </Button>
+                    <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
+                      <a href="tel:+97317008888">
+                        <Phone className="mr-2 h-[22px] w-[22px]" />
+                        Call for consultation
+                      </a>
+                    </Button>
                   </div>
                 </div>
 
@@ -731,16 +660,16 @@ export default function CompanyFormationConsultancyLandingModern() {
               </div>
             </div>
           </section>
-        </main>
 
-        <MobileStickyConsultationBar
-          onConsultationClick={() => scrollToId("book")}
-          phoneHref="tel:+97317008888"
-          phoneLabel="Call for consultation"
-        />
+          <MobileStickyConsultationBar
+            onConsultationClick={() => scrollToId("book")}
+            phoneHref="tel:+97317008888"
+            phoneLabel="Call for consultation"
+          />
 
-        <LandingFooter />
-      </div>
+          <LandingFooter />
+        </div>
+      </main>
     </div>
   );
 }
