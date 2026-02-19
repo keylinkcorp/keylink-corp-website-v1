@@ -267,6 +267,7 @@ export default function CompanyFormationConsultancyLandingModern() {
             imageSrc={howItWorksImage}
             imageAlt="Consultant explaining options and requirements"
             imagePosition="right"
+            mobileOrder="image-first"
             imageSticky
             variant="subtle"
             backgroundVariant="ibelick-soft"
@@ -385,6 +386,7 @@ export default function CompanyFormationConsultancyLandingModern() {
             imageSrc={testimonialsImage}
             imageAlt="Professional advisory meeting"
             imagePosition="right"
+            mobileOrder="image-first"
             imageSticky
             variant="subtle"
             backgroundVariant="ibelick-soft"
@@ -588,36 +590,11 @@ export default function CompanyFormationConsultancyLandingModern() {
             </div>
           </section>
 
-          {/* FAQ */}
-          <section className="section-spacing-sm relative overflow-hidden bg-secondary/40">
-            <SectionBackgroundOverlay variant="ibelick-soft" opacity={0.88} masked />
-
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-              <span className="section-badge">FAQ</span>
-              <h2 className="lp-h2">Frequently Asked Questions About Company Formation in Bahrain</h2>
-
-              <div className="mt-8 lp-card p-3 md:p-4">
-                <Accordion type="single" collapsible>
-                  {FAQS.map((f, idx) => (
-                    <AccordionItem key={f.question} value={`cfc-${idx}`}>
-                      <AccordionTrigger className="text-sm font-semibold">{f.question}</AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">{f.answer}</AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-
-              <div className="mt-6">
-                <Button onClick={() => scrollToId("book")}>Get Free Consultation Checklist</Button>
-              </div>
-            </div>
-          </section>
-
           {/* ABOUT */}
           <section className="section-spacing-sm">
             <div className="container mx-auto px-4 md:px-6">
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-                <div>
+                <div className="order-2 lg:order-1">
                   <span className="section-badge">About</span>
                   <h2 className="lp-h2">About Our Business Setup Consultancy</h2>
 
@@ -633,7 +610,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                   </div>
                 </div>
 
-                <div className="lp-card p-3 sm:p-4 md:p-5">
+                <div className="order-1 lg:order-2 lp-card p-3 sm:p-4 md:p-5">
                   <EditorialImage
                     src={aboutConsultancyImage}
                     alt="Business setup consultancy meeting with checklist review"
