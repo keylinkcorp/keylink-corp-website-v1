@@ -5,8 +5,8 @@ import {
   MessageCircle,
   Phone,
   Shield,
-  Sparkles,
-} from "lucide-react";
+  Sparkles } from
+"lucide-react";
 
 import { HeroReviewStrip } from "@/components/shared/HeroReviewStrip";
 import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundOverlay";
@@ -22,12 +22,12 @@ type CompanyFormationHeroMontageProps = {
   title?: string;
   titleSuffix?: string;
   lead?: string;
-  bullets?: Array<{ icon: typeof Check; text: string }>;
+  bullets?: Array<{icon: typeof Check;text: string;}>;
   primaryCtaLabel?: string;
   /** Optional hero image override (defaults to the shared formation portrait). */
   imageSrc?: string;
   /** If provided, renders a phone CTA button next to the primary CTA. */
-  phoneCta?: { href: string; label: string };
+  phoneCta?: {href: string;label: string;};
   /** If true, show WhatsApp CTA button. Defaults to true (original LP behavior). */
   showWhatsApp?: boolean;
   /** Optional short social proof line shown under the review strip. */
@@ -44,19 +44,19 @@ export function CompanyFormationHeroMontage({
   title = "Company Formation in Bahrain",
   titleSuffix = " (2026)",
   lead =
-    "A premium, clear setup experience—100% foreign ownership guidance, transparent costs, and a realistic timeline.",
+  "A premium, clear setup experience—100% foreign ownership guidance, transparent costs, and a realistic timeline.",
   bullets = [
-    { icon: Check, text: "3–7 business days (typical) for many setups" },
-    { icon: Shield, text: "MOIC/LMRA guidance and compliance support" },
-    { icon: FileText, text: "Transparent checklist + clear next steps" },
-  ],
+  { icon: Check, text: "3–7 business days (typical) for many setups" },
+  { icon: Shield, text: "MOIC/LMRA guidance and compliance support" },
+  { icon: FileText, text: "Transparent checklist + clear next steps" }],
+
   primaryCtaLabel = "Get started",
   imageSrc = heroImage,
   phoneCta,
   showWhatsApp = true,
   socialProofLine,
   variant = "split",
-  contentMaxWidthClassName,
+  contentMaxWidthClassName
 }: CompanyFormationHeroMontageProps) {
   const centeredMaxW = contentMaxWidthClassName ?? "max-w-[1120px]";
 
@@ -67,8 +67,8 @@ export function CompanyFormationHeroMontage({
         <div aria-hidden className="absolute inset-0 bg-background" />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(hsl(var(--border)_/_0.7)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(0_0%_0%)_70%,transparent_100%)] opacity-60"
-        />
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(hsl(var(--border)_/_0.7)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(0_0%_0%)_70%,transparent_100%)] opacity-60" />
+
 
         <div className={cn("relative mx-auto px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16", centeredMaxW)}>
           {/* Copy */}
@@ -78,23 +78,23 @@ export function CompanyFormationHeroMontage({
               {badgeText}
             </p>
 
-            <h1 className="lp-h1 lp-hero-title text-balance mx-auto max-w-[22ch]">
+            <h1 className="lp-h1 lp-hero-title text-balance mx-auto max-w-[22ch] text-6xl">
               {title}
               {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
             </h1>
 
-            <p className="mt-5 lp-lead mx-auto max-w-[66ch]">{lead}</p>
+            <p className="mt-5 lp-lead mx-auto max-w-[66ch] text-base">{lead}</p>
 
             <ul className="mt-8 mx-auto flex w-full max-w-[700px] flex-col items-center gap-3 text-center text-sm">
-              {bullets.map((item) => (
-                <li
-                  key={item.text}
-                  className="flex w-full flex-col items-center justify-center gap-2 text-foreground/90 sm:flex-row sm:gap-3"
-                >
+              {bullets.map((item) =>
+              <li
+                key={item.text}
+                className="flex w-full flex-col items-center justify-center gap-2 text-foreground/90 sm:flex-row sm:gap-3">
+
                   <item.icon className="h-[22px] w-[22px] text-accent" />
                   <span className="leading-relaxed sm:max-w-[54ch]">{item.text}</span>
                 </li>
-              ))}
+              )}
             </ul>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
@@ -102,30 +102,30 @@ export function CompanyFormationHeroMontage({
                 {primaryCtaLabel}
               </Button>
 
-              {phoneCta ? (
-                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+              {phoneCta ?
+              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                   <a href={phoneCta.href}>
                     <Phone className="mr-2 h-[22px] w-[22px]" />
                     {phoneCta.label}
                   </a>
-                </Button>
-              ) : null}
+                </Button> :
+              null}
 
-              {showWhatsApp ? (
-                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+              {showWhatsApp ?
+              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                   <a href="https://wa.me/97317008888">
                     <MessageCircle className="mr-2 h-[22px] w-[22px]" />
                     WhatsApp
                   </a>
-                </Button>
-              ) : null}
+                </Button> :
+              null}
             </div>
 
             <HeroReviewStrip align="center" className="mt-8" />
 
-            {socialProofLine ? (
-              <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p>
-            ) : null}
+            {socialProofLine ?
+            <p className="mt-2 text-xs text-muted-foreground">{socialProofLine}</p> :
+            null}
 
             <p className="mt-3 text-xs text-muted-foreground">
               Free • No obligation • You’ll get a cost breakdown + document checklist
@@ -140,8 +140,8 @@ export function CompanyFormationHeroMontage({
                 alt="Business consultation for company formation in Bahrain"
                 className="h-[320px] w-full object-cover md:h-[460px]"
                 loading="eager"
-                fetchPriority="high"
-              />
+                fetchPriority="high" />
+
 
               <div className="absolute bottom-5 left-5 right-5">
                 <div className="lp-card-flat flex items-center justify-between gap-3 bg-background/90 p-3 backdrop-blur-sm md:p-4">
@@ -155,8 +155,8 @@ export function CompanyFormationHeroMontage({
             </div>
           </div>
         </div>
-      </section>
-    );
+      </section>);
+
   }
 
   return (
@@ -182,12 +182,12 @@ export function CompanyFormationHeroMontage({
               <p className="mt-5 lp-lead max-w-[56ch]">{lead}</p>
 
               <ul className="mt-7 space-y-3 text-sm">
-                {bullets.map((item) => (
-                  <li key={item.text} className="flex items-start gap-3 text-foreground/90">
+                {bullets.map((item) =>
+                <li key={item.text} className="flex items-start gap-3 text-foreground/90">
                     <item.icon className="mt-0.5 h-[22px] w-[22px] text-accent" />
                     {item.text}
                   </li>
-                ))}
+                )}
               </ul>
 
               <div className="mt-7 flex flex-col sm:flex-row gap-3">
@@ -195,23 +195,23 @@ export function CompanyFormationHeroMontage({
                   {primaryCtaLabel}
                 </Button>
 
-                {phoneCta ? (
-                  <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
+                {phoneCta ?
+                <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
                     <a href={phoneCta.href}>
                       <Phone className="mr-2 h-[22px] w-[22px]" />
                       {phoneCta.label}
                     </a>
-                  </Button>
-                ) : null}
+                  </Button> :
+                null}
 
-                {showWhatsApp ? (
-                  <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
+                {showWhatsApp ?
+                <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
                     <a href="https://wa.me/97317008888">
                       <MessageCircle className="mr-2 h-[22px] w-[22px]" />
                       WhatsApp
                     </a>
-                  </Button>
-                ) : null}
+                  </Button> :
+                null}
               </div>
 
               <HeroReviewStrip className="mt-5" />
@@ -234,8 +234,8 @@ export function CompanyFormationHeroMontage({
                   alt="Business consultation for company formation in Bahrain"
                   className="w-full h-[340px] md:h-[460px] object-cover"
                   loading="eager"
-                  fetchPriority="high"
-                />
+                  fetchPriority="high" />
+
                 
 
               <div className="absolute bottom-5 left-5 right-5">
@@ -252,7 +252,6 @@ export function CompanyFormationHeroMontage({
           </div>
         </div>
       </div>
-    </section>
-  );
-}
+    </section>);
 
+}
