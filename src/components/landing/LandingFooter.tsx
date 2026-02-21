@@ -1,11 +1,13 @@
 export function LandingFooter() {
   return (
-    <footer className="border-t bg-background">
-      <div className="container mx-auto px-4 md:px-6 py-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <footer className="relative bg-background">
+      {/* Enhanced full-width divider (matches framed LP borders) */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/70 to-transparent" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 border-t border-border/60" />
+
+      <div className="container mx-auto flex flex-col gap-4 px-4 py-8 md:flex-row md:items-center md:justify-between md:px-6">
         <div className="flex flex-col gap-2">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Keylink Corp. All rights reserved.
-          </p>
+          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Keylink Corp. All rights reserved.</p>
           <p className="text-xs text-muted-foreground">
             Disclaimer: We do not issue Commercial Registration (CR). CR is issued by Bahrain government authorities only.
           </p>
@@ -13,7 +15,7 @@ export function LandingFooter() {
 
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
           <a
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="text-muted-foreground transition-colors hover:text-foreground"
             href="/privacy-policy"
             target="_blank"
             rel="noreferrer"
@@ -21,7 +23,7 @@ export function LandingFooter() {
             Privacy
           </a>
           <a
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="text-muted-foreground transition-colors hover:text-foreground"
             href="/terms-of-service"
             target="_blank"
             rel="noreferrer"
@@ -29,7 +31,7 @@ export function LandingFooter() {
             Terms
           </a>
           <a
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="text-muted-foreground transition-colors hover:text-foreground"
             href="/cookie-policy"
             target="_blank"
             rel="noreferrer"
@@ -41,3 +43,4 @@ export function LandingFooter() {
     </footer>
   );
 }
+
