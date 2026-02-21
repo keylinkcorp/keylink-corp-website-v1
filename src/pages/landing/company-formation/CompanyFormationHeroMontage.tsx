@@ -78,12 +78,12 @@ export function CompanyFormationHeroMontage({
               {badgeText}
             </p>
 
-            <h1 className="lp-h1 lp-hero-title text-balance mx-auto max-w-[22ch] text-6xl">
+            <h1 className="lp-h1 lp-hero-title text-balance mx-auto max-w-[22ch] text-4xl sm:text-5xl lg:text-6xl">
               {title}
               {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
             </h1>
 
-            <p className="mt-5 lp-lead mx-auto max-w-[66ch] text-base">{lead}</p>
+            <p className="mt-5 lp-lead mx-auto max-w-[66ch] text-sm sm:text-base">{lead}</p>
 
             <ul className="mt-8 mx-auto flex w-full max-w-[700px] flex-col items-center gap-3 text-center text-sm">
               {bullets.map((item) =>
