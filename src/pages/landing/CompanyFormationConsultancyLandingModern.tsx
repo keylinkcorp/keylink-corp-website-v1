@@ -895,18 +895,6 @@ export default function CompanyFormationConsultancyLandingModern() {
           </section>
         </FullBleedSection>
 
-        {/* FOOTER DISCLAIMER (page-specific) */}
-        <FullBleedSection>
-          <section className="pb-10">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="lp-card-flat bg-muted/20 p-5">
-                <p className="text-xs text-muted-foreground">
-                  We are not a government website or authority. CR issued by Bahrain government only.
-                </p>
-              </div>
-            </div>
-          </section>
-        </FullBleedSection>
 
         <MobileStickyConsultationBar
           onConsultationClick={() => scrollToId("book")}
