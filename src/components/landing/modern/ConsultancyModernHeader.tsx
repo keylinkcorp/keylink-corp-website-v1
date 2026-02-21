@@ -14,7 +14,14 @@ export function ConsultancyModernHeader({
   primaryLabel = "Start calculator",
 }: ConsultancyModernHeaderProps) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full relative border-b border-border/60 bg-background/80 backdrop-blur-xl">
+      {/* Enhanced full-width divider (mirrors footer) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-border/70 to-transparent"
+      />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 border-b border-border/60" />
+
       <div className="container mx-auto flex h-18 items-center justify-between px-4 md:px-6">
         <button
           type="button"
