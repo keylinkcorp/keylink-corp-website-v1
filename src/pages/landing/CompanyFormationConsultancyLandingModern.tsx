@@ -914,7 +914,7 @@ export default function CompanyFormationConsultancyLandingModern() {
           phoneLabel="Call for consultation"
         />
 
-        <LandingFooter />
+        <LandingFooter frameMaxWidthClassName={FRAME_MAX_W_CLASS} />
       </main>
     </div>
   );
