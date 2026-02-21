@@ -1,8 +1,11 @@
 export function LandingFooter() {
   return (
-    <footer className="relative bg-background">
+    <footer className="relative border-t border-border/60 bg-background">
       {/* Enhanced full-width divider (matches framed LP borders) */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/70 to-transparent" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/70 to-transparent"
+      />
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 border-t border-border/60" />
 
       <div className="container mx-auto flex flex-col gap-4 px-4 py-8 md:flex-row md:items-center md:justify-between md:px-6">
