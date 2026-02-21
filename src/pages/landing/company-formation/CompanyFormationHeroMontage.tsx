@@ -72,20 +72,20 @@ export function CompanyFormationHeroMontage({
 
         <div className={cn("relative mx-auto px-4 md:px-6 pt-12 md:pt-16 pb-12 md:pb-16", centeredMaxW)}>
           {/* Copy */}
-          <div className="mx-auto max-w-[860px] text-center">
-            <p className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
+          <div className="mx-auto w-full max-w-[820px] text-center">
+            <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs text-muted-foreground tracking-tight">
               <Sparkles className="h-[22px] w-[22px] text-accent" />
               {badgeText}
             </p>
 
-            <h1 className="lp-h1 lp-hero-title text-balance mx-auto">
+            <h1 className="lp-h1 lp-hero-title text-balance mx-auto max-w-[22ch]">
               {title}
               {titleSuffix ? <span className="text-accent">{titleSuffix}</span> : null}
             </h1>
 
-            <p className="mt-5 lp-lead mx-auto max-w-[68ch]">{lead}</p>
+            <p className="mt-5 lp-lead mx-auto max-w-[66ch]">{lead}</p>
 
-            <ul className="mt-8 mx-auto flex max-w-[700px] flex-col items-center gap-3 text-center text-sm">
+            <ul className="mt-8 mx-auto flex w-full max-w-[700px] flex-col items-center gap-3 text-center text-sm">
               {bullets.map((item) => (
                 <li
                   key={item.text}
