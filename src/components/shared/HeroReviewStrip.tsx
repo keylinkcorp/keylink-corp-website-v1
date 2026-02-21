@@ -1,22 +1,22 @@
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import testimonialSarah from "@/assets/testimonial-sarah.jpg";
+import testimonialAhmed from "@/assets/testimonial-ahmed.jpg";
+import testimonialJames from "@/assets/testimonial-james.jpg";
+
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial2 from "@/assets/testimonial-2.jpg";
+import testimonial3 from "@/assets/testimonial-3.jpg";
+
 type HeroReviewStripProps = {
   align?: "left" | "center";
   className?: string;
 };
 
-const googleAvatars = [
-  "https://randomuser.me/api/portraits/men/32.jpg",
-  "https://randomuser.me/api/portraits/women/44.jpg",
-  "https://randomuser.me/api/portraits/men/67.jpg",
-];
+const googleAvatars = [testimonialSarah, testimonialAhmed, testimonialJames];
 
-const trustpilotAvatars = [
-  "https://randomuser.me/api/portraits/women/28.jpg",
-  "https://randomuser.me/api/portraits/men/45.jpg",
-  "https://randomuser.me/api/portraits/women/63.jpg",
-];
+const trustpilotAvatars = [testimonial1, testimonial2, testimonial3];
 
 export function HeroReviewStrip({ align = "left", className }: HeroReviewStripProps) {
   const isCenter = align === "center";
