@@ -37,8 +37,12 @@ export function HeroReviewStrip({ align = "left", className }: HeroReviewStripPr
             <img
               key={src}
               src={src}
-              alt={idx === 0 ? "Google reviewer avatars" : ""}
-              className="w-8 h-8 rounded-full border-2 border-background object-cover"
+              alt={idx === 0 ? "Google reviewer avatars" : "Google reviewer"}
+              className={cn(
+                "h-9 w-9 rounded-full object-cover",
+                "border-2 border-background",
+                "ring-1 ring-border/50 shadow-sm",
+              )}
               loading="lazy"
             />
           ))}
@@ -65,8 +69,12 @@ export function HeroReviewStrip({ align = "left", className }: HeroReviewStripPr
             <img
               key={src}
               src={src}
-              alt={idx === 0 ? "Trustpilot reviewer avatars" : ""}
-              className="w-8 h-8 rounded-full border-2 border-background object-cover"
+              alt={idx === 0 ? "Trustpilot reviewer avatars" : "Trustpilot reviewer"}
+              className={cn(
+                "h-9 w-9 rounded-full object-cover",
+                "border-2 border-background",
+                "ring-1 ring-border/50 shadow-sm",
+              )}
               loading="lazy"
             />
           ))}
