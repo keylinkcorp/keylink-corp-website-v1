@@ -613,7 +613,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                         <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
                           <s.Icon className="h-[22px] w-[22px] text-accent" />
                         </span>
-                        <span>{s.title}</span>
+                        <span className="text-sm font-medium leading-snug sm:text-[15px]">{s.title}</span>
                       </span>
                     </AccordionTrigger>
                     <AccordionContent>
