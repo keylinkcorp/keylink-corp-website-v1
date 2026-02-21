@@ -17,6 +17,7 @@ import {
   Sparkles,
   Star,
   Target,
+  ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 
@@ -649,32 +650,62 @@ export default function CompanyFormationConsultancyLandingModern() {
                 </p>
               </div>
 
-              <div className="mt-8 grid gap-4 lg:grid-cols-2">
-                {[testimonial1, testimonial2].map((img, idx) => (
-                  <div key={img} className="lp-card p-6 md:p-7">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <div className="flex items-center gap-1">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star key={i} className="h-[22px] w-[22px] text-accent" />
-                          ))}
+              <div className="mt-8 overflow-hidden rounded-3xl border border-border/60 bg-background">
+                <div className="grid divide-y divide-border/60 md:grid-cols-3 md:divide-y-0 md:divide-x md:divide-border/60">
+                  {[
+                    {
+                      quote:
+                        "The checklist and sequencing made everything much clearer. We knew what to prepare first and avoided delays.",
+                      name: "Client",
+                      role: "Founder",
+                      img: testimonial1,
+                    },
+                    {
+                      quote:
+                        "Practical and direct. Clear next steps, realistic timeline, and helpful coordination when we needed it.",
+                      name: "Client",
+                      role: "Managing Partner",
+                      img: testimonial2,
+                    },
+                    {
+                      quote:
+                        "Clear cost drivers, fewer surprises. The consultation saved us weeks of back-and-forth and helped us plan approvals properly.",
+                      name: "Client",
+                      role: "Operations Lead",
+                      img: testimonial1,
+                    },
+                  ].map((t, idx) => (
+                    <article key={idx} className="group relative p-6 md:p-7">
+                      <p className="text-sm text-muted-foreground leading-relaxed">{t.quote}</p>
+
+                      <div className="mt-6 flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <img
+                            src={t.img}
+                            alt="Client portrait"
+                            className="h-10 w-10 rounded-full object-cover border border-border/40"
+                            loading="lazy"
+                          />
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-foreground truncate">{t.name}</p>
+                            <p className="text-xs text-muted-foreground truncate">{t.role}</p>
+                          </div>
                         </div>
-                        <p className="mt-4 text-sm text-muted-foreground">
-                          {idx === 0
-                            ? "The checklist and sequencing made everything much clearer. We knew what to prepare first and avoided delays."
-                            : "Practical and direct. Clear next steps, realistic timeline, and helpful coordination when we needed it."}
-                        </p>
-                        <p className="mt-4 text-sm font-semibold text-foreground">Client review</p>
+
+                        <div
+                          aria-hidden
+                          className={cn(
+                            "h-11 w-11 shrink-0 rounded-full border border-border/60",
+                            "bg-background/60 flex items-center justify-center",
+                            "transition-colors group-hover:bg-muted/30",
+                          )}
+                        >
+                          <ArrowUpRight className="h-5 w-5 text-muted-foreground" />
+                        </div>
                       </div>
-                      <img
-                        src={img}
-                        alt="Client testimonial portrait"
-                        className="h-20 w-20 rounded-2xl object-cover"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                ))}
+                    </article>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
