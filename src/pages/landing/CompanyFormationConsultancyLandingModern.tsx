@@ -46,7 +46,7 @@ import testimonialsImage from "@/assets/company-formation/lp/testimonials-portra
 import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy.jpg";
 import costCalculatorPortraitImage from "@/assets/company-formation/consultancy/cost-calculator-portrait.jpg";
 
-import consultancyHeroImage from "@/assets/formation-hero-bahrain-traditional-consulting-2.jpg";
+import consultancyHeroImage from "@/assets/formation-hero-bahrain-office-traditional-consulting-1.jpg";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
