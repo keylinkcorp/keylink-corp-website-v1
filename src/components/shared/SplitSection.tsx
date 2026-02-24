@@ -183,38 +183,41 @@ export function SplitSection({
     }
   })();
 
-  const Header =
-  <header
-    className={cn(
-      "mb-8 md:mb-10",
-      isCenter ? "text-center" : "text-left",
-      headerClassName
-    )}>
-
-      {badge ? <p className={resolvedBadgeClassName}>{badge}</p> : null}
-      <h2
+  const Header = (
+    <header
       className={cn(
-        badge ? resolvedTitleTopMargin : "",
-        headingClass,
-        titleClassName
-      )}>
+        "mb-7 md:mb-9",
+        isCenter ? "text-center" : "text-left",
+        headerClassName,
+      )}
+    >
+      {badge ? <p className={resolvedBadgeClassName}>{badge}</p> : null}
 
+      <h2
+        className={cn(
+          badge ? resolvedTitleTopMargin : "",
+          headingClass,
+          titleClassName,
+        )}
+      >
         {title}
       </h2>
-      {subtitle ?
-    <p
-      className={cn(
-        resolvedSubtitleTopMargin,
-        "text-lg leading-relaxed max-w-3xl",
-        isCenter ? "mx-auto" : "",
-        leadClassName,
-        subtitleClassName
-      )}>
 
+      {subtitle ? (
+        <p
+          className={cn(
+            resolvedSubtitleTopMargin,
+            "text-lg leading-relaxed max-w-3xl",
+            isCenter ? "mx-auto" : "",
+            leadClassName,
+            subtitleClassName,
+          )}
+        >
           {subtitle}
-        </p> :
-    null}
-    </header>;
+        </p>
+      ) : null}
+    </header>
+  );
 
 
   return (

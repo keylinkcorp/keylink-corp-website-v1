@@ -97,29 +97,29 @@ export function CompanyFormationHeroMontage({
               )}
             </ul>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
-              <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
-                {primaryCtaLabel}
-              </Button>
+             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+               <Button size="lg" className="w-full sm:w-auto lp-cta" onClick={onBookClick}>
+                 {primaryCtaLabel}
+               </Button>
 
-              {phoneCta ?
-              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                  <a href={phoneCta.href}>
-                    <Phone className="mr-2 h-[22px] w-[22px]" />
-                    {phoneCta.label}
-                  </a>
-                </Button> :
-              null}
+               {phoneCta ? (
+                 <Button variant="outline" size="lg" className="w-full sm:w-auto lp-cta-outline" asChild>
+                   <a href={phoneCta.href}>
+                     <Phone className="mr-2 h-[22px] w-[22px]" />
+                     {phoneCta.label}
+                   </a>
+                 </Button>
+               ) : null}
 
-              {showWhatsApp ?
-              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                  <a href="https://wa.me/97317008888">
-                    <MessageCircle className="mr-2 h-[22px] w-[22px]" />
-                    WhatsApp
-                  </a>
-                </Button> :
-              null}
-            </div>
+               {showWhatsApp ? (
+                 <Button variant="outline" size="lg" className="w-full sm:w-auto lp-cta-outline" asChild>
+                   <a href="https://wa.me/97317008888">
+                     <MessageCircle className="mr-2 h-[22px] w-[22px]" />
+                     WhatsApp
+                   </a>
+                 </Button>
+               ) : null}
+             </div>
 
             <HeroReviewStrip align="center" className="mt-8" />
 
@@ -133,27 +133,34 @@ export function CompanyFormationHeroMontage({
           </div>
 
           {/* Media panel */}
-          <div className={cn("mt-10 md:mt-12 mx-auto", centeredMaxW)}>
-            <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background lp-card-flat">
-              <img
-                src={imageSrc}
-                alt="Diverse consulting team meeting in a Bahrain office with traditional design elements"
-                className="h-[320px] w-full object-cover md:h-[460px]"
-                loading="eager"
-                fetchPriority="high" />
+           <div className={cn("mt-10 md:mt-12 mx-auto", centeredMaxW)}>
+             <div className="relative overflow-hidden rounded-3xl border border-border/40 bg-background lp-card-flat shadow-[0_20px_60px_-40px_hsl(var(--navy)/0.28)]">
+               <img
+                 src={imageSrc}
+                 alt="Diverse consulting team meeting in a Bahrain office with traditional design elements"
+                 className="h-[320px] w-full object-cover object-center md:h-[460px]"
+                 loading="eager"
+                 fetchPriority="high"
+               />
 
+               {/* Subtle editorial toning (lighter than EditorialImage) */}
+               <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.28]">
+                 <div className="absolute inset-0 overlay-navy-vertical opacity-70" />
+                 <div className="absolute inset-0 overlay-gold-accent opacity-50" />
+                 <div className="absolute inset-0 noise-texture opacity-[0.18]" />
+               </div>
 
-              <div className="absolute bottom-5 left-5 right-5">
-                <div className="lp-card-flat flex items-center justify-between gap-3 bg-background/90 p-3 backdrop-blur-sm md:p-4">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-[22px] w-[22px] text-accent" />
-                    <span className="text-sm font-medium text-foreground">Free 30‑minute call • Google Meet</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">Same‑page booking</span>
-                </div>
-              </div>
-            </div>
-          </div>
+               <div className="absolute bottom-5 left-5 right-5">
+                 <div className="lp-card-flat flex items-center justify-between gap-3 bg-background/90 p-3 backdrop-blur-sm md:p-4">
+                   <div className="flex items-center gap-2">
+                     <Clock className="h-[22px] w-[22px] text-accent" />
+                     <span className="text-sm font-medium text-foreground">Free 30‑minute call • Google Meet</span>
+                   </div>
+                   <span className="text-xs text-muted-foreground">Same‑page booking</span>
+                 </div>
+               </div>
+             </div>
+           </div>
         </div>
       </section>);
 
@@ -190,29 +197,29 @@ export function CompanyFormationHeroMontage({
                 )}
               </ul>
 
-              <div className="mt-7 flex flex-col sm:flex-row gap-3">
-                <Button size="lg" className="w-full sm:w-auto" onClick={onBookClick}>
-                  {primaryCtaLabel}
-                </Button>
+               <div className="mt-7 flex flex-col sm:flex-row gap-3">
+                 <Button size="lg" className="w-full sm:w-auto lp-cta" onClick={onBookClick}>
+                   {primaryCtaLabel}
+                 </Button>
 
-                {phoneCta ?
-                <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
-                    <a href={phoneCta.href}>
-                      <Phone className="mr-2 h-[22px] w-[22px]" />
-                      {phoneCta.label}
-                    </a>
-                  </Button> :
-                null}
+                 {phoneCta ? (
+                   <Button variant="outline" size="default" className={cn("w-full sm:w-auto", "lp-cta-outline")} asChild>
+                     <a href={phoneCta.href}>
+                       <Phone className="mr-2 h-[22px] w-[22px]" />
+                       {phoneCta.label}
+                     </a>
+                   </Button>
+                 ) : null}
 
-                {showWhatsApp ?
-                <Button variant="outline" size="default" className={cn("w-full sm:w-auto")} asChild>
-                    <a href="https://wa.me/97317008888">
-                      <MessageCircle className="mr-2 h-[22px] w-[22px]" />
-                      WhatsApp
-                    </a>
-                  </Button> :
-                null}
-              </div>
+                 {showWhatsApp ? (
+                   <Button variant="outline" size="default" className={cn("w-full sm:w-auto", "lp-cta-outline")} asChild>
+                     <a href="https://wa.me/97317008888">
+                       <MessageCircle className="mr-2 h-[22px] w-[22px]" />
+                       WhatsApp
+                     </a>
+                   </Button>
+                 ) : null}
+               </div>
 
               <HeroReviewStrip className="mt-5" />
 
@@ -228,26 +235,32 @@ export function CompanyFormationHeroMontage({
           <div className="lg:col-span-6 order-1 lg:order-2">
             <div className="relative">
               {/* Main */}
-              <div className="relative rounded-3xl overflow-hidden lp-card-flat">
-                <img
-                  src={imageSrc}
-                  alt="Diverse consulting team meeting in a Bahrain office with traditional design elements"
-                  className="w-full h-[340px] md:h-[460px] object-cover"
-                  loading="eager"
-                  fetchPriority="high" />
+               <div className="relative rounded-3xl overflow-hidden lp-card-flat border border-border/40 shadow-[0_20px_60px_-40px_hsl(var(--navy)/0.28)]">
+                 <img
+                   src={imageSrc}
+                   alt="Diverse consulting team meeting in a Bahrain office with traditional design elements"
+                   className="w-full h-[340px] md:h-[460px] object-cover object-center"
+                   loading="eager"
+                   fetchPriority="high"
+                 />
 
-                
+                 {/* Subtle editorial toning */}
+                 <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.28]">
+                   <div className="absolute inset-0 overlay-navy-vertical opacity-70" />
+                   <div className="absolute inset-0 overlay-gold-accent opacity-50" />
+                   <div className="absolute inset-0 noise-texture opacity-[0.18]" />
+                 </div>
 
-              <div className="absolute bottom-5 left-5 right-5">
-                <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-[22px] w-[22px] text-accent" />
-                    <span className="text-sm text-foreground font-medium">Free 30‑minute call • Google Meet</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">Same‑page booking</span>
-                </div>
-              </div>
-              </div>
+                 <div className="absolute bottom-5 left-5 right-5">
+                   <div className="lp-card-flat bg-background/90 backdrop-blur-sm p-3 md:p-4 flex items-center justify-between gap-3">
+                     <div className="flex items-center gap-2">
+                       <Clock className="h-[22px] w-[22px] text-accent" />
+                       <span className="text-sm text-foreground font-medium">Free 30‑minute call • Google Meet</span>
+                     </div>
+                     <span className="text-xs text-muted-foreground">Same‑page booking</span>
+                   </div>
+                 </div>
+               </div>
             </div>
           </div>
         </div>
