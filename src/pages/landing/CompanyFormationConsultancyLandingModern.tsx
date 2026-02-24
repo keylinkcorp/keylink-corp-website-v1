@@ -39,14 +39,14 @@ import { CompanyFormationHeroMontage } from "@/pages/landing/company-formation/C
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 
-import howItWorksImage from "@/assets/consultancy/section-advisory-meeting-16x10.jpg";
-import bookingImage from "@/assets/consultancy/section-booking-checklist-16x10.jpg";
-import testimonialsImage from "@/assets/consultancy/section-checklist-review-4x3.jpg";
+import howItWorksImage from "@/assets/company-formation/lp/how-it-works-portrait.jpg";
+import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
+import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
 
-import aboutConsultancyImage from "@/assets/consultancy/section-checklist-review-4x3.jpg";
-import costCalculatorPortraitImage from "@/assets/consultancy/section-cost-calculator-3x4.jpg";
+import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy.jpg";
+import costCalculatorPortraitImage from "@/assets/company-formation/consultancy/cost-calculator-portrait.jpg";
 
-import consultancyHeroImage from "@/assets/consultancy/hero-team-meeting-bahrain-16x9.jpg";
+import consultancyHeroImage from "@/assets/formation-hero-consultation-16x9.jpg";
 
 const CALENDLY_BASE_URL =
   "https://calendly.com/keylinkcorp/free-consultation-google-meet?hide_gdpr_banner=1";
