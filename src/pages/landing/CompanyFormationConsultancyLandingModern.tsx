@@ -43,7 +43,7 @@ import howItWorksImage from "@/assets/company-formation/lp/how-it-works-portrait
 import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
 import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
 
-import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy.jpg";
+import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy-young-1.jpg";
 import costCalculatorPortraitImage from "@/assets/company-formation/consultancy/cost-calculator-portrait-young-1.jpg";
 
 import consultancyHeroImage from "@/assets/formation-hero-bahrain-office-traditional-consulting-1.jpg";
@@ -739,7 +739,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                 <div className="order-1 lg:order-2 lp-card p-3 sm:p-4 md:p-5">
                   <EditorialImage
                     src={aboutConsultancyImage}
-                    alt="Business setup consultancy meeting with checklist review"
+                    alt="Young consulting team reviewing a setup checklist"
                     ratio={4 / 3}
                     overlayStrength={0.35}
                   />
