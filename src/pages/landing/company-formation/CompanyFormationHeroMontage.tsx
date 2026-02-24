@@ -13,7 +13,7 @@ import { SectionBackgroundOverlay } from "@/components/shared/SectionBackgroundO
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import heroImage from "@/assets/formation-hero-professional-portrait.jpg";
+import heroImage from "@/assets/formation-hero-modern-consulting.jpg";
 
 type CompanyFormationHeroMontageProps = {
   onBookClick: () => void;
