@@ -120,30 +120,39 @@ function LandingStickyNav({ frameMaxWidthClassName }: { frameMaxWidthClassName: 
   return (
     <div className="sticky z-30 top-[72px] md:top-[84px]">
       <div className={cn("mx-auto", frameMaxWidthClassName)}>
-        <div className="border-b border-border/60 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+        <div className="border-b border-border/40 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
           <div className="container mx-auto px-4 md:px-6">
-            <nav aria-label="Section navigation" className="-mx-2 flex items-center gap-1 overflow-x-auto py-2">
-              {LANDING_NAV.map((item) => {
-                const isActive = active === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => scrollToId(item.id)}
-                    className={cn(
-                      "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                      isActive
-                        ? "bg-accent/15 text-foreground"
-                        : "text-muted-foreground hover:bg-muted/40 hover:text-foreground",
-                    )}
-                    aria-current={isActive ? "page" : undefined}
-                  >
-                    {item.label}
-                  </button>
-                );
-              })}
-            </nav>
+            <div className="relative -mx-2">
+              <nav
+                aria-label="Section navigation"
+                className="flex items-center gap-1 overflow-x-auto py-2 px-2 scroll-smooth"
+              >
+                {LANDING_NAV.map((item) => {
+                  const isActive = active === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => scrollToId(item.id)}
+                      className={cn(
+                        "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                        isActive
+                          ? "bg-accent/12 text-foreground"
+                          : "text-muted-foreground hover:bg-muted/30 hover:text-foreground",
+                      )}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </nav>
+
+              {/* Fade edges for overflow on mobile */}
+              <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-background to-transparent" />
+              <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-background to-transparent" />
+            </div>
           </div>
         </div>
       </div>
@@ -445,7 +454,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                   <p className="text-base font-semibold text-foreground">Get clarity in one free consultation.</p>
                   <p className="mt-1 text-base text-muted-foreground">Clear checklist • Realistic timeline • Plain‑English next steps</p>
                 </div>
-                <Button onClick={() => scrollToId("book")}>Book free consultation</Button>
+                <Button className="lp-cta" onClick={() => scrollToId("book")}>Book free consultation</Button>
               </div>
             </div>
           </SplitSection>
@@ -521,14 +530,14 @@ export default function CompanyFormationConsultancyLandingModern() {
             </div>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Button onClick={() => scrollToId("book")}>Get Free Consultation</Button>
-              <Button variant="outline" asChild>
+              <Button className="lp-cta" onClick={() => scrollToId("calculator")}>Start calculator</Button>
+              <Button variant="outline" className="lp-cta-outline" onClick={() => scrollToId("book")}>Get Free Consultation</Button>
+              <Button variant="outline" className="lp-cta-outline" asChild>
                 <a href="tel:+97317008888">
                   <Phone className="mr-2 h-[22px] w-[22px]" />
                   Call for consultation
                 </a>
               </Button>
-              <Button variant="outline" onClick={() => scrollToId("calculator")}>Back to calculator</Button>
             </div>
           </SplitSection>
         </FullBleedSection>
@@ -607,8 +616,8 @@ export default function CompanyFormationConsultancyLandingModern() {
                     Icon: MessageSquareText,
                   },
                 ].map((s) => (
-                  <AccordionItem key={s.k} value={s.k}>
-                    <AccordionTrigger className="text-left">
+                  <AccordionItem key={s.k} value={s.k} className="border-b border-border/30 last:border-b-0">
+                    <AccordionTrigger className="text-left px-4 py-4 rounded-2xl hover:bg-muted/20 transition-colors">
                       <span className="inline-flex items-center gap-3">
                         <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/20 bg-muted/10">
                           <s.Icon className="h-[22px] w-[22px] text-accent" />
@@ -650,8 +659,8 @@ export default function CompanyFormationConsultancyLandingModern() {
                 </p>
               </div>
 
-              <div className="mt-8 overflow-hidden rounded-3xl border border-border/60 bg-background">
-                <div className="grid divide-y divide-border/60 md:grid-cols-3 md:divide-y-0 md:divide-x md:divide-border/60">
+              <div className="mt-8 overflow-hidden rounded-3xl border border-border/40 bg-background">
+                <div className="grid divide-y divide-border/40 md:grid-cols-3 md:divide-y-0 md:divide-x md:divide-border/40">
                   {[
                     {
                       quote:
@@ -695,9 +704,9 @@ export default function CompanyFormationConsultancyLandingModern() {
                         <div
                           aria-hidden
                           className={cn(
-                            "h-11 w-11 shrink-0 rounded-full border border-border/60",
+                            "h-11 w-11 shrink-0 rounded-full border border-border/40",
                             "bg-background/60 flex items-center justify-center",
-                            "transition-colors group-hover:bg-muted/30",
+                            "transition-colors group-hover:bg-muted/20",
                           )}
                         >
                           <ArrowUpRight className="h-5 w-5 text-muted-foreground" />
@@ -732,7 +741,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                   </div>
 
                   <div className="mt-6">
-                    <Button variant="outline" onClick={() => scrollToId("calculator")}>Back to calculator</Button>
+                    <Button variant="outline" className="lp-cta-outline" onClick={() => scrollToId("calculator")}>Back to calculator</Button>
                   </div>
                 </div>
 
@@ -770,7 +779,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                   <a
                     key={c.label}
                     href={c.href}
-                    className="lp-card p-5 sm:p-6 md:p-7 flex items-start gap-3 hover:shadow-[0_8px_32px_hsl(var(--navy)/0.10)] transition-shadow"
+                    className="lp-card lp-hover-lift p-5 sm:p-6 md:p-7 flex items-start gap-3"
                   >
                     <c.icon className="h-[22px] w-[22px] text-accent mt-0.5" />
                     <div>
@@ -818,10 +827,10 @@ export default function CompanyFormationConsultancyLandingModern() {
                       value={`faq-${idx}`}
                       className="break-inside-avoid mb-2 md:mb-3"
                     >
-                      <AccordionTrigger className="px-4 md:px-5 py-3 text-sm md:text-[13px] font-medium">
+                      <AccordionTrigger className="px-4 md:px-5 py-3 text-sm font-medium">
                         {f.question}
                       </AccordionTrigger>
-                      <AccordionContent className="px-4 md:px-5 text-xs md:text-[13px] leading-relaxed text-muted-foreground">
+                      <AccordionContent className="px-4 md:px-5 text-sm leading-relaxed text-muted-foreground">
                         {f.answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -842,7 +851,7 @@ export default function CompanyFormationConsultancyLandingModern() {
 
                 {/* Icon badge */}
                 <div className="relative mx-auto mb-5 w-fit">
-                  <div className="mx-auto -mt-14 h-14 w-14 rounded-2xl border border-border/60 bg-background/80 backdrop-blur flex items-center justify-center shadow-sm">
+                  <div className="mx-auto -mt-14 h-14 w-14 rounded-2xl border border-border/40 bg-background/80 backdrop-blur flex items-center justify-center shadow-sm">
                     <Sparkles className="h-6 w-6 text-accent" />
                   </div>
                 </div>
@@ -860,7 +869,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                     {["Free consultation (30 min)", "Tailored checklist", "Clear timeline + cost drivers"].map((t) => (
                       <li
                         key={t}
-                        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-4 py-2 text-xs md:text-sm text-foreground/90 backdrop-blur-sm"
+                        className="inline-flex items-center gap-2 rounded-full border border-border/40 bg-background/60 px-4 py-2 text-xs md:text-sm text-foreground/90 backdrop-blur-sm"
                       >
                         <Check className="h-4 w-4 text-accent" />
                         {t}
@@ -869,14 +878,13 @@ export default function CompanyFormationConsultancyLandingModern() {
                   </ul>
 
                   <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-                    <Button
-                      size="lg"
-                      className="w-full sm:w-auto rounded-full h-12 px-8"
-                      onClick={() => scrollToId("book")}
-                    >
+                    <Button className="w-full sm:w-auto lp-cta" onClick={() => scrollToId("calculator")}>
+                      Start calculator
+                    </Button>
+                    <Button variant="outline" className="w-full sm:w-auto lp-cta-outline" onClick={() => scrollToId("book")}>
                       Get Free Consultation
                     </Button>
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto rounded-full h-12 px-8" asChild>
+                    <Button variant="outline" className="w-full sm:w-auto lp-cta-outline" asChild>
                       <a href="tel:+97317008888">
                         <Phone className="mr-2 h-5 w-5" />
                         Call for consultation
