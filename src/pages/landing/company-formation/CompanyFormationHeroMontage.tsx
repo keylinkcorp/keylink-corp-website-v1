@@ -137,7 +137,7 @@ export function CompanyFormationHeroMontage({
             <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background lp-card-flat">
               <img
                 src={imageSrc}
-                alt="Diverse consulting team meeting in a modern office"
+                alt="Diverse consulting team meeting in a traditional Bahraini majlis"
                 className="h-[320px] w-full object-cover md:h-[460px]"
                 loading="eager"
                 fetchPriority="high" />
@@ -231,7 +231,7 @@ export function CompanyFormationHeroMontage({
               <div className="relative rounded-3xl overflow-hidden lp-card-flat">
                 <img
                   src={imageSrc}
-                  alt="Diverse consulting team meeting in a modern office"
+                  alt="Diverse consulting team meeting in a traditional Bahraini majlis"
                   className="w-full h-[340px] md:h-[460px] object-cover"
                   loading="eager"
                   fetchPriority="high" />
