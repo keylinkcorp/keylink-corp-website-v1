@@ -44,7 +44,7 @@ import bookingImage from "@/assets/company-formation/lp/booking-portrait.jpg";
 import testimonialsImage from "@/assets/company-formation/lp/testimonials-portrait.jpg";
 
 import aboutConsultancyImage from "@/assets/company-formation/consultancy/about-consultancy.jpg";
-import costCalculatorPortraitImage from "@/assets/company-formation/consultancy/cost-calculator-portrait.jpg";
+import costCalculatorPortraitImage from "@/assets/company-formation/consultancy/cost-calculator-portrait-young-1.jpg";
 
 import consultancyHeroImage from "@/assets/formation-hero-bahrain-office-traditional-consulting-1.jpg";
 
@@ -364,7 +364,7 @@ export default function CompanyFormationConsultancyLandingModern() {
                   <div className="lp-card p-3 sm:p-4">
                     <EditorialImage
                       src={costCalculatorPortraitImage}
-                      alt="Business consultant reviewing costs and paperwork"
+                      alt="Young consulting team reviewing costs and paperwork"
                       ratio={3 / 4}
                       loading="eager"
                       overlayStrength={0.55}
