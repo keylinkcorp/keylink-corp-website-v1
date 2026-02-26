@@ -4,6 +4,7 @@ import {
   AboutHero,
   AboutStory,
   AboutMission,
+  AboutWhyChooseUs,
   AboutTeam,
   AboutValues,
   AboutAchievements,
@@ -61,6 +62,7 @@ export default function About() {
         <AboutHero />
         <AboutStory />
         <AboutMission />
+        <AboutWhyChooseUs />
         <AboutValues />
         <AboutTeam />
         <AboutAchievements />

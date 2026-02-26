@@ -1,6 +1,7 @@
 export { AboutHero } from "./AboutHero";
 export { AboutStory } from "./AboutStory";
 export { AboutMission } from "./AboutMission";
+export { AboutWhyChooseUs } from "./AboutWhyChooseUs";
 export { AboutTeam } from "./AboutTeam";
 export { AboutValues } from "./AboutValues";
 export { AboutAchievements } from "./AboutAchievements";
