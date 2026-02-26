@@ -1,109 +1,114 @@
 
 Goal
-- Redesign the “About” section on the landing pages to be more visual, enhanced, and clearly structured in a premium two-column layout.
-- Ensure the “Why Choose Us” content (5 points) is visible on the Ads route as well (it currently appears only on `/lp/company-formation-consultancy-modern`, not on `/lp/company-formation-consultancy-modern-ads`).
+- Add a new modern, professional “Our Services” section (info-only, no links) that matches the landing pages’ Minimal Premium / Ads UI theme.
+- Apply the new section to BOTH routes:
+  - /lp/company-formation-consultancy-modern
+  - /lp/company-formation-consultancy-modern-ads
+- Keep the existing “Services” accordion section intact, and add this as an additional section (per your choice).
 
-What’s happening now (why you’re not seeing it)
-- In `CompanyFormationConsultancyLandingModern.tsx` the “Why Choose Us” block was added inside the About card (your diff confirms this).
-- In `CompanyFormationConsultancyLandingModernAds.tsx`, the About section is still the older version and does not include the “Why Choose Us” block, so if you’re viewing the Ads route you won’t see the update.
+What exists today (relevant findings)
+- Both landing pages already have:
+  - A sticky nav with an anchor id="services"
+  - A “SERVICES” section using <SplitSection> and an Accordion (advisory-focused bullets).
+- We already use a shared landing component pattern (AboutConsultancySection) that keeps both routes in sync and avoids “updated here but not there”.
 
-Scope (based on your selections)
-- Update BOTH routes:
-  - `/lp/company-formation-consultancy-modern`
-  - `/lp/company-formation-consultancy-modern-ads`
-- Use the “Cards grid” visual style for “Why Choose Us”.
+UX / Layout decision
+- We will NOT add a new sticky-nav item (to keep the nav clean for ads).
+- We will place “Our Services” directly BELOW the existing accordion inside the same “services” block area, so users who click “Services” still land in the right place and then can scroll naturally to the expanded service catalog.
+- The new section will be designed as a “category card grid” with clear hierarchy:
+  - Top: section badge + title + subtitle
+  - Middle: 4 category cards (Company Formation, Licensing & Compliance, Business Support, Workspace Solutions)
+  - Each category card contains “service rows” (name + short description), with consistent spacing and subtle separators.
 
-Design approach (keep same Minimal Premium system)
-We will keep:
-- Existing two-column section structure (left content/right image at `lg:grid-cols-2`).
-- Existing tokens: `lp-card`, `lp-card-flat`, `border-border/40`, subtle shadows, pill buttons (`lp-cta-outline`).
-We will improve:
-- Visual hierarchy inside the content column.
-- Convert the plain bullet list into a scannable card grid with icons and short microcopy.
+Content structure (exact items you provided)
+1) Company Formation & Registration
+- Commercial Registration (CR) Assistance — We prepare and submit all required documents to SIJILAT/MOIC on your behalf
+- Trade Name Reservation — We search, reserve, and secure your business trade name
+- MOA / Articles of Association Preparation — Drafting and notarizing your company's constitutional documents
 
-Proposed About section layout (two-column)
-1) Left column (content)
-- Header:
-  - Badge: “About”
-  - Title: “About Our Business Setup Consultancy”
-- Intro block (keep copy but improve layout):
-  - A short lead paragraph (same meaning, slightly tightened).
-- Trust/Transparency note (more visual, not just another paragraph):
-  - A compact “disclaimer” callout card with an icon (e.g., `ShieldCheck` or `Info`) and the line:
-    - “We are not affiliated with any government authority and we do not issue Commercial Registration (CR).”
-- “Why Choose Us” as a cards grid (main visual improvement):
-  - Title row: “Why Choose Us”
-  - Grid: `grid gap-3 sm:grid-cols-2` (5 cards; last card spans full width on sm if needed)
-  - Each card uses:
-    - `lp-card-flat` (or `lp-card` with tighter padding) + `bg-muted/20` for subtle differentiation
-    - icon in a small rounded square: `bg-accent/10 text-accent`
-    - title + short line of microcopy
-  - Cards content (exact items you provided):
-    1. Fast turnaround — mention realistic timeframe (3–7 business days once docs are ready; timeline varies by activity/approvals)
-    2. Local expertise — Bahrain regulations/process know-how
-    3. Dedicated case manager — single point of contact
-    4. 100% paperwork handled — checklists + requirements + submission flow coordination
-    5. English + Arabic support — clear bilingual communication
-- CTA row:
-  - Keep “Back to calculator” button (pill outline) as-is.
+2) Licensing & Compliance
+- LMRA Work Permit & Visa Guidance — Full support for employee work permits, residency visas, and LMRA portal submissions
+- PRO & Document Clearance Services — Handling government liaison, attestations, and official document processing
 
-2) Right column (image)
-- Keep the existing `lp-card` framed image using `EditorialImage`.
-- Optional enhancement (still minimal/premium, no clutter):
-  - Add 1–2 small “overlay chips” inside the image frame (absolute positioned) like:
-    - “English + Arabic”
-    - “Checklist-driven”
-  - Only if it doesn’t feel busy; we’ll keep it subtle.
+3) Business Support Services
+- Bank Account Opening Support — Guidance and document preparation for corporate bank account setup in Bahrain
 
-Implementation strategy (to avoid duplication bugs)
-Option A (recommended): Extract a shared component used by both pages
-- Create a reusable component, e.g.:
-  - `src/components/landing/AboutConsultancySection.tsx`
-- It will render only the inner About content block (not the outer page).
-- Then both:
-  - `CompanyFormationConsultancyLandingModern.tsx`
-  - `CompanyFormationConsultancyLandingModernAds.tsx`
-  will import and render the same About section.
-Benefits:
-- Ensures both routes stay in sync going forward.
-- Prevents “it updated here but not there” issues.
+4) Workspace Solutions
+- Virtual Office — MOIC-approved business address for CR issuance, mail handling, and professional presence without a physical lease
+- Coworking Space — Flexible hot desks and dedicated workstations for startups, freelancers, and growing teams
+- Business Incubator — Structured support program including mentorship, networking, business development workshops, and a collaborative environment for early-stage companies
 
-Option B: Duplicate the updated About markup into both page files
-- Faster, but more likely to drift over time.
-Given you’re creating variants/routes, Option A is safer.
+Visual design (Minimal Premium, ad-friendly)
+- Section wrapper: consistent spacing and container framing (same as other blocks).
+- Category cards:
+  - Use existing tokens: lp-card / lp-card-flat, border-border/40, bg-muted/20
+  - Large icon chip (accent/10) + category title + a one-line category subtitle
+  - Inside each card: a clean list of service rows with:
+    - left: small check/dot indicator
+    - right: bold service name + muted description
+  - Subtle dividers between rows (border-border/20) to keep it “premium catalog” rather than a plain bullet list.
+- Responsive grid:
+  - Mobile: 1 column
+  - md: 2 columns
+  - Card padding: p-5 sm:p-6
+- Optional (tasteful) polish:
+  - A very subtle background overlay (muted radial or soft lines) consistent with other sections; no heavy patterns.
 
-Files to change
-- `src/pages/landing/CompanyFormationConsultancyLandingModern.tsx`
-  - Replace the current About card content with the enhanced layout (disclaimer callout + cards grid).
-- `src/pages/landing/CompanyFormationConsultancyLandingModernAds.tsx`
-  - Apply the same enhanced About layout (this is the route where you likely “still don’t see it”).
-- (If we choose Option A) Add:
-  - `src/components/landing/AboutConsultancySection.tsx`
-  - Update both pages to use it.
+Implementation approach (to ensure both routes always match)
+A) Create a shared component (recommended)
+- Add: src/components/landing/OurServicesSection.tsx
+  - Exports <OurServicesSection />
+  - Keeps the services data in a typed constant array (categories + items).
+  - Uses lucide-react icons for each category (examples):
+    - Company Formation & Registration: Building2
+    - Licensing & Compliance: ShieldCheck (or FileCheck2)
+    - Business Support Services: Landmark (or Briefcase if already used elsewhere)
+    - Workspace Solutions: MapPin
+  - Info-only: no <Link>, no anchor tags.
 
-UI details (Tailwind classes guideline)
-- Cards grid:
-  - Container: `mt-6 grid gap-3 sm:grid-cols-2`
-  - Card: `lp-card-flat bg-muted/20 p-4 sm:p-5`
-  - Icon wrapper: `h-10 w-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center`
-  - Title: `text-sm font-semibold text-foreground`
-  - Body: `text-sm text-muted-foreground leading-relaxed`
-- Disclaimer callout:
-  - `mt-5 rounded-2xl border border-border/40 bg-muted/20 p-4 flex gap-3`
-  - Icon: `h-5 w-5 text-accent mt-0.5`
-  - Text: `text-sm text-muted-foreground`
+B) Integrate into BOTH landing pages
+1) src/pages/landing/CompanyFormationConsultancyLandingModern.tsx
+- Inside the existing “SERVICES” area, after the Accordion block, render:
+  - <OurServicesSection />
+- Keep the existing <div id="services" .../> anchor unchanged.
 
-QA checklist (what you’ll test after implementation)
+2) src/pages/landing/CompanyFormationConsultancyLandingModernAds.tsx
+- Same integration point as above.
+
+Placement detail (so it feels intentional, not tacked on)
+- After the accordion card, add:
+  - a small spacing + a premium divider (matching the project’s existing divider style), then
+  - the “Our Services” header + grid.
+- This keeps the first part “advisory” (accordion) and the second part “full catalog” (our services) in a logical sequence.
+
+Files to be added/edited
+- Add: src/components/landing/OurServicesSection.tsx
+- Edit: src/pages/landing/CompanyFormationConsultancyLandingModern.tsx
+- Edit: src/pages/landing/CompanyFormationConsultancyLandingModernAds.tsx
+
+QA checklist (what you should test after implementation)
 - On BOTH routes:
-  - `/lp/company-formation-consultancy-modern`
-  - `/lp/company-formation-consultancy-modern-ads`
+  - /lp/company-formation-consultancy-modern
+  - /lp/company-formation-consultancy-modern-ads
 - Confirm:
-  - About section renders as a clean two-column layout at desktop.
-  - “Why Choose Us” appears as a 5-card grid with icons (not a plain bullet list).
-  - Mobile layout stacks cleanly (no cramped cards, consistent spacing).
-  - “Back to calculator” still scrolls correctly.
-  - No visual regressions to the image frame.
+  - Clicking “Services” in the sticky nav scrolls to the Services area as before.
+  - The existing accordion still works and looks unchanged.
+  - The new “Our Services” section appears below it with:
+    - 4 category cards
+    - all items and descriptions visible
+    - clean spacing and alignment
+  - Mobile behavior:
+    - cards stack 1-per-row
+    - no text overflow, no cramped padding
+  - Desktop behavior:
+    - 2-column grid aligns nicely
+    - consistent card heights are not required, but the layout should feel balanced.
 
-Notes / constraints
-- We’ll keep your existing Minimal Premium styling and pill buttons.
-- We will not add any “licensed” claims unless you explicitly confirm the exact licensing wording you want (to avoid compliance issues). We can keep it as “independent consultancy” and “local expertise” which is safe.
+Non-goals (to avoid scope creep)
+- No routing changes.
+- No clickable service links (as requested).
+- No new sticky-nav entry (keep the ad landing focused and minimal). If you later want it, we can add a “Our Services” nav item pointing to an id like “services-catalog”.
+
+Follow-up options (if you want extra conversion lift later)
+- Add a small CTA row under the section (“Tell us what you need → Free consultation”) that scrolls to #book (still ad-friendly, not cluttered).
+- Add a “Typical turnaround” micro-note under relevant items (kept realistic and compliant).
