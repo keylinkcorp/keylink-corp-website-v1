@@ -738,6 +738,27 @@ export default function CompanyFormationConsultancyLandingModern() {
                     <p className="mt-4 text-sm text-muted-foreground">
                       We are not affiliated with any government authority and we do not issue Commercial Registration (CR).
                     </p>
+
+                    <div className="mt-6 border-t border-border/60 pt-6">
+                      <h3 className="text-base font-semibold text-foreground">Why Choose Us</h3>
+                      <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                        <li>
+                          <span className="font-medium text-foreground">Fast turnaround:</span> realistic timelines (often 3–7 business days once documents are ready).
+                        </li>
+                        <li>
+                          <span className="font-medium text-foreground">Local expertise:</span> Bahrain regulations and process know-how.
+                        </li>
+                        <li>
+                          <span className="font-medium text-foreground">Dedicated case manager:</span> one point of contact from start to finish.
+                        </li>
+                        <li>
+                          <span className="font-medium text-foreground">100% paperwork handled:</span> checklists, document requirements, and submission flow.
+                        </li>
+                        <li>
+                          <span className="font-medium text-foreground">English + Arabic support:</span> clear communication throughout.
+                        </li>
+                      </ul>
+                    </div>
                   </div>
 
                   <div className="mt-6">
