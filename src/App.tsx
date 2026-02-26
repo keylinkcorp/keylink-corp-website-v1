@@ -39,6 +39,7 @@ import CompanyFormationLanding from "./pages/landing/CompanyFormationLanding";
 import CompanyFormationConsultancyLanding from "./pages/landing/CompanyFormationConsultancyLanding";
 import CompanyFormationConsultancyLandingV2 from "./pages/landing/CompanyFormationConsultancyLandingV2";
 import CompanyFormationConsultancyLandingModern from "./pages/landing/CompanyFormationConsultancyLandingModern";
+import CompanyFormationConsultancyLandingModernAds from "./pages/landing/CompanyFormationConsultancyLandingModernAds";
 import BLZ from "./pages/free-zone/BLZ";
 import BIIP from "./pages/free-zone/BIIP";
 import BIW from "./pages/free-zone/BIW";
@@ -102,6 +103,10 @@ const App = () => (
           <Route
             path="/lp/company-formation-consultancy-modern"
             element={<CompanyFormationConsultancyLandingModern />}
+          />
+          <Route
+            path="/lp/company-formation-consultancy-modern-ads"
+            element={<CompanyFormationConsultancyLandingModernAds />}
           />
 
           {/* Legacy / convenience redirects to avoid 404s */}
