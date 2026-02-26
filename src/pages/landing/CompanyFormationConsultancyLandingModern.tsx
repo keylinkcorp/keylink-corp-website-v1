@@ -25,6 +25,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 
 import { CalendlyBooking } from "@/components/consultation/CalendlyBooking";
+import { AboutConsultancySection } from "@/components/landing/AboutConsultancySection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { MobileStickyConsultationBar } from "@/components/landing/MobileStickyConsultationBar";
@@ -722,62 +723,12 @@ export default function CompanyFormationConsultancyLandingModern() {
 
         {/* ABOUT */}
         <FullBleedSection>
-          <section className="section-spacing-sm">
-            <div className="container mx-auto px-4 md:px-6">
-              <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-                <div className="order-2 lg:order-1">
-                  <span className="section-badge">About</span>
-                  <h2 className="lp-h2">About Our Business Setup Consultancy</h2>
-
-                  <div className="mt-6 lp-card p-6 sm:p-7 md:p-8">
-                    <p className="text-sm text-muted-foreground">
-                      We’re an independent business consultancy focused on helping founders make confident setup decisions.
-                      Our work is checklist-driven: you get clarity on options, cost drivers, timelines, and what to prepare
-                      next.
-                    </p>
-                    <p className="mt-4 text-sm text-muted-foreground">
-                      We are not affiliated with any government authority and we do not issue Commercial Registration (CR).
-                    </p>
-
-                    <div className="mt-6 border-t border-border/60 pt-6">
-                      <h3 className="text-base font-semibold text-foreground">Why Choose Us</h3>
-                      <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                        <li>
-                          <span className="font-medium text-foreground">Fast turnaround:</span> realistic timelines (often 3–7 business days once documents are ready).
-                        </li>
-                        <li>
-                          <span className="font-medium text-foreground">Local expertise:</span> Bahrain regulations and process know-how.
-                        </li>
-                        <li>
-                          <span className="font-medium text-foreground">Dedicated case manager:</span> one point of contact from start to finish.
-                        </li>
-                        <li>
-                          <span className="font-medium text-foreground">100% paperwork handled:</span> checklists, document requirements, and submission flow.
-                        </li>
-                        <li>
-                          <span className="font-medium text-foreground">English + Arabic support:</span> clear communication throughout.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <Button variant="outline" className="lp-cta-outline" onClick={() => scrollToId("calculator")}>Back to calculator</Button>
-                  </div>
-                </div>
-
-                <div className="order-1 lg:order-2 lp-card p-3 sm:p-4 md:p-5">
-                  <EditorialImage
-                    src={aboutConsultancyImage}
-                    alt="Young consulting team reviewing a setup checklist"
-                    ratio={4 / 3}
-                    overlayStrength={0.35}
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
+          <AboutConsultancySection
+            imageSrc={aboutConsultancyImage}
+            onBackToCalculator={() => scrollToId("calculator")}
+          />
         </FullBleedSection>
+
 
         {/* BOOKING / CONTACT */}
         <div id="book" className="scroll-mt-32" />
