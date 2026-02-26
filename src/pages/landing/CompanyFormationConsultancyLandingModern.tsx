@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 
 import { CalendlyBooking } from "@/components/consultation/CalendlyBooking";
 import { AboutConsultancySection } from "@/components/landing/AboutConsultancySection";
+import { OurServicesSection } from "@/components/landing/OurServicesSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { MobileStickyConsultationBar } from "@/components/landing/MobileStickyConsultationBar";
@@ -640,6 +641,8 @@ export default function CompanyFormationConsultancyLandingModern() {
                 ))}
               </Accordion>
             </div>
+
+            <OurServicesSection />
           </SplitSection>
         </FullBleedSection>
 
