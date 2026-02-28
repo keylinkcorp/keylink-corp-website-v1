@@ -112,28 +112,26 @@ export function OurServicesSection() {
         />
       </div>
 
-      <div className="max-w-3xl">
+      <div className="max-w-none">
         <span className="section-badge">Our scope</span>
         <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground">
-          What we handle (info-only)
+          What we handle
         </h3>
         <p className="mt-4 text-base text-muted-foreground leading-relaxed">
-          A compact, scannable overview of the most common areas we support—designed to stay
-          clean, credible, and ad-friendly.
+          A compact, scannable overview of the most common areas we support—designed to stay clean,
+          credible, and ad-friendly.
         </p>
       </div>
 
       <div className="mt-7 grid gap-4 lg:grid-cols-3">
         {COLUMNS.map((col) => (
           <div key={col.title} className="lp-card-flat bg-muted/20 p-5 sm:p-6">
-            <div className="flex items-start gap-4">
-              <div className="h-11 w-11 shrink-0 rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
+            <div className="flex flex-col items-start">
+              <div className="h-11 w-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
                 <col.Icon className="h-[22px] w-[22px]" />
               </div>
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-foreground">{col.title}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{col.subtitle}</p>
-              </div>
+              <p className="mt-4 text-sm font-semibold text-foreground">{col.title}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{col.subtitle}</p>
             </div>
 
             <div className="mt-5 grid gap-3">
@@ -142,20 +140,14 @@ export function OurServicesSection() {
                   key={card.title}
                   className="lp-card-flat bg-background/60 border border-border/30 p-4 transition-shadow hover:shadow-sm"
                 >
-                  <div className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                  <div className="flex flex-col items-start">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-accent/10 text-accent">
                       <card.Icon className="h-5 w-5" />
                     </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-foreground">{card.title}</p>
-                      <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                        {card.description}
-                      </p>
-                      <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-accent" />
-                        <span>Info-only</span>
-                      </div>
-                    </div>
+                    <p className="mt-3 text-sm font-semibold text-foreground">{card.title}</p>
+                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                      {card.description}
+                    </p>
                   </div>
                 </div>
               ))}
