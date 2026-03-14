@@ -340,7 +340,7 @@ export default function CompanyFormationConsultancyLandingModernAds() {
           imageSrc={consultancyHeroImage}
           onBookClick={() => scrollToId("calculator")}
           badgeText="Free consultation • Independent business consultancy"
-          title="Company Formation Consultancy in Bahrain"
+          title="Company Formation Consultancy in Bahrain all in one"
           titleSuffix=""
           lead="Independent guidance for your Bahrain business setup—get a clear checklist, realistic timeline, and cost drivers before you commit time or fees."
           bullets={[
