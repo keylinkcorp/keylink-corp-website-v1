@@ -1,6 +1,6 @@
 # Welcome to your Lovable project
 
-> Test note: sync verified ✅
+> Tests note: sync verified ✅
 >
 > Test note 2: README edit synced (2026-02-19)
 ## Project info
